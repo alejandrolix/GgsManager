@@ -7,16 +7,16 @@
         xmlns:mdi="clr-namespace:WPF.MDI;assembly=WPF.MDI"
         mc:Ignorable="d"
         Title="GgsManager" Height="481.853" Width="732.428"
-        WindowState="Maximized">
-    
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="MenuItem" x:Key="Margen">
             <Setter Property="Margin" Value="0,0,8,0" />
         </Style>
     </Window.Resources>
     
-    <DockPanel >
-        <Menu DockPanel.Dock="Top" FontSize="17" Padding="2">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" FontSize="17" Padding="2" IsEnabled="False">
             <MenuItem Name="Garajes" Header="Garajes" Click="Garajes_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Clientes" Header="Clientes" Click="Clientes_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Vehiculos" Header="Vehículos" Click="Vehiculos_Click" Style="{StaticResource Margen}" />
@@ -28,8 +28,6 @@
             <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Style="{StaticResource Margen}" />
         </Menu>
 
-        <mdi:MdiContainer Name="ContenedorMDI" Theme="Aero" DockPanel.Dock="Bottom">
-            
-        </mdi:MdiContainer>
+        <mdi:MdiContainer Name="ContenedorMDI" Theme="Aero" DockPanel.Dock="Bottom" />
     </DockPanel>
 </Window>

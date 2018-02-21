@@ -1,5 +1,19 @@
 ﻿Class MainWindow
+
+    Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
+
+        Dim vntLogin As New VntLogin()
+        vntLogin.ShowDialog()
+
+    End Sub
+
     Private Sub Garajes_Click(sender As Object, e As RoutedEventArgs)
+
+        'Dim vntLogin As New WPF.MDI.MdiChild()
+        'vntLogin.Title = "Inicio de Sesión"
+        'vntLogin.Content = New VntLogin()
+
+        'ContenedorMDI.Children.Add(vntLogin)
 
     End Sub
 
@@ -34,4 +48,5 @@
     Private Sub CerrarSesion_Click(sender As Object, e As RoutedEventArgs)
 
     End Sub
+
 End Class
