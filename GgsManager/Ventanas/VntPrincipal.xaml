@@ -1,0 +1,35 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GgsManager"
+        xmlns:mdi="clr-namespace:WPF.MDI;assembly=WPF.MDI"
+        mc:Ignorable="d"
+        Title="GgsManager" Height="481.853" Width="732.428"
+        WindowState="Maximized">
+    
+    <Window.Resources>
+        <Style TargetType="MenuItem" x:Key="Margen">
+            <Setter Property="Margin" Value="0,0,8,0" />
+        </Style>
+    </Window.Resources>
+    
+    <DockPanel >
+        <Menu DockPanel.Dock="Top" FontSize="17" Padding="2">
+            <MenuItem Name="Garajes" Header="Garajes" Click="Garajes_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="Clientes" Header="Clientes" Click="Clientes_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="Vehiculos" Header="Vehículos" Click="Vehiculos_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="Usuarios" Header="Usuarios" Click="Usuarios_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="Plazas" Header="Plazas" Click="Plazas_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="Listados" Header="Listados" Click="Listados_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="Facturas" Header="Facturas" Click="Facturas_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="Configuracion" Header="Configuración" Click="Configuracion_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Style="{StaticResource Margen}" />
+        </Menu>
+
+        <mdi:MdiContainer Name="ContenedorMDI" Theme="Aero" DockPanel.Dock="Bottom">
+            
+        </mdi:MdiContainer>
+    </DockPanel>
+</Window>
