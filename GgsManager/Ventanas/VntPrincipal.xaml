@@ -16,7 +16,7 @@
     </Window.Resources>
     
     <DockPanel>
-        <Menu DockPanel.Dock="Top" FontSize="17" Padding="2" IsEnabled="False">
+        <Menu Name="MenuPrincipal" DockPanel.Dock="Top" FontSize="17" Padding="2" IsEnabled="False">
             <MenuItem Name="Garajes" Header="Garajes" Click="Garajes_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Clientes" Header="Clientes" Click="Clientes_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Vehiculos" Header="Vehículos" Click="Vehiculos_Click" Style="{StaticResource Margen}" />

@@ -6,15 +6,11 @@
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
         Title="Inicio de Sesión" Height="350.427" Width="555.102"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
             <Setter Property="FontSize" Value="17" />
-        </Style>
-
-        <Style TargetType="TextBox" x:Key="TextBox">
-            <Setter Property="FontSize" Value="16" />
-            <Setter Property="Width" Value="144" />
         </Style>
     </Window.Resources>
 
@@ -31,11 +27,11 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Usuario" Style="{StaticResource Etiquetas}" VerticalAlignment="Center" />
-            <TextBox Grid.Row="0" Grid.Column="1" Name="UsuarioTxt" Style="{StaticResource TextBox}" VerticalAlignment="Center" />
+            <TextBox Grid.Row="0" Grid.Column="1" Name="UsuarioTxt" FontSize="16" Width="144" VerticalAlignment="Center" />
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Contraseña" Style="{StaticResource Etiquetas}" VerticalAlignment="Center" />
-            <TextBox Grid.Row="1" Grid.Column="1" Name="PasswordTxt" Style="{StaticResource TextBox}" VerticalAlignment="Center" />
+            <PasswordBox Grid.Row="1" Grid.Column="1" Name="PasswordBox" PasswordChar="*" VerticalAlignment="Center" FontSize="16" Width="144" />
         </Grid>
 
-        <Button Name="IniciarSesion" Content="Iniciar Sesión" Width="110" Height="28" Margin="0,46,0,0" FontSize="15" />
+        <Button Name="IniciarSesion" Content="Iniciar Sesión" Width="110" Height="29" Margin="0,46,0,0" FontSize="16" Click="IniciarSesion_Click" />
     </StackPanel>
 </Window>

@@ -5,6 +5,19 @@
         Dim vntLogin As New VntLogin()
         vntLogin.ShowDialog()
 
+        If GestionarBd.UsuarioIniciado IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
+
+            MenuPrincipal.IsEnabled = True
+
+            If GestionarBd.UsuarioIniciado <> "root" Then           ' Si el usuario logueado no es "root", desactivamos las opciones de "Usuarios" y "Configuración".
+
+                Usuarios.IsEnabled = False
+                Configuracion.IsEnabled = False
+
+            End If
+
+        End If
+
     End Sub
 
     Private Sub Garajes_Click(sender As Object, e As RoutedEventArgs)
