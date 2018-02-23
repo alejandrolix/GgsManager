@@ -90,6 +90,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ventanas\VntClientes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\VntGarajes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,11 +110,15 @@
       <DependentUpon>Application.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Clases\Cliente.vb" />
     <Compile Include="Clases\Foo.vb" />
     <Compile Include="Clases\Garaje.vb" />
     <Compile Include="Clases\GestionarBd.vb" />
     <Compile Include="Ventanas\VntAddGaraje.xaml.vb">
       <DependentUpon>VntAddGaraje.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VntClientes.xaml.vb">
+      <DependentUpon>VntClientes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\VntGarajes.xaml.vb">
       <DependentUpon>VntGarajes.xaml</DependentUpon>

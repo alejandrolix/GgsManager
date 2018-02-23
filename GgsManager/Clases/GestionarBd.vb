@@ -1,4 +1,5 @@
-﻿Imports System.Security.Cryptography
+﻿Imports System.Collections.ObjectModel
+Imports System.Security.Cryptography
 Imports System.Text
 Imports MySql.Data.MySqlClient
 
@@ -122,7 +123,7 @@ Public Class GestionarBd
     Public Shared Function ObtenerGarajes() As List(Of Garaje)
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, Observaciones
+        Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, Observaciones
                                          FROM   Garajes", conexion)
 
         Dim datos As MySqlDataReader = Nothing
@@ -149,9 +150,10 @@ Public Class GestionarBd
                     Dim id As Integer = datos.GetInt32("IdGaraje")
                     Dim nombre As String = datos.GetString("Nombre")
                     Dim direccion As String = datos.GetString("Direccion")
+                    Dim numPlazas As Integer = datos.GetInt64("NumPlazas")
                     Dim observaciones As String
 
-                    If datos.IsDBNull(3) Then               ' Si el contenido de la 2ª columna, (Observaciones), es NULL.
+                    If datos.IsDBNull(4) Then               ' Si el contenido de la 2ª columna, (Observaciones), es NULL.
 
                         observaciones = ""
                     Else
@@ -160,10 +162,11 @@ Public Class GestionarBd
 
                     End If
 
-                    listaGarajes.Add(New Garaje(id, nombre, direccion, observaciones))
+                    listaGarajes.Add(New Garaje(id, nombre, direccion, numPlazas, observaciones))
 
                 End While
 
+                datos.Close()
                 conexion.Close()
 
             End If
@@ -241,6 +244,69 @@ Public Class GestionarBd
         conexion.Close()
 
         Return garajeInsertado <> 0
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene todos los clientes de la base de datos.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Shared Function ObtenerClientes() As ObservableCollection(Of Cliente)
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones
+                                         FROM   Clientes", conexion)
+
+        Dim datos As MySqlDataReader = Nothing
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener los garajes", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim listaClientes As New ObservableCollection(Of Cliente)()
+
+            While datos.Read()
+
+                Dim id As Integer = datos.GetInt64("IdCliente")
+                Dim nombre As String = datos.GetString("Nombre")
+                Dim apellidos As String = datos.GetString("Apellidos")
+                Dim dni As String = datos.GetString("DNI")
+                Dim direccion As String = datos.GetString("Direccion")
+                Dim poblacion As String = datos.GetString("Poblacion")
+                Dim provincia As String = datos.GetString("Provincia")
+                Dim movil As String = datos.GetString("Movil")
+                Dim fechaAlta As Date = datos.GetDateTime("FechaAlta")
+                Dim observaciones As String
+
+                If datos.IsDBNull(9) Then
+
+                    observaciones = ""
+                Else
+
+                    observaciones = datos.GetString("Observaciones")
+
+                End If
+
+                listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones))
+
+            End While
+
+            datos.Close()
+            conexion.Close()
+
+            Return listaClientes
+
+        End If
+
+        Return Nothing
 
     End Function
 

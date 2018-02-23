@@ -1,10 +1,12 @@
 ﻿Public Class AddGaraje
 
-    Property VntGarajes As VntGarajes              ' Almacena una instancia de la ventana de "Gestión de Garajes".
+    Property VntGarajes As VntGarajes              ' Almacena una instancia de la ventana "Gestión de Garajes".
+    Property Garaje As Garaje
 
     Private Sub InsGarajeBtn_Click(sender As Object, e As RoutedEventArgs)
 
         ComprobarDatosIntroducidos()
+        VntGarajes.GarajesDg.DataContext = GestionarBd.ObtenerGarajes()
 
     End Sub
 
@@ -93,6 +95,49 @@
             ObservGarajeTextBox.Text = ""
 
         End If
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Comprueba el tipo de acción para saber si utilizamos ésta ventana para añadir un garaje o para modificar sus datos.
+    ''' </summary>
+    ''' <param name="tipoAccion">Número que indica si vamos a insertar un garaje o modificar sus datos.</param>
+    Private Sub ComprobarTipoAccion(ByRef tipoAccion As Integer)
+
+        If tipoAccion = 1 Then              ' Ponemos los datos del garaje seleccionado para modificarlos.
+
+            NombreGarajeTextBox.Text = Garaje.Nombre
+            DireccionGarajeTextBox.Text = Garaje.Direccion
+            NumPlazasGarajeTextBox.Text = Garaje.NumPlazas
+            ObservGarajeTextBox.Text = Garaje.Observaciones
+
+        End If
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Crea una ventana para modificar los datos de un garaje seleccionado.
+    ''' </summary>
+    ''' <param name="tipoAccion">Número que indica si vamos a insertar un garaje o modificar sus datos.</param>
+    ''' <param name="garaje">Garaje seleccionado para poder modificar sus datos.</param>
+    Public Sub New(ByRef tipoAccion As Integer, ByRef garaje As Garaje)
+
+        InitializeComponent()
+
+        Me.Garaje = garaje
+        ComprobarTipoAccion(tipoAccion)
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Crea una ventana para añadir un garaje.
+    ''' </summary>
+    Public Sub New()
+
+        InitializeComponent()
 
     End Sub
 
