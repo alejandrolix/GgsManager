@@ -201,4 +201,47 @@ Public Class GestionarBd
 
     End Function
 
+
+    '''' <summary>
+    '''' Inserta un garaje con observaciones en la Bd.
+    '''' </summary>
+    '''' <param name="nombre">Nombre del Garaje.</param>
+    '''' <param name="direccion">Dirección del Garaje.</param>
+    '''' <param name="numPlazas">Número de Plazas del Garaje.</param>
+    '''' <param name="observaciones">Observaciones del Garaje.</param>
+    '''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
+    Public Shared Function AddGarajeConObservaciones(ByRef nombre As String, ByRef direccion As String, ByRef numPlazas As Integer, ByRef observaciones As String) As Boolean
+
+        Dim conexion As MySqlConnection = ConexionABd()
+
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, '{3}');", nombre, direccion, numPlazas, observaciones), conexion)
+        Dim garajeInsertado As Integer = comando.ExecuteNonQuery()
+
+        conexion.Close()
+
+        Return garajeInsertado <> 0
+
+    End Function
+
+
+    '''' <summary>
+    '''' Inserta un garaje sin observaciones en la Bd.
+    '''' </summary>
+    '''' <param name="nombre">Nombre del Garaje.</param>
+    '''' <param name="direccion">Dirección del Garaje.</param>
+    '''' <param name="numPlazas">Número de Plazas del Garaje.</param>    
+    '''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
+    Public Shared Function AddGarajeSinObservaciones(ByRef nombre As String, ByRef direccion As String, ByRef numPlazas As Integer) As Boolean
+
+        Dim conexion As MySqlConnection = ConexionABd()
+
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, NULL);", nombre, direccion, numPlazas), conexion)
+        Dim garajeInsertado As Integer = comando.ExecuteNonQuery()
+
+        conexion.Close()
+
+        Return garajeInsertado <> 0
+
+    End Function
+
 End Class

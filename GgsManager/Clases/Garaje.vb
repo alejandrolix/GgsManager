@@ -1,5 +1,5 @@
 ﻿''' <summary>
-''' Representa un Garaje de la tabla "Garajes" de la base de datos.
+''' Representa un garaje de la tabla "Garajes" de la base de datos.
 ''' </summary>
 Public Class Garaje
 

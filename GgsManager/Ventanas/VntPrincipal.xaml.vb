@@ -26,8 +26,8 @@
         vntGarajes.Title = "Gestión de Garajes"
         vntGarajes.Content = New VntGarajes()
 
-        vntGarajes.Width = 746
-        vntGarajes.Height = 435
+        vntGarajes.Width = 726
+        vntGarajes.Height = 404
 
         ContenedorMDI.Children.Add(vntGarajes)
 

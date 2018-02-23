@@ -1,30 +1,32 @@
 ﻿Public Class VntGarajes
-
-    Private ListaGarajes As List(Of Garaje)
-
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
 
-        GarajesDgv.DataContext = GestionarBd.ObtenerGarajes()
+        GarajesDg.DataContext = GestionarBd.ObtenerGarajes()
 
     End Sub
 
     Private Sub NuevoGaraje_Click(sender As Object, e As RoutedEventArgs)
 
-
+        Dim vntAddGaraje As New AddGaraje()
+        vntAddGaraje.VntGarajes = Me
+        vntAddGaraje.ShowDialog()
 
     End Sub
 
     Private Sub EliminarGaraje_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim garajeSeleccionado As Garaje = CType(GarajesDgv.SelectedItem, Garaje)
+        Dim garajeSelec As Garaje = CType(GarajesDg.SelectedItem, Garaje)
 
-        If garajeSeleccionado Is Nothing Then
+        If garajeSelec Is Nothing Then
 
             MessageBox.Show("Tienes que seleccionar un garaje", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            GestionarBd.EliminarGarajePorId(garajeSeleccionado.Id)              ' Eliminamos el garaje de la base de datos.
-            GarajesDgv.DataContext = GestionarBd.ObtenerGarajes()
+            If GestionarBd.EliminarGarajePorId(garajeSelec.Id) Then
+
+                GarajesDg.DataContext = GestionarBd.ObtenerGarajes()
+
+            End If
 
         End If
 
