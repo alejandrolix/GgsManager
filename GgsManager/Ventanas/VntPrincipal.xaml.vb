@@ -2,31 +2,34 @@
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        Dim vntLogin As New VntLogin()
-        vntLogin.ShowDialog()
+        'Dim vntLogin As New VntLogin()
+        'vntLogin.ShowDialog()
 
-        If GestionarBd.UsuarioIniciado IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
+        'If GestionarBd.UsuarioIniciado IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
 
-            MenuPrincipal.IsEnabled = True
+        '    MenuPrincipal.IsEnabled = True
 
-            If GestionarBd.UsuarioIniciado <> "root" Then           ' Si el usuario logueado no es "root", desactivamos las opciones de "Usuarios" y "Configuración".
+        '    If GestionarBd.UsuarioIniciado <> "root" Then           ' Si el usuario logueado no es "root", desactivamos las opciones de "Usuarios" y "Configuración".
 
-                Usuarios.IsEnabled = False
-                Configuracion.IsEnabled = False
+        '        Usuarios.IsEnabled = False
+        '        Configuracion.IsEnabled = False
 
-            End If
+        '    End If
 
-        End If
+        'End If
 
     End Sub
 
     Private Sub Garajes_Click(sender As Object, e As RoutedEventArgs)
 
-        'Dim vntLogin As New WPF.MDI.MdiChild()
-        'vntLogin.Title = "Inicio de Sesión"
-        'vntLogin.Content = New VntLogin()
+        Dim vntGarajes As New WPF.MDI.MdiChild()
+        vntGarajes.Title = "Gestión de Garajes"
+        vntGarajes.Content = New VntGarajes()
 
-        'ContenedorMDI.Children.Add(vntLogin)
+        vntGarajes.Width = 746
+        vntGarajes.Height = 435
+
+        ContenedorMDI.Children.Add(vntGarajes)
 
     End Sub
 

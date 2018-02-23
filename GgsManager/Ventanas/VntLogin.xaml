@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Inicio de Sesión" Height="350.427" Width="555.102"
         WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded" Background="#f0f0f0">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
             <Setter Property="FontSize" Value="17" />

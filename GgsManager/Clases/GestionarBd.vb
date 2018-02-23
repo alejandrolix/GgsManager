@@ -3,11 +3,11 @@ Imports System.Text
 Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Clase que contiene métodos que acceden a la base de datos.
+''' Contiene métodos que acceden a la base de datos.
 ''' </summary>
 Public Class GestionarBd
 
-    Public Shared UsuarioIniciado As String
+    Public Shared UsuarioIniciado As String             ' Almacena el usuario que ha iniciado sesión en el programa.
 
     ''' <summary>
     ''' Devuelve una conexión a la base de datos.
@@ -16,9 +16,18 @@ Public Class GestionarBd
     Private Shared Function ConexionABd() As MySqlConnection
 
         Dim conexion As New MySqlConnection(My.Settings.ConexionABd)
-        conexion.Open()
 
-        Return conexion
+        Try
+            conexion.Open()
+            Return conexion
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al conectarse con la base de datos", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return Nothing
 
     End Function
 
@@ -34,9 +43,17 @@ Public Class GestionarBd
         Dim comando As New MySqlCommand(String.Format("SELECT COUNT(IdUsuario) 
                                                        FROM   UsuariosPrograma 
                                                        WHERE  Nombre = '{0}';", usuario), conexion)
+        Dim resultado As Integer
 
-        Dim resultado As Integer = CType(comando.ExecuteScalar(), Integer)
-        conexion.Close()
+        Try
+            resultado = CType(comando.ExecuteScalar(), Integer)
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al comprobar si existe el usuario introducido", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
 
         Return Not resultado = 0
 
@@ -57,9 +74,17 @@ Public Class GestionarBd
         Dim comando As New MySqlCommand(String.Format("SELECT Password 
                                                        FROM   UsuariosPrograma 
                                                        WHERE  Nombre = '{0}';", usuario), conexion)
+        Dim hashPasswordBd As String = ""
 
-        Dim hashPasswordBd As String = CType(comando.ExecuteScalar(), String)
-        conexion.Close()
+        Try
+            hashPasswordBd = CType(comando.ExecuteScalar(), String)
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener el hash de la contraseña del usuario", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
 
         Return hashPasswordIntroducida.Equals(hashPasswordBd)
 
@@ -86,6 +111,93 @@ Public Class GestionarBd
         Next
 
         Return cadena.ToString()
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene todos los garajes de la base de datos.
+    ''' </summary>
+    ''' <returns>Lista con todos los garajes.</returns>
+    Public Shared Function ObtenerGarajes() As List(Of Garaje)
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, Observaciones
+                                         FROM   Garajes", conexion)
+
+        Dim datos As MySqlDataReader = Nothing
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener los garajes", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim listaGarajes As List(Of Garaje) = Nothing
+
+            If datos.HasRows Then
+
+                listaGarajes = New List(Of Garaje)()
+
+                While datos.Read()
+
+                    Dim id As Integer = datos.GetInt32("IdGaraje")
+                    Dim nombre As String = datos.GetString("Nombre")
+                    Dim direccion As String = datos.GetString("Direccion")
+                    Dim observaciones As String
+
+                    If datos.IsDBNull(3) Then               ' Si el contenido de la 2ª columna, (Observaciones), es NULL.
+
+                        observaciones = ""
+                    Else
+
+                        observaciones = datos.GetString("Observaciones")
+
+                    End If
+
+                    listaGarajes.Add(New Garaje(id, nombre, direccion, observaciones))
+
+                End While
+
+                conexion.Close()
+
+            End If
+
+            Return listaGarajes
+
+        End If
+
+        Return Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Elimina un garaje de la base de datos a partir de su Id.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id del garaje a eliminar.</param>
+    ''' <returns>True: El garaje se ha eliminado. False: El garaje no se ha eliminado.</returns>
+    Public Shared Function EliminarGarajePorId(ByRef idGaraje As Integer) As Boolean
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("DELETE FROM Garajes WHERE IdGaraje = {0}", idGaraje), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al eliminar el garaje", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
 
     End Function
 

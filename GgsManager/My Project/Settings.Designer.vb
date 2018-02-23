@@ -57,10 +57,21 @@ Partial Friend NotInheritable Class MySettings
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
      Global.System.Configuration.DefaultSettingValueAttribute("Server=adriangosalvez.com;Database=proj_alej_dam;User id=proj_alej_user;Password="& _ 
-        "bI@g50z4#314")>  _
+        "bI@g50z4#314;")>  _
     Public ReadOnly Property ConexionABd() As String
         Get
             Return CType(Me("ConexionABd"),String)
+        End Get
+    End Property
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("server=adriangosalvez.com;user id=proj_alej_user;password=bI@g50z4#314;database=p"& _ 
+        "roj_alej_dam;certificatestorelocation=CurrentUser;connectiontimeout=300")>  _
+    Public ReadOnly Property cadena() As String
+        Get
+            Return CType(Me("cadena"),String)
         End Get
     End Property
 End Class

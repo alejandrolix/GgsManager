@@ -1,6 +1,5 @@
-﻿
-''' <summary>
-''' Clase que contiene métodos que se van a usar en varios sitios.
+﻿''' <summary>
+''' Contiene métodos que se van a usar en varios sitios.
 ''' </summary>
 Public Class Foo
 

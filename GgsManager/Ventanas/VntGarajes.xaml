@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GgsManager"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Background="Green">
+             Background="#f0f0f0"
+             Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Style TargetType="Button" x:Key="Boton">
             <Setter Property="FontSize" Value="15" />
@@ -13,12 +14,12 @@
             <Setter Property="Height" Value="26" />
         </Style>
     </UserControl.Resources>
-    
-    <StackPanel Orientation="Vertical">
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Vertical">
-                <Button Name="NuevoGaraje" Content="Añadir Garaje" HorizontalAlignment="Right" Margin="0,30,18,36" Style="{StaticResource Boton}" />
-                <DataGrid Name="GarajesDgv" Margin="20,0" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single">
+                <Button Name="NuevoGaraje" Content="Añadir Garaje" HorizontalAlignment="Right" Margin="0,30,18,36" Style="{StaticResource Boton}" Click="NuevoGaraje_Click" />
+                <DataGrid Name="GarajesDgv" ItemsSource="{Binding}" Margin="20,0" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -26,7 +27,7 @@
                     </DataGrid.ColumnHeaderStyle>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre" Width="*" IsReadOnly="True">
+                        <DataGridTextColumn Header="Nombre" Width="*" Binding="{Binding Nombre}" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -35,7 +36,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Dirección" Width="*" IsReadOnly="True">
+                        <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="*" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -44,7 +45,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Observaciones" Width="*" IsReadOnly="True">
+                        <DataGridTextColumn Header="Observaciones" Binding="{Binding Observaciones}" Width="*" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -56,10 +57,10 @@
                 </DataGrid>
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="0,40,0,0">
                     <Button Name="ModificarGaraje" Content="Modificar Garaje" Width="124" Margin="20,0,30,0" Style="{StaticResource Boton}" />
-                    <Button Name="EliminarGaraje" Content="Eliminar Garaje" Width="118" Style="{StaticResource Boton}" />
+                    <Button Name="EliminarGaraje" Content="Eliminar Garaje" Width="118" Style="{StaticResource Boton}" Click="EliminarGaraje_Click" />
                 </StackPanel>
 
             </StackPanel>
-        </ScrollViewer>
-    </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
