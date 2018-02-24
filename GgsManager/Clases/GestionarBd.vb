@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.ObjectModel
+Imports System.Globalization
 Imports System.Security.Cryptography
 Imports System.Text
 Imports MySql.Data.MySqlClient
@@ -255,7 +256,7 @@ Public Class GestionarBd
     Public Shared Function ObtenerClientes() As ObservableCollection(Of Cliente)
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones
+        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, DATE_FORMAT(FechaAlta, '%d-%m-%Y %H:%i:%S') 'FechaAlta', Observaciones
                                          FROM   Clientes", conexion)
 
         Dim datos As MySqlDataReader = Nothing
@@ -283,7 +284,10 @@ Public Class GestionarBd
                 Dim poblacion As String = datos.GetString("Poblacion")
                 Dim provincia As String = datos.GetString("Provincia")
                 Dim movil As String = datos.GetString("Movil")
-                Dim fechaAlta As Date = datos.GetDateTime("FechaAlta")
+                Dim fechaAlta As String = datos.GetString("FechaAlta")
+
+                Dim fecha As Date = Date.ParseExact(fechaAlta, "", New CultureInfo("es-ES"))            ' Probar.
+
                 Dim observaciones As String
 
                 If datos.IsDBNull(9) Then
