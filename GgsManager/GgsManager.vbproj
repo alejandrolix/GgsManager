@@ -118,7 +118,7 @@
     <Compile Include="Clases\Cliente.vb" />
     <Compile Include="Clases\Foo.vb" />
     <Compile Include="Clases\Garaje.vb" />
-    <Compile Include="Clases\GestionarBd.vb" />
+    <Compile Include="Clases\GestionBd.vb" />
     <Compile Include="Ventanas\VntAddCliente.xaml.vb">
       <DependentUpon>VntAddCliente.xaml</DependentUpon>
     </Compile>

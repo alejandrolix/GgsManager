@@ -4,14 +4,14 @@ Imports System.Text
 Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Contiene métodos que acceden a la base de datos.
+''' Contiene métodos que manejan la base de datos.
 ''' </summary>
-Public Class GestionarBd
+Public Class GestionBd
 
     Public Shared UsuarioIniciado As String             ' Almacena el usuario que ha iniciado sesión en el programa.
 
     ''' <summary>
-    ''' Devuelve una conexión a la base de datos.
+    ''' Realiza una conexión a la base de datos.
     ''' </summary>
     ''' <returns>Conexión a la base de datos.</returns>
     Private Shared Function ConexionABd() As MySqlConnection
@@ -34,9 +34,9 @@ Public Class GestionarBd
 
 
     ''' <summary>
-    ''' Comprueba si existe el usuario introducido en la Bd.
+    ''' Comprueba si existe el usuario introducido.
     ''' </summary>
-    ''' <param name="usuario">Nombre de usuario a comprobar en la Bd.</param>
+    ''' <param name="usuario">Nombre de usuario a comprobar.</param>
     ''' <returns>True: El usuario existe. False: El usuario no existe.</returns>
     Public Shared Function ExisteUsuario(ByRef usuario As String) As Boolean
 
@@ -117,7 +117,7 @@ Public Class GestionarBd
 
 
     ''' <summary>
-    ''' Obtiene todos los garajes de la base de datos.
+    ''' Obtiene todos los garajes.
     ''' </summary>
     ''' <returns>Lista con todos los garajes.</returns>
     Public Shared Function ObtenerGarajes() As List(Of Garaje)
@@ -181,7 +181,7 @@ Public Class GestionarBd
 
 
     ''' <summary>
-    ''' Elimina un garaje de la base de datos a partir de su Id.
+    ''' Elimina un garaje a partir de su Id.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje a eliminar.</param>
     ''' <returns>True: El garaje se ha eliminado. False: El garaje no se ha eliminado.</returns>
@@ -205,43 +205,16 @@ Public Class GestionarBd
     End Function
 
 
-    '''' <summary>
-    '''' Inserta un garaje con observaciones en la base de datos.
-    '''' </summary>
-    '''' <param name="garaje">Datos del garaje a insertar.</param>
-    '''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
+    ''' <summary>
+    ''' Inserta un garaje con observaciones.
+    ''' </summary>
+    ''' <param name="garaje">Datos del garaje a insertar.</param>
+    ''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
     Public Shared Function InsertarGarajeConObservaciones(ByRef garaje As Garaje) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
 
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, '{3}');", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones), conexion)
-        Dim numFila As Integer
-
-        Try
-            numFila = comando.ExecuteNonQuery()
-            conexion.Close()
-
-        Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        End Try
-
-        Return numFila <> 0
-
-    End Function
-
-
-    '''' <summary>
-    '''' Inserta un garaje sin observaciones en la base de datos.
-    '''' </summary>
-    '''' <param name="garaje">Datos del garaje a insertar.</param>
-    '''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
-    Public Shared Function InsertarGarajeSinObservaciones(ByRef garaje As Garaje) As Boolean
-
-        Dim conexion As MySqlConnection = ConexionABd()
-
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, NULL);", garaje.Nombre, garaje.Direccion, garaje.NumPlazas), conexion)
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, 0, 0, '{3}');", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones), conexion)
         Dim numFila As Integer
 
         Try
@@ -260,9 +233,90 @@ Public Class GestionarBd
 
 
     ''' <summary>
-    ''' Obtiene todos los clientes de la base de datos.
+    ''' Inserta un garaje sin observaciones.
     ''' </summary>
-    ''' <returns></returns>
+    ''' <param name="garaje">Datos del garaje a insertar.</param>
+    ''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
+    Public Shared Function InsertarGarajeSinObservaciones(ByRef garaje As Garaje) As Boolean
+
+        Dim conexion As MySqlConnection = ConexionABd()
+
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, 0, 0, NULL);", garaje.Nombre, garaje.Direccion, garaje.NumPlazas), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila <> 0
+
+    End Function
+
+
+    ''' <summary>
+    ''' Modifica los datos de un garaje con observaciones.
+    ''' </summary>
+    ''' <param name="garaje">Datos del garaje a modificar.</param>
+    ''' <returns>True: Se han modificado los datos del garaje. False: No se han modificado los datos del garaje.</returns>
+    Public Shared Function ModificarGarajeConObservaciones(ByRef garaje As Garaje) As Boolean
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("UPDATE Garajes SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = '{3}' 
+                                                       WHERE  IdGaraje = {4};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones, garaje.Id), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al modificar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Modifica los datos de un garaje sin observaciones.
+    ''' </summary>
+    ''' <param name="garaje">Datos del garaje a modificar.</param>
+    ''' <returns>True: Se han modificado los datos del garaje. False: No se han modificado los datos del garaje.</returns>
+    Public Shared Function ModificarGarajesSinObservaciones(ByRef garaje As Garaje) As Boolean
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("UPDATE Garajes SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = NULL 
+                                                       WHERE  IdGaraje = {4};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Id), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al modificar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene todos los clientes.
+    ''' </summary>
+    ''' <returns>ObservableCollection de todos los clientes.</returns>
     Public Shared Function ObtenerClientes() As ObservableCollection(Of Cliente)
 
         Dim conexion As MySqlConnection = ConexionABd()
@@ -324,7 +378,7 @@ Public Class GestionarBd
 
 
     ''' <summary>
-    ''' Inserta un cliente con observaciones en la base de datos.
+    ''' Inserta un cliente con observaciones.
     ''' </summary>
     ''' <param name="cliente">Datos del cliente a insertar.</param>
     ''' <returns>True: El cliente se ha insertado. False: El cliente no se ha insertado.</returns>
@@ -351,7 +405,7 @@ Public Class GestionarBd
 
 
     ''' <summary>
-    ''' Inserta un cliente sin observaciones en la base de datos.
+    ''' Inserta un cliente sin observaciones.
     ''' </summary>
     ''' <param name="cliente">Datos del cliente a insertar.</param>
     ''' <returns>True: El cliente se ha insertado. False: El cliente no se ha insertado.</returns>

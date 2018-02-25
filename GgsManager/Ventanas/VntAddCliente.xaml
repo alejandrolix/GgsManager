@@ -15,7 +15,7 @@
             <Setter Property="FontSize" Value="16" />
             <Setter Property="Height" Value="20" />
         </Style>
-        
+
         <Style TargetType="TextBox" x:Key="TextBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
@@ -63,7 +63,9 @@
         <TextBlock Text="Foto" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" />
 
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="8" Margin="0,13,0,0">
-            <Image Name="ClienteImg" Width="100" Height="85"  />
+            <Border BorderThickness="2" BorderBrush="Black" Height="90">
+                <Image Name="ClienteImg" Width="100" Height="85"  />
+            </Border>
             <Button Name="AddFotoBtn" Width="74" Height="25" Content="Examinar" FontSize="16" Margin="28,0,0,0" Click="AddFotoBtn_Click" />
         </StackPanel>
 

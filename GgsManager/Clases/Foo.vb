@@ -7,11 +7,20 @@ Public Class Foo
     ''' Comprueba si hay texto.
     ''' </summary>
     ''' <param name="texto">El texto a comprobar.</param>
-    ''' <returns>True: No hay texto. False: Hay texto.</returns>
+    ''' <returns>True: Hay texto. False: No hay texto.</returns>
     Public Shared Function HayTexto(ByRef texto As String) As Boolean
 
-        Return Not texto.Equals("")
+        Return texto.Length >= 1
 
     End Function
+
+
+    ''' <summary>
+    ''' Indica la acción que se va a realizar en un mismo formulario. Ya sea para añadir o modificar datos.
+    ''' </summary>
+    Enum Accion
+        Insertar
+        Modificar
+    End Enum
 
 End Class

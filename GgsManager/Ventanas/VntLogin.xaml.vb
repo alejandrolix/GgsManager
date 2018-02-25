@@ -22,11 +22,11 @@
 
         If Foo.HayTexto(UsuarioTxt.Text) And Foo.HayTexto(PasswordBox.Password) Then            ' Si el usuario ha introducido su nombre y su contraseña.         
 
-            If GestionarBd.ExisteUsuario(UsuarioTxt.Text) Then
+            If GestionBd.ExisteUsuario(UsuarioTxt.Text) Then
 
-                GestionarBd.UsuarioIniciado = UsuarioTxt.Text           ' Guardamos el usuario introducido, que servirá para obtener su contraseña.
+                GestionBd.UsuarioIniciado = UsuarioTxt.Text           ' Guardamos el usuario introducido, que servirá para obtener su contraseña.
 
-                If GestionarBd.ComprobarHashPassword(GestionarBd.UsuarioIniciado, PasswordBox.Password) Then
+                If GestionBd.ComprobarHashPassword(GestionBd.UsuarioIniciado, PasswordBox.Password) Then
 
                     Me.Close()
                 Else

@@ -91,7 +91,7 @@
 
                 Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text)
 
-                If GestionarBd.InsertarClienteConObservaciones(cliente) Then
+                If GestionBd.InsertarClienteConObservaciones(cliente) Then
 
                     MessageBox.Show("Cliente Añadido.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -101,7 +101,7 @@
 
                 Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, Nothing)
 
-                If GestionarBd.InsertarClienteSinObservaciones(cliente) Then
+                If GestionBd.InsertarClienteSinObservaciones(cliente) Then
 
                     MessageBox.Show("Cliente Añadido.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()

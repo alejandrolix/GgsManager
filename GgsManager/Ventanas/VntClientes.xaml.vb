@@ -5,7 +5,7 @@
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
 
         Me.Vista = New CollectionViewSource()
-        Vista.Source = GestionarBd.ObtenerClientes()
+        Vista.Source = GestionBd.ObtenerClientes()
 
         ClientesDg.DataContext = Vista
         AddHandler Vista.Filter, AddressOf Vista_Filter

@@ -1,23 +1,97 @@
 ﻿Public Class AddGaraje
 
     Property VntGarajes As VntGarajes              ' Almacena una instancia de la ventana "Gestión de Garajes".
-    Property Garaje As Garaje
+    Property GarajeSelec As Garaje                   ' Contiene los datos del garaje seleccionado para poder modificarlos.
+    Property Accion As Foo.Accion
+    Property NumPlazas As Integer
+
+    Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
+
+        If Accion = Foo.Accion.Modificar Then           ' Ponemos los datos del garaje seleccionado en los TextBoxs.
+
+            NombreGarajeTxt.DataContext = GarajeSelec
+            DireccionGarajeTxt.DataContext = GarajeSelec
+            NumPlazasGarajeTxt.DataContext = GarajeSelec
+            ObservGarajeTxt.DataContext = GarajeSelec
+
+        End If
+
+    End Sub
 
     Private Sub InsGarajeBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        ComprobarDatosIntroducidos()
-        VntGarajes.GarajesDg.DataContext = GestionarBd.ObtenerGarajes()
+        If ComprobarDatosIntroducidos() Then
+
+            If Accion = Foo.Accion.Insertar Then            ' Vamos a insertar un garaje.
+
+                If Foo.HayTexto(ObservGarajeTxt.Text) Then
+
+                    ' Creamos el nuevo garaje a insertar con observaciones.
+                    Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
+
+                    If GestionBd.InsertarGarajeConObservaciones(garaje) Then
+
+                        MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                        LimpiarCampos()
+
+                    End If
+                Else
+
+                    ' Creamos el nuevo garaje a insertar sin observaciones.
+                    Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, Nothing)
+
+                    If GestionBd.InsertarGarajeSinObservaciones(garaje) Then                 ' Insertamos un garaje sin observaciones.
+
+                        MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                        LimpiarCampos()
+
+                    End If
+
+                End If
+
+            ElseIf Accion = Foo.Accion.Modificar Then
+
+                If Foo.HayTexto(ObservGarajeTxt.Text) Then
+
+                    ' Creamos el nuevo garaje a modificar con observaciones.
+                    Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
+
+                    If GestionBd.ModificarGarajeConObservaciones(garaje) Then
+
+                        MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+                        LimpiarCampos()
+
+                    End If
+                Else
+
+                    ' Creamos el nuevo garaje a modificar sin observaciones.
+                    Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, Nothing)
+
+                    If GestionBd.ModificarGarajesSinObservaciones(garaje) Then                 ' Insertamos un garaje sin observaciones.
+
+                        MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+                        LimpiarCampos()
+
+                    End If
+
+                End If
+
+            End If
+
+        End If
+
+        VntGarajes.GarajesDg.DataContext = GestionBd.ObtenerGarajes()
 
     End Sub
 
 
     ''' <summary>
-    ''' Comprueba que los datos del garaje que ha introducido el usuario son correctos.
+    ''' Comprueba si los datos del garaje introducidos son correctos.
     ''' </summary>
-    Private Sub ComprobarDatosIntroducidos()
+    ''' <returns>True: Los datos introducidos son correctos. False: Los datos introducidos no son correctos.</returns>
+    Private Function ComprobarDatosIntroducidos() As Boolean
 
         Dim hayNombre As Boolean, hayDireccion As Boolean, hayNumPlazas As Boolean
-        Dim numPlazas As Integer
 
         If Not Foo.HayTexto(NombreGarajeTxt.Text) Then
 
@@ -40,7 +114,7 @@
         End If
 
         Try
-            numPlazas = Integer.Parse(NumPlazasGarajeTxt.Text)
+            Me.NumPlazas = Integer.Parse(NumPlazasGarajeTxt.Text)
             hayNumPlazas = True
 
         Catch ex As Exception
@@ -55,36 +129,9 @@
 
         End Try
 
-        If hayNombre And hayDireccion And hayNumPlazas Then             ' Si el usuario ha introducido bien los datos.
+        Return hayNombre And hayDireccion And hayNumPlazas
 
-            If ObservGarajeTxt.Text.Length > 0 Then          ' Si en las observaciones del garaje hay texto, insertamos un garaje con observaciones.
-
-                ' Creamos el nuevo garaje a insertar con observaciones.
-                Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, numPlazas, ObservGarajeTxt.Text)
-
-                If GestionarBd.InsertarGarajeConObservaciones(garaje) Then
-
-                    MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                    LimpiarCampos()
-
-                End If
-            Else
-
-                ' Creamos el nuevo garaje a insertar sin observaciones.
-                Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, numPlazas, Nothing)
-
-                If GestionarBd.InsertarGarajeSinObservaciones(garaje) Then                 ' Insertamos un garaje sin observaciones.
-
-                    MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                    LimpiarCampos()
-
-                End If
-
-            End If
-
-        End If
-
-    End Sub
+    End Function
 
 
     ''' <summary>
@@ -104,46 +151,19 @@
 
     End Sub
 
-
-    ''' <summary>
-    ''' Comprueba el tipo de acción para saber si utilizamos ésta ventana para añadir un garaje o para modificar sus datos.
-    ''' </summary>
-    ''' <param name="tipoAccion">Número que indica si vamos a insertar un garaje o modificar sus datos.</param>
-    Private Sub ComprobarTipoAccion(ByRef tipoAccion As Integer)
-
-        If tipoAccion = 1 Then              ' Ponemos los datos del garaje seleccionado para modificarlos.
-
-            NombreGarajeTxt.Text = Garaje.Nombre
-            DireccionGarajeTxt.Text = Garaje.Direccion
-            NumPlazasGarajeTxt.Text = Garaje.NumPlazas
-            ObservGarajeTxt.Text = Garaje.Observaciones
-
-        End If
-
-    End Sub
-
-
-    ''' <summary>
-    ''' Crea una ventana para modificar los datos de un garaje seleccionado.
-    ''' </summary>
-    ''' <param name="tipoAccion">Número que indica si vamos a insertar un garaje o modificar sus datos.</param>
-    ''' <param name="garaje">Garaje seleccionado para poder modificar sus datos.</param>
-    Public Sub New(ByRef tipoAccion As Integer, ByRef garaje As Garaje)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Garaje)
 
         InitializeComponent()
 
-        Me.Garaje = garaje
-        ComprobarTipoAccion(tipoAccion)
+        Me.Accion = accion
+        Me.GarajeSelec = garaje
 
     End Sub
 
-
-    ''' <summary>
-    ''' Crea una ventana para añadir un garaje.
-    ''' </summary>
-    Public Sub New()
+    Public Sub New(ByRef accion As Foo.Accion)
 
         InitializeComponent()
+        Me.Accion = accion
 
     End Sub
 

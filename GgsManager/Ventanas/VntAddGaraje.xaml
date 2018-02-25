@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Añadir Garaje" Height="311.575" Width="595.9"
         Background="#f0f0f0"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize" Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="TextBox" x:Key="TextBox">
             <Setter Property="DockPanel.Dock" Value="Right" />
@@ -30,25 +30,25 @@
 
         <DockPanel Grid.Column="0" Grid.Row="0">
             <TextBlock Text="Nombre" Width="58" VerticalAlignment="Center" FontSize="15" Margin="18,0,0,0" />
-            <TextBox Name="NombreGarajeTxt" Width="132" Height="24" Style="{StaticResource TextBox}" />
+            <TextBox Name="NombreGarajeTxt" Width="132" Height="24" Text="{Binding Nombre}" Style="{StaticResource TextBox}" />
             <TextBlock />
         </DockPanel>
 
         <DockPanel Grid.Column="0" Grid.Row="1">
             <TextBlock Text="Dirección" Width="65" VerticalAlignment="Center" FontSize="15" Margin="18,0,0,0" />
-            <TextBox Name="DireccionGarajeTxt" Width="150" Height="24" Style="{StaticResource TextBox}" Margin="20,0,30,0" FontSize="14" />
+            <TextBox Name="DireccionGarajeTxt" Width="150" Height="24" Text="{Binding Direccion}" Style="{StaticResource TextBox}" Margin="20,0,30,0" FontSize="14" />
             <TextBlock />
         </DockPanel>
 
         <DockPanel Grid.Column="1" Grid.Row="0">
             <TextBlock Text="Nº de Plazas" Width="86" VerticalAlignment="Center" FontSize="15" Margin="6,0,0,0" />
-            <TextBox Name="NumPlazasGarajeTxt" Width="50" Height="24" Style="{StaticResource TextBox}" Margin="0,0,130,0" />
+            <TextBox Name="NumPlazasGarajeTxt" Width="50" Height="24" Text="{Binding NumPlazas}" Style="{StaticResource TextBox}" Margin="0,0,130,0" />
             <TextBlock />
         </DockPanel>
 
         <DockPanel Grid.Column="1" Grid.Row="1">
             <TextBlock Text="Observaciones" Width="99" VerticalAlignment="Center" FontSize="15" Margin="6,0,0,0" />
-            <TextBox Name="ObservGarajeTxt" Width="148" Height="24" Style="{StaticResource TextBox}" Margin="0,0,24,0" />
+            <TextBox Name="ObservGarajeTxt" Width="148" Height="24" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" Margin="0,0,24,0" />
             <TextBlock />
         </DockPanel>
 
