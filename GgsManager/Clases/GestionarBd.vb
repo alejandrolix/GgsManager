@@ -1,5 +1,4 @@
 ﻿Imports System.Collections.ObjectModel
-Imports System.Globalization
 Imports System.Security.Cryptography
 Imports System.Text
 Imports MySql.Data.MySqlClient
@@ -209,16 +208,13 @@ Public Class GestionarBd
     '''' <summary>
     '''' Inserta un garaje con observaciones en la Bd.
     '''' </summary>
-    '''' <param name="nombre">Nombre del Garaje.</param>
-    '''' <param name="direccion">Dirección del Garaje.</param>
-    '''' <param name="numPlazas">Número de Plazas del Garaje.</param>
-    '''' <param name="observaciones">Observaciones del Garaje.</param>
+    '''' <param name="garaje">Datos del garaje a insertar.</param>
     '''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
-    Public Shared Function AddGarajeConObservaciones(ByRef nombre As String, ByRef direccion As String, ByRef numPlazas As Integer, ByRef observaciones As String) As Boolean
+    Public Shared Function InsertarGarajeConObservaciones(ByRef garaje As Garaje) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
 
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, '{3}');", nombre, direccion, numPlazas, observaciones), conexion)
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, '{3}');", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones), conexion)
         Dim garajeInsertado As Integer = comando.ExecuteNonQuery()
 
         conexion.Close()
@@ -231,15 +227,13 @@ Public Class GestionarBd
     '''' <summary>
     '''' Inserta un garaje sin observaciones en la Bd.
     '''' </summary>
-    '''' <param name="nombre">Nombre del Garaje.</param>
-    '''' <param name="direccion">Dirección del Garaje.</param>
-    '''' <param name="numPlazas">Número de Plazas del Garaje.</param>    
+    '''' <param name="garaje">Datos del garaje a insertar.</param>
     '''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
-    Public Shared Function AddGarajeSinObservaciones(ByRef nombre As String, ByRef direccion As String, ByRef numPlazas As Integer) As Boolean
+    Public Shared Function InsertarGarajeSinObservaciones(ByRef garaje As Garaje) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
 
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, NULL);", nombre, direccion, numPlazas), conexion)
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, NULL);", garaje.Nombre, garaje.Direccion, garaje.NumPlazas), conexion)
         Dim garajeInsertado As Integer = comando.ExecuteNonQuery()
 
         conexion.Close()
@@ -256,7 +250,7 @@ Public Class GestionarBd
     Public Shared Function ObtenerClientes() As ObservableCollection(Of Cliente)
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, DATE_FORMAT(FechaAlta, '%d-%m-%Y %H:%i:%S') 'FechaAlta', Observaciones
+        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones
                                          FROM   Clientes", conexion)
 
         Dim datos As MySqlDataReader = Nothing
@@ -284,9 +278,7 @@ Public Class GestionarBd
                 Dim poblacion As String = datos.GetString("Poblacion")
                 Dim provincia As String = datos.GetString("Provincia")
                 Dim movil As String = datos.GetString("Movil")
-                Dim fechaAlta As String = datos.GetString("FechaAlta")
-
-                Dim fecha As Date = Date.ParseExact(fechaAlta, "", New CultureInfo("es-ES"))            ' Probar.
+                Dim fechaAlta As Date = datos.GetDateTime("FechaAlta")
 
                 Dim observaciones As String
 
@@ -311,6 +303,20 @@ Public Class GestionarBd
         End If
 
         Return Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Inserta un cliente con observaciones de la base de datos.
+    ''' </summary>
+    ''' <param name="cliente">Datos del cliente a insertar.</param>
+    ''' <returns>True: El cliente se ha insertado. False: El cliente no se ha insertado.</returns>
+    Public Shared Function InsertarClienteConObservaciones(ByRef cliente As Cliente) As Boolean
+
+
+
+        ' Dim conexion As MySqlConnection = ConexionABd()
 
     End Function
 

@@ -19,7 +19,7 @@
         Dim hayNombre As Boolean, hayDireccion As Boolean, hayNumPlazas As Boolean
         Dim numPlazas As Integer
 
-        If Not Foo.HayTexto(NombreGarajeTextBox.Text) Then
+        If Not Foo.HayTexto(NombreGarajeTxt.Text) Then
 
             MessageBox.Show("Tienes que introducir un nombre", "Nombre Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
 
@@ -29,7 +29,7 @@
 
         End If
 
-        If Not Foo.HayTexto(DireccionGarajeTextBox.Text) Then
+        If Not Foo.HayTexto(DireccionGarajeTxt.Text) Then
 
             MessageBox.Show("Tienes que introducir una dirección", "Dirección Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
 
@@ -40,16 +40,16 @@
         End If
 
         Try
-            numPlazas = Integer.Parse(NumPlazasGarajeTextBox.Text)
+            numPlazas = Integer.Parse(NumPlazasGarajeTxt.Text)
             hayNumPlazas = True
 
         Catch ex As Exception
 
             MessageBox.Show("Tienes que introducir un número de plazas.", "Nº de Plazas Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
 
-            If NumPlazasGarajeTextBox.Text.Length > 0 Then
+            If NumPlazasGarajeTxt.Text.Length > 0 Then
 
-                NumPlazasGarajeTextBox.Text = ""
+                NumPlazasGarajeTxt.Text = ""
 
             End If
 
@@ -57,9 +57,12 @@
 
         If hayNombre And hayDireccion And hayNumPlazas Then             ' Si el usuario ha introducido bien los datos.
 
-            If ObservGarajeTextBox.Text.Length > 0 Then          ' Si en las observaciones del garaje hay texto, insertamos un garaje con observaciones.
+            If ObservGarajeTxt.Text.Length > 0 Then          ' Si en las observaciones del garaje hay texto, insertamos un garaje con observaciones.
 
-                If GestionarBd.AddGarajeConObservaciones(NombreGarajeTextBox.Text, DireccionGarajeTextBox.Text, numPlazas, ObservGarajeTextBox.Text) Then
+                ' Creamos el nuevo garaje a insertar con observaciones.
+                Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, numPlazas, ObservGarajeTxt.Text)
+
+                If GestionarBd.InsertarGarajeConObservaciones(garaje) Then
 
                     MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -67,7 +70,10 @@
                 End If
             Else
 
-                If GestionarBd.AddGarajeSinObservaciones(NombreGarajeTextBox.Text, DireccionGarajeTextBox.Text, numPlazas) Then                 ' Insertamos un garaje sin observaciones.
+                ' Creamos el nuevo garaje a insertar sin observaciones.
+                Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, numPlazas, Nothing)
+
+                If GestionarBd.InsertarGarajeSinObservaciones(garaje) Then                 ' Insertamos un garaje sin observaciones.
 
                     MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -86,13 +92,13 @@
     ''' </summary>
     Private Sub LimpiarCampos()
 
-        NombreGarajeTextBox.Text = ""
-        DireccionGarajeTextBox.Text = ""
-        NumPlazasGarajeTextBox.Text = ""
+        NombreGarajeTxt.Text = ""
+        DireccionGarajeTxt.Text = ""
+        NumPlazasGarajeTxt.Text = ""
 
-        If ObservGarajeTextBox.Text.Length > 0 Then
+        If ObservGarajeTxt.Text.Length > 0 Then
 
-            ObservGarajeTextBox.Text = ""
+            ObservGarajeTxt.Text = ""
 
         End If
 
@@ -107,10 +113,10 @@
 
         If tipoAccion = 1 Then              ' Ponemos los datos del garaje seleccionado para modificarlos.
 
-            NombreGarajeTextBox.Text = Garaje.Nombre
-            DireccionGarajeTextBox.Text = Garaje.Direccion
-            NumPlazasGarajeTextBox.Text = Garaje.NumPlazas
-            ObservGarajeTextBox.Text = Garaje.Observaciones
+            NombreGarajeTxt.Text = Garaje.Nombre
+            DireccionGarajeTxt.Text = Garaje.Direccion
+            NumPlazasGarajeTxt.Text = Garaje.NumPlazas
+            ObservGarajeTxt.Text = Garaje.Observaciones
 
         End If
 
