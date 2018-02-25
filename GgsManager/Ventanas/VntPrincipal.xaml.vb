@@ -2,21 +2,31 @@
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        'Dim vntLogin As New VntLogin()
-        'vntLogin.ShowDialog()
+        ' AbrirVntLogin()
 
-        'If GestionarBd.UsuarioIniciado IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
+    End Sub
 
-        '    MenuPrincipal.IsEnabled = True
 
-        '    If GestionarBd.UsuarioIniciado <> "root" Then           ' Si el usuario logueado no es "root", desactivamos las opciones de "Usuarios" y "Configuración".
+    ''' <summary>
+    ''' Abre la ventana "VntLogin" para iniciar sesión.
+    ''' </summary>
+    Private Sub AbrirVntLogin()
 
-        '        Usuarios.IsEnabled = False
-        '        Configuracion.IsEnabled = False
+        Dim vntLogin As New VntLogin()
+        vntLogin.ShowDialog()
 
-        '    End If
+        If GestionBd.UsuarioIniciado IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
 
-        'End If
+            MenuPrincipal.IsEnabled = True
+
+            If GestionBd.UsuarioIniciado <> "root" Then           ' Si el usuario logueado no es "root", desactivamos las opciones de "Usuarios" y "Configuración".
+
+                Usuarios.IsEnabled = False
+                Configuracion.IsEnabled = False
+
+            End If
+
+        End If
 
     End Sub
 
@@ -71,6 +81,8 @@
     End Sub
 
     Private Sub CerrarSesion_Click(sender As Object, e As RoutedEventArgs)
+
+        AbrirVntLogin()
 
     End Sub
 

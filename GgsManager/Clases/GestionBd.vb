@@ -4,11 +4,11 @@ Imports System.Text
 Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Contiene métodos que manejan la base de datos.
+''' Contiene métodos que maneja la base de datos.
 ''' </summary>
 Public Class GestionBd
 
-    Public Shared UsuarioIniciado As String             ' Almacena el usuario que ha iniciado sesión en el programa.
+    Public Shared Property UsuarioPrograma As UsuarioPrograma        ' Almacena el usuario que ha iniciado sesión en el programa.
 
     ''' <summary>
     ''' Realiza una conexión a la base de datos.
@@ -62,19 +62,59 @@ Public Class GestionBd
 
 
     ''' <summary>
-    ''' Compueba si el hash de la contraseña introducida por el usuario es igual al de la base de datos.
+    ''' Obtiene los datos del usuario que ha iniciado sesión.
     ''' </summary>
-    ''' <param name="usuario">El nombre de usuario que ha introducido el usuario.</param>
+    ''' <param name="nombreUsuario">Nombre del usuario introducido.</param>
+    ''' <returns>Datos del usuario iniciado.</returns>
+    Public Shared Function ObtenerUsuarioPrograma(ByRef nombreUsuario As String) As UsuarioPrograma
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("SELECT IdUsuario, EsGestor 
+                                                       FROM   UsuariosPrograma 
+                                                       WHERE  Nombre = '{0}';", nombreUsuario), conexion)
+        Dim datos As MySqlDataReader
+        Dim usuarioPrograma As UsuarioPrograma
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener el usuario del programa.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos.HasRows Then
+
+            If datos.Read() Then
+
+                Dim idUsuario As Integer = datos.GetInt64("IdUsuario")
+                Dim esGestor As Boolean = datos.GetBoolean("EsGestor")
+
+                usuarioPrograma = New UsuarioPrograma(idUsuario, nombreUsuario, esGestor)
+
+            End If
+
+        End If
+
+        Return usuarioPrograma
+
+    End Function
+
+
+    ''' <summary>
+    ''' Compueba si el hash de la contraseña introducida por el usuario es igual al de la base de datos.
+    ''' </summary>    
     ''' <param name="passwordIntroducida">La contraseña que ha introducido el usuario.</param>
     ''' <returns>True: Los hashes son iguales. False: Los hashes no son iguales.</returns>
-    Public Shared Function ComprobarHashPassword(ByRef usuario As String, ByRef passwordIntroducida As String) As Boolean
+    Public Shared Function ComprobarHashPassword(ByRef passwordIntroducida As String) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
         Dim hashPasswordIntroducida As String = ObtenerSHA1HashFromPassword(passwordIntroducida)
 
         Dim comando As New MySqlCommand(String.Format("SELECT Password 
                                                        FROM   UsuariosPrograma 
-                                                       WHERE  Nombre = '{0}';", usuario), conexion)
+                                                       WHERE  Nombre = '{0}';", UsuarioPrograma.Nombre), conexion)
         Dim hashPasswordBd As String = ""
 
         Try

@@ -8,6 +8,8 @@
 
     Private Sub IniciarSesion_Click(sender As Object, e As RoutedEventArgs)
 
+        ' Comprobación de errores.
+
         If Not Foo.HayTexto(UsuarioTxt.Text) Then
 
             MessageBox.Show("El campo usuario está vacío", "Usuario Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
@@ -24,16 +26,16 @@
 
             If GestionBd.ExisteUsuario(UsuarioTxt.Text) Then
 
-                GestionBd.UsuarioIniciado = UsuarioTxt.Text           ' Guardamos el usuario introducido, que servirá para obtener su contraseña.
+                GestionBd.UsuarioPrograma = GestionBd.ObtenerUsuarioPrograma(UsuarioTxt.Text)
 
-                If GestionBd.ComprobarHashPassword(GestionBd.UsuarioIniciado, PasswordBox.Password) Then
+                If GestionBd.ComprobarHashPassword(PasswordBox.Password) Then
 
                     Me.Close()
                 Else
 
                     MessageBox.Show("La contraseña introducida no es correcta", "Contraseña Incorrecta", MessageBoxButton.OK, MessageBoxImage.Error)
 
-                    If PasswordBox.Password.Length >= 1 Then
+                    If Foo.HayTexto(PasswordBox.Password) Then
 
                         PasswordBox.Password = ""
 
@@ -44,7 +46,7 @@
 
                 MessageBox.Show("El usuario introducido no existe.", "Usuario Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
 
-                If UsuarioTxt.Text.Length >= 1 Then
+                If Foo.HayTexto(UsuarioTxt.Text) Then
 
                     UsuarioTxt.Text = ""
 
