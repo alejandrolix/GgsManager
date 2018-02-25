@@ -33,6 +33,9 @@
 
     Private Sub NuevoCliente_Click(sender As Object, e As RoutedEventArgs)
 
+        Dim vntAddCliente As New VntAddCliente()
+        vntAddCliente.ShowDialog()
+
     End Sub
 
     Private Sub EliminarCliente_Click(sender As Object, e As RoutedEventArgs)

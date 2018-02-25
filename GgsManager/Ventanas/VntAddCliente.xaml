@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
-        Title="Añadir Cliente" Height="432" Width="504.5"
+        Title="Añadir Cliente" Height="597.309" Width="665.929"
         Background="#f0f0f0" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
@@ -13,20 +13,22 @@
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="16" />
+            <Setter Property="Height" Value="20" />
         </Style>
-
+        
         <Style TargetType="TextBox" x:Key="TextBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Height" Value="22" />
             <Setter Property="Width" Value="150" />
+            <Setter Property="FontSize" Value="15" />
         </Style>
     </Window.Resources>
 
-    <Grid Margin="0,10,0,0">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="223*" />
-            <ColumnDefinition Width="273*" />
+            <ColumnDefinition Width="97*" />
+            <ColumnDefinition Width="123*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -38,13 +40,14 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="2.4*" />
+            <RowDefinition Height="2.6*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         <TextBlock Text="Nombre" Grid.Column="0" Grid.Row="0" Style="{StaticResource Etiquetas}" />
         <TextBox Name="NombreClienteTxt" Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBox}" />
         <TextBlock Text="Apellidos" Grid.Column="0" Grid.Row="1" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="ApellidosClienteTxt" Width="176" Grid.Column="1" Grid.Row="1" Style="{StaticResource TextBox}" />
+        <TextBox Name="ApellidosClienteTxt" Width="180" Grid.Column="1" Grid.Row="1" Style="{StaticResource TextBox}" />
         <TextBlock Text="DNI" Grid.Column="0" Grid.Row="2" Style="{StaticResource Etiquetas}" />
         <TextBox Name="DNIClienteTxt" Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBox}" />
         <TextBlock Text="Dirección" Grid.Column="0" Grid.Row="3" Style="{StaticResource Etiquetas}" />
@@ -57,7 +60,13 @@
         <TextBox Name="MovilClienteTxt" Grid.Column="1" Grid.Row="6" Style="{StaticResource TextBox}" />
         <TextBlock Text="Observaciones" Grid.Column="0" Grid.Row="7" Style="{StaticResource Etiquetas}" />
         <TextBox Name="ObservClienteTxt" Width="210" Grid.Column="1" Grid.Row="7" Style="{StaticResource TextBox}" />
+        <TextBlock Text="Foto" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" />
 
-        <Button Name="GuardarClienteBtn" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Content="Guardar" FontSize="16" Height="30" Width="98" Margin="0,24,0,4" Click="GuardarClienteBtn_Click" />
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="8" Margin="0,13,0,0">
+            <Image Name="ClienteImg" Width="100" Height="85"  />
+            <Button Name="AddFotoBtn" Width="74" Height="25" Content="Examinar" FontSize="16" Margin="28,0,0,0" Click="AddFotoBtn_Click" />
+        </StackPanel>
+
+        <Button Name="GuardarClienteBtn" Grid.Column="0" Grid.Row="9" Width="90" Height="30" Grid.ColumnSpan="2" Content="Guardar" FontSize="16" Click="GuardarClienteBtn_Click" />
     </Grid>
 </Window>
