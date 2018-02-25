@@ -27,7 +27,7 @@
             hayNombre = True
         Else
 
-            MessageBox.Show("Tienes que introducir un nombre", "Nombre Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir un nombre.", "Nombre Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 
@@ -36,7 +36,7 @@
             hayApellidos = True
         Else
 
-            MessageBox.Show("Tienes que introducir unos apellidos", "Apellidos Vacíos", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir unos apellidos.", "Apellidos Vacíos", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 
@@ -54,7 +54,7 @@
             hayDireccion = True
         Else
 
-            MessageBox.Show("Tienes que introducir una dirección", "Dirección Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir una dirección.", "Dirección Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 
@@ -63,7 +63,7 @@
             hayPoblacion = True
         Else
 
-            MessageBox.Show("Tienes que introducir una población", "Población Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir una población.", "Población Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 
@@ -72,7 +72,7 @@
             hayProvincia = True
         Else
 
-            MessageBox.Show("Tienes que introducir una província", "Província Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir una província.", "Província Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 
@@ -81,13 +81,56 @@
             hayMovil = True
         Else
 
-            MessageBox.Show("Tienes que introducir un móvil", "Móvil Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir un móvil.", "Móvil Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 
+        If hayNombre And hayApellidos And hayDNI And hayDireccion And hayPoblacion And hayProvincia And hayMovil Then
+
+            If ObservClienteTxt.Text.Length >= 1 Then               ' Insertamos un cliente con observaciones.
+
+                Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text)
+
+                If GestionarBd.InsertarClienteConObservaciones(cliente) Then
+
+                    MessageBox.Show("Cliente Añadido.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                    LimpiarCampos()
+
+                End If
+            Else
+
+                Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, Nothing)
+
+                If GestionarBd.InsertarClienteSinObservaciones(cliente) Then
+
+                    MessageBox.Show("Cliente Añadido.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                    LimpiarCampos()
+
+                End If
+
+            End If
+
+        End If
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Limpia los datos introducidos después de haber añadido el cliente en la base de datos.
+    ''' </summary>
+    Private Sub LimpiarCampos()
+
+        NombreClienteTxt.Text = ""
+        ApellidosClienteTxt.Text = ""
+        DNIClienteTxt.Text = ""
+        DireccionClienteTxt.Text = ""
+        PoblacionClienteTxt.Text = ""
+        ProvinciaClienteTxt.Text = ""
+        MovilClienteTxt.Text = ""
+
         If ObservClienteTxt.Text.Length >= 1 Then
 
-
+            ObservClienteTxt.Text = ""
 
         End If
 

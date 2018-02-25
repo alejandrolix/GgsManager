@@ -26,4 +26,15 @@ Public Class Cliente
         Me.Observaciones = observaciones
     End Sub
 
+    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String)
+        Me.Nombre = nombre
+        Me.Apellidos = apellidos
+        Me.DNI = dni
+        Me.Direccion = direccion
+        Me.Poblacion = poblacion
+        Me.Provincia = provincia
+        Me.Movil = movil
+        Me.Observaciones = observaciones
+    End Sub
+
 End Class
