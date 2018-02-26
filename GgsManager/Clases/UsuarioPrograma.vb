@@ -8,9 +8,11 @@ Public Class UsuarioPrograma
     Property EsGestor As Boolean
 
     Public Sub New(id As Integer, nombre As String, esGestor As Boolean)
+
         Me.Id = id
         Me.Nombre = nombre
         Me.EsGestor = esGestor
+
     End Sub
 
 End Class

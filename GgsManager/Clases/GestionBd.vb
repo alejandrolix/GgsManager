@@ -34,6 +34,34 @@ Public Class GestionBd
 
 
     ''' <summary>
+    ''' Obtiene el nuevo Id de la tabla "Clientes", (ultimoId + 1) para guardar su imagen.
+    ''' </summary>
+    ''' <returns>El nuevo Id del cliente.</returns>
+    Public Shared Function ObtenerUltimoIdClientes() As Integer
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand("SELECT MAX(IdCliente) 
+                                         FROM   Clientes;", conexion)
+        Dim ultimoId As Integer
+
+        Try
+            ultimoId = CType(comando.ExecuteScalar(), Integer)
+            ultimoId += 1
+
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener el último Id de la tabla Clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return ultimoId
+
+    End Function
+
+
+    ''' <summary>
     ''' Comprueba si existe el usuario introducido.
     ''' </summary>
     ''' <param name="usuario">Nombre de usuario a comprobar.</param>
@@ -225,7 +253,7 @@ Public Class GestionBd
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje a eliminar.</param>
     ''' <returns>True: El garaje se ha eliminado. False: El garaje no se ha eliminado.</returns>
-    Public Shared Function EliminarGarajePorId(ByRef idGaraje As Integer) As Boolean
+    Public Shared Function EliminarGaraje(ByRef idGaraje As Integer) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
         Dim comando As New MySqlCommand(String.Format("DELETE FROM Garajes WHERE IdGaraje = {0}", idGaraje), conexion)
@@ -233,6 +261,7 @@ Public Class GestionBd
 
         Try
             numFila = comando.ExecuteNonQuery()
+            conexion.Close()
 
         Catch ex As Exception
 
@@ -246,15 +275,24 @@ Public Class GestionBd
 
 
     ''' <summary>
-    ''' Inserta un garaje con observaciones.
+    ''' Inserta un garaje.
     ''' </summary>
     ''' <param name="garaje">Datos del garaje a insertar.</param>
     ''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
-    Public Shared Function InsertarGarajeConObservaciones(ByRef garaje As Garaje) As Boolean
+    Public Shared Function InsertarGaraje(ByRef garaje As Garaje) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As MySqlCommand
 
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, 0, 0, '{3}');", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones), conexion)
+        If Foo.HayTexto(garaje.Observaciones) Then
+
+            comando = New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, 0, 0, '{3}');", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones), conexion)
+        Else
+
+            comando = New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, 0, 0, NULL);", garaje.Nombre, garaje.Direccion, garaje.NumPlazas), conexion)
+
+        End If
+
         Dim numFila As Integer
 
         Try
@@ -264,60 +302,6 @@ Public Class GestionBd
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        End Try
-
-        Return numFila <> 0
-
-    End Function
-
-
-    ''' <summary>
-    ''' Inserta un garaje sin observaciones.
-    ''' </summary>
-    ''' <param name="garaje">Datos del garaje a insertar.</param>
-    ''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
-    Public Shared Function InsertarGarajeSinObservaciones(ByRef garaje As Garaje) As Boolean
-
-        Dim conexion As MySqlConnection = ConexionABd()
-
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, 0, 0, NULL);", garaje.Nombre, garaje.Direccion, garaje.NumPlazas), conexion)
-        Dim numFila As Integer
-
-        Try
-            numFila = comando.ExecuteNonQuery()
-            conexion.Close()
-
-        Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        End Try
-
-        Return numFila <> 0
-
-    End Function
-
-
-    ''' <summary>
-    ''' Modifica los datos de un garaje con observaciones.
-    ''' </summary>
-    ''' <param name="garaje">Datos del garaje a modificar.</param>
-    ''' <returns>True: Se han modificado los datos del garaje. False: No se han modificado los datos del garaje.</returns>
-    Public Shared Function ModificarGarajeConObservaciones(ByRef garaje As Garaje) As Boolean
-
-        Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("UPDATE Garajes SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = '{3}' 
-                                                       WHERE  IdGaraje = {4};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones, garaje.Id), conexion)
-        Dim numFila As Integer
-
-        Try
-            numFila = comando.ExecuteNonQuery()
-            conexion.Close()
-
-        Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al modificar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -327,15 +311,27 @@ Public Class GestionBd
 
 
     ''' <summary>
-    ''' Modifica los datos de un garaje sin observaciones.
+    ''' Modifica los datos de un garaje seleccionado.
     ''' </summary>
-    ''' <param name="garaje">Datos del garaje a modificar.</param>
-    ''' <returns>True: Se han modificado los datos del garaje. False: No se han modificado los datos del garaje.</returns>
-    Public Shared Function ModificarGarajesSinObservaciones(ByRef garaje As Garaje) As Boolean
+    ''' <param name="garaje">Datos del garaje que se van a modificar.</param>
+    ''' <returns>True: Se ha modificado el garaje. False: No se ha modificado el garaje.</returns>
+    Public Shared Function ModificarGaraje(ByRef garaje As Garaje) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("UPDATE Garajes SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = NULL 
-                                                       WHERE  IdGaraje = {4};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Id), conexion)
+        Dim comando As MySqlCommand
+
+        If Foo.HayTexto(garaje.Observaciones) Then
+
+            comando = New MySqlCommand(String.Format("UPDATE Garajes 
+                                                      SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = '{3}' 
+    '                                                 WHERE  IdGaraje = {4};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones, garaje.Id), conexion)
+        Else
+
+            comando = New MySqlCommand(String.Format("UPDATE Garajes 
+                                                      SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = NULL 
+    '                                                 WHERE  IdGaraje = {3};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Id), conexion)
+        End If
+
         Dim numFila As Integer
 
         Try
@@ -344,7 +340,7 @@ Public Class GestionBd
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al modificar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -370,7 +366,7 @@ Public Class GestionBd
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al obtener los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -418,16 +414,32 @@ Public Class GestionBd
 
 
     ''' <summary>
-    ''' Inserta un cliente con observaciones.
+    ''' Inserta un cliente.
     ''' </summary>
     ''' <param name="cliente">Datos del cliente a insertar.</param>
     ''' <returns>True: El cliente se ha insertado. False: El cliente no se ha insertado.</returns>
-    Public Shared Function InsertarClienteConObservaciones(ByRef cliente As Cliente) As Boolean
+    Public Shared Function InsertarCliente(ByRef cliente As Cliente) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones, URLFoto)
-                                         VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), '{7}', NULL);", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.Observaciones), conexion)
+        Dim comando As MySqlCommand
         Dim numFila As Integer
+
+        If Foo.HayTexto(cliente.Observaciones) And Not Foo.HayTexto(cliente.UrlFoto) Then           ' Insertamos al cliente las observaciones, aparte de sus principales datos.
+
+            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones, URLFoto)
+                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), '{7}', NULL);", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.Observaciones), conexion)
+
+        ElseIf Foo.HayTexto(cliente.UrlFoto) And Not Foo.HayTexto(cliente.Observaciones) Then       ' Insertamos al cliente la URL de su foto, aparte de sus principales datos.
+
+            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones, URLFoto)
+                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), NULL, '{7}');", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.UrlFoto), conexion)
+
+        ElseIf Not Foo.HayTexto(cliente.Observaciones) And Not Foo.HayTexto(cliente.UrlFoto) Then       ' No le insertamos al cliente ni las observaciones ni la URL de la foto. Se le insertan sus principales datos.
+
+            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones, URLFoto)
+                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), NULL, NULL);", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil), conexion)
+
+        End If
 
         Try
             numFila = comando.ExecuteNonQuery()
@@ -445,15 +457,15 @@ Public Class GestionBd
 
 
     ''' <summary>
-    ''' Inserta un cliente sin observaciones.
+    ''' Elimina un cliente a partir de su Id.
     ''' </summary>
-    ''' <param name="cliente">Datos del cliente a insertar.</param>
-    ''' <returns>True: El cliente se ha insertado. False: El cliente no se ha insertado.</returns>
-    Public Shared Function InsertarClienteSinObservaciones(ByRef cliente As Cliente) As Boolean
+    ''' <param name="idCliente">El Id del cliente a eliminar.</param>
+    ''' <returns>True: El cliente se ha eliminado. False: El cliente no se ha eliminado.</returns>
+    Public Shared Function EliminarCliente(ByRef idCliente As Integer) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones, URLFoto)
-                                         VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), NULL, NULL);", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil), conexion)
+        Dim comando As New MySqlCommand(String.Format("DELETE FROM Clientes
+                                                       WHERE  IdCliente = {0}", idCliente), conexion)
         Dim numFila As Integer
 
         Try
@@ -462,7 +474,7 @@ Public Class GestionBd
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al añadir el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al eliminar el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 

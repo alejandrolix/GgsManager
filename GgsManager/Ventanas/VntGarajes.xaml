@@ -29,7 +29,7 @@
             </Grid.RowDefinitions>
 
             <Button Name="NuevoGaraje" Grid.Column="1" Grid.Row="0" Content="Añadir Garaje" HorizontalAlignment="Right" Margin="0,40,20,18" Style="{StaticResource Boton}" Click="NuevoGaraje_Click" VerticalAlignment="Top" />
-            <DataGrid Name="GarajesDg" BorderThickness="1" BorderBrush="#f0f0f0" Grid.Column="0" Grid.Row="1" Margin="12,0" Grid.ColumnSpan="2" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
+            <DataGrid Name="GarajesDg" IsSynchronizedWithCurrentItem="False" BorderThickness="1" BorderBrush="#f0f0f0" Grid.Column="0" Grid.Row="1" Margin="12,0" Grid.ColumnSpan="2" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="HorizontalContentAlignment" Value="Center" />

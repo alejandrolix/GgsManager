@@ -11,18 +11,22 @@ Public Class Garaje
     Property Observaciones As String
 
     Public Sub New(id As Integer, nombre As String, direccion As String, numPlazas As Integer, observaciones As String)
+
         Me.Id = id
         Me.Nombre = nombre
         Me.Direccion = direccion
-        numPlazas = numPlazas
+        Me.NumPlazas = numPlazas
         Me.Observaciones = observaciones
+
     End Sub
 
     Public Sub New(nombre As String, direccion As String, numPlazas As Integer, observaciones As String)
+
         Me.Nombre = nombre
         Me.Direccion = direccion
         numPlazas = numPlazas
         Me.Observaciones = observaciones
+
     End Sub
 
 End Class

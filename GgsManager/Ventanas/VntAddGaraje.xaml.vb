@@ -1,13 +1,17 @@
 ﻿Public Class AddGaraje
 
     Property VntGarajes As VntGarajes              ' Almacena una instancia de la ventana "Gestión de Garajes".
-    Property GarajeSelec As Garaje                   ' Contiene los datos del garaje seleccionado para poder modificarlos.
-    Property Accion As Foo.Accion
-    Property NumPlazas As Integer
+    Private GarajeSelec As Cliente                   ' Contiene los datos del garaje seleccionado para poder modificarlos.
+    Private Accion As Foo.Accion
+    Private NumPlazas As Integer
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        If Accion = Foo.Accion.Modificar Then           ' Ponemos los datos del garaje seleccionado en los TextBoxs.
+        If Accion = Foo.Accion.Insertar Then
+
+            Keyboard.Focus(NombreGarajeTxt)
+
+        ElseIf Accion = Foo.Accion.Modificar Then           ' Ponemos los datos del garaje seleccionado en los TextBoxs.
 
             NombreGarajeTxt.DataContext = GarajeSelec
             DireccionGarajeTxt.DataContext = GarajeSelec
@@ -22,57 +26,23 @@
 
         If ComprobarDatosIntroducidos() Then
 
-            If Accion = Foo.Accion.Insertar Then            ' Vamos a insertar un garaje.
+            Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)            ' Creamos los datos del garaje.
 
-                If Foo.HayTexto(ObservGarajeTxt.Text) Then
+            If Accion = Foo.Accion.Insertar Then            ' Vamos a insertar un garaje.                
 
-                    ' Creamos el nuevo garaje a insertar con observaciones.
-                    Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
+                If GestionBd.InsertarGaraje(garaje) Then
 
-                    If GestionBd.InsertarGarajeConObservaciones(garaje) Then
-
-                        MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                        LimpiarCampos()
-
-                    End If
-                Else
-
-                    ' Creamos el nuevo garaje a insertar sin observaciones.
-                    Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, Nothing)
-
-                    If GestionBd.InsertarGarajeSinObservaciones(garaje) Then                 ' Insertamos un garaje sin observaciones.
-
-                        MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                        LimpiarCampos()
-
-                    End If
+                    MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                    LimpiarCampos()
 
                 End If
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                If Foo.HayTexto(ObservGarajeTxt.Text) Then
+                If GestionBd.ModificarGaraje(garaje) Then
 
-                    ' Creamos el nuevo garaje a modificar con observaciones.
-                    Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
-
-                    If GestionBd.ModificarGarajeConObservaciones(garaje) Then
-
-                        MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
-                        LimpiarCampos()
-
-                    End If
-                Else
-
-                    ' Creamos el nuevo garaje a modificar sin observaciones.
-                    Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, Nothing)
-
-                    If GestionBd.ModificarGarajesSinObservaciones(garaje) Then                 ' Insertamos un garaje sin observaciones.
-
-                        MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
-                        LimpiarCampos()
-
-                    End If
+                    MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+                    LimpiarCampos()
 
                 End If
 
@@ -95,7 +65,7 @@
 
         If Not Foo.HayTexto(NombreGarajeTxt.Text) Then
 
-            MessageBox.Show("Tienes que introducir un nombre", "Nombre Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir un nombre.", "Nombre Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
 
         Else
 
@@ -105,7 +75,7 @@
 
         If Not Foo.HayTexto(DireccionGarajeTxt.Text) Then
 
-            MessageBox.Show("Tienes que introducir una dirección", "Dirección Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir una dirección.", "Dirección Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
 
         Else
 
@@ -143,7 +113,7 @@
         DireccionGarajeTxt.Text = ""
         NumPlazasGarajeTxt.Text = ""
 
-        If ObservGarajeTxt.Text.Length > 0 Then
+        If Foo.HayTexto(ObservGarajeTxt.Text) Then
 
             ObservGarajeTxt.Text = ""
 
@@ -151,7 +121,7 @@
 
     End Sub
 
-    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Garaje)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Cliente)
 
         InitializeComponent()
 

@@ -1,14 +1,33 @@
-﻿Public Class VntAddCliente
+﻿Imports Microsoft.Win32
+Imports System.IO
+
+Public Class VntAddCliente
+
+    Property VntClientes As VntClientes
+    Private UrlFoto As String
+    Private Accion As Foo.Accion
+    Private ClienteSelec As Cliente                 ' Almacena el cliente seleccionado.
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        Keyboard.Focus(NombreClienteTxt)
+        If Accion = Foo.Accion.Insertar Then
 
-    End Sub
+            Keyboard.Focus(NombreClienteTxt)
 
-    Private Sub GuardarClienteBtn_Click(sender As Object, e As RoutedEventArgs)
+        ElseIf Accion = Foo.Accion.Modificar Then
 
-        ComprobarDatosIntroducidos()
+            NombreClienteTxt.DataContext = ClienteSelec
+            ApellidosClienteTxt.DataContext = ClienteSelec
+            DNIClienteTxt.DataContext = ClienteSelec
+            DireccionClienteTxt.DataContext = ClienteSelec
+            PoblacionClienteTxt.DataContext = ClienteSelec
+            ProvinciaClienteTxt.DataContext = ClienteSelec
+            MovilClienteTxt.DataContext = ClienteSelec
+            ObservClienteTxt.DataContext = ClienteSelec
+
+        End If
+
+        VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
 
     End Sub
 
@@ -16,7 +35,7 @@
     ''' <summary>
     ''' Comprueba que los datos introducidos del cliente son correctos.
     ''' </summary>
-    Private Sub ComprobarDatosIntroducidos()
+    Private Function ComprobarDatosIntroducidos() As Boolean
 
         Dim hayNombre, hayApellidos, hayDNI, hayDireccion, hayPoblacion, hayProvincia, hayMovil As Boolean
 
@@ -85,34 +104,9 @@
 
         End If
 
-        If hayNombre And hayApellidos And hayDNI And hayDireccion And hayPoblacion And hayProvincia And hayMovil Then
+        Return hayNombre And hayApellidos And hayDNI And hayDireccion And hayPoblacion And hayProvincia And hayMovil
 
-            If ObservClienteTxt.Text.Length >= 1 Then               ' Insertamos un cliente con observaciones.
-
-                Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text)
-
-                If GestionBd.InsertarClienteConObservaciones(cliente) Then
-
-                    MessageBox.Show("Cliente Añadido.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                    LimpiarCampos()
-
-                End If
-            Else
-
-                Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, Nothing)
-
-                If GestionBd.InsertarClienteSinObservaciones(cliente) Then
-
-                    MessageBox.Show("Cliente Añadido.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                    LimpiarCampos()
-
-                End If
-
-            End If
-
-        End If
-
-    End Sub
+    End Function
 
 
     ''' <summary>
@@ -138,7 +132,110 @@
 
     Private Sub AddFotoBtn_Click(sender As Object, e As RoutedEventArgs)
 
+        Dim abrirArchivo As New OpenFileDialog()
+        abrirArchivo.Filter = "JPG (*.jpg)|*.jpg|PNG (*.png)|*.png"
 
+        If abrirArchivo.ShowDialog() Then
+
+            Me.UrlFoto = abrirArchivo.FileName
+
+            Dim img As BitmapImage = ReducirImagen(abrirArchivo.FileName)
+            ClienteImg.Source = img
+
+        End If
 
     End Sub
+
+
+    ''' <summary>
+    ''' Reduce el tamaño de la imagen seleccionada.
+    ''' </summary>
+    ''' <param name="rutaImg">Ruta de la imagen seleccionada.</param>
+    ''' <returns>Imagen reducida.</returns>
+    Private Function ReducirImagen(ByRef rutaImg As String) As BitmapImage
+
+        Dim img As New BitmapImage(New Uri(rutaImg))
+        img.DecodePixelWidth = 106
+
+        Return img
+
+    End Function
+
+
+    ''' <summary>
+    ''' Crea un archivo JPG que contiene la imagen que ha seleccionado el usuario.
+    ''' </summary>
+    ''' <param name="img">El origen de la foto seleccionada.</param>
+    Private Sub GuardarFoto(ByRef img As ImageSource)
+
+        Dim ultimoId As Integer = GestionBd.ObtenerUltimoIdClientes()
+        Dim bitmap As New BitmapImage()
+
+        bitmap.BeginInit()
+        bitmap.DecodePixelWidth = 106
+        bitmap.DecodePixelHeight = 92
+        bitmap.CacheOption = BitmapCacheOption.OnLoad
+        bitmap.UriSource = New Uri(UrlFoto)
+        bitmap.EndInit()
+
+        Dim encoder As New JpegBitmapEncoder()
+        encoder.Frames.Add(BitmapFrame.Create(bitmap))
+
+        Using stream As New FileStream("..\..\" & My.Settings.RutaImgs & ultimoId & ".jpg", FileMode.Create)
+
+            encoder.Save(stream)
+
+        End Using
+
+        Me.UrlFoto = "..\..\" & My.Settings.RutaImgs & ultimoId & ".jpg"            ' Asignamos la nueva ruta de la foto.
+
+    End Sub
+
+    Private Sub GuardarClienteBtn_Click(sender As Object, e As RoutedEventArgs)
+
+        If ComprobarDatosIntroducidos() Then
+
+            ' Creamos el cliente.
+            Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text, UrlFoto)
+
+            If Accion = Foo.Accion.Insertar Then
+
+                If ClienteImg.Source IsNot Nothing Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
+
+                    GuardarFoto(ClienteImg.Source)
+
+                End If
+
+                If GestionBd.InsertarCliente(cliente) Then
+
+                    MessageBox.Show("Cliente Añadido", "", MessageBoxButton.OK, MessageBoxImage.Information)
+                    LimpiarCampos()
+
+                End If
+
+            End If
+
+            VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
+            UrlFoto = ""
+
+        End If
+
+    End Sub
+
+    Public Sub New(ByRef accion As Foo.Accion, ByRef clienteSelec As Cliente)
+
+        InitializeComponent()
+
+        Me.Accion = accion
+        Me.ClienteSelec = clienteSelec
+
+    End Sub
+
+    Public Sub New(ByRef accion As Foo.Accion)
+
+        InitializeComponent()
+        Me.Accion = accion
+
+    End Sub
+
 End Class

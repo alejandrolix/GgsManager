@@ -12,8 +12,10 @@ Public Class Cliente
     Property Movil As String
     Property FechaAlta As Date
     Property Observaciones As String
+    Property UrlFoto As String
 
     Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaAlta As Date, observaciones As String)
+
         Me.Id = id
         Me.Nombre = nombre
         Me.Apellidos = apellidos
@@ -24,9 +26,11 @@ Public Class Cliente
         Me.Movil = movil
         Me.FechaAlta = fechaAlta
         Me.Observaciones = observaciones
+
     End Sub
 
-    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String)
+    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String, urlFoto As String)
+
         Me.Nombre = nombre
         Me.Apellidos = apellidos
         Me.DNI = dni
@@ -35,6 +39,8 @@ Public Class Cliente
         Me.Provincia = provincia
         Me.Movil = movil
         Me.Observaciones = observaciones
+        Me.UrlFoto = urlFoto
+
     End Sub
 
 End Class
