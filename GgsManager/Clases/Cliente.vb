@@ -1,7 +1,4 @@
-﻿Imports System.ComponentModel
-Imports System.Runtime.CompilerServices
-
-''' <summary>
+﻿''' <summary>
 ''' Representa un cliente de la tabla "Clientes" de la base de datos.
 ''' </summary>
 Public Class Cliente
@@ -45,6 +42,13 @@ Public Class Cliente
         Me.FechaAlta = fechaAlta
         Me.Observaciones = observaciones
         Me.UrlFoto = urlFoto
+
+    End Sub
+
+    Public Sub New(nombre As String, apellidos As String)
+
+        Me.Nombre = nombre
+        Me.Apellidos = apellidos
 
     End Sub
 

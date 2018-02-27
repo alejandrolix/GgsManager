@@ -58,6 +58,15 @@
 
     Private Sub Vehiculos_Click(sender As Object, e As RoutedEventArgs)
 
+        Dim vntVehiculos As New WPF.MDI.MdiChild()
+        vntVehiculos.Title = "Gestión de Vehículos"
+        vntVehiculos.Content = New VntVehiculos()
+
+        vntVehiculos.Width = 752
+        vntVehiculos.Height = 401
+
+        ContenedorMDI.Children.Add(vntVehiculos)
+
     End Sub
 
     Private Sub Usuarios_Click(sender As Object, e As RoutedEventArgs)

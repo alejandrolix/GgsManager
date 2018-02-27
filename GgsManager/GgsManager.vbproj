@@ -87,11 +87,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Ventanas\VntAddVehiculo.xaml.vb">
+      <DependentUpon>VntAddVehiculo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VntVehiculos.xaml.vb">
+      <DependentUpon>VntVehiculos.xaml</DependentUpon>
+    </Compile>
     <Page Include="Ventanas\VntAddCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\VntAddGaraje.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\VntAddVehiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +131,7 @@
     <Compile Include="Clases\GestionBd.vb" />
     <Compile Include="Clases\ImageViewModel.vb" />
     <Compile Include="Clases\UsuarioPrograma.vb" />
+    <Compile Include="Clases\Vehiculo.vb" />
     <Compile Include="Ventanas\VntAddCliente.xaml.vb">
       <DependentUpon>VntAddCliente.xaml</DependentUpon>
     </Compile>
@@ -140,6 +151,10 @@
       <DependentUpon>VntPrincipal.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Ventanas\VntVehiculos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Import Include="System.Threading.Tasks" />

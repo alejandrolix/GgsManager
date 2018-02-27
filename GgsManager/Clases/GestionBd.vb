@@ -493,4 +493,54 @@ Public Class GestionBd
 
     End Function
 
+
+    ''' <summary>
+    ''' Obtiene todos los vehículos.
+    ''' </summary>
+    ''' <returns>Lista con los vehículos.</returns>
+    Public Shared Function ObtenerVehiculos() As List(Of Vehiculo)
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.Total
+                                         FROM   Vehiculos Veh
+	                                            JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente;", conexion)
+        Dim datos As MySqlDataReader
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener los vehículos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim listaVehiculos As New List(Of Vehiculo)()
+
+            While datos.Read()
+
+                Dim id As Integer = datos.GetInt32("IdVehiculo")
+                Dim matricula As String = datos.GetString("Matricula")
+                Dim marca As String = datos.GetString("Marca")
+                Dim modelo As String = datos.GetString("Modelo")
+                Dim cliente As Cliente = New Cliente(datos.GetString("Nombre"), datos.GetString("Apellidos"))
+                Dim total As Decimal = datos.GetDecimal("Total")
+
+                listaVehiculos.Add(New Vehiculo(id, matricula, marca, modelo, cliente, total, Nothing))
+
+            End While
+
+            datos.Close()
+            conexion.Close()
+
+            Return listaVehiculos
+
+        End If
+
+        Return Nothing
+
+    End Function
+
 End Class
