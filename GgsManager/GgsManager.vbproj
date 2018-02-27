@@ -87,29 +87,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Ventanas\VntAddVehiculo.xaml.vb">
+    <Compile Include="Clases\Plaza.vb" />
+    <Compile Include="Ventanas\Vehiculos\VntAddVehiculo.xaml.vb">
       <DependentUpon>VntAddVehiculo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VntVehiculos.xaml.vb">
+    <Compile Include="Ventanas\Vehiculos\VntVehiculos.xaml.vb">
       <DependentUpon>VntVehiculos.xaml</DependentUpon>
     </Compile>
-    <Page Include="Ventanas\VntAddCliente.xaml">
+    <Page Include="Ventanas\Clientes\VntAddCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\VntAddGaraje.xaml">
+    <Page Include="Ventanas\Garajes\VntAddGaraje.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\VntAddVehiculo.xaml">
+    <Page Include="Ventanas\Vehiculos\VntAddVehiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\VntClientes.xaml">
+    <Page Include="Ventanas\Clientes\VntClientes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\VntGarajes.xaml">
+    <Page Include="Ventanas\Garajes\VntGarajes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,16 +133,16 @@
     <Compile Include="Clases\ImageViewModel.vb" />
     <Compile Include="Clases\UsuarioPrograma.vb" />
     <Compile Include="Clases\Vehiculo.vb" />
-    <Compile Include="Ventanas\VntAddCliente.xaml.vb">
+    <Compile Include="Ventanas\Clientes\VntAddCliente.xaml.vb">
       <DependentUpon>VntAddCliente.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VntAddGaraje.xaml.vb">
+    <Compile Include="Ventanas\Garajes\VntAddGaraje.xaml.vb">
       <DependentUpon>VntAddGaraje.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VntClientes.xaml.vb">
+    <Compile Include="Ventanas\Clientes\VntClientes.xaml.vb">
       <DependentUpon>VntClientes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VntGarajes.xaml.vb">
+    <Compile Include="Ventanas\Garajes\VntGarajes.xaml.vb">
       <DependentUpon>VntGarajes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\VntLogin.xaml.vb">
@@ -151,7 +152,7 @@
       <DependentUpon>VntPrincipal.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Ventanas\VntVehiculos.xaml">
+    <Page Include="Ventanas\Vehiculos\VntVehiculos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

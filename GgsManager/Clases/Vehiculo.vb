@@ -9,19 +9,42 @@ Public Class Vehiculo
     Property Modelo As String
     Property Cliente As Cliente
     Property IdPlaza As Integer
-    Property Base As Decimal
-    Property Total As Decimal
+    Property IdGaraje As Integer
+    Property PrecioBase As Decimal
+    Property PrecioTotal As Decimal
     Property ArrayUrlFotos As String()
+    Property UrlFotos As String
 
-    Public Sub New(id As String, matricula As String, marca As String, modelo As String, cliente As Cliente, total As Decimal, urlFotos As String)
+    Public Sub New(id As String, matricula As String, marca As String, modelo As String, cliente As Cliente, total As Decimal)
 
         Me.Id = id
         Me.Matricula = matricula
         Me.Marca = marca
         Me.Modelo = modelo
         Me.Cliente = cliente
-        Me.Total = total
-        ' Me.ArrayUrlFotos = urlFotos.Split(" ")
+        Me.PrecioTotal = total
+
+    End Sub
+
+
+    Public Sub New(matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, base As Decimal, total As Decimal, urlFotos As String)
+
+        Me.Id = Id
+        Me.Matricula = matricula
+        Me.Marca = marca
+        Me.Modelo = modelo
+        Me.Cliente = cliente
+        Me.IdGaraje = idGaraje
+        Me.IdPlaza = idPlaza
+        Me.PrecioBase = base
+        Me.PrecioTotal = total
+        Me.UrlFotos = urlFotos
+
+        'If Foo.HayTexto(urlFotos) Then
+
+        '    Me.ArrayUrlFotos = urlFotos.Split(" ")
+
+        'End If
 
     End Sub
 

@@ -72,6 +72,18 @@ Partial Friend NotInheritable Class MySettings
             Return CType(Me("RutaImgs"),String)
         End Get
     End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("../../Imgs/Vehiculos/")>  _
+    Public Property RutaVehic() As String
+        Get
+            Return CType(Me("RutaVehic"),String)
+        End Get
+        Set
+            Me("RutaVehic") = value
+        End Set
+    End Property
 End Class
 
 Namespace My

@@ -1,10 +1,11 @@
 ﻿Imports Microsoft.Win32
 Imports System.IO
+Imports System.Text
 
 Public Class VntAddCliente
 
     Property VntClientes As VntClientes
-    Private UrlFoto As String
+    Private UrlFotoSeleccionada As String           ' Contiene la ruta de la imagen seleccionada.
     Private Accion As Foo.Accion
     Private ClienteSelec As Cliente                 ' Almacena el cliente seleccionado.
 
@@ -140,6 +141,12 @@ Public Class VntAddCliente
 
         End If
 
+        If Foo.HayImagen(ClienteImg.Source) Then
+
+            ClienteImg.Source = Nothing
+
+        End If
+
     End Sub
 
     Private Sub AddFotoBtn_Click(sender As Object, e As RoutedEventArgs)
@@ -149,7 +156,7 @@ Public Class VntAddCliente
 
         If abrirArchivo.ShowDialog() Then
 
-            Me.UrlFoto = abrirArchivo.FileName
+            Me.UrlFotoSeleccionada = abrirArchivo.FileName          ' Guardamos la ruta de la foto que ha seleccionado el usuario.
 
             Dim img As BitmapImage = ReducirImagen(abrirArchivo.FileName)
             ClienteImg.Source = img
@@ -180,26 +187,29 @@ Public Class VntAddCliente
     ''' <param name="img">El origen de la foto seleccionada.</param>
     Private Sub GuardarFoto(ByRef img As ImageSource)
 
-        Dim ultimoId As Integer = GestionBd.ObtenerUltimoIdClientes()
+        Dim nuevoId As Integer = GestionBd.ObtenerNuevoIdClientes()
         Dim bitmap As New BitmapImage()
 
         bitmap.BeginInit()
         bitmap.DecodePixelWidth = 106
         bitmap.DecodePixelHeight = 92
         bitmap.CacheOption = BitmapCacheOption.OnLoad
-        bitmap.UriSource = New Uri(UrlFoto)
+        bitmap.UriSource = New Uri(UrlFotoSeleccionada)
         bitmap.EndInit()
 
         Dim encoder As New JpegBitmapEncoder()
         encoder.Frames.Add(BitmapFrame.Create(bitmap))
 
-        Using stream As New FileStream(My.Settings.RutaImgs & "5.jpg", FileMode.Create)
+        Dim cadena As New StringBuilder()
+        cadena.Append(My.Settings.RutaImgs).Append(nuevoId).Append(".jpg")
+
+        UrlFotoSeleccionada = cadena.ToString()
+
+        Using stream As New FileStream(UrlFotoSeleccionada, FileMode.Create)
 
             encoder.Save(stream)
 
         End Using
-
-        ' Me.UrlFoto = "..\..\" & My.Settings.RutaImgs & ultimoId & ".jpg"            ' Asignamos la nueva ruta de la foto.
 
     End Sub
 
@@ -208,11 +218,11 @@ Public Class VntAddCliente
         If ComprobarDatosIntroducidos() Then
 
             ' Creamos el cliente.
-            Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text, UrlFoto)
+            Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text, UrlFotoSeleccionada)
 
             If Accion = Foo.Accion.Insertar Then
 
-                If ClienteImg.Source IsNot Nothing Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
+                If Foo.HayImagen(ClienteImg.Source) Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
 
                     GuardarFoto(ClienteImg.Source)
 
@@ -220,7 +230,7 @@ Public Class VntAddCliente
 
                 If GestionBd.InsertarCliente(cliente) Then
 
-                    MessageBox.Show("Cliente Añadido.", "", MessageBoxButton.OK, MessageBoxImage.Information)
+                    MessageBox.Show("Se ha añadido el cliente.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
 
                 End If
@@ -228,7 +238,7 @@ Public Class VntAddCliente
             End If
 
             VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
-            UrlFoto = ""
+            UrlFotoSeleccionada = ""        ' Quitamos la ruta de la imagen.
 
         End If
 

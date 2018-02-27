@@ -16,11 +16,25 @@ Public Class Foo
 
 
     ''' <summary>
+    ''' Comprueba si hay una imagen en el Image.
+    ''' </summary>
+    ''' <param name="img">Imagen a comprobar.</param>
+    ''' <returns>True: Hay imagen. False: No hay imagen.</returns>
+    Public Shared Function HayImagen(ByRef img As ImageSource) As Boolean
+
+        Return img IsNot Nothing
+
+    End Function
+
+
+    ''' <summary>
     ''' Indica la acción que se va a realizar en un mismo formulario. Ya sea para añadir o modificar datos.
     ''' </summary>
     Enum Accion
+
         Insertar
         Modificar
+
     End Enum
 
 End Class

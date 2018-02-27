@@ -165,8 +165,7 @@ Public Class GestionBd
         Dim conexion As MySqlConnection = ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
                                          FROM   Garajes", conexion)
-
-        Dim datos As MySqlDataReader = Nothing
+        Dim datos As MySqlDataReader
 
         Try
             datos = comando.ExecuteReader()
@@ -230,7 +229,8 @@ Public Class GestionBd
     Public Shared Function EliminarGaraje(ByRef idGaraje As Integer) As Boolean
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("DELETE FROM Garajes WHERE IdGaraje = {0}", idGaraje), conexion)
+        Dim comando As New MySqlCommand(String.Format("DELETE FROM Garajes 
+                                                       WHERE IdGaraje = {0}", idGaraje), conexion)
         Dim numFila As Integer
 
         Try
@@ -399,8 +399,8 @@ Public Class GestionBd
     ''' <summary>
     ''' Obtiene el nuevo Id de la tabla "Clientes", (ultimoId + 1) para guardar su imagen.
     ''' </summary>
-    ''' <returns>El nuevo Id del cliente.</returns>
-    Public Shared Function ObtenerUltimoIdClientes() As Integer
+    ''' <returns>El nuevo Id de la imagen.</returns>
+    Public Shared Function ObtenerNuevoIdClientes() As Integer
 
         Dim conexion As MySqlConnection = ConexionABd()
         Dim comando As New MySqlCommand("SELECT MAX(IdCliente) 
@@ -415,7 +415,35 @@ Public Class GestionBd
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener el último Id de la tabla Clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al obtener el nuevo Id de la tabla Clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return ultimoId
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene el nuevo Id de la tabla "Vehiculos", (ultimoId + 1) para guardar su imagen.
+    ''' </summary>
+    ''' <returns>El nuevo Id de la imagen.</returns>
+    Public Shared Function ObtenerNuevoIdVehiculos() As Integer
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand("SELECT MAX(IdVehiculo) 
+                                         FROM   Vehiculos;", conexion)
+        Dim ultimoId As Integer
+
+        Try
+            ultimoId = CType(comando.ExecuteScalar(), Integer)
+            ultimoId += 1
+
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener el nuevo Id de la tabla Vehiculos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -528,7 +556,7 @@ Public Class GestionBd
                 Dim cliente As Cliente = New Cliente(datos.GetString("Nombre"), datos.GetString("Apellidos"))
                 Dim total As Decimal = datos.GetDecimal("Total")
 
-                listaVehiculos.Add(New Vehiculo(id, matricula, marca, modelo, cliente, total, Nothing))
+                listaVehiculos.Add(New Vehiculo(id, matricula, marca, modelo, cliente, total))
 
             End While
 
@@ -536,6 +564,89 @@ Public Class GestionBd
             conexion.Close()
 
             Return listaVehiculos
+
+        End If
+
+        Return Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Inserta un vehículo.
+    ''' </summary>
+    ''' <param name="vehiculo">Datos del vehículo a insertar.</param>
+    ''' <returns>True: El vehículo se ha insertado. False: El vehículo no se ha insertado.</returns>
+    Public Shared Function InsertarVehiculo(ByRef vehiculo As Vehiculo) As Boolean
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As MySqlCommand
+
+        If vehiculo.ArrayUrlFotos Is Nothing Then
+
+            comando = New MySqlCommand(String.Format("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, Base, Total, URLFotos)
+                                                      VALUES ({0}, '{1}', '{2}', '{3}', {4}, {5}, {6}, {7}, {8}, NULL);", vehiculo.Id, vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.Cliente.Id, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase, vehiculo.PrecioTotal), conexion)
+        Else
+
+            comando = New MySqlCommand(String.Format("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, Base, Total, URLFotos)
+                                                      VALUES ({0}, '{1}', '{2}', '{3}', {4}, {5}, {6}, {7}, {8}, '{9}');", vehiculo.Id, vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.Cliente.Id, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase, vehiculo.PrecioTotal, vehiculo.UrlFotos), conexion)
+        End If
+
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al insertar el vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene las plazas a partir del Id del garaje seleccionado.
+    ''' </summary>
+    ''' <param name="idGaraje">Id del garaje seleccionado.</param>
+    ''' <returns>Lista con las plazas.</returns>
+    Public Shared Function ObtenerPlazasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("SELECT IdPlaza
+                                                       FROM   Plazas
+                                                       WHERE  IdGaraje = {0};", idGaraje), conexion)
+        Dim datos As MySqlDataReader
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener las plazas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim listaPlazas As New List(Of Plaza)()
+
+            While datos.Read()
+
+                Dim id As Integer = datos.GetInt32("IdPlaza")
+
+                listaPlazas.Add(New Plaza(id))
+
+            End While
+
+            conexion.Close()
+            datos.Close()
+
+            Return listaPlazas
 
         End If
 

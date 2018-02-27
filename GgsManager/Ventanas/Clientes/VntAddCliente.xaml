@@ -63,7 +63,6 @@
         <TextBlock Text="Foto" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" />
 
         <DockPanel Grid.Column="1" Grid.Row="8" LastChildFill="False">
-            
             <Border BorderThickness="2" BorderBrush="Black" Height="90" DockPanel.Dock="Left" Margin="0,20,0,0">
                 <Image Name="ClienteImg" Width="106" Stretch="Fill" Source="{Binding Bitmap}" />
             </Border>
