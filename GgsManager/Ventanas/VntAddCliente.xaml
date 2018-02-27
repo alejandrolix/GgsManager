@@ -25,7 +25,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid Margin="0,2,0,0">
+    <Grid Margin="0,4,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="269*" />
             <ColumnDefinition Width="391*" />
@@ -59,7 +59,7 @@
         <TextBlock Text="Móvil" Grid.Column="0" Grid.Row="6" Style="{StaticResource Etiquetas}" />
         <TextBox Name="MovilClienteTxt" Grid.Column="1" Grid.Row="6" Text="{Binding Movil}" Style="{StaticResource TextBox}" />
         <TextBlock Text="Observaciones" Grid.Column="0" Grid.Row="7" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="ObservClienteTxt" Width="210" Grid.Column="1" Grid.Row="7" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
+        <TextBox Name="ObservClienteTxt" TextWrapping="Wrap" AcceptsReturn="True" Width="210" Height="Auto" Grid.Column="1" Grid.Row="7" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
         <TextBlock Text="Foto" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" />
 
         <DockPanel Grid.Column="1" Grid.Row="8" LastChildFill="False">

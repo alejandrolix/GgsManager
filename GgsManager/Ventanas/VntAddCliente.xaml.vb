@@ -205,34 +205,32 @@ Public Class VntAddCliente
 
     Private Sub GuardarClienteBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        GuardarFoto(ClienteImg.Source)
+        If ComprobarDatosIntroducidos() Then
 
-        'If ComprobarDatosIntroducidos() Then
+            ' Creamos el cliente.
+            Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text, UrlFoto)
 
-        '    ' Creamos el cliente.
-        '    Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text, UrlFoto)
+            If Accion = Foo.Accion.Insertar Then
 
-        '    If Accion = Foo.Accion.Insertar Then
+                If ClienteImg.Source IsNot Nothing Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
 
-        '        If ClienteImg.Source IsNot Nothing Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
+                    GuardarFoto(ClienteImg.Source)
 
-        '            GuardarFoto(ClienteImg.Source)
+                End If
 
-        '        End If
+                If GestionBd.InsertarCliente(cliente) Then
 
-        '        If GestionBd.InsertarCliente(cliente) Then
+                    MessageBox.Show("Cliente Añadido.", "", MessageBoxButton.OK, MessageBoxImage.Information)
+                    LimpiarCampos()
 
-        '            MessageBox.Show("Cliente Añadido", "", MessageBoxButton.OK, MessageBoxImage.Information)
-        '            LimpiarCampos()
+                End If
 
-        '        End If
+            End If
 
-        '    End If
+            VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
+            UrlFoto = ""
 
-        '    VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
-        '    UrlFoto = ""
-
-        'End If
+        End If
 
     End Sub
 

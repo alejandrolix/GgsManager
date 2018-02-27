@@ -163,7 +163,7 @@ Public Class GestionBd
     Public Shared Function ObtenerGarajes() As List(Of Garaje)
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, Observaciones
+        Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
                                          FROM   Garajes", conexion)
 
         Dim datos As MySqlDataReader = Nothing
@@ -191,9 +191,11 @@ Public Class GestionBd
                     Dim nombre As String = datos.GetString("Nombre")
                     Dim direccion As String = datos.GetString("Direccion")
                     Dim numPlazas As Integer = datos.GetInt64("NumPlazas")
+                    Dim numPlazasLibres As Integer = datos.GetInt32("NumPlazasLibres")
+                    Dim numPlazasOcupadas As Integer = datos.GetInt32("NumPlazasOcupadas")
                     Dim observaciones As String
 
-                    If datos.IsDBNull(4) Then               ' Si el contenido de la 2ª columna, (Observaciones), es NULL.
+                    If datos.IsDBNull(6) Then               ' Si el contenido de la 2ª columna, (Observaciones), es NULL.
 
                         observaciones = ""
                     Else
@@ -202,7 +204,7 @@ Public Class GestionBd
 
                     End If
 
-                    listaGarajes.Add(New Garaje(id, nombre, direccion, numPlazas, observaciones))
+                    listaGarajes.Add(New Garaje(id, nombre, direccion, numPlazas, numPlazasLibres, numPlazasOcupadas, observaciones))
 
                 End While
 
@@ -378,7 +380,7 @@ Public Class GestionBd
 
                 End If
 
-                listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, observaciones, urlFoto))
+                listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones, urlFoto))
 
             End While
 
