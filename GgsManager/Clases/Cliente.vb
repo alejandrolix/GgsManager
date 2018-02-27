@@ -1,7 +1,11 @@
-﻿''' <summary>
+﻿Imports System.ComponentModel
+Imports System.Runtime.CompilerServices
+
+''' <summary>
 ''' Representa un cliente de la tabla "Clientes" de la base de datos.
 ''' </summary>
 Public Class Cliente
+
     Property Id As Integer
     Property Nombre As String
     Property Apellidos As String
@@ -14,9 +18,8 @@ Public Class Cliente
     Property Observaciones As String
     Property UrlFoto As String
 
-    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaAlta As Date, observaciones As String)
+    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaAlta As Date, observaciones As String)
 
-        Me.Id = id
         Me.Nombre = nombre
         Me.Apellidos = apellidos
         Me.DNI = dni
@@ -29,8 +32,9 @@ Public Class Cliente
 
     End Sub
 
-    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String, urlFoto As String)
+    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String, urlFoto As String)
 
+        Me.Id = id
         Me.Nombre = nombre
         Me.Apellidos = apellidos
         Me.DNI = dni

@@ -66,7 +66,7 @@ Partial Friend NotInheritable Class MySettings
     
     <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("Imgs\Clientes\")>  _
+     Global.System.Configuration.DefaultSettingValueAttribute("../../Imgs/Clientes/")>  _
     Public ReadOnly Property RutaImgs() As String
         Get
             Return CType(Me("RutaImgs"),String)

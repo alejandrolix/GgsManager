@@ -2,6 +2,7 @@
 ''' Representa un garaje de la tabla "Garajes" de la base de datos.
 ''' </summary>
 Public Class Garaje
+
     Property Id As Integer
     Property Nombre As String
     Property Direccion As String

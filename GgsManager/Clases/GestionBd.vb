@@ -34,34 +34,6 @@ Public Class GestionBd
 
 
     ''' <summary>
-    ''' Obtiene el nuevo Id de la tabla "Clientes", (ultimoId + 1) para guardar su imagen.
-    ''' </summary>
-    ''' <returns>El nuevo Id del cliente.</returns>
-    Public Shared Function ObtenerUltimoIdClientes() As Integer
-
-        Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand("SELECT MAX(IdCliente) 
-                                         FROM   Clientes;", conexion)
-        Dim ultimoId As Integer
-
-        Try
-            ultimoId = CType(comando.ExecuteScalar(), Integer)
-            ultimoId += 1
-
-            conexion.Close()
-
-        Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener el último Id de la tabla Clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        End Try
-
-        Return ultimoId
-
-    End Function
-
-
-    ''' <summary>
     ''' Comprueba si existe el usuario introducido.
     ''' </summary>
     ''' <param name="usuario">Nombre de usuario a comprobar.</param>
@@ -356,7 +328,7 @@ Public Class GestionBd
     Public Shared Function ObtenerClientes() As ObservableCollection(Of Cliente)
 
         Dim conexion As MySqlConnection = ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones
+        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, URLFoto, Observaciones
                                          FROM   Clientes", conexion)
 
         Dim datos As MySqlDataReader = Nothing
@@ -385,10 +357,19 @@ Public Class GestionBd
                 Dim provincia As String = datos.GetString("Provincia")
                 Dim movil As String = datos.GetString("Movil")
                 Dim fechaAlta As Date = datos.GetDateTime("FechaAlta")
-
+                Dim urlFoto As String
                 Dim observaciones As String
 
                 If datos.IsDBNull(9) Then
+
+                    urlFoto = ""
+                Else
+
+                    urlFoto = datos.GetString("URLFoto")
+
+                End If
+
+                If datos.IsDBNull(10) Then
 
                     observaciones = ""
                 Else
@@ -397,7 +378,7 @@ Public Class GestionBd
 
                 End If
 
-                listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones))
+                listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, observaciones, urlFoto))
 
             End While
 
@@ -409,6 +390,34 @@ Public Class GestionBd
         End If
 
         Return Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene el nuevo Id de la tabla "Clientes", (ultimoId + 1) para guardar su imagen.
+    ''' </summary>
+    ''' <returns>El nuevo Id del cliente.</returns>
+    Public Shared Function ObtenerUltimoIdClientes() As Integer
+
+        Dim conexion As MySqlConnection = ConexionABd()
+        Dim comando As New MySqlCommand("SELECT MAX(IdCliente) 
+                                         FROM   Clientes;", conexion)
+        Dim ultimoId As Integer
+
+        Try
+            ultimoId = CType(comando.ExecuteScalar(), Integer)
+            ultimoId += 1
+
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener el último Id de la tabla Clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return ultimoId
 
     End Function
 

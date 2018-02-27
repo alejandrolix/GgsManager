@@ -119,6 +119,7 @@
     <Compile Include="Clases\Foo.vb" />
     <Compile Include="Clases\Garaje.vb" />
     <Compile Include="Clases\GestionBd.vb" />
+    <Compile Include="Clases\ImageViewModel.vb" />
     <Compile Include="Clases\UsuarioPrograma.vb" />
     <Compile Include="Ventanas\VntAddCliente.xaml.vb">
       <DependentUpon>VntAddCliente.xaml</DependentUpon>
@@ -193,8 +194,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Imgs\Clientes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

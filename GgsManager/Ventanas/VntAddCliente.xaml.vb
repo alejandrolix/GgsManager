@@ -25,9 +25,21 @@ Public Class VntAddCliente
             MovilClienteTxt.DataContext = ClienteSelec
             ObservClienteTxt.DataContext = ClienteSelec
 
-        End If
+            If Foo.HayTexto(ClienteSelec.UrlFoto) Then
 
-        VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
+                Dim ivm As New ImageViewModel(ClienteSelec.UrlFoto)
+                ClienteImg.DataContext = ivm
+
+                'Dim bitmap As New BitmapImage()
+                'bitmap.BeginInit()
+                'bitmap.StreamSource = New FileStream(ClienteSelec.UrlFoto, FileMode.Open)
+                'bitmap.EndInit()
+
+                'ClienteImg.Source = bitmap
+
+            End If
+
+        End If
 
     End Sub
 
@@ -181,44 +193,46 @@ Public Class VntAddCliente
         Dim encoder As New JpegBitmapEncoder()
         encoder.Frames.Add(BitmapFrame.Create(bitmap))
 
-        Using stream As New FileStream("..\..\" & My.Settings.RutaImgs & ultimoId & ".jpg", FileMode.Create)
+        Using stream As New FileStream(My.Settings.RutaImgs & "5.jpg", FileMode.Create)
 
             encoder.Save(stream)
 
         End Using
 
-        Me.UrlFoto = "..\..\" & My.Settings.RutaImgs & ultimoId & ".jpg"            ' Asignamos la nueva ruta de la foto.
+        ' Me.UrlFoto = "..\..\" & My.Settings.RutaImgs & ultimoId & ".jpg"            ' Asignamos la nueva ruta de la foto.
 
     End Sub
 
     Private Sub GuardarClienteBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        If ComprobarDatosIntroducidos() Then
+        GuardarFoto(ClienteImg.Source)
 
-            ' Creamos el cliente.
-            Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text, UrlFoto)
+        'If ComprobarDatosIntroducidos() Then
 
-            If Accion = Foo.Accion.Insertar Then
+        '    ' Creamos el cliente.
+        '    Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text, MovilClienteTxt.Text, ObservClienteTxt.Text, UrlFoto)
 
-                If ClienteImg.Source IsNot Nothing Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
+        '    If Accion = Foo.Accion.Insertar Then
 
-                    GuardarFoto(ClienteImg.Source)
+        '        If ClienteImg.Source IsNot Nothing Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
 
-                End If
+        '            GuardarFoto(ClienteImg.Source)
 
-                If GestionBd.InsertarCliente(cliente) Then
+        '        End If
 
-                    MessageBox.Show("Cliente Añadido", "", MessageBoxButton.OK, MessageBoxImage.Information)
-                    LimpiarCampos()
+        '        If GestionBd.InsertarCliente(cliente) Then
 
-                End If
+        '            MessageBox.Show("Cliente Añadido", "", MessageBoxButton.OK, MessageBoxImage.Information)
+        '            LimpiarCampos()
 
-            End If
+        '        End If
 
-            VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
-            UrlFoto = ""
+        '    End If
 
-        End If
+        '    VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
+        '    UrlFoto = ""
+
+        'End If
 
     End Sub
 

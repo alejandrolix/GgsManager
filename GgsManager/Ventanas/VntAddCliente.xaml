@@ -25,7 +25,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
+    <Grid Margin="0,2,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="269*" />
             <ColumnDefinition Width="391*" />
@@ -63,8 +63,9 @@
         <TextBlock Text="Foto" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" />
 
         <DockPanel Grid.Column="1" Grid.Row="8" LastChildFill="False">
+            
             <Border BorderThickness="2" BorderBrush="Black" Height="90" DockPanel.Dock="Left" Margin="0,20,0,0">
-                <Image Name="ClienteImg" Width="106" Stretch="Fill" />
+                <Image Name="ClienteImg" Width="106" Stretch="Fill" Source="{Binding Bitmap}" />
             </Border>
             <Button Name="AddFotoBtn" Width="80" Height="31" Content="Examinar" FontSize="16" Margin="40,14,0,0" Click="AddFotoBtn_Click" />
         </DockPanel>
