@@ -88,6 +88,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Clases\Plaza.vb" />
+    <Compile Include="Ventanas\Usuarios\VntUsuarios.xaml.vb">
+      <DependentUpon>VntUsuarios.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Vehiculos\VntAddVehiculo.xaml.vb">
       <DependentUpon>VntAddVehiculo.xaml</DependentUpon>
     </Compile>
@@ -99,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Garajes\VntAddGaraje.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Usuarios\VntUsuarios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

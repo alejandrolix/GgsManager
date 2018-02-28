@@ -59,7 +59,7 @@
         <TextBlock Text="Modelo" Grid.Column="0" Grid.Row="2" Style="{StaticResource Etiquetas}" />
         <TextBox Name="ModVehiculoTxt" Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBox}" Width="180" />
         <TextBlock Text="Garaje" Grid.Column="0" Grid.Row="3" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="GarajesCmb" SelectionChanged="GarajesCmb_SelectionChanged" Grid.Column="1" ItemsSource="{Binding}" Grid.Row="3" Style="{StaticResource ComboBox}">
+        <ComboBox Name="GarajesCmb" IsEditable="True" SelectionChanged="GarajesCmb_SelectionChanged" Grid.Column="1" ItemsSource="{Binding}" Grid.Row="3" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -69,7 +69,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <TextBlock Text="Cliente" Grid.Column="0" Grid.Row="4" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="ClientesCmb" Grid.Column="1" Grid.Row="4" SelectionChanged="ClientesCmb_SelectionChanged" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
+        <ComboBox Name="ClientesCmb" IsEditable="True" Grid.Column="1" Grid.Row="4" SelectionChanged="ClientesCmb_SelectionChanged" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
