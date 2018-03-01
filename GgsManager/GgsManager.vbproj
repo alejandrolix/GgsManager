@@ -88,6 +88,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Clases\Plaza.vb" />
+    <Compile Include="Ventanas\Garajes\VntSeleccGaraje.xaml.vb">
+      <DependentUpon>VntSeleccGaraje.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Plazas\VntPlazas.xaml.vb">
+      <DependentUpon>VntPlazas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Usuarios\VntAddUsuario.xaml.vb">
+      <DependentUpon>VntAddUsuario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Usuarios\VntUsuarios.xaml.vb">
       <DependentUpon>VntUsuarios.xaml</DependentUpon>
     </Compile>
@@ -102,6 +111,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Garajes\VntAddGaraje.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Garajes\VntSeleccGaraje.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Plazas\VntPlazas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Usuarios\VntAddUsuario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,7 +157,6 @@
     <Compile Include="Clases\Cliente.vb" />
     <Compile Include="Clases\Foo.vb" />
     <Compile Include="Clases\Garaje.vb" />
-    <Compile Include="Clases\GestionBd.vb" />
     <Compile Include="Clases\ImageViewModel.vb" />
     <Compile Include="Clases\UsuarioPrograma.vb" />
     <Compile Include="Clases\Vehiculo.vb" />

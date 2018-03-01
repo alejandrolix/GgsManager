@@ -1,4 +1,4 @@
-﻿Class MainWindow
+﻿Class VntPrincipal
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
@@ -15,11 +15,11 @@
         Dim vntLogin As New VntLogin()
         vntLogin.ShowDialog()
 
-        If GestionBd.UsuarioPrograma IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
+        If UsuarioPrograma.UsuarioLogueado IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
 
             MenuPrincipal.IsEnabled = True
 
-            If GestionBd.UsuarioPrograma.EsGestor = False Then           ' Si el usuario logueado no es un gestor, desactivamos las opciones de "Usuarios" y "Configuración".
+            If UsuarioPrograma.UsuarioLogueado.EsGestorB = False Then           ' Si el usuario logueado no es un gestor, desactivamos las opciones de "Usuarios" y "Configuración".
 
                 Usuarios.IsEnabled = False
                 Configuracion.IsEnabled = False
@@ -58,18 +58,23 @@
 
     Private Sub Vehiculos_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim vntVehiculos As New WPF.MDI.MdiChild()
-        vntVehiculos.Title = "Gestión de Vehículos"
-        vntVehiculos.Content = New VntVehiculos()
+        Dim vntSeleccGaraje As New VntSeleccGaraje()
+        vntSeleccGaraje.VntPrincipal = Me
 
-        vntVehiculos.Width = 752
-        vntVehiculos.Height = 401
-
-        ContenedorMDI.Children.Add(vntVehiculos)
+        vntSeleccGaraje.ShowDialog()
 
     End Sub
 
     Private Sub Usuarios_Click(sender As Object, e As RoutedEventArgs)
+
+        Dim vntUsuarios As New WPF.MDI.MdiChild()
+        vntUsuarios.Title = "Gestión de Usuarios"
+        vntUsuarios.Content = New VntUsuarios()
+
+        vntUsuarios.Width = 1460
+        vntUsuarios.Height = 483
+
+        ContenedorMDI.Children.Add(vntUsuarios)
 
     End Sub
 
@@ -78,6 +83,8 @@
     End Sub
 
     Private Sub Listados_Click(sender As Object, e As RoutedEventArgs)
+
+
 
     End Sub
 

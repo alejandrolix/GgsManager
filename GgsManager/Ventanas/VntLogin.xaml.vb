@@ -24,11 +24,11 @@
 
         If Foo.HayTexto(UsuarioTxt.Text) And Foo.HayTexto(PasswordBox.Password) Then            ' Si el usuario ha introducido su nombre y su contraseña.         
 
-            If GestionBd.ExisteUsuario(UsuarioTxt.Text) Then
+            If UsuarioPrograma.ExisteUsuario(UsuarioTxt.Text) Then
 
-                GestionBd.UsuarioPrograma = GestionBd.ObtenerUsuarioPrograma(UsuarioTxt.Text)
+                UsuarioPrograma.UsuarioLogueado = UsuarioPrograma.ObtenerUsuarioPrograma(UsuarioTxt.Text)
 
-                If GestionBd.ComprobarHashPassword(PasswordBox.Password) Then
+                If UsuarioPrograma.ComprobarHashPassword(PasswordBox.Password) Then
 
                     Me.Close()
                 Else

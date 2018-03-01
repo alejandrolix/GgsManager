@@ -187,7 +187,7 @@ Public Class VntAddCliente
     ''' <param name="img">El origen de la foto seleccionada.</param>
     Private Sub GuardarFoto(ByRef img As ImageSource)
 
-        Dim nuevoId As Integer = GestionBd.ObtenerNuevoIdClientes()
+        Dim nuevoId As Integer = Cliente.ObtenerNuevoIdClientes()
         Dim bitmap As New BitmapImage()
 
         bitmap.BeginInit()
@@ -228,7 +228,7 @@ Public Class VntAddCliente
 
                 End If
 
-                If GestionBd.InsertarCliente(cliente) Then
+                If Cliente.InsertarCliente(cliente) Then
 
                     MessageBox.Show("Se ha añadido el cliente.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -237,7 +237,7 @@ Public Class VntAddCliente
 
             End If
 
-            VntClientes.ClientesDg.DataContext = GestionBd.ObtenerClientes()
+            VntClientes.ClientesDg.DataContext = Cliente.ObtenerClientes()
             UrlFotoSeleccionada = ""        ' Quitamos la ruta de la imagen.
 
         End If

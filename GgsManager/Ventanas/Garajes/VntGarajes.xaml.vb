@@ -3,7 +3,7 @@
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
 
-        GarajesDg.DataContext = GestionBd.ObtenerGarajes()
+        GarajesDg.DataContext = Garaje.ObtenerGarajes()
 
     End Sub
 
@@ -22,9 +22,9 @@
             MessageBox.Show("Tienes que seleccionar un garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If GestionBd.EliminarGaraje(garajeSelec.Id) Then                   ' Intentamos eliminar el garaje de la base de datos.
+            If Garaje.EliminarGaraje(garajeSelec.Id) Then                   ' Intentamos eliminar el garaje de la base de datos.
 
-                GarajesDg.DataContext = GestionBd.ObtenerGarajes()
+                GarajesDg.DataContext = Garaje.ObtenerGarajes()
                 MessageBox.Show("Se ha eliminado el garaje.", "Garaje Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
 
             End If

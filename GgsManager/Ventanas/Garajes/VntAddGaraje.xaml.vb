@@ -30,7 +30,7 @@
 
             If Accion = Foo.Accion.Insertar Then            ' Vamos a insertar un garaje.                
 
-                If GestionBd.InsertarGaraje(garaje) Then
+                If Garaje.InsertarGaraje(garaje) Then
 
                     MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -39,7 +39,7 @@
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                If GestionBd.ModificarGaraje(garaje) Then
+                If Garaje.ModificarGaraje(garaje) Then
 
                     MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -50,7 +50,7 @@
 
         End If
 
-        VntGarajes.GarajesDg.DataContext = GestionBd.ObtenerGarajes()
+        VntGarajes.GarajesDg.DataContext = Garaje.ObtenerGarajes()
 
     End Sub
 

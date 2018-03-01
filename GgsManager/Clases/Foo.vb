@@ -1,4 +1,9 @@
-﻿''' <summary>
+﻿Imports System.Collections.ObjectModel
+Imports System.Security.Cryptography
+Imports System.Text
+Imports MySql.Data.MySqlClient
+
+''' <summary>
 ''' Contiene métodos que se van a usar en varios sitios.
 ''' </summary>
 Public Class Foo
@@ -28,7 +33,30 @@ Public Class Foo
 
 
     ''' <summary>
-    ''' Indica la acción que se va a realizar en un mismo formulario. Ya sea para añadir o modificar datos.
+    ''' Realiza una conexión a la base de datos.
+    ''' </summary>
+    ''' <returns>Conexión a la base de datos.</returns>
+    Public Shared Function ConexionABd() As MySqlConnection
+
+        Dim conexion As New MySqlConnection(My.Settings.ConexionABd)
+
+        Try
+            conexion.Open()
+            Return conexion
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al conectarse con la base de datos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Indica la acción que se va a realizar en un mismo formulario. Como añadir o modificar datos.
     ''' </summary>
     Enum Accion
 

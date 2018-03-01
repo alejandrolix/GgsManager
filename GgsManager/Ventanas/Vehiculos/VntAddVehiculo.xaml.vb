@@ -12,18 +12,35 @@ Public Class VntAddVehiculo
     Private HayImagen As Boolean
     Private GarajeSelec As Garaje                   ' Almacena el garaje seleccionado por el usuario.
     Private ClienteSelec As Cliente             ' Almacena el cliente seleccionado por el usuario.
+    Private Accion As Foo.Accion
+    Private VehiculoSelec As Vehiculo
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        GarajesCmb.DataContext = GestionBd.ObtenerGarajes()             ' Cargamos los garajes en su ComboBox.
-        GarajesCmb.SelectedIndex = 0
+        If Accion = Foo.Accion.Insertar Then
 
-        ClientesCmb.DataContext = GestionBd.ObtenerClientes()           ' Cargamos los clientes en su ComboBox.
-        ClientesCmb.SelectedIndex = 0
+            GarajesCmb.DataContext = Garaje.ObtenerGarajes()             ' Cargamos los garajes en su ComboBox.
+            GarajesCmb.SelectedIndex = 0
 
-        Me.NumPulsacBtnExaminar = 0
-        Me.NumVecesGuardadoFoto = 0
-        Me.HayImagen = False                ' Indica si, por lo menos, hay una imagen para guardar.
+            ClientesCmb.DataContext = Cliente.ObtenerClientes()           ' Cargamos los clientes en su ComboBox.
+            ClientesCmb.SelectedIndex = 0
+
+            Me.NumPulsacBtnExaminar = 0
+            Me.NumVecesGuardadoFoto = 0
+            Me.HayImagen = False                ' Indica si, por lo menos, hay una imagen para guardar.
+
+        ElseIf Accion = Foo.Accion.Modificar Then
+
+            MatrVehiculoTxt.DataContext = VehiculoSelec
+            MarcaVehiculoTxt.DataContext = VehiculoSelec
+            ModVehiculoTxt.DataContext = VehiculoSelec
+            GarajesCmb.DataContext = VehiculoSelec
+            ClientesCmb.DataContext = VehiculoSelec
+            PlazasCmb.DataContext = VehiculoSelec
+            PrecBaseVehiculoTxt.DataContext = VehiculoSelec
+            PrecTotalVehiculoTxt.DataContext = VehiculoSelec
+
+        End If
 
     End Sub
 
@@ -31,7 +48,7 @@ Public Class VntAddVehiculo
 
         Me.GarajeSelec = CType(GarajesCmb.SelectedItem, Garaje)
 
-        PlazasCmb.DataContext = GestionBd.ObtenerPlazasPorIdGaraje(GarajeSelec.Id)
+        PlazasCmb.DataContext = Plaza.ObtenerPlazasPorIdGaraje(GarajeSelec.Id)
         PlazasCmb.SelectedIndex = 0
 
     End Sub
@@ -88,59 +105,71 @@ Public Class VntAddVehiculo
 
         If ComprobarDatosIntroducidos() Then
 
-            If Foo.HayImagen(Vehic1Img.Source) Then             ' Comprobamos si, por lo menos, hay una imagen.
+            If Accion = Foo.Accion.Insertar Then
 
-                HayImagen = True
+                If Foo.HayImagen(Vehic1Img.Source) Then             ' Comprobamos si, por lo menos, hay una imagen.
 
-            ElseIf Foo.HayImagen(Vehic2Img.Source) Then
+                    HayImagen = True
 
-                HayImagen = True
+                ElseIf Foo.HayImagen(Vehic2Img.Source) Then
 
-            End If
-
-            If HayImagen Then
-
-                Dim nuevoId As Integer = GestionBd.ObtenerNuevoIdVehiculos()
-
-                If Foo.HayImagen(Vehic1Img.Source) Then
-
-                    GuardarFoto(Vehic1Img.Source, ArrayUrlImgs(0), nuevoId)
+                    HayImagen = True
 
                 End If
 
-                If Foo.HayImagen(Vehic2Img.Source) Then
+                If HayImagen Then
 
-                    GuardarFoto(Vehic2Img.Source, ArrayUrlImgs(1), nuevoId)
+                    Dim nuevoId As Integer = Vehiculo.ObtenerNuevoIdVehiculos()
+
+                    If Foo.HayImagen(Vehic1Img.Source) Then
+
+                        GuardarFoto(Vehic1Img.Source, ArrayUrlImgs(0), nuevoId)
+
+                    End If
+
+                    If Foo.HayImagen(Vehic2Img.Source) Then
+
+                        GuardarFoto(Vehic2Img.Source, ArrayUrlImgs(1), nuevoId)
+
+                    End If
+
+                    Dim cadenaUrls As New StringBuilder()
+
+                    For Each url As String In ArrayUrlImgs
+
+                        cadenaUrls.Append(url).Append(" ")
+
+                    Next
+
+                    Dim plazaSelecc As Plaza = CType(PlazasCmb.SelectedItem, Plaza)
+                    Dim vehic As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, ClienteSelec, GarajeSelec.Id, plazaSelecc.Id, PrecioBase, PrecioTotal, cadenaUrls.ToString())
+
+                    If Vehiculo.InsertarVehiculo(vehic) Then
+
+                        MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Insertado", MessageBoxButton.OK, MessageBoxImage.Information)
+                        LimpiarCampos()
+
+                    End If
 
                 End If
 
-                Dim cadenaUrls As New StringBuilder()
+                Dim plazaSelec As Plaza = CType(PlazasCmb.SelectedItem, Plaza)
+                Dim vehicc As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, ClienteSelec, GarajeSelec.Id, plazaSelec.Id, PrecioBase, PrecioTotal, Nothing)
 
-                For Each url As String In ArrayUrlImgs
-
-                    cadenaUrls.Append(url).Append(" ")
-
-                Next
-
-                Dim plazaSelecc As Plaza = CType(PlazasCmb.SelectedItem, Plaza)
-                Dim vehiculoo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, ClienteSelec, GarajeSelec.Id, plazaSelecc.Id, PrecioBase, PrecioTotal, cadenaUrls.ToString())
-
-                If GestionBd.InsertarVehiculo(vehiculoo) Then
+                If Vehiculo.InsertarVehiculo(vehicc) Then
 
                     MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Insertado", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
 
                 End If
 
-            End If
+            ElseIf Accion = Foo.Accion.Modificar Then
 
-            Dim plazaSelec As Plaza = CType(PlazasCmb.SelectedItem, Plaza)
-            Dim vehiculo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, ClienteSelec, GarajeSelec.Id, plazaSelec.Id, PrecioBase, PrecioTotal, Nothing)
+                If Vehiculo.ModificarVehiculo(VehiculoSelec) Then
 
-            If GestionBd.InsertarVehiculo(vehiculo) Then
+                    MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
 
-                MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Insertado", MessageBoxButton.OK, MessageBoxImage.Information)
-                LimpiarCampos()
+                End If
 
             End If
 
@@ -278,5 +307,21 @@ Public Class VntAddVehiculo
         Return hayMatricula And hayMarca And hayModelo And hayPrecioBase And hayPrecioTotal
 
     End Function
+
+    Public Sub New(accion As Foo.Accion)
+
+        InitializeComponent()
+        Me.Accion = accion
+
+    End Sub
+
+    Public Sub New(accion As Foo.Accion, vehiculoSelec As Vehiculo)
+
+        InitializeComponent()
+
+        Me.Accion = accion
+        Me.VehiculoSelec = vehiculoSelec
+
+    End Sub
 
 End Class
