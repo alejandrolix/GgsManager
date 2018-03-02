@@ -141,7 +141,7 @@ Public Class VntAddCliente
 
 
     ''' <summary>
-    ''' Limpia los datos introducidos por el usuario.
+    ''' Limpia los datos del cliente introducidos por el usuario.
     ''' </summary>
     Private Sub LimpiarCampos()
 
@@ -264,7 +264,6 @@ Public Class VntAddCliente
             End If
 
             VntClientes.ClientesDg.DataContext = Cliente.ObtenerClientes()
-            UrlFotoSeleccionada = ""        ' Quitamos la ruta de la imagen de la memoria.
 
         End If
 

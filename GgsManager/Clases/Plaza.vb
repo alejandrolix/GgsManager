@@ -1,5 +1,8 @@
 ﻿Imports MySql.Data.MySqlClient
 
+''' <summary>
+''' Representa una plaza de la tabla "Plazas" de la base de datos.
+''' </summary>
 Public Class Plaza
 
     Property Id As Integer

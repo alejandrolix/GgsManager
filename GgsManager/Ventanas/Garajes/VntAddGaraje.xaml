@@ -5,53 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
-        Title="Añadir Garaje" Height="311.575" Width="595.9"
+        Title="Añadir Garaje" Height="345.575" Width="551.9"
         Background="#f0f0f0"
         ResizeMode="NoResize" Loaded="Window_Loaded">
     <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="Etiquetas">
+            <Setter Property="Margin" Value="0,20,0,0" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Height" Value="20" />
+        </Style>
+
         <Style TargetType="TextBox" x:Key="TextBox">
-            <Setter Property="DockPanel.Dock" Value="Right" />
-            <Setter Property="Margin" Value="0,0,53,0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Width" Value="150" />
             <Setter Property="FontSize" Value="15" />
         </Style>
     </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="127*" />
+            <ColumnDefinition Width="151*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Column="0" Grid.Row="0">
-            <TextBlock Text="Nombre" Width="58" VerticalAlignment="Center" FontSize="15" Margin="18,0,0,0" />
-            <TextBox Name="NombreGarajeTxt" Width="132" Height="24" Text="{Binding Nombre}" Style="{StaticResource TextBox}" />
-            <TextBlock />
-        </DockPanel>
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre" Style="{StaticResource Etiquetas}" />
+        <TextBox Grid.Column="1" Grid.Row="0" Name="NombreGarajeTxt" Text="{Binding Nombre}" Style="{StaticResource TextBox}" />
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Dirección" Style="{StaticResource Etiquetas}" />
+        <TextBox Grid.Column="1" Grid.Row="1" Name="DireccionGarajeTxt" Text="{Binding Direccion}" Style="{StaticResource TextBox}" />
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Número de Plazas" Style="{StaticResource Etiquetas}" />
+        <TextBox Grid.Column="1" Grid.Row="2" Name="NumPlazasGarajeTxt" Text="{Binding NumPlazas}" Style="{StaticResource TextBox}" />
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Observaciones" Style="{StaticResource Etiquetas}" />
+        <TextBox Grid.Column="1" Grid.Row="3" Name="ObservGarajeTxt" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
 
-        <DockPanel Grid.Column="0" Grid.Row="1">
-            <TextBlock Text="Dirección" Width="65" VerticalAlignment="Center" FontSize="15" Margin="18,0,0,0" />
-            <TextBox Name="DireccionGarajeTxt" Width="150" Height="24" Text="{Binding Direccion}" Style="{StaticResource TextBox}" Margin="20,0,30,0" FontSize="14" />
-            <TextBlock />
-        </DockPanel>
-
-        <DockPanel Grid.Column="1" Grid.Row="0">
-            <TextBlock Text="Nº de Plazas" Width="86" VerticalAlignment="Center" FontSize="15" Margin="6,0,0,0" />
-            <TextBox Name="NumPlazasGarajeTxt" Width="50" Height="24" Text="{Binding NumPlazas}" Style="{StaticResource TextBox}" Margin="0,0,130,0" />
-            <TextBlock />
-        </DockPanel>
-
-        <DockPanel Grid.Column="1" Grid.Row="1">
-            <TextBlock Text="Observaciones" Width="99" VerticalAlignment="Center" FontSize="15" Margin="6,0,0,0" />
-            <TextBox Name="ObservGarajeTxt" Width="148" Height="24" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" Margin="0,0,24,0" />
-            <TextBlock />
-        </DockPanel>
-
-        <Button Name="InsGarajeBtn" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Content="Guardar" Width="90" Height="31" FontSize="15" Margin="0,10,0,0" Click="InsGarajeBtn_Click" />
+        <Button Name="AceptarBtn" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Aceptar" FontSize="15" Width="80" Height="30" Margin="0,20,0,0" Click="AceptarBtn_Click" />
     </Grid>
 </Window>
