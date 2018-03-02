@@ -5,13 +5,29 @@ Imports Microsoft.Win32
 Public Class VntAddVehiculo
 
     Private ArrayUrlImgs As String()
-    Private NumPulsacBtnExaminar As Integer             ' Indica cuantas veces se ha pulsado al botón "Examinar".
-    Private NumVecesGuardadoFoto As Integer          ' Indica cuantas veces se ha guardado una foto.
+
+    ''' <summary>
+    ''' Indica cuantas veces se ha pulsado al botón "Examinar".
+    ''' </summary>
+    Private NumPulsacBtnExaminar As Integer
+
+    ''' <summary>
+    ''' Indica cuantas veces se ha guardado una foto.
+    ''' </summary>
+    Private NumVecesGuardadoFoto As Integer
     Private PrecioBase As Decimal
     Private PrecioTotal As Decimal
     Private HayImagen As Boolean
-    Private GarajeSelec As Garaje                   ' Almacena el garaje seleccionado por el usuario.
-    Private ClienteSelec As Cliente             ' Almacena el cliente seleccionado por el usuario.
+
+    ''' <summary>
+    ''' Almacena el garaje seleccionado por el usuario.
+    ''' </summary>
+    Private GarajeSelec As Garaje
+
+    ''' <summary>
+    ''' Almacena el cliente seleccionado por el usuario.
+    ''' </summary>
+    Private ClienteSelec As Cliente
     Private Accion As Foo.Accion
     Private VehiculoSelec As Vehiculo
 
@@ -48,7 +64,7 @@ Public Class VntAddVehiculo
 
         Me.GarajeSelec = CType(GarajesCmb.SelectedItem, Garaje)
 
-        PlazasCmb.DataContext = Plaza.ObtenerPlazasPorIdGaraje(GarajeSelec.Id)
+        PlazasCmb.DataContext = Plaza.ObtenerIdPlazasPorIdGaraje(GarajeSelec.Id)
         PlazasCmb.SelectedIndex = 0
 
     End Sub
@@ -222,7 +238,7 @@ Public Class VntAddVehiculo
         encoder.Frames.Add(BitmapFrame.Create(bitmap))
 
         Dim cadena As New StringBuilder()
-        cadena.Append(My.Settings.RutaVehic).Append(nuevoId).Append("_").Append(NumVecesGuardadoFoto).Append(".jpg")
+        cadena.Append(My.Settings.RutaVehiculos).Append(nuevoId).Append("_").Append(NumVecesGuardadoFoto).Append(".jpg")
 
         ArrayUrlImgs(NumVecesGuardadoFoto - 1) = cadena.ToString()
 

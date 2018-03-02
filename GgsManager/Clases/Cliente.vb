@@ -1,5 +1,5 @@
-﻿Imports System.Collections.ObjectModel
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
+Imports System.IO
 
 ''' <summary>
 ''' Representa un cliente de la tabla "Clientes" de la base de datos.
@@ -16,17 +16,17 @@ Public Class Cliente
     Property Movil As String
     Property FechaAlta As Date
     Property Observaciones As String
-    Property UrlFoto As String
+    Property Ivm As ImageViewModel
 
 
     ''' <summary>
     ''' Obtiene todos los clientes.
     ''' </summary>
-    ''' <returns>ObservableCollection de todos los clientes.</returns>
-    Public Shared Function ObtenerClientes() As ObservableCollection(Of Cliente)
+    ''' <returns>Lista de los clientes.</returns>
+    Public Shared Function ObtenerClientes() As List(Of Cliente)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, URLFoto, Observaciones
+        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones
                                          FROM   Clientes", conexion)
 
         Dim datos As MySqlDataReader = Nothing
@@ -42,11 +42,11 @@ Public Class Cliente
 
         If datos IsNot Nothing Then
 
-            Dim listaClientes As New ObservableCollection(Of Cliente)()
+            Dim listaClientes As New List(Of Cliente)()
 
             While datos.Read()
 
-                Dim id As Integer = datos.GetInt64("IdCliente")
+                Dim id As Integer = datos.GetInt32("IdCliente")
                 Dim nombre As String = datos.GetString("Nombre")
                 Dim apellidos As String = datos.GetString("Apellidos")
                 Dim dni As String = datos.GetString("DNI")
@@ -55,19 +55,9 @@ Public Class Cliente
                 Dim provincia As String = datos.GetString("Provincia")
                 Dim movil As String = datos.GetString("Movil")
                 Dim fechaAlta As Date = datos.GetDateTime("FechaAlta")
-                Dim urlFoto As String
                 Dim observaciones As String
 
                 If datos.IsDBNull(9) Then
-
-                    urlFoto = ""
-                Else
-
-                    urlFoto = datos.GetString("URLFoto")
-
-                End If
-
-                If datos.IsDBNull(10) Then
 
                     observaciones = ""
                 Else
@@ -76,7 +66,17 @@ Public Class Cliente
 
                 End If
 
-                listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones, urlFoto))
+                Dim arrayFoto As String() = Directory.GetFiles(My.Settings.RutaClientes, id & ".jpg")
+
+                If arrayFoto.Length > 0 Then
+
+                    Dim ivm As New ImageViewModel(arrayFoto(0))
+                    listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones, ivm))
+                Else
+
+                    listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones))
+
+                End If
 
             End While
 
@@ -131,20 +131,14 @@ Public Class Cliente
         Dim comando As MySqlCommand
         Dim numFila As Integer
 
-        If Foo.HayTexto(cliente.Observaciones) And Not Foo.HayTexto(cliente.UrlFoto) Then           ' Insertamos al cliente las observaciones, aparte de sus principales datos.
+        If Foo.HayTexto(cliente.Observaciones) Then                ' Insertamos al cliente las observaciones, aparte de sus principales datos.
 
-            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones, URLFoto)
-                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), '{7}', NULL);", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.Observaciones), conexion)
+            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones)
+                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), '{7}');", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.Observaciones), conexion)
+        Else
 
-        ElseIf Foo.HayTexto(cliente.UrlFoto) And Not Foo.HayTexto(cliente.Observaciones) Then       ' Insertamos al cliente la URL de su foto, aparte de sus principales datos.
-
-            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones, URLFoto)
-                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), NULL, '{7}');", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.UrlFoto), conexion)
-
-        ElseIf Not Foo.HayTexto(cliente.Observaciones) And Not Foo.HayTexto(cliente.UrlFoto) Then       ' No le insertamos al cliente ni las observaciones ni la URL de la foto. Se le insertan sus principales datos.
-
-            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones, URLFoto)
-                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), NULL, NULL);", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil), conexion)
+            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones)
+                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), NULL);", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil), conexion)
 
         End If
 
@@ -189,7 +183,35 @@ Public Class Cliente
 
     End Function
 
-    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String, urlFoto As String)
+
+    ''' <summary>
+    ''' Modifica los datos de un cliente seleccionado.
+    ''' </summary>
+    ''' <param name="cliente">Datos del cliente a modificar.</param>
+    ''' <returns>True: Se han modificado los datos del cliente. False: No se han modificado los datos del cliente.</returns>
+    Public Shared Function ModificarCliente(ByRef cliente As Cliente) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("UPDATE Clientes
+                                                       SET    Nombre = '{0}', Apellidos = '{1}', DNI = '{2}', Direccion = '{3}', Poblacion = '{4}', Provincia = '{5}', Movil = '{6}', Observaciones = '{7}'
+                                                       WHERE  IdCliente = {8};", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.Observaciones, cliente.Id), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al modificar los datos del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
+
+    End Function
+
+    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String)
 
         Me.Nombre = nombre
         Me.Apellidos = apellidos
@@ -199,11 +221,10 @@ Public Class Cliente
         Me.Provincia = provincia
         Me.Movil = movil
         Me.Observaciones = observaciones
-        Me.UrlFoto = urlFoto
 
     End Sub
 
-    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaAlta As Date, observaciones As String, urlFoto As String)
+    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaAlta As Date, observaciones As String, ivm As ImageViewModel)              ' Para mostrar el cliente con su imagen en el DataGrid.
 
         Me.Id = id
         Me.Nombre = nombre
@@ -215,7 +236,22 @@ Public Class Cliente
         Me.Movil = movil
         Me.FechaAlta = fechaAlta
         Me.Observaciones = observaciones
-        Me.UrlFoto = urlFoto
+        Me.Ivm = ivm
+
+    End Sub
+
+    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaAlta As Date, observaciones As String)              ' Para mostrar el cliente sin su imagen en el DataGrid.
+
+        Me.Id = id
+        Me.Nombre = nombre
+        Me.Apellidos = apellidos
+        Me.DNI = dni
+        Me.Direccion = direccion
+        Me.Poblacion = poblacion
+        Me.Provincia = provincia
+        Me.Movil = movil
+        Me.FechaAlta = fechaAlta
+        Me.Observaciones = observaciones
 
     End Sub
 

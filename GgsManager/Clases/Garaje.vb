@@ -268,7 +268,7 @@ Public Class Garaje
 
     End Sub
 
-    Public Sub New(id As Integer, nombre As Integer)
+    Public Sub New(id As Integer, nombre As String)
 
         Me.Id = id
         Me.Nombre = nombre

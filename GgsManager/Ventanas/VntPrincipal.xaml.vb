@@ -58,10 +58,7 @@
 
     Private Sub Vehiculos_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim vntSeleccGaraje As New VntSeleccGaraje()
-        vntSeleccGaraje.VntPrincipal = Me
-
-        vntSeleccGaraje.ShowDialog()
+        AbrirVntSeleccGaraje(1)
 
     End Sub
 
@@ -80,10 +77,11 @@
 
     Private Sub Plazas_Click(sender As Object, e As RoutedEventArgs)
 
+        AbrirVntSeleccGaraje(2)
+
     End Sub
 
     Private Sub Listados_Click(sender As Object, e As RoutedEventArgs)
-
 
 
     End Sub
@@ -100,6 +98,31 @@
 
         MenuPrincipal.IsEnabled = False
         AbrirVntLogin()
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Abre "VntSeleccGaraje" para seleccionar un garaje.
+    ''' </summary>
+    ''' <param name="numVentana">Número de ventana a mostrar.</param>
+    Private Sub AbrirVntSeleccGaraje(ByRef numVentana As Integer)
+
+        Dim vntSeleccGaraje As New VntSeleccGaraje(Me, numVentana)
+        vntSeleccGaraje.ShowDialog()
+
+    End Sub
+
+    Private Sub CambiarIVA_Click(sender As Object, e As RoutedEventArgs)
+
+        Dim vntCambiarIva As New WPF.MDI.MdiChild()
+        vntCambiarIva.Title = "Cambiar I.V.A."
+        vntCambiarIva.Content = New VntCambiarIVA()
+
+        vntCambiarIva.Width = 558
+        vntCambiarIva.Height = 339
+
+        ContenedorMDI.Children.Add(vntCambiarIva)
 
     End Sub
 

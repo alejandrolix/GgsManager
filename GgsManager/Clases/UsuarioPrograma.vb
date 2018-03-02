@@ -221,7 +221,6 @@ Public Class UsuarioPrograma
     ''' <returns>True: Se ha modificado el usuario. False: No se ha modificado el usuario.</returns>
     Public Shared Function ModificarUsuarioPorId(ByRef nombre As String, ByRef esGestor As Boolean, ByRef idUsuario As Integer) As Boolean
 
-
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("UPDATE UsuariosPrograma
                                                        SET    Nombre = '{0}', EsGestor = {1}
@@ -235,6 +234,35 @@ Public Class UsuarioPrograma
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al modificar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Modifica el hash de la contraseña del usuario a partir de su Id.
+    ''' </summary>
+    ''' <param name="idUsuario">Id del usuario.</param>
+    ''' <param name="hashPassword">Hash de la contraseña.</param>
+    ''' <returns>True: Se ha modificado la contraseña del usuario. False: No se ha modificado la contraseña del usuario.</returns>
+    Public Shared Function ModificarPasswordPorId(ByRef idUsuario As Integer, ByRef hashPassword As String) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("UPDATE UsuariosPrograma
+                                                       SET    Password = '{0}'
+                                                       WHERE  IdUsuario = {1}", hashPassword, idUsuario), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al modificar la contraseña del usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 

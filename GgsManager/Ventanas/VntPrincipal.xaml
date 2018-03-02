@@ -35,9 +35,7 @@
                 <MenuItem Header="Conjunto" Style="{StaticResource SubMenu}" />
             </MenuItem>
             <MenuItem Name="Configuracion" Header="Configuración" Click="Configuracion_Click" Style="{StaticResource Margen}">
-                <MenuItem Header="Cambiar I.V.A." Style="{StaticResource SubMenu}" />
-                <MenuItem Header="Cambiar Datos Garaje" Style="{StaticResource SubMenu}" />
-                <MenuItem Header="Cambiar Datos Usuario" Style="{StaticResource SubMenu}" />
+                <MenuItem Name="CambiarIVA" Header="Cambiar I.V.A." Style="{StaticResource SubMenu}" Click="CambiarIVA_Click" />
             </MenuItem>
             <MenuItem Name="Estadisticas" Header="Estadísticas" Style="{StaticResource Margen}">
                 <MenuItem Header="Todos los Garajes" Style="{StaticResource SubMenu}" />

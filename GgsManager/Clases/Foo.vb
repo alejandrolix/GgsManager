@@ -1,7 +1,7 @@
-﻿Imports System.Collections.ObjectModel
-Imports System.Security.Cryptography
-Imports System.Text
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
+Imports System.IO
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
 ''' <summary>
 ''' Contiene métodos que se van a usar en varios sitios.
@@ -51,6 +51,58 @@ Public Class Foo
         End Try
 
         Return Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Guarda el nuevo I.V.A.
+    ''' </summary>
+    ''' <param name="porcentajeIva">El I.V.A. a guardar.</param>
+    ''' <returns>True: Se ha guardado el I.V.A. False: No se ha guardado el I.V.A.</returns>
+    Public Shared Function GuardarNuevoIVA(ByRef porcentajeIva As Integer) As Boolean
+
+        Dim iva As New JObject()
+        Dim haGuardadoDatos As Boolean
+
+        Try
+            iva.Add("Porcentaje", porcentajeIva)
+
+            Dim sw As StreamWriter = File.CreateText(My.Settings.RutaArchivos & "Iva.json")
+            Dim jWriter As New JsonTextWriter(sw)
+
+            jWriter.Formatting = Formatting.Indented
+            iva.WriteTo(jWriter)
+
+            sw.Close()
+            jWriter.Close()
+
+            haGuardadoDatos = True
+
+        Catch ex As Exception
+
+            haGuardadoDatos = False
+
+        End Try
+
+        Return haGuardadoDatos
+
+    End Function
+
+
+    ''' <summary>
+    ''' Lee el I.V.A.
+    ''' </summary>
+    ''' <returns>El porcentaje del I.V.A. almacenado.</returns>
+    Public Shared Function LeerIVA() As Integer
+
+        Dim sw As StreamReader = File.OpenText(My.Settings.RutaArchivos & "Iva.json")
+        Dim jReader As New JsonTextReader(sw)
+
+        Dim iva As JObject = CType(JToken.ReadFrom(jReader), JObject)
+        Dim numero As Integer = iva.Item("Porcentaje")
+
+        Return numero
 
     End Function
 

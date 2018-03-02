@@ -33,7 +33,7 @@
         </Style>
     </Window.Resources>
     
-    <Grid Margin="0,4,0,0">
+    <Grid Margin="0,5,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="269*" />
             <ColumnDefinition Width="391*" />

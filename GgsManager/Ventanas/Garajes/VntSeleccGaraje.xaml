@@ -5,15 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
-        Title="Seleccionar Garaje" Height="275" Width="389"
+        Title="Seleccionar Garaje" Height="321.994" Width="450.788"
         ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Garaje" Margin="0,0,20,0" FontSize="15" />
-            <ComboBox Name="GarajesCmb" IsEditable="True" Width="110" Height="20" ItemsSource="{Binding}" />
+            <TextBlock Text="Garaje" Margin="0,0,20,0" FontSize="16" />
+            <ComboBox Name="GarajesCmb" Width="136" Height="26" ItemsSource="{Binding}" FontSize="15">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Nombre}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
 
-        <Button Name="AceptarBtn" Content="Aceptar" Width="68" FontSize="15" Margin="0,54,0,0" Click="AceptarBtn_Click" />
+        <Button Name="AceptarBtn" Content="Aceptar" Width="80" Height="32" FontSize="15" Margin="0,78,0,0" Click="AceptarBtn_Click" />
     </StackPanel>
 </Window>

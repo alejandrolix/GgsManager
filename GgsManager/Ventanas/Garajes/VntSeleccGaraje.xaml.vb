@@ -1,6 +1,11 @@
 ﻿Public Class VntSeleccGaraje
 
-    Property VntPrincipal As VntPrincipal
+    Private VntPrincipal As VntPrincipal
+
+    ''' <summary>
+    ''' Indica qué ventana vamos a mostrar después de pulsar al botón "Aceptar". 1 -> Abre "VntVehiculos". 2 -> Abre "VntPlazas".
+    ''' </summary>
+    Private NumVentana As Integer
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
@@ -15,18 +20,52 @@
 
         If gjSelec IsNot Nothing Then
 
-            Dim vntVehic As New WPF.MDI.MdiChild()
-            vntVehic.Title = "Gestión de Vehículos"
-            vntVehic.Content = New VntVehiculos()
+            Dim vntVehic As WPF.MDI.MdiChild
+            Dim vntPlz As WPF.MDI.MdiChild
 
-            VntVehiculos.IdGaraje = gjSelec.Id
-            vntVehic.Width = 800
-            vntVehic.Height = 401
+            If NumVentana = 1 Then
 
-            VntPrincipal.ContenedorMDI.Children.Add(vntVehic)
+                vntVehic = New WPF.MDI.MdiChild()
+                vntVehic.Title = "Gestión de Vehículos"
+                vntVehic.Content = New VntVehiculos()
+
+                VntVehiculos.IdGaraje = gjSelec.Id
+                vntVehic.Width = 800
+                vntVehic.Height = 401
+            Else
+
+                vntPlz = New WPF.MDI.MdiChild()
+                vntPlz.Title = "Gestión de Plazas"
+                vntPlz.Content = New VntPlazas()
+
+                VntPlazas.IdGaraje = gjSelec.Id
+                vntPlz.Width = 500
+                vntPlz.Height = 401
+
+            End If
+
             Me.Close()
 
+            If vntVehic IsNot Nothing Then
+
+                VntPrincipal.ContenedorMDI.Children.Add(vntVehic)
+
+            ElseIf vntPlz IsNot Nothing Then
+
+                VntPrincipal.ContenedorMDI.Children.Add(vntPlz)
+
+            End If
+
         End If
+
+    End Sub
+
+    Public Sub New(vntPrincipal As VntPrincipal, numVentana As Integer)
+
+        InitializeComponent()
+
+        Me.VntPrincipal = vntPrincipal
+        Me.NumVentana = numVentana
 
     End Sub
 

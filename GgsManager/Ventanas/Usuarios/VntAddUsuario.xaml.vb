@@ -5,7 +5,11 @@
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        If Accion = Foo.Accion.Modificar Then
+        If Accion = Foo.Accion.Insertar Then
+
+            CambiarPasswordBtn.IsEnabled = False
+
+        ElseIf Accion = Foo.Accion.Modificar Then
 
             PasswordUsuPb.IsEnabled = False
             NombreUsuTxt.DataContext = UsuarioSelec
@@ -113,6 +117,13 @@
 
         Me.Accion = accion
         Me.UsuarioSelec = usuarioSelec
+
+    End Sub
+
+    Private Sub CambiarPasswordBtn_Click(sender As Object, e As RoutedEventArgs)
+
+        Dim vntCambPassword As New VntCambiarPassword()
+        vntCambPassword.ShowDialog()
 
     End Sub
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
-        Title="Añadir Usuario" Height="325" Width="483" Background="#f0f0f0"
+        Title="Añadir Usuario" Height="350.712" Width="581.734" Background="#f0f0f0"
         Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
@@ -27,8 +27,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="224*" />
-            <ColumnDefinition Width="251*" />
+            <ColumnDefinition Width="182*" />
+            <ColumnDefinition Width="293*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -41,9 +41,13 @@
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre" Style="{StaticResource Etiquetas}" />
         <TextBox Name="NombreUsuTxt" Grid.Column="1" Grid.Row="0" Text="{Binding Nombre}" Style="{StaticResource TextBox}" />
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Contraseña" Style="{StaticResource Etiquetas}" />
-        <PasswordBox Name="PasswordUsuPb" PasswordChar="*" Grid.Column="1" Grid.Row="1" Width="150" Height="24" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+        <DockPanel Grid.Column="1" Grid.Row="1" LastChildFill="False">
+            <PasswordBox Name="PasswordUsuPb" PasswordChar="*" DockPanel.Dock="Left" Width="150" Height="24" VerticalAlignment="Bottom" />
+            <Button Name="CambiarPasswordBtn" Content="Cambiar Contraseña" Width="145" Height="28" DockPanel.Dock="Right" Margin="0,0,29,0" VerticalAlignment="Bottom" FontSize="15" Click="CambiarPasswordBtn_Click" />
+        </DockPanel>
+
         <TextBlock Grid.Column="0" Grid.Row="2" Text="¿Es Gestor?" Style="{StaticResource Etiquetas}" />
-        <CheckBox Name="EsGestorUsuChk" Grid.Column="1" Grid.Row="2" IsChecked="{Binding EsGestorB}" VerticalAlignment="Bottom" Height="13" />
-        <Button Name="GuardarUsuBtn" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="80" Height="30" Content="Aceptar" HorizontalAlignment="Center" FontSize="15" Click="GuardarUsuBtn_Click" Margin="0,16,0,0" />
+        <CheckBox Name="EsGestorUsuChk" Grid.Column="1" Grid.Row="2" IsChecked="{Binding EsGestorB}" VerticalAlignment="Bottom" />
+        <Button Name="GuardarUsuBtn" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="80" Height="34" Content="Aceptar" HorizontalAlignment="Center" FontSize="15" Click="GuardarUsuBtn_Click" Margin="0,30,0,0" />
     </Grid>
 </Window>

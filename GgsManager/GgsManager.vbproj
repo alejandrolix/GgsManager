@@ -51,6 +51,10 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -94,8 +98,14 @@
     <Compile Include="Ventanas\Plazas\VntPlazas.xaml.vb">
       <DependentUpon>VntPlazas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\SubMenus\VntCambiarIVA.xaml.vb">
+      <DependentUpon>VntCambiarIVA.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Usuarios\VntAddUsuario.xaml.vb">
       <DependentUpon>VntAddUsuario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Usuarios\VntCambiarPassword.xaml.vb">
+      <DependentUpon>VntCambiarPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Usuarios\VntUsuarios.xaml.vb">
       <DependentUpon>VntUsuarios.xaml</DependentUpon>
@@ -122,7 +132,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ventanas\SubMenus\VntCambiarIVA.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\Usuarios\VntAddUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Usuarios\VntCambiarPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +249,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <AppDesigner Include="My Project\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
