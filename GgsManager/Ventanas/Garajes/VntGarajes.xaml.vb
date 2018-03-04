@@ -1,5 +1,9 @@
 ﻿Public Class VntGarajes
-    Property GarajeSelec As Cliente              ' Contiene los datos del garaje seleccionado.
+
+    ''' <summary>
+    ''' Contiene los datos del garaje seleccionado.
+    ''' </summary>    
+    Property GarajeSelec As Garaje
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
 
@@ -15,14 +19,14 @@
 
     Private Sub EliminarGaraje_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim garajeSelec As Cliente = CType(GarajesDg.SelectedItem, Cliente)
+        Dim garajeSelec As Garaje = CType(GarajesDg.SelectedItem, Garaje)
 
         If garajeSelec Is Nothing Then
 
             MessageBox.Show("Tienes que seleccionar un garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If Garaje.EliminarGaraje(garajeSelec.Id) Then                   ' Intentamos eliminar el garaje de la base de datos.
+            If Garaje.EliminarGarajePorId(garajeSelec.Id) Then
 
                 GarajesDg.DataContext = Garaje.ObtenerGarajes()
                 MessageBox.Show("Se ha eliminado el garaje.", "Garaje Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
@@ -35,7 +39,7 @@
 
     Private Sub ModificarGaraje_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim garajeSelec As Cliente = CType(GarajesDg.SelectedItem, Cliente)
+        Dim garajeSelec As Garaje = CType(GarajesDg.SelectedItem, Garaje)
 
         If garajeSelec Is Nothing Then
 
@@ -50,7 +54,7 @@
 
 
     ''' <summary>
-    ''' Abre la ventana "AddGaraje" para añadir un garaje.
+    ''' Abre "AddGaraje" para añadir un garaje.
     ''' </summary>
     Private Sub AbrirVentanaAddGaraje()
 
@@ -62,11 +66,11 @@
 
 
     ''' <summary>
-    ''' Abre la ventana "AddGaraje" para modificar los datos de un garaje seleccionado.
+    ''' Abre "AddGaraje" para modificar los datos de un garaje seleccionado.
     ''' </summary>
     ''' <param name="accion">Enum para modificar el garaje.</param>
     ''' <param name="garajeSelec">Datos del garaje seleccionado para poder editarlos.</param>
-    Private Sub AbrirVentanaAddGaraje(ByRef accion As Integer, ByRef garajeSelec As Cliente)
+    Private Sub AbrirVentanaAddGaraje(ByRef accion As Integer, ByRef garajeSelec As Garaje)
 
         Dim vntAddGaraje As New AddGaraje(Foo.Accion.Modificar, garajeSelec)
         vntAddGaraje.Title = "Modificar Garaje"

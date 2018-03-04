@@ -43,11 +43,11 @@
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre" Style="{StaticResource Etiquetas}" />
         <TextBox Grid.Column="1" Grid.Row="0" Name="NombreGarajeTxt" Text="{Binding Nombre}" Style="{StaticResource TextBox}" />
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Dirección" Style="{StaticResource Etiquetas}" />
-        <TextBox Grid.Column="1" Grid.Row="1" Name="DireccionGarajeTxt" Text="{Binding Direccion}" Style="{StaticResource TextBox}" />
+        <TextBox Grid.Column="1" Grid.Row="1" Width="170" Name="DireccionGarajeTxt" Text="{Binding Direccion}" Style="{StaticResource TextBox}" />
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Número de Plazas" Style="{StaticResource Etiquetas}" />
-        <TextBox Grid.Column="1" Grid.Row="2" Name="NumPlazasGarajeTxt" Text="{Binding NumPlazas}" Style="{StaticResource TextBox}" />
+        <TextBox Grid.Column="1" Grid.Row="2" Name="NumPlazasGarajeTxt" Width="60" Text="{Binding NumPlazas}" Style="{StaticResource TextBox}" />
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Observaciones" Style="{StaticResource Etiquetas}" />
-        <TextBox Grid.Column="1" Grid.Row="3" Name="ObservGarajeTxt" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
+        <TextBox Grid.Column="1" Grid.Row="3" Name="ObservGarajeTxt" Width="170" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
 
         <Button Name="AceptarBtn" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Aceptar" FontSize="15" Width="80" Height="30" Margin="0,20,0,0" Click="AceptarBtn_Click" />
     </Grid>

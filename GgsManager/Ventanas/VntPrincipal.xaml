@@ -18,7 +18,7 @@
             <Setter Property="Margin" Value="3" />
         </Style>
     </Window.Resources>
-    
+
     <DockPanel>
         <Menu Name="MenuPrincipal" DockPanel.Dock="Top" FontSize="17" Padding="2" IsEnabled="True">
             <MenuItem Name="Garajes" Header="Garajes" Click="Garajes_Click" Style="{StaticResource Margen}" />

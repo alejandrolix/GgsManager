@@ -10,10 +10,14 @@ Public Class ImageViewModel
     Private _bitmap As BitmapImage
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
-    Public ReadOnly Property Bitmap() As BitmapImage
+    Public Property Bitmap() As BitmapImage
         Get
             Return _bitmap
         End Get
+
+        Set(value As BitmapImage)
+            Me._bitmap = value
+        End Set
     End Property
 
     Protected Sub OnPropertyChanged(ByVal name As String)
@@ -24,7 +28,8 @@ Public Class ImageViewModel
 
         Me._bitmap = New BitmapImage()
         _bitmap.BeginInit()
-        _bitmap.StreamSource = New FileStream(urlFoto, FileMode.Open)
+        _bitmap.UriSource = New Uri(urlFoto, UriKind.RelativeOrAbsolute)
+        _bitmap.CacheOption = BitmapCacheOption.OnLoad
         _bitmap.EndInit()
 
     End Sub

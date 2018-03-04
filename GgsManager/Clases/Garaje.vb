@@ -22,7 +22,7 @@ Public Class Garaje
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
-                                         FROM   Garajes", conexion)
+                                         FROM   Garajes;", conexion)
         Dim datos As MySqlDataReader
 
         Try
@@ -47,7 +47,7 @@ Public Class Garaje
                     Dim id As Integer = datos.GetInt32("IdGaraje")
                     Dim nombre As String = datos.GetString("Nombre")
                     Dim direccion As String = datos.GetString("Direccion")
-                    Dim numPlazas As Integer = datos.GetInt64("NumPlazas")
+                    Dim numPlazas As Integer = datos.GetInt32("NumPlazas")
                     Dim numPlazasLibres As Integer = datos.GetInt32("NumPlazasLibres")
                     Dim numPlazasOcupadas As Integer = datos.GetInt32("NumPlazasOcupadas")
                     Dim observaciones As String
@@ -124,12 +124,12 @@ Public Class Garaje
 
     End Function
 
-    Public Shared Function ObtenerNombreGarajePorId(ByRef idGaraje) As String
+    Public Shared Function ObtenerNombreGarajePorId(ByRef idGaraje As Integer) As String
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("SELECT Nombre
                                                        FROM   Garajes
-                                                       WHERE  IdGaraje = {0}", idGaraje), conexion)
+                                                       WHERE  IdGaraje = {0};", idGaraje), conexion)
         Dim nombreGaraje As String
 
         Try
@@ -146,16 +146,43 @@ Public Class Garaje
 
     End Function
 
+
+    ''' <summary>
+    ''' Obtiene el último Id de la tabla "Garajes".
+    ''' </summary>
+    ''' <returns>El último Id de la tabla "Garajes".</returns>
+    Public Shared Function ObtenerUltimoIdGarajes() As Integer
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("SELECT MAX(IdGaraje)
+                                         FROM   Garajes;", conexion)
+
+        Dim ultimoId As Integer
+
+        Try
+            ultimoId = CType(comando.ExecuteScalar(), Integer)
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener el último Id del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return ultimoId
+
+    End Function
+
     ''' <summary>
     ''' Elimina un garaje a partir de su Id.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje a eliminar.</param>
     ''' <returns>True: El garaje se ha eliminado. False: El garaje no se ha eliminado.</returns>
-    Public Shared Function EliminarGaraje(ByRef idGaraje As Integer) As Boolean
+    Public Shared Function EliminarGarajePorId(ByRef idGaraje As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("DELETE FROM Garajes 
-                                                       WHERE IdGaraje = {0}", idGaraje), conexion)
+                                                       WHERE IdGaraje = {0};", idGaraje), conexion)
         Dim numFila As Integer
 
         Try
@@ -185,10 +212,10 @@ Public Class Garaje
 
         If Foo.HayTexto(garaje.Observaciones) Then
 
-            comando = New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, 0, 0, '{3}');", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones), conexion)
+            comando = New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, {3}, 0, '{4}');", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.NumPlazas, garaje.Observaciones), conexion)
         Else
 
-            comando = New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, 0, 0, NULL);", garaje.Nombre, garaje.Direccion, garaje.NumPlazas), conexion)
+            comando = New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, {3}, 0, NULL);", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.NumPlazas), conexion)
 
         End If
 
@@ -223,12 +250,12 @@ Public Class Garaje
 
             comando = New MySqlCommand(String.Format("UPDATE Garajes 
                                                       SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = '{3}' 
-    '                                                 WHERE  IdGaraje = {4};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones, garaje.Id), conexion)
+                                                      WHERE  IdGaraje = {4};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones, garaje.Id), conexion)
         Else
 
             comando = New MySqlCommand(String.Format("UPDATE Garajes 
                                                       SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = NULL 
-    '                                                 WHERE  IdGaraje = {3};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Id), conexion)
+                                                      WHERE  IdGaraje = {3};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Id), conexion)
         End If
 
         Dim numFila As Integer
@@ -247,7 +274,7 @@ Public Class Garaje
 
     End Function
 
-    Public Sub New(id As Integer, nombre As String, direccion As String, numPlazas As Integer, numPlazasLibres As Integer, numPlazasOcupadas As Integer, observaciones As String)
+    Public Sub New(id As Integer, nombre As String, direccion As String, numPlazas As Integer, numPlazasLibres As Integer, numPlazasOcupadas As Integer, observaciones As String)               ' Para mostrar los garajes en el DataGrid.
 
         Me.Id = id
         Me.Nombre = nombre
@@ -259,7 +286,7 @@ Public Class Garaje
 
     End Sub
 
-    Public Sub New(nombre As String, direccion As String, numPlazas As Integer, observaciones As String)
+    Public Sub New(nombre As String, direccion As String, numPlazas As Integer, observaciones As String)            ' Para crear un nuevo garaje,
 
         Me.Nombre = nombre
         Me.Direccion = direccion
@@ -268,7 +295,17 @@ Public Class Garaje
 
     End Sub
 
-    Public Sub New(id As Integer, nombre As String)
+    Public Sub New(id As Integer, nombre As String, direccion As String, numPlazas As Integer, observaciones As String)             ' Para modificar los datos de un garaje seleccionado.
+
+        Me.Id = id
+        Me.Nombre = nombre
+        Me.Direccion = direccion
+        Me.NumPlazas = numPlazas
+        Me.Observaciones = observaciones
+
+    End Sub
+
+    Public Sub New(id As Integer, nombre As String)             ' Para elegir un garaje.
 
         Me.Id = id
         Me.Nombre = nombre

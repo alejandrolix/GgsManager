@@ -8,7 +8,7 @@
 
 
     ''' <summary>
-    ''' Abre la ventana "VntLogin" para iniciar sesión.
+    ''' Abre "VntLogin" para iniciar sesión.
     ''' </summary>
     Private Sub AbrirVntLogin()
 
@@ -58,7 +58,7 @@
 
     Private Sub Vehiculos_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntSeleccGaraje(1)
+        AbrirVntSeleccGaraje(Foo.Ventana.Vehiculos)
 
     End Sub
 
@@ -68,16 +68,13 @@
         vntUsuarios.Title = "Gestión de Usuarios"
         vntUsuarios.Content = New VntUsuarios()
 
-        vntUsuarios.Width = 1460
-        vntUsuarios.Height = 483
-
         ContenedorMDI.Children.Add(vntUsuarios)
 
     End Sub
 
     Private Sub Plazas_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntSeleccGaraje(2)
+        AbrirVntSeleccGaraje(Foo.Ventana.Plazas)
 
     End Sub
 
@@ -106,9 +103,9 @@
     ''' Abre "VntSeleccGaraje" para seleccionar un garaje.
     ''' </summary>
     ''' <param name="numVentana">Número de ventana a mostrar.</param>
-    Private Sub AbrirVntSeleccGaraje(ByRef numVentana As Integer)
+    Private Sub AbrirVntSeleccGaraje(ByRef ventana As Foo.Ventana)
 
-        Dim vntSeleccGaraje As New VntSeleccGaraje(Me, numVentana)
+        Dim vntSeleccGaraje As New VntSeleccGaraje(Me, ventana)
         vntSeleccGaraje.ShowDialog()
 
     End Sub

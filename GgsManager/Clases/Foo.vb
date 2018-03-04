@@ -21,13 +21,32 @@ Public Class Foo
 
 
     ''' <summary>
-    ''' Comprueba si hay una imagen en el Image.
+    ''' Comprueba si hay una imagen en un Image.
     ''' </summary>
     ''' <param name="img">Imagen a comprobar.</param>
     ''' <returns>True: Hay imagen. False: No hay imagen.</returns>
     Public Shared Function HayImagen(ByRef img As ImageSource) As Boolean
 
         Return img IsNot Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Comprueba si la dirección contiene una "\". Si es así, devolverá "\\" para insertarlo en la tabla.
+    ''' </summary>
+    ''' <param name="direccion">Dirección introducida a comprobar.</param>
+    ''' <returns>La nueva dirección o la misma.</returns>
+    Public Shared Function ComprobarDireccion(ByRef direccion As String) As String
+
+        If direccion.Contains("\") Then
+
+            Dim nuevaDireccion As String = direccion.Replace("\", "\\")
+        Else
+
+            Return direccion
+
+        End If
 
     End Function
 
@@ -100,7 +119,7 @@ Public Class Foo
         Dim jReader As New JsonTextReader(sw)
 
         Dim iva As JObject = CType(JToken.ReadFrom(jReader), JObject)
-        Dim numero As Integer = iva.Item("Porcentaje")
+        Dim numero As Integer = Integer.Parse(iva.Item("Porcentaje").ToString())
 
         Return numero
 
@@ -115,6 +134,15 @@ Public Class Foo
         Insertar
         Modificar
 
+    End Enum
+
+
+    ''' <summary>
+    ''' Indica qué ventana se va a abrir despúes de seleccionar un garaje de "VntSeleccGaraje".
+    ''' </summary>
+    Enum Ventana
+        Vehiculos
+        Plazas
     End Enum
 
 End Class

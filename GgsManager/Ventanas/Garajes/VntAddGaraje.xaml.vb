@@ -2,14 +2,13 @@
 
     ''' <summary>
     ''' Para actualizar el DataGrid de garajes.
-    ''' </summary>
-    ''' <returns></returns>
+    ''' </summary>    
     Property VntGarajes As VntGarajes
 
     ''' <summary>
     ''' Contiene los datos del garaje seleccionado.
     ''' </summary>
-    Private GarajeSelec As Cliente
+    Private GarajeSelec As Garaje
     Private Accion As Foo.Accion
     Private NumPlazas As Integer
 
@@ -42,7 +41,6 @@
         If Not Foo.HayTexto(NombreGarajeTxt.Text) Then
 
             MessageBox.Show("Tienes que introducir un nombre.", "Nombre Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
-
         Else
 
             hayNombre = True
@@ -52,28 +50,42 @@
         If Not Foo.HayTexto(DireccionGarajeTxt.Text) Then
 
             MessageBox.Show("Tienes que introducir una dirección.", "Dirección Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
-
         Else
 
             hayDireccion = True
 
         End If
 
-        Try
-            Me.NumPlazas = Integer.Parse(NumPlazasGarajeTxt.Text)
-            hayNumPlazas = True
+        If Not Foo.HayTexto(NumPlazasGarajeTxt.Text) Then
 
-        Catch ex As Exception
+            MessageBox.Show("Tienes que introducir un número de plazas.", "Número de Plazas Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
-            MessageBox.Show("Tienes que introducir un número de plazas.", "Nº de Plazas Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+            Try
+                Me.NumPlazas = Integer.Parse(NumPlazasGarajeTxt.Text)
 
-            If NumPlazasGarajeTxt.Text.Length > 0 Then
+                If NumPlazas <= 0 Then
 
-                NumPlazasGarajeTxt.Text = ""
+                    MessageBox.Show("Tienes que introducir un número de plazas mayor que 0.", "Número de Plazas Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
+                Else
 
-            End If
+                    hayNumPlazas = True
 
-        End Try
+                End If
+
+            Catch ex As Exception
+
+                MessageBox.Show("Tienes que introducir un número de plazas.", "Número de Plazas Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+
+                If Foo.HayTexto(NumPlazasGarajeTxt.Text) Then
+
+                    NumPlazasGarajeTxt.ClearValue(TextBox.TextProperty)
+
+                End If
+
+            End Try
+
+        End If
 
         Return hayNombre And hayDireccion And hayNumPlazas
 
@@ -97,7 +109,7 @@
 
     End Sub
 
-    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Cliente)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Garaje)
 
         InitializeComponent()
 
@@ -117,23 +129,32 @@
 
         If ComprobarDatosIntroducidos() Then
 
-            Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
-
             If Accion = Foo.Accion.Insertar Then
+
+                Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
+                garaje.Direccion = Foo.ComprobarDireccion(garaje.Direccion)
 
                 If Garaje.InsertarGaraje(garaje) Then
 
-                    MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                    LimpiarCampos()
+                    Dim ultimoId As Integer = Garaje.ObtenerUltimoIdGarajes()               ' Obtenemos el último Id del garaje.
+
+                    If Plaza.AddPlazasToGaraje(garaje.NumPlazas, ultimoId) Then
+
+                        MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                        LimpiarCampos()
+
+                    End If
 
                 End If
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
+                Dim garaje As New Garaje(GarajeSelec.Id, NombreGarajeTxt.Text, DireccionGarajeTxt.Text, Integer.Parse(NumPlazasGarajeTxt.Text), ObservGarajeTxt.Text)
+                garaje.Direccion = Foo.ComprobarDireccion(garaje.Direccion)
+
                 If Garaje.ModificarGaraje(garaje) Then
 
                     MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
-                    LimpiarCampos()
 
                 End If
 
@@ -141,7 +162,7 @@
 
         End If
 
-        VntGarajes.GarajesDg.DataContext = Garaje.ObtenerGarajes()
+        VntGarajes.GarajesDg.DataContext = Garaje.ObtenerGarajes()              ' Actualizamos el DataGrid de Garajes.
 
     End Sub
 

@@ -27,7 +27,7 @@
 
                 Dim hashPassword As String = UsuarioPrograma.ObtenerSHA1HashFromPassword(PasswordUsuPb.Password)
 
-                If UsuarioPrograma.InsertarUsuario(NombreUsuTxt.Text, hashPassword, EsGestorUsuChk.IsChecked) Then
+                If UsuarioPrograma.InsertarUsuario(NombreUsuTxt.Text, hashPassword, EsGestorUsuChk.IsChecked.Value) Then
 
                     MessageBox.Show("Se ha añadido el usuario.", "Usuario Añadido", MessageBoxButton.OK, MessageBoxImage.Error)
                     LimpiarCampos()
@@ -36,7 +36,7 @@
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                If UsuarioPrograma.ModificarUsuarioPorId(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked, UsuarioSelec.Id) Then
+                If UsuarioPrograma.ModificarUsuarioPorId(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value, UsuarioSelec.Id) Then
 
                     MessageBox.Show("Se ha modificado el usuario.", "Usuario Modificado", MessageBoxButton.OK, MessageBoxImage.Error)
 

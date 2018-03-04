@@ -1,11 +1,7 @@
 ﻿Public Class VntSeleccGaraje
 
     Private VntPrincipal As VntPrincipal
-
-    ''' <summary>
-    ''' Indica qué ventana vamos a mostrar después de pulsar al botón "Aceptar". 1 -> Abre "VntVehiculos". 2 -> Abre "VntPlazas".
-    ''' </summary>
-    Private NumVentana As Integer
+    Private Ventana As Foo.Ventana
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
@@ -23,7 +19,7 @@
             Dim vntVehic As WPF.MDI.MdiChild
             Dim vntPlz As WPF.MDI.MdiChild
 
-            If NumVentana = 1 Then
+            If Ventana = Foo.Ventana.Vehiculos Then
 
                 vntVehic = New WPF.MDI.MdiChild()
                 vntVehic.Title = "Gestión de Vehículos"
@@ -32,7 +28,8 @@
                 VntVehiculos.IdGaraje = gjSelec.Id
                 vntVehic.Width = 800
                 vntVehic.Height = 401
-            Else
+
+            ElseIf Ventana = Foo.Ventana.Plazas Then
 
                 vntPlz = New WPF.MDI.MdiChild()
                 vntPlz.Title = "Gestión de Plazas"
@@ -48,11 +45,11 @@
 
             If vntVehic IsNot Nothing Then
 
-                VntPrincipal.ContenedorMDI.Children.Add(vntVehic)
+                VntPrincipal.ContenedorMDI.Children.Add(vntVehic)               ' Mostramos "VntVehiculos".
 
             ElseIf vntPlz IsNot Nothing Then
 
-                VntPrincipal.ContenedorMDI.Children.Add(vntPlz)
+                VntPrincipal.ContenedorMDI.Children.Add(vntPlz)             ' Mostramos "VntPlazas".
 
             End If
 
@@ -60,12 +57,12 @@
 
     End Sub
 
-    Public Sub New(vntPrincipal As VntPrincipal, numVentana As Integer)
+    Public Sub New(vntPrincipal As VntPrincipal, ventana As Foo.Ventana)
 
         InitializeComponent()
 
         Me.VntPrincipal = vntPrincipal
-        Me.NumVentana = numVentana
+        Me.Ventana = ventana
 
     End Sub
 

@@ -17,11 +17,11 @@
 
         Dim cliente As Cliente = CType(e.Item, Cliente)
 
-        If BuscarNombreTextBox.Text = "" Then
+        If BuscarApellidosTextBox.Text = "" Then
 
             e.Accepted = True
 
-        ElseIf cliente.Nombre.Contains(BuscarNombreTextBox.Text) Then
+        ElseIf cliente.Apellidos.Contains(BuscarApellidosTextBox.Text) Then
 
             e.Accepted = True
         Else
@@ -47,10 +47,16 @@
             MessageBox.Show("Tienes que seleccionar un cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If Cliente.EliminarClientePorId(clienteSelec.Id) Then                   ' Eliminamos el cliente de la base de datos.
+            If Vehiculo.EliminarVehiculosPorIdCliente(clienteSelec.Id) Then
 
-                ClientesDg.DataContext = Cliente.ObtenerClientes()
-                MessageBox.Show("Se ha eliminado el cliente.", "Cliente Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+                If Cliente.EliminarClientePorId(clienteSelec.Id) Then
+
+                    Cliente.EliminarImgClientePorId(clienteSelec.Id)               ' Eliminamos la imagen del cliente.
+                    Vista.Source = Cliente.ObtenerClientes()
+
+                    MessageBox.Show("Se ha eliminado el cliente.", "Cliente Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+
+                End If
 
             End If
 
@@ -75,7 +81,7 @@
 
 
     ''' <summary>
-    ''' Abre la ventana "AddCliente" para añadir un cliente.
+    ''' Abre "VntAddCliente" para añadir un cliente.
     ''' </summary>
     Private Sub AbrirVentanaAddCliente()
 
@@ -100,10 +106,9 @@
 
     End Sub
 
-    Private Sub BuscarNombreTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+    Private Sub BuscarApellidosTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
 
         Vista.View.Refresh()
 
     End Sub
-
 End Class

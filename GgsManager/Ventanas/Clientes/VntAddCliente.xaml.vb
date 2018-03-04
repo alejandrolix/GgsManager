@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.Win32
 Imports System.IO
 Imports System.Text
+Imports System.Text.RegularExpressions
 
 Public Class VntAddCliente
 
@@ -44,20 +45,6 @@ Public Class VntAddCliente
 
             End If
 
-            'If Foo.HayTexto(ClienteSelec.UrlFoto) Then
-
-            '    Dim ivm As New ImageViewModel(ClienteSelec.UrlFoto)
-            '    ClienteImg.DataContext = ivm
-
-            '    'Dim bitmap As New BitmapImage()
-            '    'bitmap.BeginInit()
-            '    'bitmap.StreamSource = New FileStream(ClienteSelec.UrlFoto, FileMode.Open)
-            '    'bitmap.EndInit()
-
-            '    'ClienteImg.Source = bitmap
-
-            'End If
-
         End If
 
     End Sub
@@ -90,12 +77,23 @@ Public Class VntAddCliente
 
         End If
 
-        If Foo.HayTexto(DNIClienteTxt.Text) Then
+        Dim exprDniEspanol As New Regex("^[0-9]{8}[A-Z]$")
+        Dim exprDniExtranjero As New Regex("^X|Y[0-9]{7}[A-Z]$")
+
+        If Not Foo.HayTexto(DNIClienteTxt.Text) Then
+
+            MessageBox.Show("Tienes que introducir un D.N.I.", "DNI Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        ElseIf exprDniEspanol.IsMatch(DNIClienteTxt.Text) Then
+
+            hayDNI = True
+
+        ElseIf exprDniExtranjero.IsMatch(DNIClienteTxt.Text) Then
 
             hayDNI = True
         Else
 
-            MessageBox.Show("Tienes que introducir un D.N.I.", "DNI Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir un formato de D.N.I. válido.", "Formato D.N.I. Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 
@@ -126,12 +124,18 @@ Public Class VntAddCliente
 
         End If
 
-        If Foo.HayTexto(MovilClienteTxt.Text) Then
+        Dim exprMovil As New Regex("^[0-9]{9}$")
+
+        If Not Foo.HayTexto(MovilClienteTxt.Text) Then
+
+            MessageBox.Show("Tienes que introducir un móvil.", "Móvil Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        ElseIf exprMovil.IsMatch(MovilClienteTxt.Text) Then
 
             hayMovil = True
         Else
 
-            MessageBox.Show("Tienes que introducir un móvil.", "Móvil Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir un número que tenga 9 dígitos.", "Formato de Móvil Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 
@@ -212,7 +216,7 @@ Public Class VntAddCliente
         bitmap.DecodePixelWidth = 106
         bitmap.DecodePixelHeight = 92
         bitmap.CacheOption = BitmapCacheOption.OnLoad
-        bitmap.UriSource = New Uri(UrlFotoSeleccionada)
+        bitmap.UriSource = New Uri(UrlFotoSeleccionada, UriKind.RelativeOrAbsolute)
         bitmap.EndInit()
 
         Dim encoder As New JpegBitmapEncoder()
@@ -235,10 +239,12 @@ Public Class VntAddCliente
 
         If ComprobarDatosIntroducidos() Then
 
-            Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
-                                       MovilClienteTxt.Text, ObservClienteTxt.Text)
-
             If Accion = Foo.Accion.Insertar Then
+
+                Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
+                                           MovilClienteTxt.Text, ObservClienteTxt.Text)
+
+                cliente.Direccion = Foo.ComprobarDireccion(cliente.Direccion)
 
                 If Foo.HayImagen(ClienteImg.Source) Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
 
@@ -255,6 +261,11 @@ Public Class VntAddCliente
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
+                Dim cliente As New Cliente(ClienteSelec.Id, NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
+                                           MovilClienteTxt.Text, ObservClienteTxt.Text)
+
+                cliente.Direccion = Foo.ComprobarDireccion(cliente.Direccion)
+
                 If Cliente.ModificarCliente(cliente) Then
 
                     MessageBox.Show("Se ha modificado el cliente.", "Cliente Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
@@ -263,7 +274,7 @@ Public Class VntAddCliente
 
             End If
 
-            VntClientes.ClientesDg.DataContext = Cliente.ObtenerClientes()
+            VntClientes.ClientesDg.DataContext = Cliente.ObtenerClientes()              ' Actualizamos el DataGrid de Clientes.            
 
         End If
 

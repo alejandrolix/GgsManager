@@ -1,11 +1,14 @@
 ﻿Public Class VntVehiculos
 
-    Public Shared Property IdGaraje As Integer              ' Almacena el Id del garaje seleccionado.
+    ''' <summary>
+    ''' Almacena el Id del garaje seleccionado.
+    ''' </summary>    
+    Public Shared Property IdGaraje As Integer
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
 
         VehiculosDg.Language = Markup.XmlLanguage.GetLanguage(Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag)            ' Establece el idioma a español, (para el euro).        
-        VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosFromIdGaraje(IdGaraje)
+        VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)
 
     End Sub
 
@@ -24,7 +27,7 @@
             MessageBox.Show("Tienes que seleccionar un vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If Vehiculo.EliminarVehiculoPorId(vehiculoSelec.Id) Then                   ' Eliminamos el vehículo de la base de datos.
+            If Vehiculo.EliminarVehiculoPorId(vehiculoSelec.Id) Then
 
                 If Plaza.CambiarSituacionPlazaToLibre(vehiculoSelec.IdGaraje, vehiculoSelec.IdPlaza) Then
 
@@ -56,7 +59,7 @@
 
 
     ''' <summary>
-    ''' Abre la ventana "VntAddVehiculo" para añadir un vehículo.
+    ''' Abre "VntAddVehiculo" para añadir un vehículo.
     ''' </summary>
     ''' <param name="accion">Acción a realizar.</param>
     Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion)
@@ -68,7 +71,7 @@
 
 
     ''' <summary>
-    ''' Abre la ventana "VntAddVehiculo" para modificar un vehículo.
+    ''' Abre "VntAddVehiculo" para modificar un vehículo.
     ''' </summary>
     ''' <param name="accion">Acción a realizar.</param>
     ''' <param name="vehiculoSelec">Datos del vehículo seleccionado.</param>

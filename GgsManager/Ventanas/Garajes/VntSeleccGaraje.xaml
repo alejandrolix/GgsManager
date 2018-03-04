@@ -22,6 +22,6 @@
             </ComboBox>
         </StackPanel>
 
-        <Button Name="AceptarBtn" Content="Aceptar" Width="80" Height="32" FontSize="15" Margin="0,78,0,0" Click="AceptarBtn_Click" />
+        <Button Name="AceptarBtn" Content="Aceptar" Width="82" Height="32" FontSize="15" Margin="0,78,0,0" Click="AceptarBtn_Click" />
     </StackPanel>
 </Window>

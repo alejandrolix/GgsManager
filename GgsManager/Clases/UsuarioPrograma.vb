@@ -69,7 +69,7 @@ Public Class UsuarioPrograma
 
             If datos.Read() Then
 
-                Dim idUsuario As Integer = datos.GetInt64("IdUsuario")
+                Dim idUsuario As Integer = datos.GetInt32("IdUsuario")
                 Dim esGestor As Boolean = datos.GetBoolean("EsGestor")
 
                 usuarioPrograma = New UsuarioPrograma(idUsuario, nombreUsuario, esGestor)

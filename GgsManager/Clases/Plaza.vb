@@ -110,7 +110,34 @@ Public Class Plaza
 
 
     ''' <summary>
-    ''' Cambia la situación de la plaza a "Libre".
+    ''' Añade el número de plazas introducidas al garaje. Empieza desde el número 1 hasta el número introducido.
+    ''' </summary>
+    ''' <param name="numPlazas">El número total de plazas a insertar.</param>
+    ''' <param name="idGaraje">El Id del garaje.</param>
+    ''' <returns>True: Se han insertado todas las plazas. False: No se han insertado todas las plazas.</returns>
+    Public Shared Function AddPlazasToGaraje(ByRef numPlazas As Integer, ByRef idGaraje As Integer) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("", conexion)
+        Dim numPlzInsertadas As Integer = 0
+
+        For i As Integer = 1 To numPlazas Step 1                ' Añadimos uno a uno cada plaza.
+
+            comando.CommandText = String.Format("INSERT INTO Plazas (IdPlaza, IdGaraje, IdSituacion) VALUES ({0}, {1}, 1);", i, idGaraje)
+            comando.ExecuteNonQuery()
+
+            numPlzInsertadas += 1
+
+        Next
+
+        conexion.Close()
+        Return numPlzInsertadas = numPlazas
+
+    End Function
+
+
+    ''' <summary>
+    ''' Cambia la situación de la plaza a Libre.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje donde está el vehículo.</param>
     ''' <param name="idPlaza">El Id de la plaza dónde está el vehículo.</param>
@@ -137,7 +164,7 @@ Public Class Plaza
 
     End Function
 
-    Public Sub New(matricula As String, modelo As String, idPlaza As String, tipoSituacion As String)
+    Public Sub New(matricula As String, modelo As String, idPlaza As Integer, tipoSituacion As String)              ' Para mostrar una plaza en el DataGrid.
 
         Me.Matricula = matricula
         Me.Modelo = modelo

@@ -1,5 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System.IO
+Imports System.Text
 
 ''' <summary>
 ''' Representa un cliente de la tabla "Clientes" de la base de datos.
@@ -185,6 +186,24 @@ Public Class Cliente
 
 
     ''' <summary>
+    ''' Elimina la imagen de un cliente a partir de su Id.
+    ''' </summary>
+    ''' <param name="idCliente">El Id del cliente.</param>
+    Public Shared Sub EliminarImgClientePorId(ByRef idCliente As Integer)
+
+        Dim cadena As New StringBuilder()
+        cadena.Append(My.Settings.RutaClientes).Append(idCliente).Append(".jpg")
+
+        If File.Exists(cadena.ToString()) Then
+
+            File.Delete(cadena.ToString())
+
+        End If
+
+    End Sub
+
+
+    ''' <summary>
     ''' Modifica los datos de un cliente seleccionado.
     ''' </summary>
     ''' <param name="cliente">Datos del cliente a modificar.</param>
@@ -211,8 +230,22 @@ Public Class Cliente
 
     End Function
 
-    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String)
+    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String)               ' Para crear un cliente.
 
+        Me.Nombre = nombre
+        Me.Apellidos = apellidos
+        Me.DNI = dni
+        Me.Direccion = direccion
+        Me.Poblacion = poblacion
+        Me.Provincia = provincia
+        Me.Movil = movil
+        Me.Observaciones = observaciones
+
+    End Sub
+
+    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String)               ' Para modificar los datos de un cliente seleccionado.
+
+        Me.Id = id
         Me.Nombre = nombre
         Me.Apellidos = apellidos
         Me.DNI = dni
@@ -255,7 +288,7 @@ Public Class Cliente
 
     End Sub
 
-    Public Sub New(nombre As String, apellidos As String)
+    Public Sub New(nombre As String, apellidos As String)               ' Para mostrar el nombre y apellidos de un cliente en el DataGrid de Vehículos.
 
         Me.Nombre = nombre
         Me.Apellidos = apellidos

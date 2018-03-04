@@ -5,7 +5,7 @@
 ''' </summary>
 Public Class Vehiculo
 
-    Property Id As String
+    Property Id As Integer
     Property Matricula As String
     Property Marca As String
     Property Modelo As String
@@ -68,7 +68,7 @@ Public Class Vehiculo
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje seleccionado.</param>
     ''' <returns>Lista con los vehículos del garaje seleccionado.</returns>
-    Public Shared Function ObtenerVehiculosFromIdGaraje(ByRef idGaraje As Integer) As List(Of Vehiculo)
+    Public Shared Function ObtenerVehiculosPorIdGaraje(ByRef idGaraje As Integer) As List(Of Vehiculo)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase, Veh.PrecioTotal
@@ -192,7 +192,8 @@ Public Class Vehiculo
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("UPDATE Vehiculos
-                                                       SET    Matricula = '{0}', Marca = '{1}', Modelo = '{2}', IdGaraje = {3}, IdPlaza = {4}, PrecioBase = {5}, PrecioTotal = {6}", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase, vehiculo.PrecioTotal), conexion)
+                                                       SET    Matricula = '{0}', Marca = '{1}', Modelo = '{2}', IdGaraje = {3}, IdPlaza = {4}, PrecioBase = {5}, PrecioTotal = {6}
+                                                       WHERE  IdVehiculo = {7};", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase, vehiculo.PrecioTotal, vehiculo.Id), conexion)
         Dim numFila As Integer
 
         Try
@@ -219,7 +220,7 @@ Public Class Vehiculo
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("DELETE FROM Vehiculos
-                                                       WHERE  IdVehiculo = {0}", idVehiculo), conexion)
+                                                       WHERE  IdVehiculo = {0};", idVehiculo), conexion)
         Dim numFila As Integer
 
         Try
@@ -236,7 +237,34 @@ Public Class Vehiculo
 
     End Function
 
-    Public Sub New(id As String, matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal, precioTotal As Decimal)
+
+    ''' <summary>
+    ''' Elimina los vehículos a partir del Id de un cliente.
+    ''' </summary>
+    ''' <param name="idCliente">Id del cliente.</param>
+    ''' <returns>True: Se han eliminado los vehículos del cliente. False: No se han eliminado los vehículos del cliente.</returns>
+    Public Shared Function EliminarVehiculosPorIdCliente(ByRef idCliente As Integer) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("DELETE FROM Vehiculos
+                                                       WHERE  IdCliente = {0};", idCliente), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al eliminar los vehículos del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
+
+    End Function
+
+    Public Sub New(id As Integer, matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal, precioTotal As Decimal)
 
         Me.Id = id
         Me.Matricula = matricula

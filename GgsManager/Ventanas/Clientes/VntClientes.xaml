@@ -30,7 +30,7 @@
 
                 <DockPanel LastChildFill="False">
                     <TextBlock Text="Buscar" VerticalAlignment="Center" FontSize="17" Margin="20,0" />
-                    <TextBox Name="BuscarNombreTextBox" Width="160" Height="24" FontSize="15" TextChanged="BuscarNombreTextBox_TextChanged" />
+                    <TextBox Name="BuscarApellidosTextBox" Width="160" Height="24" FontSize="15" TextChanged="BuscarApellidosTextBox_TextChanged" />
                     <Button Name="NuevoCliente" DockPanel.Dock="Right" Content="Añadir Cliente" Margin="0,20,16,18" Style="{StaticResource Boton}" Click="NuevoCliente_Click" />
                 </DockPanel>
 
@@ -45,7 +45,7 @@
                         <DataGridTemplateColumn Header="Nombre">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal" Margin="4">
                                         <TextBlock Text="{Binding Nombre}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,16,0" />
                                         <Image Width="70" Source="{Binding Ivm.Bitmap}" />
                                     </StackPanel>
