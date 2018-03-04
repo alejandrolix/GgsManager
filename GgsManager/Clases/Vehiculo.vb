@@ -1,7 +1,8 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Globalization
+Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Representa un vehículo de la tabla "Vehiculos" de la base de datos.
+''' Representa un vehículo de la tabla "Vehiculos".
 ''' </summary>
 Public Class Vehiculo
 
@@ -15,52 +16,6 @@ Public Class Vehiculo
     Property PrecioBase As Decimal
     Property PrecioTotal As Decimal
     Property ArrayUrlFotos As String()
-    Property UrlFotos As String
-
-    'Public Shared Function ObtenerVehiculos() As List(Of Vehiculo)
-
-    '    Dim conexion As MySqlConnection = Foo.ConexionABd()
-    '    Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.Total
-    '                                     FROM   Vehiculos Veh
-    '                                         JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente;", conexion)
-    '    Dim datos As MySqlDataReader
-
-    '    Try
-    '        datos = comando.ExecuteReader()
-
-    '    Catch ex As Exception
-
-    '        MessageBox.Show("Ha habido un problema al obtener los vehículos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-    '    End Try
-
-    '    If datos IsNot Nothing Then
-
-    '        Dim listaVehiculos As New List(Of Vehiculo)()
-
-    '        While datos.Read()
-
-    '            Dim id As Integer = datos.GetInt32("IdVehiculo")
-    '            Dim matricula As String = datos.GetString("Matricula")
-    '            Dim marca As String = datos.GetString("Marca")
-    '            Dim modelo As String = datos.GetString("Modelo")
-    '            Dim cliente As Cliente = New Cliente(datos.GetString("Nombre"), datos.GetString("Apellidos"))
-    '            Dim total As Decimal = datos.GetDecimal("Total")
-
-    '            listaVehiculos.Add(New Vehiculo(id, matricula, marca, modelo, cliente, total))
-
-    '        End While
-
-    '        datos.Close()
-    '        conexion.Close()
-
-    '        Return listaVehiculos
-
-    '    End If
-
-    '    Return Nothing
-
-    'End Function
 
 
     ''' <summary>
@@ -126,18 +81,12 @@ Public Class Vehiculo
     Public Shared Function InsertarVehiculo(ByRef vehiculo As Vehiculo) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As MySqlCommand
+        Dim porcentajeIva As Decimal = (vehiculo.PrecioBase * Foo.LeerIVA()) / 100
+        Dim precioTotal As Decimal = vehiculo.PrecioBase + porcentajeIva
 
-        If vehiculo.ArrayUrlFotos Is Nothing Then
-
-            comando = New MySqlCommand(String.Format("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, Base, Total, URLFotos)
-                                                      VALUES ({0}, '{1}', '{2}', '{3}', {4}, {5}, {6}, {7}, {8}, NULL);", vehiculo.Id, vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.Cliente.Id, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase, vehiculo.PrecioTotal), conexion)
-        Else
-
-            comando = New MySqlCommand(String.Format("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, Base, Total, URLFotos)
-                                                      VALUES ({0}, '{1}', '{2}', '{3}', {4}, {5}, {6}, {7}, {8}, '{9}');", vehiculo.Id, vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.Cliente.Id, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase, vehiculo.PrecioTotal, vehiculo.UrlFotos), conexion)
-        End If
-
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
+                                                       VALUES (NULL, '{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7});", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo,
+                                                       vehiculo.Cliente.Id, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase.ToString("F2", CultureInfo.InvariantCulture), precioTotal.ToString("F2", CultureInfo.InvariantCulture)), conexion)
         Dim numFila As Integer
 
         Try
@@ -278,7 +227,7 @@ Public Class Vehiculo
 
     End Sub
 
-    Public Sub New(matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, base As Decimal, total As Decimal, urlFotos As String)
+    Public Sub New(matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal)
 
         Me.Id = Id
         Me.Matricula = matricula
@@ -287,15 +236,7 @@ Public Class Vehiculo
         Me.Cliente = cliente
         Me.IdGaraje = idGaraje
         Me.IdPlaza = idPlaza
-        Me.PrecioBase = base
-        Me.PrecioTotal = total
-        Me.UrlFotos = urlFotos
-
-        'If Foo.HayTexto(urlFotos) Then
-
-        '    Me.ArrayUrlFotos = urlFotos.Split(" ")
-
-        'End If
+        Me.PrecioBase = precioBase
 
     End Sub
 

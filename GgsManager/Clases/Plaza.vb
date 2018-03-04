@@ -12,7 +12,20 @@ Public Class Plaza
 
 
     ''' <summary>
-    ''' Obtiene los Id de las plazas a partir del Id del garaje.
+    ''' Obtiene el Id de la plaza.
+    ''' </summary>
+    ''' <returns>El Id de la plaza.</returns>
+    Public Overrides Function ToString() As String
+
+        Dim id As String = CType(Me.Id, String)
+
+        Return id
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene todos los Id de las plazas a partir del Id del garaje.
     ''' </summary>
     ''' <param name="idGaraje">Id del garaje.</param>
     ''' <returns>Lista con las plazas.</returns>
@@ -21,7 +34,7 @@ Public Class Plaza
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("SELECT IdPlaza
                                                        FROM   Plazas
-                                                       WHERE  IdGaraje = {0};", idGaraje), conexion)
+                                                       WHERE  IdGaraje = {0} AND IdSituacion = 1;", idGaraje), conexion)
         Dim datos As MySqlDataReader
 
         Try
@@ -137,17 +150,46 @@ Public Class Plaza
 
 
     ''' <summary>
-    ''' Cambia la situación de la plaza a Libre.
-    ''' </summary>
-    ''' <param name="idGaraje">El Id del garaje donde está el vehículo.</param>
+    ''' Cambia la situación de una plaza a Libre.
+    ''' </summary>    
     ''' <param name="idPlaza">El Id de la plaza dónde está el vehículo.</param>
+    ''' <param name="idGaraje">El Id del garaje donde está el vehículo.</param>
     ''' <returns>True: Se ha cambiado la situación de la plaza. False: No se ha cambiado la situación de la plaza.</returns>
-    Public Shared Function CambiarSituacionPlazaToLibre(ByRef idGaraje As Integer, ByRef idPlaza As Integer) As Boolean
+    Public Shared Function CambiarSituacionPlazaToLibre(ByRef idPlaza As Integer, ByRef idGaraje As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("UPDATE Plazas
                                                        SET    IdSituacion = 1
-                                                       WHERE  IdGaraje = {0} AND IdPlaza = {1}", idGaraje, idPlaza), conexion)
+                                                       WHERE  IdPlaza = {0} AND IdGaraje = {1}", idPlaza, idGaraje), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Libre.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Cambia la situación de una plaza a Ocupada.
+    ''' </summary>
+    ''' <param name="idPlaza">El Id de la plaza dónde está el vehículo.</param>
+    ''' <param name="idGaraje">El Id del garaje donde está el vehículo.</param>
+    ''' <returns>True: Se ha cambiado la situación de la plaza. False: No se ha cambiado la situación de la plaza.</returns>
+    Public Shared Function CambiarSituacionPlazaToOcupada(ByRef idPlaza As Integer, ByRef idGaraje As Integer) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("UPDATE Plazas
+                                                       SET    IdSituacion = 2
+                                                       WHERE  IdPlaza = {0} AND IdGaraje = {1}", idPlaza, idGaraje), conexion)
         Dim numFila As Integer
 
         Try

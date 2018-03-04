@@ -75,7 +75,7 @@ Public Class Foo
 
 
     ''' <summary>
-    ''' Guarda el nuevo I.V.A.
+    ''' Guarda el nuevo porcentaje del I.V.A.
     ''' </summary>
     ''' <param name="porcentajeIva">El I.V.A. a guardar.</param>
     ''' <returns>True: Se ha guardado el I.V.A. False: No se ha guardado el I.V.A.</returns>
@@ -110,7 +110,7 @@ Public Class Foo
 
 
     ''' <summary>
-    ''' Lee el I.V.A.
+    ''' Lee el porcentaje del I.V.A.
     ''' </summary>
     ''' <returns>El porcentaje del I.V.A. almacenado.</returns>
     Public Shared Function LeerIVA() As Integer
@@ -120,6 +120,9 @@ Public Class Foo
 
         Dim iva As JObject = CType(JToken.ReadFrom(jReader), JObject)
         Dim numero As Integer = Integer.Parse(iva.Item("Porcentaje").ToString())
+
+        sw.Close()
+        jReader.Close()
 
         Return numero
 

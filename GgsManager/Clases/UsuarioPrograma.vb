@@ -3,7 +3,7 @@ Imports System.Text
 Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Representa un usuario del programa de la tabla "UsuariosPrograma" de la base de datos.
+''' Representa un usuario del programa de la tabla "UsuariosPrograma".
 ''' </summary>
 Public Class UsuarioPrograma
 

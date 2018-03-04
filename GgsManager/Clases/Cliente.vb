@@ -3,7 +3,7 @@ Imports System.IO
 Imports System.Text
 
 ''' <summary>
-''' Representa un cliente de la tabla "Clientes" de la base de datos.
+''' Representa un cliente de la tabla "Clientes".
 ''' </summary>
 Public Class Cliente
 
@@ -19,6 +19,19 @@ Public Class Cliente
     Property Observaciones As String
     Property Ivm As ImageViewModel
 
+
+    ''' <summary>
+    ''' Obtiene el nombre y apellidos del cliente.
+    ''' </summary>
+    ''' <returns>El nombre y apellidos del cliente.</returns>
+    Public Overrides Function ToString() As String
+
+        Dim cadena As New StringBuilder()
+        cadena.Append(Nombre).Append(" ").Append(Apellidos)
+
+        Return cadena.ToString()
+
+    End Function
 
     ''' <summary>
     ''' Obtiene todos los clientes.
@@ -78,6 +91,54 @@ Public Class Cliente
                     listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones))
 
                 End If
+
+            End While
+
+            datos.Close()
+            conexion.Close()
+
+            Return listaClientes
+
+        End If
+
+        Return Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene el Id, nombre y apellidos de todos los clientes.
+    ''' </summary>
+    ''' <returns>Lista con el Id, nombre y apellidos de los clientes.</returns>
+    Public Shared Function ObtenerNombreYApellidosClientes() As List(Of Cliente)
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos
+                                         FROM   Clientes", conexion)
+
+        Dim datos As MySqlDataReader = Nothing
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim listaClientes As New List(Of Cliente)()
+
+            While datos.Read()
+
+                Dim id As Integer = datos.GetInt32("IdCliente")
+                Dim nombre As String = datos.GetString("Nombre")
+                Dim apellidos As String = datos.GetString("Apellidos")
+
+                Dim cliente As New Cliente(id, nombre, apellidos)
+                listaClientes.Add(cliente)
 
             End While
 
@@ -292,6 +353,20 @@ Public Class Cliente
 
         Me.Nombre = nombre
         Me.Apellidos = apellidos
+
+    End Sub
+
+    Public Sub New(id As Integer, nombre As String, apellidos As String)               ' Para mostrar el nombre y apellidos de un cliente en el ComboBox de "VntAddVehiculo".
+
+        Me.Id = id
+        Me.Nombre = nombre
+        Me.Apellidos = apellidos
+
+    End Sub
+
+    Public Sub New(id As Integer)               ' Para crear un vehículo.
+
+        Me.Id = id
 
     End Sub
 

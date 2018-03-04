@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Representa un garaje de la tabla "Garajes" de la base de datos.
+''' Representa un garaje de la tabla "Garajes".
 ''' </summary>
 Public Class Garaje
 

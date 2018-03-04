@@ -14,7 +14,7 @@
 
     Private Sub NuevoVehiculoBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntAddVehiculo(Foo.Accion.Insertar)
+        AbrirVntAddVehiculo(Foo.Accion.Insertar, IdGaraje)
 
     End Sub
 
@@ -29,9 +29,9 @@
 
             If Vehiculo.EliminarVehiculoPorId(vehiculoSelec.Id) Then
 
-                If Plaza.CambiarSituacionPlazaToLibre(vehiculoSelec.IdGaraje, vehiculoSelec.IdPlaza) Then
+                If Plaza.CambiarSituacionPlazaToLibre(vehiculoSelec.IdPlaza, vehiculoSelec.IdGaraje) Then
 
-                    VehiculosDg.DataContext = Garaje.ObtenerGarajes()
+                    VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)
                     MessageBox.Show("Se ha eliminado el vehículo.", "Vehículo Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
 
                 End If
@@ -62,9 +62,9 @@
     ''' Abre "VntAddVehiculo" para añadir un vehículo.
     ''' </summary>
     ''' <param name="accion">Acción a realizar.</param>
-    Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion)
+    Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion, ByRef idGaraje As Integer)
 
-        Dim vntAddVehiculo As New VntAddVehiculo(accion)
+        Dim vntAddVehiculo As New VntAddVehiculo(accion, idGaraje)
         vntAddVehiculo.ShowDialog()
 
     End Sub
