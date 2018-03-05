@@ -6,19 +6,14 @@
 
         If ComprobarDatosIntroducidos() Then
 
-            If NuevaPasswordPsb.Password.Equals(RepetirPasswordPsb.Password) Then
+            Dim hashPassword As String = UsuarioPrograma.ObtenerSHA1HashFromPassword(NuevaPasswordPsb.Password)
 
-                Dim hashPassword As String = UsuarioPrograma.ObtenerSHA1HashFromPassword(NuevaPasswordPsb.Password)
+            NuevaPasswordPsb.Clear()
+            RepetirPasswordPsb.Clear()
 
-                If UsuarioPrograma.ModificarPasswordPorId(IdUsuario, hashPassword) Then
+            If UsuarioPrograma.ModificarPasswordPorId(IdUsuario, hashPassword) Then
 
-                    MessageBox.Show("Se ha modificado la contraseña del usuario seleccionado.", "Contraseña Modificada", MessageBoxButton.OK, MessageBoxImage.Error)
-
-                End If
-
-            Else
-
-                MessageBox.Show("La contraseña introducida ha de ser igual que la primera.", "Contraseñas no Coinciden", MessageBoxButton.OK, MessageBoxImage.Error)
+                MessageBox.Show("Se ha modificado la contraseña del usuario seleccionado.", "Contraseña Modificada", MessageBoxButton.OK, MessageBoxImage.Error)
 
             End If
 
@@ -41,21 +36,34 @@
 
             hayNuevaPassword = True
 
+        ElseIf Not Foo.HayTexto(NuevaPasswordPsb.Password) Then
+
+            MessageBox.Show("Tienes que introducir la nueva contraseña.", "Nueva Contraseña Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
+
         ElseIf NuevaPasswordPsb.Password.Length <= 4 Then
 
             MessageBox.Show("La contraseña tiene que tener más de 4 caracteres.", "Contraseña Corta", MessageBoxButton.OK, MessageBoxImage.Error)
-        Else
-
-            MessageBox.Show("Tienes que introducir la nueva contraseña.", "Nueva Contraseña Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
+            NuevaPasswordPsb.Clear()
 
         End If
 
         If Foo.HayTexto(RepetirPasswordPsb.Password) Then
 
-            hayRepePassword = True
+            If RepetirPasswordPsb.Password.Equals(NuevaPasswordPsb.Password) Then
+
+                hayRepePassword = True
+            Else
+
+                MessageBox.Show("Las contraseñas no son iguales.", "Contraseñas no Coinciden", MessageBoxButton.OK, MessageBoxImage.Error)
+                RepetirPasswordPsb.Clear()
+
+            End If
+        ElseIf Not Foo.HayTexto(RepetirPasswordPsb.Password) Then
+
+            MessageBox.Show("La repetición de la nueva contraseña está vacía.", "Repetición Contraseña Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            MessageBox.Show("Tienes que introducir la repetición de la nueva contraseña.", "Repetición Contraseña", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Tienes que introducir otra vez la nueva contraseña.", "Repetición Contraseña Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 

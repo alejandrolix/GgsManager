@@ -6,9 +6,10 @@
 Public Class Plaza
 
     Property Id As Integer
+    Property Marca As String
     Property Matricula As String
     Property Modelo As String
-    Property TipoSituacion As String
+    Property Situacion As String
 
 
     ''' <summary>
@@ -124,7 +125,7 @@ Public Class Plaza
     Public Shared Function ObtenerPlazasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT Veh.Matricula, Veh.Modelo, Plz.IdPlaza, Sit.Tipo AS 'Tipo Situación'
+        Dim comando As New MySqlCommand(String.Format("SELECT Veh.Matricula, Veh.Marca, Veh.Modelo, Plz.IdPlaza, Sit.Tipo
                                                        FROM   Vehiculos Veh 
 	                                                          JOIN Plazas Plz ON Plz.IdPlaza = Veh.IdPlaza 
                                                               JOIN Situaciones Sit ON Sit.IdSituacion = Plz.IdSituacion 
@@ -147,11 +148,12 @@ Public Class Plaza
             While datos.Read()
 
                 Dim matricula As String = datos.GetString("Matricula")
+                Dim marca As String = datos.GetString("Marca")
                 Dim modelo As String = datos.GetString("Modelo")
                 Dim idPlaza As Integer = datos.GetInt32("IdPlaza")
-                Dim tipoSituacion As String = datos.GetString("Tipo Situación")
+                Dim situacion As String = datos.GetString("Tipo")
 
-                Dim plaza As New Plaza(matricula, modelo, idPlaza, tipoSituacion)
+                Dim plaza As New Plaza(matricula, marca, modelo, idPlaza, situacion)
                 listaPlazas.Add(plaza)
 
             End While
@@ -252,16 +254,17 @@ Public Class Plaza
 
     End Function
 
-    Public Sub New(matricula As String, modelo As String, idPlaza As Integer, tipoSituacion As String)              ' Para mostrar una plaza en el DataGrid.
+    Public Sub New(matricula As String, marca As String, modelo As String, idPlaza As Integer, situacion As String)              ' Para mostrar una plaza en el DataGrid.
 
         Me.Matricula = matricula
+        Me.Marca = marca
         Me.Modelo = modelo
         Me.Id = idPlaza
-        Me.TipoSituacion = tipoSituacion
+        Me.Situacion = situacion
 
     End Sub
 
-    Public Sub New(id As Integer)
+    Public Sub New(id As Integer)               ' Para mostrar los Ids de las plazas en el ComboBox de "VntAddVehiculo".
 
         Me.Id = id
 

@@ -46,7 +46,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="Es Gestor" Binding="{Binding EsGestor}" Width="*" IsReadOnly="True">
+                        <DataGridTextColumn Header="¿Es Gestor?" Binding="{Binding EsGestor}" Width="*" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />

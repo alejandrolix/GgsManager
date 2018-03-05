@@ -21,7 +21,7 @@
             MessageBox.Show("Tienes que seleccionar un usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If UsuarioPrograma.EliminarUsuarioPorId(usuarioSelec.Id) Then                   ' Eliminamos el usuario de la base de datos.
+            If UsuarioPrograma.EliminarUsuarioPorId(usuarioSelec.Id) Then
 
                 UsuariosDg.DataContext = UsuarioPrograma.ObtenerUsuariosPrograma()
                 MessageBox.Show("Se ha eliminado el usuario.", "Usuario Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
@@ -55,6 +55,8 @@
     Private Sub AbrirVntAddUsuario(ByRef accion As Foo.Accion)
 
         Dim vntAddUsuario As New VntAddUsuario(accion)
+        vntAddUsuario.VntUsuarios = Me
+
         vntAddUsuario.ShowDialog()
 
     End Sub
@@ -69,6 +71,7 @@
 
         Dim vntAddUsuario As New VntAddUsuario(accion, usuarioSelec)
         vntAddUsuario.Title = "Modificar Usuario"
+        vntAddUsuario.VntUsuarios = Me
 
         vntAddUsuario.ShowDialog()
 

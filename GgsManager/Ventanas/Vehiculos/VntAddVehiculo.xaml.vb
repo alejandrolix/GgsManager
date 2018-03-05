@@ -19,6 +19,11 @@ Public Class VntAddVehiculo
     Private Accion As Foo.Accion
     Private VehiculoSelec As Vehiculo
 
+    ''' <summary>
+    ''' Para actualizar el DataGrid de vehículos.
+    ''' </summary>    
+    Property VntVehiculos As VntVehiculos
+
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
         If Accion = Foo.Accion.Insertar Then
@@ -36,8 +41,6 @@ Public Class VntAddVehiculo
             PrecTotalVehiculoTxt.Visibility = Visibility.Collapsed
 
         ElseIf Accion = Foo.Accion.Modificar Then
-
-            Me.Title = "Modificar Vehículo"
 
             MatrVehiculoTxt.DataContext = VehiculoSelec
             MarcaVehiculoTxt.DataContext = VehiculoSelec
@@ -281,6 +284,8 @@ Public Class VntAddVehiculo
                 End If
 
             End If
+
+            VntVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)               ' Actualizamos el DataGrid de vehículos.
 
         End If
 

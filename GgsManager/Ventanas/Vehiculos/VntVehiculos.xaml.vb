@@ -65,6 +65,8 @@
     Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion, ByRef idGaraje As Integer)
 
         Dim vntAddVehiculo As New VntAddVehiculo(accion, idGaraje)
+        vntAddVehiculo.VntVehiculos = Me
+
         vntAddVehiculo.ShowDialog()
 
     End Sub
@@ -78,6 +80,9 @@
     Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion, ByRef vehiculoSelec As Vehiculo)
 
         Dim vntAddVehiculo As New VntAddVehiculo(accion, vehiculoSelec)
+        vntAddVehiculo.Title = "Modificar Vehículo"
+        vntAddVehiculo.VntVehiculos = Me
+
         vntAddVehiculo.ShowDialog()
 
     End Sub

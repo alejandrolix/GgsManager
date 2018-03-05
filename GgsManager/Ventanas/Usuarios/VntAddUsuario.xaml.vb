@@ -1,17 +1,28 @@
 ﻿Public Class VntAddUsuario
 
     Private Accion As Foo.Accion
+
+    ''' <summary>
+    ''' Contiene los datos del usuario seleccionado.
+    ''' </summary>
     Private UsuarioSelec As UsuarioPrograma
+
+    ''' <summary>
+    ''' Para actualizar el DataGrid de usuarios.
+    ''' </summary>    
+    Property VntUsuarios As VntUsuarios
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
         If Accion = Foo.Accion.Insertar Then
 
             CambiarPasswordBtn.IsEnabled = False
+            Keyboard.Focus(NombreUsuTxt)
 
         ElseIf Accion = Foo.Accion.Modificar Then
 
             PasswordUsuPb.IsEnabled = False
+
             NombreUsuTxt.DataContext = UsuarioSelec
             EsGestorUsuChk.DataContext = UsuarioSelec
 
@@ -26,8 +37,9 @@
             If Accion = Foo.Accion.Insertar Then
 
                 Dim hashPassword As String = UsuarioPrograma.ObtenerSHA1HashFromPassword(PasswordUsuPb.Password)
+                Dim usuarioProgramaa As New UsuarioPrograma(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
 
-                If UsuarioPrograma.InsertarUsuario(NombreUsuTxt.Text, hashPassword, EsGestorUsuChk.IsChecked.Value) Then
+                If UsuarioPrograma.InsertarUsuario(usuarioProgramaa, hashPassword) Then
 
                     MessageBox.Show("Se ha añadido el usuario.", "Usuario Añadido", MessageBoxButton.OK, MessageBoxImage.Error)
                     LimpiarCampos()
@@ -38,11 +50,13 @@
 
                 If UsuarioPrograma.ModificarUsuarioPorId(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value, UsuarioSelec.Id) Then
 
-                    MessageBox.Show("Se ha modificado el usuario.", "Usuario Modificado", MessageBoxButton.OK, MessageBoxImage.Error)
+                    MessageBox.Show("Se ha modificado los datos del usuario seleccionado.", "Usuario Modificado", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
             End If
+
+            VntUsuarios.UsuariosDg.DataContext = UsuarioPrograma.ObtenerUsuariosPrograma()                  ' Actualizamos el DataGrid de Usuarios.
 
         End If
 
@@ -54,9 +68,9 @@
     ''' </summary>
     Private Sub LimpiarCampos()
 
-        NombreUsuTxt.Text = ""
+        NombreUsuTxt.ClearValue(TextBox.TextProperty)
         PasswordUsuPb.Clear()
-        EsGestorUsuChk.IsChecked = False
+        EsGestorUsuChk.ClearValue(CheckBox.IsCheckedProperty)
 
     End Sub
 
@@ -94,9 +108,10 @@
 
             End If
 
-        ElseIf PasswordUsuPb.Password.Length < 4 Then
+        ElseIf PasswordUsuPb.Password.Length <= 4 Then
 
             MessageBox.Show("La contraseña tiene que tener más de 4 letras.", "Tamaño de la contraseña corta", MessageBoxButton.OK, MessageBoxImage.Error)
+            PasswordUsuPb.Clear()
 
         End If
 
@@ -123,6 +138,9 @@
     Private Sub CambiarPasswordBtn_Click(sender As Object, e As RoutedEventArgs)
 
         Dim vntCambPassword As New VntCambiarPassword()
+        vntCambPassword.Title = "Cambiar Contraseña"
+        vntCambPassword.IdUsuario = UsuarioSelec.Id
+
         vntCambPassword.ShowDialog()
 
     End Sub

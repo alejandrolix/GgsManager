@@ -187,14 +187,13 @@ Public Class UsuarioPrograma
     ''' <summary>
     ''' Inserta un usuario.
     ''' </summary>
-    ''' <param name="nombre">El nombre del usuario.</param>
-    ''' <param name="hashPassword">El hash de la contraseña.</param>
-    ''' <param name="esGestor">Es gestor el usuario.</param>
+    ''' <param name="usuarioPrograma">Datos del usuario.</param>
+    ''' <param name="hashPassword">El hash de la contraseña.</param>    
     ''' <returns>True: Se ha insertado el usuario. False: No se ha insertado el usuario.</returns>
-    Public Shared Function InsertarUsuario(ByRef nombre As String, ByRef hashPassword As String, ByRef esGestor As Boolean) As Boolean
+    Public Shared Function InsertarUsuario(ByRef usuarioPrograma As UsuarioPrograma, ByRef hashPassword As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO UsuariosPrograma (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, '{0}', '{1}', {2});", nombre, hashPassword, esGestor), conexion)
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO UsuariosPrograma (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, '{0}', '{1}', {2});", usuarioPrograma.Nombre, hashPassword, usuarioPrograma.EsGestorB), conexion)
         Dim numFila As Integer
 
         Try
@@ -297,7 +296,7 @@ Public Class UsuarioPrograma
 
     End Function
 
-    Public Sub New(id As Integer, nombre As String, esGestor As Boolean)
+    Public Sub New(id As Integer, nombre As String, esGestor As Boolean)                    ' Para mostrar los usuarios en el DataGrid.
 
         Me.Id = id
         Me.Nombre = nombre
@@ -311,6 +310,22 @@ Public Class UsuarioPrograma
             Me.EsGestor = "No"
 
         End If
+
+    End Sub
+
+    Public Sub New(nombre As String, esGestor As Boolean)               ' Para crear un usuario.
+
+        Me.Nombre = nombre
+        Me.EsGestorB = esGestor
+
+        'If esGestor Then
+
+        '    Me.EsGestor = "Sí"
+        'Else
+
+        '    Me.EsGestor = "No"
+
+        'End If
 
     End Sub
 
