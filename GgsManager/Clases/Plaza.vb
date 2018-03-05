@@ -25,11 +25,11 @@ Public Class Plaza
 
 
     ''' <summary>
-    ''' Obtiene todos los Id de las plazas a partir del Id del garaje.
+    ''' Obtiene todos los Id de las plazas libres a partir del Id del garaje.
     ''' </summary>
-    ''' <param name="idGaraje">Id del garaje.</param>
-    ''' <returns>Lista con las plazas.</returns>
-    Public Shared Function ObtenerIdPlazasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
+    ''' <param name="idGaraje">El Id del garaje.</param>
+    ''' <returns>Lista con las plazas libres.</returns>
+    Public Shared Function ObtenerIdPlazasLibresPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("SELECT IdPlaza
@@ -42,7 +42,53 @@ Public Class Plaza
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener las plazas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al obtener las plazas libres del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim listaPlazas As New List(Of Plaza)()
+
+            While datos.Read()
+
+                Dim id As Integer = datos.GetInt32("IdPlaza")
+
+                listaPlazas.Add(New Plaza(id))
+
+            End While
+
+            conexion.Close()
+            datos.Close()
+
+            Return listaPlazas
+
+        End If
+
+        Return Nothing
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene todos los Id de las plazas ocupadas a partir del Id del garaje.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id del garaje.</param>
+    ''' <returns>Lista con las plazas ocupadas.</returns>
+    Public Shared Function ObtenerIdPlazasOcupadasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("SELECT IdPlaza
+                                                       FROM   Plazas
+                                                       WHERE  IdGaraje = {0} AND IdSituacion = 2;", idGaraje), conexion)
+        Dim datos As MySqlDataReader
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener las plazas ocupadas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 

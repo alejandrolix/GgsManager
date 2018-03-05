@@ -57,7 +57,8 @@ Public Class Vehiculo
                 Dim precioBase As Decimal = datos.GetDecimal("PrecioBase")
                 Dim precioTotal As Decimal = datos.GetDecimal("PrecioTotal")
 
-                listaVehiculos.Add(New Vehiculo(id, matricula, marca, modelo, cliente, idGj, idPl, precioBase, precioTotal))
+                Dim vehiculo As New Vehiculo(id, matricula, marca, modelo, cliente, idGj, idPl, precioBase, precioTotal)
+                listaVehiculos.Add(vehiculo)
 
             End While
 
@@ -69,37 +70,6 @@ Public Class Vehiculo
         End If
 
         Return Nothing
-
-    End Function
-
-
-    ''' <summary>
-    ''' Inserta un vehículo.
-    ''' </summary>
-    ''' <param name="vehiculo">Datos del vehículo a insertar.</param>
-    ''' <returns>True: El vehículo se ha insertado. False: El vehículo no se ha insertado.</returns>
-    Public Shared Function InsertarVehiculo(ByRef vehiculo As Vehiculo) As Boolean
-
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim porcentajeIva As Decimal = (vehiculo.PrecioBase * Foo.LeerIVA()) / 100
-        Dim precioTotal As Decimal = vehiculo.PrecioBase + porcentajeIva
-
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
-                                                       VALUES (NULL, '{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7});", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo,
-                                                       vehiculo.Cliente.Id, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase.ToString("F2", CultureInfo.InvariantCulture), precioTotal.ToString("F2", CultureInfo.InvariantCulture)), conexion)
-        Dim numFila As Integer
-
-        Try
-            numFila = comando.ExecuteNonQuery()
-            conexion.Close()
-
-        Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al insertar el vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        End Try
-
-        Return numFila >= 1
 
     End Function
 
@@ -133,6 +103,34 @@ Public Class Vehiculo
 
 
     ''' <summary>
+    ''' Inserta un vehículo.
+    ''' </summary>
+    ''' <param name="vehiculo">Datos del vehículo a insertar.</param>
+    ''' <returns>True: El vehículo se ha insertado. False: El vehículo no se ha insertado.</returns>
+    Public Shared Function InsertarVehiculo(ByRef vehiculo As Vehiculo) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
+                                                       VALUES (NULL, '{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7});", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo,
+                                                       vehiculo.Cliente.Id, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase.ToString("F2", CultureInfo.InvariantCulture), vehiculo.PrecioTotal.ToString("F2", CultureInfo.InvariantCulture)), conexion)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+            conexion.Close()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al insertar el vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
     ''' Modifica los datos de un vehículo seleccionado.
     ''' </summary>
     ''' <param name="vehiculo">Datos del vehículo seleccionado.</param>
@@ -142,7 +140,7 @@ Public Class Vehiculo
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("UPDATE Vehiculos
                                                        SET    Matricula = '{0}', Marca = '{1}', Modelo = '{2}', IdGaraje = {3}, IdPlaza = {4}, PrecioBase = {5}, PrecioTotal = {6}
-                                                       WHERE  IdVehiculo = {7};", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase, vehiculo.PrecioTotal, vehiculo.Id), conexion)
+                                                       WHERE  IdVehiculo = {7};", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase.ToString("F2", CultureInfo.InvariantCulture), vehiculo.PrecioTotal.ToString("F2", CultureInfo.InvariantCulture), vehiculo.Id), conexion)
         Dim numFila As Integer
 
         Try
@@ -151,7 +149,7 @@ Public Class Vehiculo
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al modificar los datos del vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al modificar los datos del vehículo seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -213,7 +211,7 @@ Public Class Vehiculo
 
     End Function
 
-    Public Sub New(id As Integer, matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal, precioTotal As Decimal)
+    Public Sub New(id As Integer, matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal, precioTotal As Decimal)               ' Para modificar los datos de un vehículo seleccionado y mostrarlos en el DataGrid.
 
         Me.Id = id
         Me.Matricula = matricula
@@ -227,7 +225,20 @@ Public Class Vehiculo
 
     End Sub
 
-    Public Sub New(matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal)
+    Public Sub New(id As Integer, matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioTotal As Decimal)               ' Para mostrar los vehículos en el DataGrid.
+
+        Me.Id = id
+        Me.Matricula = matricula
+        Me.Marca = marca
+        Me.Modelo = modelo
+        Me.Cliente = cliente
+        Me.IdGaraje = idGaraje
+        Me.IdPlaza = idPlaza
+        Me.PrecioTotal = precioTotal
+
+    End Sub
+
+    Public Sub New(matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal, precioTotal As Decimal)                  ' Para crear un vehículo.
 
         Me.Id = Id
         Me.Matricula = matricula
@@ -237,6 +248,7 @@ Public Class Vehiculo
         Me.IdGaraje = idGaraje
         Me.IdPlaza = idPlaza
         Me.PrecioBase = precioBase
+        Me.PrecioTotal = precioTotal
 
     End Sub
 

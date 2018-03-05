@@ -10,11 +10,6 @@ Public Class VntAddVehiculo
     ''' Indica cuantas veces se ha pulsado al botón "Examinar".
     ''' </summary>
     Private NumPulsacionesBtnExaminar As Integer
-
-    ''' <summary>
-    ''' Indica cuantas veces se ha guardado una foto.
-    ''' </summary>
-    Private NumVecesGuardadoFoto As Integer
     Private PrecioBase As Decimal
 
     ''' <summary>
@@ -34,11 +29,11 @@ Public Class VntAddVehiculo
             ClientesCmb.DataContext = Cliente.ObtenerNombreYApellidosClientes()           ' Cargamos los clientes en su ComboBox.
             ClientesCmb.SelectedIndex = 0
 
-            PlazasCmb.DataContext = Plaza.ObtenerIdPlazasPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas en su ComboBox.
+            PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas en su ComboBox.
             PlazasCmb.SelectedIndex = 0
 
             Me.NumPulsacionesBtnExaminar = 0
-            Me.NumVecesGuardadoFoto = 0
+            PrecTotalVehiculoTxt.Visibility = Visibility.Collapsed
 
         ElseIf Accion = Foo.Accion.Modificar Then
 
@@ -47,13 +42,121 @@ Public Class VntAddVehiculo
             MatrVehiculoTxt.DataContext = VehiculoSelec
             MarcaVehiculoTxt.DataContext = VehiculoSelec
             ModVehiculoTxt.DataContext = VehiculoSelec
-            GarajesCmb.DataContext = VehiculoSelec
-            PlazasCmb.DataContext = VehiculoSelec
-            PrecBaseVehiculoTxt.DataContext = VehiculoSelec
+
+            PrecioLbl.Text = "Precio Total"
+            PrecBaseVehiculoTxt.Visibility = Visibility.Collapsed
+
+            PrecTotalVehiculoTxt.Language = Markup.XmlLanguage.GetLanguage(Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag)               ' Cambiamos el "." por una ",".
+            PrecTotalVehiculoTxt.DataContext = VehiculoSelec
+
+            Dim listaGarajes As List(Of Garaje) = Garaje.ObtenerNombresGarajes()
+            GarajesCmb.DataContext = listaGarajes               ' Cargamos los garajes en su ComboBox.
+
+            Dim posicionGaraje As Integer = ObtenerPosicionGaraje(listaGarajes)
+
+            If posicionGaraje <> -1 Then
+
+                GarajesCmb.SelectedIndex = posicionGaraje
+
+            End If
+
+            Dim listaClientes As List(Of Cliente) = Cliente.ObtenerNombreYApellidosClientes()
+            ClientesCmb.DataContext = listaClientes                 ' Cargamos los clientes en su ComboBox.
+
+            Dim posicionCliente As Integer = ObtenerPosicionCliente(listaClientes)
+
+            If posicionCliente <> -1 Then
+
+                ClientesCmb.SelectedIndex = posicionCliente
+
+            End If
+
+            Dim listaPlazasOcupadas As List(Of Plaza) = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(listaGarajes(posicionGaraje).Id)
+            PlazasCmb.DataContext = listaPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
+
+            Dim posicionPlaza As Integer = ObtenerPosicionPlaza(listaPlazasOcupadas)
+
+            If posicionPlaza <> -1 Then
+
+                PlazasCmb.SelectedIndex = posicionPlaza
+
+            End If
 
         End If
 
     End Sub
+
+
+    ''' <summary>
+    ''' Obtiene la posición de la lista donde el nombre y apellidos del cliente coincida con el del vehículo seleccionado.
+    ''' </summary>
+    ''' <param name="listaClientes">La lista de los clientes.</param>
+    ''' <returns>La posición de la lista.</returns>
+    Private Function ObtenerPosicionCliente(ByRef listaClientes As List(Of Cliente)) As Integer
+
+        For i As Integer = 0 To listaClientes.Count - 1 Step 1
+
+            Dim cliente As Cliente = listaClientes(i)
+
+            If cliente.Nombre.Equals(VehiculoSelec.Cliente.Nombre) And cliente.Apellidos.Equals(VehiculoSelec.Cliente.Apellidos) Then
+
+                Return i
+
+            End If
+
+        Next
+
+        Return -1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene la posición de la lista donde el Id del garaje coincida con el del vehículo seleccionado.
+    ''' </summary>
+    ''' <param name="listaGarajes">La lista de los garajes.</param>
+    ''' <returns>La posición de la lista.</returns>
+    Private Function ObtenerPosicionGaraje(ByRef listaGarajes As List(Of Garaje)) As Integer
+
+        For i As Integer = 0 To listaGarajes.Count - 1 Step 1
+
+            Dim garaje As Garaje = listaGarajes(i)
+
+            If garaje.Id = VehiculoSelec.IdGaraje Then
+
+                Return i
+
+            End If
+
+        Next
+
+        Return -1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene la posición de la lista donde el Id de la plaza coincida con el del vehículo seleccionado.
+    ''' </summary>
+    ''' <param name="listaPlazasLibres">La lista de las plazas libres.</param>
+    ''' <returns>La posición de la lista.</returns>
+    Private Function ObtenerPosicionPlaza(ByRef listaPlazasLibres As List(Of Plaza)) As Integer
+
+        For i As Integer = 0 To listaPlazasLibres.Count - 1 Step 1
+
+            Dim plaza As Plaza = listaPlazasLibres(i)
+
+            If plaza.Id = VehiculoSelec.IdPlaza Then
+
+                Return i
+
+            End If
+
+        Next
+
+        Return -1
+
+    End Function
 
     Private Sub AddFotoBtn_Click(sender As Object, e As RoutedEventArgs)
 
@@ -101,6 +204,12 @@ Public Class VntAddVehiculo
 
         If ComprobarDatosIntroducidos() Then
 
+            Dim clienteSelec As Cliente = CType(ClientesCmb.SelectedItem, Cliente)              ' Obtenemos los datos del cliente seleccionado en su ComboBox.
+            Dim plazaSelec As Plaza = CType(PlazasCmb.SelectedItem, Plaza)              ' Obtenemos los datos de la plaza seleccionada en su ComboBox.            
+
+            Dim porcentajeIva As Decimal = (PrecioBase * Foo.LeerIVA) / 100
+            Dim cliente As New Cliente(clienteSelec.Id)         ' Creamos el cliente.
+
             If Accion = Foo.Accion.Insertar Then
 
                 Dim nuevoId As Integer
@@ -129,15 +238,13 @@ Public Class VntAddVehiculo
 
                 End If
 
-                Dim clienteSelec As Cliente = CType(ClientesCmb.SelectedItem, Cliente)
-                Dim plazaSelec As Plaza = CType(PlazasCmb.SelectedItem, Plaza)
+                ' Calculamos el precio total para el pago mensual.
+                Dim precioTotal As Decimal = PrecioBase + porcentajeIva
+                Dim vehiculoo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, precioTotal)
 
-                Dim cliente As New Cliente(clienteSelec.Id)
-                Dim vehiculoo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase)
+                If PrecBaseVehiculoTxt.Text.Contains(".") Then              ' Si el usuario introduce un ".", se tiene que cambiar por una ",".
 
-                If PrecBaseVehiculoTxt.Text.Contains(".") Then              ' Si el usuario introduce un ".", se quejará.
-
-                    MessageBox.Show("Tienes que cambiar el ""."" por "",""")
+                    MessageBox.Show("Tienes que cambiar el ""."" por "",""", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
                 Else
 
                     If Vehiculo.InsertarVehiculo(vehiculoo) Then
@@ -153,50 +260,27 @@ Public Class VntAddVehiculo
 
                 End If
 
+            ElseIf Accion = Foo.Accion.Modificar Then
+
+                PrecioBase = Decimal.Parse(PrecTotalVehiculoTxt.Text)
+                PrecioBase -= porcentajeIva
+
+                Dim vehiculoo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, Decimal.Parse(PrecTotalVehiculoTxt.Text))
+
+                If PrecTotalVehiculoTxt.Text.Contains(".") Then
+
+                    MessageBox.Show("Tienes que cambiar el ""."" por "",""", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                Else
+
+                    If Vehiculo.ModificarVehiculo(vehiculoo) Then
+
+                        MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+
+                    End If
+
+                End If
+
             End If
-
-
-            'If Accion = Foo.Accion.Insertar Then
-
-            '        Dim cadenaUrls As New StringBuilder()
-
-            '        For Each url As String In ArrayUrlsImgs
-
-            '            cadenaUrls.Append(url).Append(" ")
-
-            '        Next
-
-            '        Dim plazaSelecc As Plaza = CType(PlazasCmb.SelectedItem, Plaza)
-            '        Dim vehic As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, ClienteSelec, IdGaraje, plazaSelecc.Id, PrecioBase, cadenaUrls.ToString())
-
-            '        If Vehiculo.InsertarVehiculo(vehic) Then
-
-            '            MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Insertado", MessageBoxButton.OK, MessageBoxImage.Information)
-            '            LimpiarCampos()
-
-            '        End If
-
-            '    End If
-
-            '    Dim plazaSelec As Plaza = CType(PlazasCmb.SelectedItem, Plaza)
-            '    Dim vehicc As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, ClienteSelec, IdGaraje, plazaSelec.Id, PrecioBase, Nothing)
-
-            '    If Vehiculo.InsertarVehiculo(vehicc) Then
-
-            '        MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Insertado", MessageBoxButton.OK, MessageBoxImage.Information)
-            '        LimpiarCampos()
-
-            '    End If
-
-            'ElseIf Accion = Foo.Accion.Modificar Then
-
-            '    If Vehiculo.ModificarVehiculo(VehiculoSelec) Then
-
-            '        MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
-
-            '    End If
-
-            'End If
 
         End If
 
@@ -211,6 +295,10 @@ Public Class VntAddVehiculo
         MatrVehiculoTxt.ClearValue(TextBox.TextProperty)
         MarcaVehiculoTxt.ClearValue(TextBox.TextProperty)
         ModVehiculoTxt.ClearValue(TextBox.TextProperty)
+
+        ClientesCmb.ClearValue(ComboBox.TextProperty)
+        PrecBaseVehiculoTxt.ClearValue(TextBox.TextProperty)
+        PlazasCmb.ClearValue(ComboBox.TextProperty)
 
         If Foo.HayImagen(Vehic1Img.Source) Then
 
@@ -266,9 +354,7 @@ Public Class VntAddVehiculo
     ''' <returns>True: Los datos son correctos. False: Los datos no son correctos.</returns>
     Private Function ComprobarDatosIntroducidos() As Boolean
 
-        Dim hayMatricula, hayMarca, hayModelo, hayPrecioBase As Boolean
-
-        ' Comprobación de errores.
+        Dim hayMatricula, hayMarca, hayModelo As Boolean
 
         If Foo.HayTexto(MatrVehiculoTxt.Text) Then
 
@@ -297,23 +383,51 @@ Public Class VntAddVehiculo
 
         End If
 
-        Try
-            Me.PrecioBase = Decimal.Parse(PrecBaseVehiculoTxt.Text)
-            hayPrecioBase = True
+        If Accion = Foo.Accion.Insertar Then
 
-        Catch ex As Exception
+            Dim hayPrecioBase As Boolean
 
-            MessageBox.Show("Tienes que introducir un precio base.", "Precio Base Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+            Try
+                Me.PrecioBase = Decimal.Parse(PrecBaseVehiculoTxt.Text)
+                hayPrecioBase = True
 
-            If Foo.HayTexto(PrecBaseVehiculoTxt.Text) Then
+            Catch ex As Exception
 
-                PrecBaseVehiculoTxt.ClearValue(TextBox.TextProperty)
+                MessageBox.Show("Tienes que introducir un precio base.", "Precio Base Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
 
-            End If
+                If Foo.HayTexto(PrecBaseVehiculoTxt.Text) Then
 
-        End Try
+                    PrecBaseVehiculoTxt.ClearValue(TextBox.TextProperty)
 
-        Return hayMatricula And hayMarca And hayModelo And hayPrecioBase
+                End If
+
+            End Try
+
+            Return hayMatricula And hayMarca And hayModelo And hayPrecioBase
+
+        ElseIf Accion = Foo.Accion.Modificar Then
+
+            Dim hayPrecioTotal As Boolean
+
+            Try
+                Decimal.Parse(PrecTotalVehiculoTxt.Text)
+                hayPrecioTotal = True
+
+            Catch ex As Exception
+
+                MessageBox.Show("Tienes que introducir un precio total.", "Precio Total Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+
+                If Foo.HayTexto(PrecTotalVehiculoTxt.Text) Then
+
+                    PrecTotalVehiculoTxt.ClearValue(TextBox.TextProperty)
+
+                End If
+
+            End Try
+
+            Return hayMatricula And hayMarca And hayModelo And hayPrecioTotal
+
+        End If
 
     End Function
 

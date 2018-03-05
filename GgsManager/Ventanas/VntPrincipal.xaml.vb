@@ -102,7 +102,7 @@
     ''' <summary>
     ''' Abre "VntSeleccGaraje" para seleccionar un garaje.
     ''' </summary>
-    ''' <param name="numVentana">Número de ventana a mostrar.</param>
+    ''' <param name="ventana">Número de ventana a mostrar.</param>
     Private Sub AbrirVntSeleccGaraje(ByRef ventana As Foo.Ventana)
 
         Dim vntSeleccGaraje As New VntSeleccGaraje(Me, ventana)

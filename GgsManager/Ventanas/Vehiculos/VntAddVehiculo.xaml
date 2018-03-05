@@ -58,7 +58,7 @@
         <TextBlock Text="Modelo" Grid.Column="0" Grid.Row="2" Style="{StaticResource Etiquetas}" />
         <TextBox Name="ModVehiculoTxt" Grid.Column="1" Grid.Row="2" Text="{Binding Modelo}" Style="{StaticResource TextBox}" Width="180" />
         <TextBlock Text="Garaje" Grid.Column="0" Grid.Row="3" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="GarajesCmb" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
+        <ComboBox Name="GarajesCmb" IsEditable="True" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -89,8 +89,13 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBlock Text="Precio Base" Grid.Column="0" Grid.Row="6" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="PrecBaseVehiculoTxt" Grid.Column="1" Grid.Row="6" Text="{Binding PrecioBase}" Style="{StaticResource TextBox}" Width="80" />
+        <TextBlock Name="PrecioLbl" Text="Precio Base" Grid.Column="0" Grid.Row="6" Style="{StaticResource Etiquetas}" />
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="6">
+            <TextBox Name="PrecBaseVehiculoTxt" Text="{Binding PrecioBase}" Style="{StaticResource TextBox}" Width="84" />
+            <TextBox Name="PrecTotalVehiculoTxt" Text="{Binding PrecioTotal}" Style="{StaticResource TextBox}" Width="86" />
+        </StackPanel>
+                
         <TextBlock Text="Foto" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" />
 
         <DockPanel Grid.Column="1" Grid.Row="7" LastChildFill="False">
