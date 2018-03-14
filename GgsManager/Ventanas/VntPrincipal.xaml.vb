@@ -78,8 +78,9 @@
 
     End Sub
 
-    Private Sub Listados_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub InfClientes_Click(sender As Object, e As RoutedEventArgs)
 
+        AbrirVntSeleccGaraje(Foo.Ventana.InfClientes)
 
     End Sub
 
@@ -102,10 +103,23 @@
     ''' <summary>
     ''' Abre "VntSeleccGaraje" para seleccionar un garaje.
     ''' </summary>
+    ''' <param name="vntPrincipal">La ventana actual.</param>
+    ''' <param name="ventana">Número de ventana a mostrar.</param>
+    Private Sub AbrirVntSeleccGaraje(ByRef vntPrincipal As VntPrincipal, ByRef ventana As Foo.Ventana)
+
+        Dim vntSeleccGaraje As New VntSeleccGaraje(Me, ventana)
+        vntSeleccGaraje.ShowDialog()
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Abre "VntSeleccGaraje" para seleccionar un garaje.
+    ''' </summary>    
     ''' <param name="ventana">Número de ventana a mostrar.</param>
     Private Sub AbrirVntSeleccGaraje(ByRef ventana As Foo.Ventana)
 
-        Dim vntSeleccGaraje As New VntSeleccGaraje(Me, ventana)
+        Dim vntSeleccGaraje As New VntSeleccGaraje(ventana)
         vntSeleccGaraje.ShowDialog()
 
     End Sub

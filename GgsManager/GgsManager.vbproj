@@ -50,8 +50,13 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo_GgsManager.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -69,6 +74,8 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System" />
@@ -94,8 +101,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Clases\Plaza.vb" />
+    <Compile Include="DataSets\DtClientes.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DtClientes.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Garajes\VntSeleccGaraje.xaml.vb">
       <DependentUpon>VntSeleccGaraje.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\FormInfClientes.Designer.vb">
+      <DependentUpon>FormInfClientes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\FormInfClientes.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ventanas\Plazas\VntPlazas.xaml.vb">
       <DependentUpon>VntPlazas.xaml</DependentUpon>
@@ -246,6 +264,20 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ventanas\Informes\FormInfClientes.resx">
+      <DependentUpon>FormInfClientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="DataSets\DtClientes.xsc">
+      <DependentUpon>DtClientes.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DtClientes.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DtClientes.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSets\DtClientes.xss">
+      <DependentUpon>DtClientes.xsd</DependentUpon>
+    </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
@@ -258,6 +290,8 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Logo_GgsManager.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

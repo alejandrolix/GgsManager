@@ -141,11 +141,12 @@ Public Class Foo
 
 
     ''' <summary>
-    ''' Indica qué ventana se va a abrir despúes de seleccionar un garaje de "VntSeleccGaraje".
+    ''' Indica qué ventana se va a abrir despúes de seleccionar un garaje en "VntSeleccGaraje".
     ''' </summary>
     Enum Ventana
         Vehiculos
         Plazas
+        InfClientes
     End Enum
 
 End Class

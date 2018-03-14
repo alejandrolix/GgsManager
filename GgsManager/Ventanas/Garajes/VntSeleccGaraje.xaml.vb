@@ -18,6 +18,7 @@
 
             Dim vntVehic As WPF.MDI.MdiChild
             Dim vntPlz As WPF.MDI.MdiChild
+            Dim formInfClientes As FormInfClientes
 
             If Ventana = Foo.Ventana.Vehiculos Then
 
@@ -38,6 +39,11 @@
                 VntPlazas.IdGaraje = gjSelec.Id
                 vntPlz.Width = 500
                 vntPlz.Height = 401
+
+            ElseIf Ventana = Foo.Ventana.InfClientes Then
+
+                formInfClientes = New FormInfClientes(gjSelec.Id)
+                formInfClientes.ShowDialog()
 
             End If
 
@@ -62,6 +68,13 @@
         InitializeComponent()
 
         Me.VntPrincipal = vntPrincipal
+        Me.Ventana = ventana
+
+    End Sub
+
+    Public Sub New(ventana As Foo.Ventana)
+
+        InitializeComponent()
         Me.Ventana = ventana
 
     End Sub

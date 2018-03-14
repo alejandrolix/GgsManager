@@ -10,8 +10,8 @@
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Garaje" Margin="0,0,20,0" FontSize="16" />
-            <ComboBox Name="GarajesCmb" Width="136" Height="26" ItemsSource="{Binding}" FontSize="15">
+            <TextBlock Text="Garaje" Margin="0,0,31,0" FontSize="20" />
+            <ComboBox Name="GarajesCmb" Width="140" Height="26" ItemsSource="{Binding}" FontSize="17">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
@@ -22,6 +22,6 @@
             </ComboBox>
         </StackPanel>
 
-        <Button Name="AceptarBtn" Content="Aceptar" Width="82" Height="32" FontSize="15" Margin="0,78,0,0" Click="AceptarBtn_Click" />
+        <Button Name="AceptarBtn" Content="Aceptar" Width="82" Height="33" FontSize="16" Margin="0,78,0,0" Click="AceptarBtn_Click" />
     </StackPanel>
 </Window>

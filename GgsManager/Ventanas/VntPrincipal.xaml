@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="GgsManager" Height="481.853" Width="732.428"
         WindowState="Maximized"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded" Icon="/GgsManager;component/Logo_GgsManager.ico">
     <Window.Resources>
         <Style TargetType="MenuItem" x:Key="Margen">
             <Setter Property="Margin" Value="0,0,8,0" />
@@ -26,8 +26,8 @@
             <MenuItem Name="Vehiculos" Header="Vehículos" Click="Vehiculos_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Usuarios" Header="Usuarios" Click="Usuarios_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Plazas" Header="Plazas" Click="Plazas_Click" Style="{StaticResource Margen}" />
-            <MenuItem Name="Listados" Header="Listados" Click="Listados_Click" Style="{StaticResource Margen}">
-                <MenuItem Header="Por Clientes" Style="{StaticResource SubMenu}" />
+            <MenuItem Name="Listados" Header="Listados" Style="{StaticResource Margen}">
+                <MenuItem Name="InfClientes" Header="Clientes" Click="InfClientes_Click" Style="{StaticResource SubMenu}" />
                 <MenuItem Header="Vehículos por Garaje" Style="{StaticResource SubMenu}" />
             </MenuItem>
             <MenuItem Name="Facturas" Header="Facturas" Click="Facturas_Click" Style="{StaticResource Margen}">
