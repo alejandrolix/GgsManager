@@ -291,7 +291,7 @@ Partial Public Class DtClientes
         
         Private columnDNI As Global.System.Data.DataColumn
         
-        Private columnMóvil As Global.System.Data.DataColumn
+        Private columnMovil As Global.System.Data.DataColumn
         
         Private columnObservaciones As Global.System.Data.DataColumn
         
@@ -364,9 +364,9 @@ Partial Public Class DtClientes
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property MóvilColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property MovilColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnMóvil
+                Return Me.columnMovil
             End Get
         End Property
         
@@ -415,9 +415,9 @@ Partial Public Class DtClientes
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddClientesRow(ByVal IdCliente As Integer, ByVal Nombre As String, ByVal Apellidos As String, ByVal DNI As String, ByVal Móvil As String, ByVal Observaciones As String) As ClientesRow
+        Public Overloads Function AddClientesRow(ByVal IdCliente As Integer, ByVal Nombre As String, ByVal Apellidos As String, ByVal DNI As String, ByVal Movil As String, ByVal Observaciones As String) As ClientesRow
             Dim rowClientesRow As ClientesRow = CType(Me.NewRow,ClientesRow)
-            Dim columnValuesArray() As Object = New Object() {IdCliente, Nombre, Apellidos, DNI, Móvil, Observaciones}
+            Dim columnValuesArray() As Object = New Object() {IdCliente, Nombre, Apellidos, DNI, Movil, Observaciones}
             rowClientesRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowClientesRow)
             Return rowClientesRow
@@ -444,7 +444,7 @@ Partial Public Class DtClientes
             Me.columnNombre = MyBase.Columns("Nombre")
             Me.columnApellidos = MyBase.Columns("Apellidos")
             Me.columnDNI = MyBase.Columns("DNI")
-            Me.columnMóvil = MyBase.Columns("Móvil")
+            Me.columnMovil = MyBase.Columns("Movil")
             Me.columnObservaciones = MyBase.Columns("Observaciones")
         End Sub
         
@@ -459,8 +459,8 @@ Partial Public Class DtClientes
             MyBase.Columns.Add(Me.columnApellidos)
             Me.columnDNI = New Global.System.Data.DataColumn("DNI", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnDNI)
-            Me.columnMóvil = New Global.System.Data.DataColumn("Móvil", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMóvil)
+            Me.columnMovil = New Global.System.Data.DataColumn("Movil", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMovil)
             Me.columnObservaciones = New Global.System.Data.DataColumn("Observaciones", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnObservaciones)
         End Sub
@@ -669,16 +669,16 @@ Partial Public Class DtClientes
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Móvil() As String
+        Public Property Movil() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableClientes.MóvilColumn),String)
+                    Return CType(Me(Me.tableClientes.MovilColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Móvil' de la tabla 'Clientes' es DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Movil' de la tabla 'Clientes' es DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableClientes.MóvilColumn) = value
+                Me(Me.tableClientes.MovilColumn) = value
             End Set
         End Property
         
@@ -747,14 +747,14 @@ Partial Public Class DtClientes
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsMóvilNull() As Boolean
-            Return Me.IsNull(Me.tableClientes.MóvilColumn)
+        Public Function IsMovilNull() As Boolean
+            Return Me.IsNull(Me.tableClientes.MovilColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetMóvilNull()
-            Me(Me.tableClientes.MóvilColumn) = Global.System.Convert.DBNull
+        Public Sub SetMovilNull()
+            Me(Me.tableClientes.MovilColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

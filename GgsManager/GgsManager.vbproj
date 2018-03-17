@@ -51,7 +51,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Logo_GgsManager.ico</ApplicationIcon>
+    <ApplicationIcon>LogoGgsManager.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -259,6 +259,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Informes\InfClientes.rdlc" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -291,7 +292,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Logo_GgsManager.ico" />
+    <Resource Include="LogoGgsManager.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

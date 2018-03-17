@@ -8,14 +8,14 @@
         mc:Ignorable="d"
         Title="GgsManager" Height="481.853" Width="732.428"
         WindowState="Maximized"
-        Loaded="Window_Loaded" Icon="/GgsManager;component/Logo_GgsManager.ico">
+        Loaded="Window_Loaded" Icon="/GgsManager;component/LogoGgsManager.ico">
     <Window.Resources>
         <Style TargetType="MenuItem" x:Key="Margen">
             <Setter Property="Margin" Value="0,0,8,0" />
         </Style>
 
         <Style TargetType="MenuItem" x:Key="SubMenu">
-            <Setter Property="Margin" Value="3" />
+            <Setter Property="Margin" Value="2" />
         </Style>
     </Window.Resources>
 
@@ -27,19 +27,19 @@
             <MenuItem Name="Usuarios" Header="Usuarios" Click="Usuarios_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Plazas" Header="Plazas" Click="Plazas_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Listados" Header="Listados" Style="{StaticResource Margen}">
-                <MenuItem Name="InfClientes" Header="Clientes" Click="InfClientes_Click" Style="{StaticResource SubMenu}" />
-                <MenuItem Header="Vehículos por Garaje" Style="{StaticResource SubMenu}" />
+                <MenuItem Name="InfClientes" Header="Clientes" Click="InfClientes_Click" />
+                <MenuItem Header="Vehículos por Garaje" />
             </MenuItem>
             <MenuItem Name="Facturas" Header="Facturas" Click="Facturas_Click" Style="{StaticResource Margen}">
-                <MenuItem Header="Individual" Style="{StaticResource SubMenu}" />
-                <MenuItem Header="Conjunto" Style="{StaticResource SubMenu}" />
+                <MenuItem Header="Individual" />
+                <MenuItem Header="Conjunto" />
             </MenuItem>
             <MenuItem Name="Configuracion" Header="Configuración" Click="Configuracion_Click" Style="{StaticResource Margen}">
-                <MenuItem Name="CambiarIVA" Header="Cambiar I.V.A." Style="{StaticResource SubMenu}" Click="CambiarIVA_Click" />
+                <MenuItem Name="CambiarIVA" Header="Cambiar I.V.A." Click="CambiarIVA_Click" />
             </MenuItem>
             <MenuItem Name="Estadisticas" Header="Estadísticas" Style="{StaticResource Margen}">
-                <MenuItem Header="Todos los Garajes" Style="{StaticResource SubMenu}" />
-                <MenuItem Header="Por Garaje" Style="{StaticResource SubMenu}" />
+                <MenuItem Header="Todos los Garajes" />
+                <MenuItem Header="Por Garaje" />
             </MenuItem>
             <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Style="{StaticResource Margen}" />
         </Menu>
