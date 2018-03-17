@@ -128,8 +128,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DtPlazas.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSets\DtPorcPlazas.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DtPorcPlazas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Garajes\VntSeleccGaraje.xaml.vb">
       <DependentUpon>VntSeleccGaraje.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\Form1.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ventanas\Informes\FormInfClientes.Designer.vb">
       <DependentUpon>FormInfClientes.vb</DependentUpon>
@@ -289,10 +300,14 @@
     </Compile>
     <EmbeddedResource Include="Informes\InfClientes.rdlc" />
     <EmbeddedResource Include="Informes\InfPlazas.rdlc" />
+    <EmbeddedResource Include="Informes\Report1.rdlc" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventanas\Informes\Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Informes\FormInfClientes.resx">
       <DependentUpon>FormInfClientes.vb</DependentUpon>
@@ -321,6 +336,17 @@
     </None>
     <None Include="DataSets\DtPlazas.xss">
       <DependentUpon>DtPlazas.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DtPorcPlazas.xsc">
+      <DependentUpon>DtPorcPlazas.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DtPorcPlazas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DtPorcPlazas.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSets\DtPorcPlazas.xss">
+      <DependentUpon>DtPorcPlazas.xsd</DependentUpon>
     </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
