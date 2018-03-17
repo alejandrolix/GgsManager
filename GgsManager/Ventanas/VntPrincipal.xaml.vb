@@ -84,11 +84,13 @@
 
     End Sub
 
-    Private Sub Facturas_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub InfPlazas_Click(sender As Object, e As RoutedEventArgs)
+
+        AbrirVntSeleccGaraje(Foo.Ventana.InfPlazas)
 
     End Sub
 
-    Private Sub Configuracion_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub Facturas_Click(sender As Object, e As RoutedEventArgs)
 
     End Sub
 
@@ -104,7 +106,7 @@
     ''' Abre "VntSeleccGaraje" para seleccionar un garaje.
     ''' </summary>
     ''' <param name="vntPrincipal">La ventana actual.</param>
-    ''' <param name="ventana">Número de ventana a mostrar.</param>
+    ''' <param name="ventana">Ventana a mostrar.</param>
     Private Sub AbrirVntSeleccGaraje(ByRef vntPrincipal As VntPrincipal, ByRef ventana As Foo.Ventana)
 
         Dim vntSeleccGaraje As New VntSeleccGaraje(Me, ventana)
@@ -116,7 +118,7 @@
     ''' <summary>
     ''' Abre "VntSeleccGaraje" para seleccionar un garaje.
     ''' </summary>    
-    ''' <param name="ventana">Número de ventana a mostrar.</param>
+    ''' <param name="ventana">Ventana a mostrar.</param>
     Private Sub AbrirVntSeleccGaraje(ByRef ventana As Foo.Ventana)
 
         Dim vntSeleccGaraje As New VntSeleccGaraje(ventana)

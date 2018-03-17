@@ -41,12 +41,11 @@ Public Class Foo
 
         If direccion.Contains("\") Then
 
-            Dim nuevaDireccion As String = direccion.Replace("\", "\\")
-        Else
-
-            Return direccion
+            direccion = direccion.Replace("\", "\\")
 
         End If
+
+        Return direccion
 
     End Function
 
@@ -147,6 +146,7 @@ Public Class Foo
         Vehiculos
         Plazas
         InfClientes
+        InfPlazas
     End Enum
 
 End Class

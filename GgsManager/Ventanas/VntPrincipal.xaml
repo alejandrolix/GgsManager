@@ -28,13 +28,13 @@
             <MenuItem Name="Plazas" Header="Plazas" Click="Plazas_Click" Style="{StaticResource Margen}" />
             <MenuItem Name="Listados" Header="Listados" Style="{StaticResource Margen}">
                 <MenuItem Name="InfClientes" Header="Clientes" Click="InfClientes_Click" />
-                <MenuItem Header="Vehículos por Garaje" />
+                <MenuItem Name="InfPlazas" Header="Plazas" Click="InfPlazas_Click" />
             </MenuItem>
             <MenuItem Name="Facturas" Header="Facturas" Click="Facturas_Click" Style="{StaticResource Margen}">
                 <MenuItem Header="Individual" />
                 <MenuItem Header="Conjunto" />
             </MenuItem>
-            <MenuItem Name="Configuracion" Header="Configuración" Click="Configuracion_Click" Style="{StaticResource Margen}">
+            <MenuItem Name="Configuracion" Header="Configuración" Style="{StaticResource Margen}">
                 <MenuItem Name="CambiarIVA" Header="Cambiar I.V.A." Click="CambiarIVA_Click" />
             </MenuItem>
             <MenuItem Name="Estadisticas" Header="Estadísticas" Style="{StaticResource Margen}">

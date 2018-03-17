@@ -55,8 +55,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -106,6 +123,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DtClientes.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSets\DtPlazas.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DtPlazas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Garajes\VntSeleccGaraje.xaml.vb">
       <DependentUpon>VntSeleccGaraje.xaml</DependentUpon>
     </Compile>
@@ -113,6 +135,12 @@
       <DependentUpon>FormInfClientes.vb</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Informes\FormInfClientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventanas\Informes\FormInfPlazas.Designer.vb">
+      <DependentUpon>FormInfPlazas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\FormInfPlazas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ventanas\Plazas\VntPlazas.xaml.vb">
@@ -260,6 +288,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Informes\InfClientes.rdlc" />
+    <EmbeddedResource Include="Informes\InfPlazas.rdlc" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -267,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Informes\FormInfClientes.resx">
       <DependentUpon>FormInfClientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventanas\Informes\FormInfPlazas.resx">
+      <DependentUpon>FormInfPlazas.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSets\DtClientes.xsc">
       <DependentUpon>DtClientes.xsd</DependentUpon>
@@ -278,6 +310,17 @@
     </None>
     <None Include="DataSets\DtClientes.xss">
       <DependentUpon>DtClientes.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DtPlazas.xsc">
+      <DependentUpon>DtPlazas.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DtPlazas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DtPlazas.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSets\DtPlazas.xss">
+      <DependentUpon>DtPlazas.xsd</DependentUpon>
     </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -294,6 +337,21 @@
   <ItemGroup>
     <Resource Include="LogoGgsManager.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SqlServerTypes\Loader.cs" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
