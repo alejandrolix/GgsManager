@@ -51,6 +51,7 @@ Partial Class FormInfClientes
         Me.ReportViewer.LocalReport.ReportEmbeddedResource = "GgsManager.InfClientes.rdlc"
         Me.ReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer.Name = "ReportViewer"
+        Me.ReportViewer.ServerReport.BearerToken = Nothing
         Me.ReportViewer.Size = New System.Drawing.Size(694, 439)
         Me.ReportViewer.TabIndex = 0
         '

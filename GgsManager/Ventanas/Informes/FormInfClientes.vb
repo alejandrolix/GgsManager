@@ -9,8 +9,18 @@ Public Class FormInfClientes
 
         ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
 
-        Dim conexion As New MySqlConnection(My.Settings.ConexionABd)
-        conexion.Open()
+    End Sub
+
+    Public Sub New(idGaraje As Integer)
+
+        InitializeComponent()
+        Me.IdGarajeSelec = idGaraje
+
+    End Sub
+
+    Private Sub ReportViewer_Load(sender As Object, e As EventArgs) Handles ReportViewer.Load
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
 
         Dim adaptador As New MySqlDataAdapter(String.Format("SELECT Cli.IdCliente, Cli.Nombre, Cli.DNI, Cli.Movil, Cli.Observaciones
                                                              FROM   Clientes Cli
@@ -26,15 +36,7 @@ Public Class FormInfClientes
         ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtClientes", dtClientes.Tables("Clientes")))
 
         ReportViewer.DocumentMapCollapsed = True
-        Me.ReportViewer.RefreshReport()
+        ReportViewer.RefreshReport()
 
     End Sub
-
-    Public Sub New(idGaraje As Integer)
-
-        InitializeComponent()
-        Me.IdGarajeSelec = idGaraje
-
-    End Sub
-
 End Class
