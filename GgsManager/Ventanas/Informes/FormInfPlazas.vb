@@ -3,6 +3,7 @@ Imports MySql.Data.MySqlClient
 
 Public Class FormInfPlazas
 
+
     Private IdGarajeSelec As Integer
     Private Adaptador As MySqlDataAdapter
 
