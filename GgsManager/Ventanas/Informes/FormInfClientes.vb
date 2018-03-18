@@ -21,12 +21,25 @@ Public Class FormInfClientes
         adaptador.Fill(dtClientes, "Clientes")
         conexion.Close()
 
+        EstablecerNombreGaraje()
+
         ReportViewer.ProcessingMode = ProcessingMode.Local
         ReportViewer.LocalReport.DataSources.Clear()
         ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtClientes", dtClientes.Tables("Clientes")))
 
         ReportViewer.DocumentMapCollapsed = True
         ReportViewer.RefreshReport()
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Establece el nombre del garaje al parámetro correspondiente.
+    ''' </summary>
+    Private Sub EstablecerNombreGaraje()
+
+        Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGarajeSelec)
+        ReportViewer.LocalReport.SetParameters(New ReportParameter("NombreGaraje", nombreGaraje))
 
     End Sub
 

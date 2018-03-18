@@ -416,7 +416,7 @@
         <DataSetName>DtPlazas</DataSetName>
         <Top>1.69333cm</Top>
         <Left>3.31312cm</Left>
-        <Height>1.41167cm</Height>
+        <Height>1.41166cm</Height>
         <Width>18.65896cm</Width>
         <Style>
           <Border>
@@ -479,7 +479,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>
-          <Left>6.7837cm</Left>
+          <Left>6.4662cm</Left>
           <Height>0.99688cm</Height>
           <Width>10.91346cm</Width>
           <Style>
@@ -496,9 +496,10 @@
           <Source>Embedded</Source>
           <Value>LogoGgsManager</Value>
           <Sizing>FitProportional</Sizing>
+          <Top>0.3175cm</Top>
           <Left>2.54cm</Left>
-          <Height>1.65875cm</Height>
-          <Width>1.71166cm</Width>
+          <Height>1.34125cm</Height>
+          <Width>1.34124cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -566,25 +567,25 @@
                 <TextRun>
                   <Value>=Globals!PageNumber</Value>
                   <Style>
-                    <FontSize>12pt</FontSize>
+                    <FontSize>11pt</FontSize>
                   </Style>
                 </TextRun>
                 <TextRun>
                   <Value> de </Value>
                   <Style>
-                    <FontSize>12pt</FontSize>
+                    <FontSize>11pt</FontSize>
                   </Style>
                 </TextRun>
                 <TextRun>
                   <Value>=Globals!TotalPages</Value>
                   <Style>
-                    <FontSize>12pt</FontSize>
+                    <FontSize>11pt</FontSize>
                   </Style>
                 </TextRun>
                 <TextRun>
                   <Value> página/s</Value>
                   <Style>
-                    <FontSize>12pt</FontSize>
+                    <FontSize>11pt</FontSize>
                   </Style>
                 </TextRun>
               </TextRuns>

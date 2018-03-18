@@ -123,6 +123,12 @@
     <Compile Include="Ventanas\Informes\FormInfClientes.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Ventanas\Informes\FormInfPlazas.Designer.vb">
+      <DependentUpon>FormInfPlazas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\FormInfPlazas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Ventanas\Plazas\VntPlazas.xaml.vb">
       <DependentUpon>VntPlazas.xaml</DependentUpon>
     </Compile>
@@ -276,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Informes\FormInfClientes.resx">
       <DependentUpon>FormInfClientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventanas\Informes\FormInfPlazas.resx">
+      <DependentUpon>FormInfPlazas.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSets\DtClientes.xsc">
       <DependentUpon>DtClientes.xsd</DependentUpon>
