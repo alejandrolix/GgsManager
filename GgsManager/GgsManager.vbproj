@@ -55,6 +55,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -119,12 +121,6 @@
       <DependentUpon>FormInfClientes.vb</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Informes\FormInfClientes.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ventanas\Informes\FormInfPlazas.Designer.vb">
-      <DependentUpon>FormInfPlazas.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Ventanas\Informes\FormInfPlazas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ventanas\Plazas\VntPlazas.xaml.vb">
@@ -281,9 +277,6 @@
     <EmbeddedResource Include="Ventanas\Informes\FormInfClientes.resx">
       <DependentUpon>FormInfClientes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ventanas\Informes\FormInfPlazas.resx">
-      <DependentUpon>FormInfPlazas.vb</DependentUpon>
-    </EmbeddedResource>
     <None Include="DataSets\DtClientes.xsc">
       <DependentUpon>DtClientes.xsd</DependentUpon>
     </None>
@@ -321,5 +314,6 @@
   <ItemGroup>
     <Resource Include="LogoGgsManager.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -24,23 +24,12 @@ Partial Class FormInfClientes
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormInfClientes))
-        Me.ClientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DtClientes = New GgsManager.DtClientes()
         Me.ReportViewer = New Microsoft.Reporting.WinForms.ReportViewer()
-        CType(Me.ClientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.DtClientes = New GgsManager.DtClientes()
+        Me.ClientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.DtClientes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ClientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'ClientesBindingSource
-        '
-        Me.ClientesBindingSource.DataMember = "Clientes"
-        Me.ClientesBindingSource.DataSource = Me.DtClientes
-        '
-        'DtClientes
-        '
-        Me.DtClientes.DataSetName = "DtClientes"
-        Me.DtClientes.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'ReportViewer
         '
@@ -51,22 +40,30 @@ Partial Class FormInfClientes
         Me.ReportViewer.LocalReport.ReportEmbeddedResource = "GgsManager.InfClientes.rdlc"
         Me.ReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer.Name = "ReportViewer"
-        Me.ReportViewer.ServerReport.BearerToken = Nothing
-        Me.ReportViewer.Size = New System.Drawing.Size(694, 439)
+        Me.ReportViewer.Size = New System.Drawing.Size(717, 375)
         Me.ReportViewer.TabIndex = 0
+        '
+        'DtClientes
+        '
+        Me.DtClientes.DataSetName = "DtClientes"
+        Me.DtClientes.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'ClientesBindingSource
+        '
+        Me.ClientesBindingSource.DataMember = "Clientes"
+        Me.ClientesBindingSource.DataSource = Me.DtClientes
         '
         'FormInfClientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(694, 439)
+        Me.ClientSize = New System.Drawing.Size(717, 375)
         Me.Controls.Add(Me.ReportViewer)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormInfClientes"
         Me.Text = "Informe de Clientes"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        CType(Me.ClientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DtClientes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ClientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

@@ -10,7 +10,7 @@
         Background="#f0f0f0">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,90">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,94">
             <TextBlock Text="Garaje" Margin="0,0,40,0" FontSize="19" />
             <ComboBox Name="GarajesCmb" Width="140" Height="29" ItemsSource="{Binding}" FontSize="17">
                 <ComboBox.ItemTemplate>
