@@ -106,6 +106,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DtClientes.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSets\DtPlazas.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DtPlazas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DtPlazas.vb">
+      <DependentUpon>DtPlazas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Garajes\VntSeleccGaraje.xaml.vb">
       <DependentUpon>VntSeleccGaraje.xaml</DependentUpon>
     </Compile>
@@ -113,6 +121,12 @@
       <DependentUpon>FormInfClientes.vb</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Informes\FormInfClientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventanas\Informes\FormInfPlazas.Designer.vb">
+      <DependentUpon>FormInfPlazas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\FormInfPlazas.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ventanas\Plazas\VntPlazas.xaml.vb">
@@ -260,6 +274,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Informes\InfClientes.rdlc" />
+    <EmbeddedResource Include="Informes\InfPlazas.rdlc" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -267,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Informes\FormInfClientes.resx">
       <DependentUpon>FormInfClientes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventanas\Informes\FormInfPlazas.resx">
+      <DependentUpon>FormInfPlazas.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSets\DtClientes.xsc">
       <DependentUpon>DtClientes.xsd</DependentUpon>
@@ -278,6 +296,17 @@
     </None>
     <None Include="DataSets\DtClientes.xss">
       <DependentUpon>DtClientes.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DtPlazas.xsc">
+      <DependentUpon>DtPlazas.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DtPlazas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DtPlazas.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSets\DtPlazas.xss">
+      <DependentUpon>DtPlazas.xsd</DependentUpon>
     </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

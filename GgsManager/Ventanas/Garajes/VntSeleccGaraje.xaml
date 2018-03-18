@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
         Title="Seleccionar Garaje" Height="321.994" Width="450.788"
-        ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
+        Background="#f0f0f0">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Garaje" Margin="0,0,31,0" FontSize="19" />
-            <ComboBox Name="GarajesCmb" Width="140" Height="28" ItemsSource="{Binding}" FontSize="17">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,90">
+            <TextBlock Text="Garaje" Margin="0,0,40,0" FontSize="19" />
+            <ComboBox Name="GarajesCmb" Width="140" Height="29" ItemsSource="{Binding}" FontSize="17">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
@@ -22,6 +23,6 @@
             </ComboBox>
         </StackPanel>
 
-        <Button Name="AceptarBtn" Content="Aceptar" Width="82" Height="34" FontSize="17" Margin="0,83,0,0" Click="AceptarBtn_Click" />
+        <Button Name="AceptarBtn" Content="Aceptar" Width="85" Height="34" FontSize="17" Click="AceptarBtn_Click" />
     </StackPanel>
 </Window>

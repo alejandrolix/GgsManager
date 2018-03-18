@@ -147,6 +147,7 @@ Public Class Foo
         Vehiculos
         Plazas
         InfClientes
+        InfPlazas
     End Enum
 
 End Class

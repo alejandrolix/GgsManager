@@ -19,6 +19,7 @@
             Dim vntVehic As WPF.MDI.MdiChild
             Dim vntPlz As WPF.MDI.MdiChild
             Dim formInfClientes As FormInfClientes
+            Dim formInfPlazas As FormInfPlazas
 
             If Ventana = Foo.Ventana.Vehiculos Then
 
@@ -44,6 +45,11 @@
 
                 formInfClientes = New FormInfClientes(gjSelec.Id)
                 formInfClientes.ShowDialog()
+
+            ElseIf Ventana = Foo.Ventana.InfPlazas Then
+
+                formInfPlazas = New FormInfPlazas(gjSelec.Id)
+                formInfPlazas.ShowDialog()
 
             End If
 

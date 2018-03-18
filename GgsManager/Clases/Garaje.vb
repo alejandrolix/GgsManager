@@ -134,6 +134,12 @@ Public Class Garaje
 
     End Function
 
+
+    ''' <summary>
+    ''' Obtiene el nombre de un garaje a partir de su Id.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id del garaje.</param>
+    ''' <returns>El nombre del garaje correspondiente.</returns>
     Public Shared Function ObtenerNombreGarajePorId(ByRef idGaraje As Integer) As String
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()

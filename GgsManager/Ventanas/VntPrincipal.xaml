@@ -9,39 +9,30 @@
         Title="GgsManager" Height="481.853" Width="732.428"
         WindowState="Maximized"
         Loaded="Window_Loaded" Icon="/GgsManager;component/LogoGgsManager.ico">
-    <Window.Resources>
-        <Style TargetType="MenuItem" x:Key="Margen">
-            <Setter Property="Margin" Value="0,0,8,0" />
-        </Style>
-
-        <Style TargetType="MenuItem" x:Key="SubMenu">
-            <Setter Property="Margin" Value="2" />
-        </Style>
-    </Window.Resources>
-
+    
     <DockPanel>
         <Menu Name="MenuPrincipal" DockPanel.Dock="Top" FontSize="17" Padding="2" IsEnabled="True">
-            <MenuItem Name="Garajes" Header="Garajes" Click="Garajes_Click" Style="{StaticResource Margen}" />
-            <MenuItem Name="Clientes" Header="Clientes" Click="Clientes_Click" Style="{StaticResource Margen}" />
-            <MenuItem Name="Vehiculos" Header="Vehículos" Click="Vehiculos_Click" Style="{StaticResource Margen}" />
-            <MenuItem Name="Usuarios" Header="Usuarios" Click="Usuarios_Click" Style="{StaticResource Margen}" />
-            <MenuItem Name="Plazas" Header="Plazas" Click="Plazas_Click" Style="{StaticResource Margen}" />
-            <MenuItem Name="Listados" Header="Listados" Style="{StaticResource Margen}">
-                <MenuItem Name="InfClientes" Header="Clientes" Click="InfClientes_Click" />
-                <MenuItem Header="Vehículos por Garaje" />
+            <MenuItem Name="Garajes" Header="Garajes" Click="Garajes_Click" Margin="0,0,8,0" />
+            <MenuItem Name="Clientes" Header="Clientes" Click="Clientes_Click" Margin="0,0,8,0" />
+            <MenuItem Name="Vehiculos" Header="Vehículos" Click="Vehiculos_Click" Margin="0,0,8,0" />
+            <MenuItem Name="Usuarios" Header="Usuarios" Click="Usuarios_Click" Margin="0,0,8,0" />
+            <MenuItem Name="Plazas" Header="Plazas" Click="Plazas_Click" Margin="0,0,8,0" />
+            <MenuItem Name="Listados" Header="Listados" Margin="0,0,8,0">
+                <MenuItem Name="InfClientes" Header="Clientes" Click="InfClientes_Click" Margin="2" />
+                <MenuItem Name="InfPlazas" Header="Plazas" Click="InfPlazas_Click" Margin="2" />
             </MenuItem>
-            <MenuItem Name="Facturas" Header="Facturas" Click="Facturas_Click" Style="{StaticResource Margen}">
-                <MenuItem Header="Individual" />
-                <MenuItem Header="Conjunto" />
+            <MenuItem Name="Facturas" Header="Facturas" Margin="0,0,8,0">
+                <MenuItem Header="Individual" Margin="2" />
+                <MenuItem Header="Conjunto" Margin="2" />
             </MenuItem>
-            <MenuItem Name="Configuracion" Header="Configuración" Click="Configuracion_Click" Style="{StaticResource Margen}">
-                <MenuItem Name="CambiarIVA" Header="Cambiar I.V.A." Click="CambiarIVA_Click" />
+            <MenuItem Name="Configuracion" Header="Configuración" Margin="0,0,8,0">
+                <MenuItem Name="CambiarIVA" Header="Cambiar I.V.A." Click="CambiarIVA_Click" Margin="2" />
             </MenuItem>
-            <MenuItem Name="Estadisticas" Header="Estadísticas" Style="{StaticResource Margen}">
-                <MenuItem Header="Todos los Garajes" />
-                <MenuItem Header="Por Garaje" />
+            <MenuItem Name="Estadisticas" Header="Estadísticas" Margin="0,0,8,0">
+                <MenuItem Name="EstadTodosGarajes" Header="Todos los Garajes" Click="EstadTodosGarajes_Click" Margin="2" />
+                <MenuItem Header="Por Garaje" Margin="2" />
             </MenuItem>
-            <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Style="{StaticResource Margen}" />
+            <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Margin="0,0,8,0" />
         </Menu>
 
         <mdi:MdiContainer Name="ContenedorMDI" Theme="Aero" DockPanel.Dock="Bottom" />

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DtPlazas" targetNamespace="http://tempuri.org/DtPlazas.xsd" xmlns:mstns="http://tempuri.org/DtPlazas.xsd" xmlns="http://tempuri.org/DtPlazas.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DtPlazas" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DtPlazas" msprop:Generator_UserDSName="DtPlazas">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Plazas" msprop:Generator_TableClassName="PlazasDataTable" msprop:Generator_TableVarName="tablePlazas" msprop:Generator_TablePropName="Plazas" msprop:Generator_RowDeletingName="PlazasRowDeleting" msprop:Generator_RowChangingName="PlazasRowChanging" msprop:Generator_RowEvHandlerName="PlazasRowChangeEventHandler" msprop:Generator_RowDeletedName="PlazasRowDeleted" msprop:Generator_UserTableName="Plazas" msprop:Generator_RowChangedName="PlazasRowChanged" msprop:Generator_RowEvArgName="PlazasRowChangeEvent" msprop:Generator_RowClassName="PlazasRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IdPlaza" msprop:Generator_ColumnVarNameInTable="columnIdPlaza" msprop:Generator_ColumnPropNameInRow="IdPlaza" msprop:Generator_ColumnPropNameInTable="IdPlazaColumn" msprop:Generator_UserColumnName="IdPlaza" type="xs:int" minOccurs="0" />
+              <xs:element name="Cliente" msprop:Generator_ColumnVarNameInTable="columnCliente" msprop:Generator_ColumnPropNameInRow="Cliente" msprop:Generator_ColumnPropNameInTable="ClienteColumn" msprop:Generator_UserColumnName="Cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="Matricula" msprop:Generator_ColumnVarNameInTable="columnMatricula" msprop:Generator_ColumnPropNameInRow="Matricula" msprop:Generator_ColumnPropNameInTable="MatriculaColumn" msprop:Generator_UserColumnName="Matricula" type="xs:string" minOccurs="0" />
+              <xs:element name="Marca" msprop:Generator_ColumnVarNameInTable="columnMarca" msprop:Generator_ColumnPropNameInRow="Marca" msprop:Generator_ColumnPropNameInTable="MarcaColumn" msprop:Generator_UserColumnName="Marca" type="xs:string" minOccurs="0" />
+              <xs:element name="Modelo" msprop:Generator_ColumnVarNameInTable="columnModelo" msprop:Generator_ColumnPropNameInRow="Modelo" msprop:Generator_ColumnPropNameInTable="ModeloColumn" msprop:Generator_UserColumnName="Modelo" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

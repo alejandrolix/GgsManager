@@ -10,8 +10,16 @@ Public Class UsuarioPrograma
     Property Id As Integer
     Property Nombre As String
     Property EsGestorB As Boolean
-    Property EsGestor As String             ' Indica si el usuario es gestor mediante las palabras "Sí" y "No", para mostrarlo en el DataGrid.
-    Public Shared Property UsuarioLogueado As UsuarioPrograma        ' Almacena el usuario que ha iniciado sesión en el programa.
+
+    ''' <summary>
+    ''' Indica si el usuario es gestor mediante las palabras "Sí" y "No", para mostrarlo en el DataGrid.
+    ''' </summary>    
+    Property EsGestor As String
+
+    ''' <summary>
+    ''' Almacena el usuario que ha iniciado sesión en el programa.
+    ''' </summary>    
+    Public Shared Property UsuarioLogueado As UsuarioPrograma
 
 
     ''' <summary>
@@ -317,15 +325,6 @@ Public Class UsuarioPrograma
 
         Me.Nombre = nombre
         Me.EsGestorB = esGestor
-
-        'If esGestor Then
-
-        '    Me.EsGestor = "Sí"
-        'Else
-
-        '    Me.EsGestor = "No"
-
-        'End If
 
     End Sub
 
