@@ -96,6 +96,12 @@
 
     End Sub
 
+    Private Sub FactPorGaraje_Click(sender As Object, e As RoutedEventArgs)
+
+
+
+    End Sub
+
     Private Sub CerrarSesion_Click(sender As Object, e As RoutedEventArgs)
 
         MenuPrincipal.IsEnabled = False

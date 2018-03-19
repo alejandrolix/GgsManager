@@ -107,7 +107,7 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Fecha Alta" Binding="{Binding FechaAlta, StringFormat=dd-MM-yyyy}" Width="*" IsReadOnly="True">
+                    <DataGridTextColumn Header="Fecha/Hora Alta" Binding="{Binding FechaHoraAlta, StringFormat=dd-MM-yyyy}" Width="*" IsReadOnly="True">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />

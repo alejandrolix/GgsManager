@@ -23,7 +23,7 @@
             </MenuItem>
             <MenuItem Name="Facturas" Header="Facturas" Margin="0,0,8,0">
                 <MenuItem Name="FactIndividual" Header="Individual" Margin="2" Click="FactIndividual_Click" />
-                <MenuItem Header="Conjunto" Margin="2" />
+                <MenuItem Name="FactPorGaraje" Header="Por Garaje" Margin="2" Click="FactPorGaraje_Click" />
             </MenuItem>
             <MenuItem Name="Configuracion" Header="Configuración" Margin="0,0,8,0">
                 <MenuItem Name="CambiarIVA" Header="Cambiar I.V.A." Click="CambiarIVA_Click" Margin="2" />

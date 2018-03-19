@@ -15,7 +15,7 @@ Public Class Cliente
     Property Poblacion As String
     Property Provincia As String
     Property Movil As String
-    Property FechaAlta As Date
+    Property FechaHoraAlta As Date
     Property Observaciones As String
     Property Ivm As ImageViewModel
 
@@ -40,7 +40,7 @@ Public Class Cliente
     Public Shared Function ObtenerClientes() As List(Of Cliente)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones
+        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
                                          FROM   Clientes", conexion)
 
         Dim datos As MySqlDataReader = Nothing
@@ -68,7 +68,7 @@ Public Class Cliente
                 Dim poblacion As String = datos.GetString("Poblacion")
                 Dim provincia As String = datos.GetString("Provincia")
                 Dim movil As String = datos.GetString("Movil")
-                Dim fechaAlta As Date = datos.GetDateTime("FechaAlta")
+                Dim fechaHoraAlta As Date = datos.GetDateTime("FechaHoraAlta")
                 Dim observaciones As String
 
                 If datos.IsDBNull(9) Then
@@ -85,10 +85,10 @@ Public Class Cliente
                 If arrayFoto.Length > 0 Then
 
                     Dim ivm As New ImageViewModel(arrayFoto(0))
-                    listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones, ivm))
+                    listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaHoraAlta, observaciones, ivm))
                 Else
 
-                    listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaAlta, observaciones))
+                    listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaHoraAlta, observaciones))
 
                 End If
 
@@ -296,13 +296,13 @@ Public Class Cliente
 
         If Foo.HayTexto(cliente.Observaciones) Then                ' Insertamos al cliente las observaciones, aparte de sus principales datos.
 
-            comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones)
+            comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones)
                                         VALUES (NULL, @Nombre, @Apellidos, @DNI, @Direccion, @Poblacion, @Provincia, @Movil, NOW(), @Observaciones);", conexion)
 
             comando.Parameters.AddWithValue("@Observaciones", cliente.Observaciones)
         Else
 
-            comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones)
+            comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones)
                                         VALUES (NULL, @Nombre, @Apellidos, @DNI, @Direccion, @Poblacion, @Provincia, @Movil, NOW(), NULL);", conexion)
         End If
 
@@ -338,7 +338,7 @@ Public Class Cliente
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("DELETE FROM Clientes
-                                         WHERE  IdCliente = @IdCliente", conexion)
+                                         WHERE  IdCliente = @IdCliente;", conexion)
 
         comando.Parameters.AddWithValue("@IdCliente", idCliente)
         Dim numFila As Integer
@@ -440,7 +440,7 @@ Public Class Cliente
 
     End Sub
 
-    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaAlta As Date, observaciones As String, ivm As ImageViewModel)              ' Para mostrar el cliente con su imagen en el DataGrid.
+    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaHoraAlta As Date, observaciones As String, ivm As ImageViewModel)              ' Para mostrar el cliente con su imagen en el DataGrid.
 
         Me.Id = id
         Me.Nombre = nombre
@@ -450,13 +450,13 @@ Public Class Cliente
         Me.Poblacion = poblacion
         Me.Provincia = provincia
         Me.Movil = movil
-        Me.FechaAlta = fechaAlta
+        Me.FechaHoraAlta = fechaHoraAlta
         Me.Observaciones = observaciones
         Me.Ivm = ivm
 
     End Sub
 
-    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaAlta As Date, observaciones As String)              ' Para mostrar el cliente sin su imagen en el DataGrid.
+    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaHoraAlta As Date, observaciones As String)              ' Para mostrar el cliente sin su imagen en el DataGrid.
 
         Me.Id = id
         Me.Nombre = nombre
@@ -466,7 +466,7 @@ Public Class Cliente
         Me.Poblacion = poblacion
         Me.Provincia = provincia
         Me.Movil = movil
-        Me.FechaAlta = fechaAlta
+        Me.FechaHoraAlta = fechaHoraAlta
         Me.Observaciones = observaciones
 
     End Sub
