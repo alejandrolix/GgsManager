@@ -4,12 +4,15 @@ Imports MySql.Data.MySqlClient
 Public Class FormFactIndividual
 
     Private IdClienteSelec As Integer
+    Private DatosVehiculo As Vehiculo
 
     Private Sub FormFactIndividual_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
+
         AddParametrosCliente()
         AddParametrosVehiculo()
+        AddParametrosImporte()
 
         ReportViewer.RefreshReport()
 
@@ -44,18 +47,38 @@ Public Class FormFactIndividual
     ''' </summary>
     Private Sub AddParametrosVehiculo()
 
-        Dim datosVehiculo As Vehiculo = Vehiculo.ObtenerVehiculoPorIdCliente(IdClienteSelec)
+        Me.DatosVehiculo = Vehiculo.ObtenerVehiculoPorIdCliente(IdClienteSelec)
 
-        If datosVehiculo IsNot Nothing Then
+        If DatosVehiculo IsNot Nothing Then
 
             Dim listaRp As New ReportParameterCollection()
-            listaRp.Add(New ReportParameter("MarcaVehiculo", datosVehiculo.Marca))
-            listaRp.Add(New ReportParameter("ModeloVehiculo", datosVehiculo.Modelo))
-            listaRp.Add(New ReportParameter("MatriculaVehiculo", datosVehiculo.Matricula))
+            listaRp.Add(New ReportParameter("MarcaVehiculo", DatosVehiculo.Marca))
+            listaRp.Add(New ReportParameter("ModeloVehiculo", DatosVehiculo.Modelo))
+            listaRp.Add(New ReportParameter("MatriculaVehiculo", DatosVehiculo.Matricula))
 
             ReportViewer.LocalReport.SetParameters(listaRp)
 
         End If
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Añade los datos del importe del cliente a sus campos correspondientes.
+    ''' </summary>
+    Private Sub AddParametrosImporte()
+
+        Dim porcentajeIva As Integer = Foo.LeerIVA()
+        Dim precioIva As Double = DatosVehiculo.PrecioBase + (DatosVehiculo.PrecioBase * porcentajeIva / 100)
+        Dim total As Double = DatosVehiculo.PrecioBase + precioIva
+
+        Dim listaRp As New ReportParameterCollection()
+        listaRp.Add(New ReportParameter("BaseImponible", DatosVehiculo.PrecioBase.ToString()))
+        listaRp.Add(New ReportParameter("PorcIVA", porcentajeIva.ToString()))
+        listaRp.Add(New ReportParameter("PrecioIVA", precioIva.ToString()))
+        listaRp.Add(New ReportParameter("Total", total.ToString()))
+
+        ReportViewer.LocalReport.SetParameters(listaRp)
 
     End Sub
 

@@ -23,7 +23,7 @@ Partial Class FormInfPlazas
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource4 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.PlazasBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DtPlazas = New GgsManager.DtPlazas()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
@@ -71,9 +71,9 @@ Partial Class FormInfPlazas
         'ReportViewer
         '
         Me.ReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        ReportDataSource1.Name = "DtPlazas"
-        ReportDataSource1.Value = Me.PlazasBindingSource
-        Me.ReportViewer.LocalReport.DataSources.Add(ReportDataSource1)
+        ReportDataSource4.Name = "DtPlazas"
+        ReportDataSource4.Value = Me.PlazasBindingSource
+        Me.ReportViewer.LocalReport.DataSources.Add(ReportDataSource4)
         Me.ReportViewer.LocalReport.ReportEmbeddedResource = "GgsManager.InfPlazas.rdlc"
         Me.ReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer.Name = "ReportViewer"
@@ -86,7 +86,7 @@ Partial Class FormInfPlazas
         Me.GroupBox1.Controls.Add(Me.PlOcupadaRb)
         Me.GroupBox1.Controls.Add(Me.PlLibreRb)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(41, 368)
+        Me.GroupBox1.Location = New System.Drawing.Point(13, 256)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(139, 136)
         Me.GroupBox1.TabIndex = 0

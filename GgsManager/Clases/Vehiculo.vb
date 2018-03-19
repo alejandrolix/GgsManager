@@ -110,7 +110,7 @@ Public Class Vehiculo
     Public Shared Function ObtenerVehiculoPorIdCliente(ByRef idCliente As Integer) As Vehiculo
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT Marca, Modelo, Matricula
+        Dim comando As New MySqlCommand(String.Format("SELECT Marca, Modelo, Matricula, PrecioBase
                                                        FROM   Vehiculos
                                                        WHERE  IdCliente = {0};", idCliente), conexion)
         Dim datos As MySqlDataReader
@@ -133,8 +133,9 @@ Public Class Vehiculo
                 Dim marca As String = datos.GetString("Marca")
                 Dim modelo As String = datos.GetString("Modelo")
                 Dim matricula As String = datos.GetString("Matricula")
+                Dim precioBase As Decimal = datos.GetDecimal("PrecioBase")
 
-                vehiculo = New Vehiculo(marca, modelo, matricula)
+                vehiculo = New Vehiculo(marca, modelo, matricula, precioBase)
 
             End While
 
@@ -300,11 +301,12 @@ Public Class Vehiculo
 
     End Sub
 
-    Public Sub New(marca As String, modelo As String, matricula As String)                  ' Para mostrar sus datos en la factura.
+    Public Sub New(marca As String, modelo As String, matricula As String, precioBase As Decimal)                  ' Para mostrar sus datos en la factura.
 
         Me.Marca = marca
         Me.Modelo = modelo
         Me.Matricula = matricula
+        Me.PrecioBase = precioBase
 
     End Sub
 

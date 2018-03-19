@@ -37,7 +37,7 @@ Public Class Plaza
                                                        FROM   Plazas
                                                        WHERE  IdGaraje = {0} AND IdSituacion = (
                                                                                                  SELECT IdSituacion
-                                                                                                 FROM   Situaciones
+                                                                                                 FROM   SituacionesPlaza
                                                                                                  WHERE  Tipo = 'Libre');", idGaraje), conexion)
         Dim datos As MySqlDataReader
 
@@ -86,7 +86,7 @@ Public Class Plaza
                                                        FROM   Plazas
                                                        WHERE  IdGaraje = {0} AND IdSituacion = (
                                                                                                  SELECT IdSituacion
-                                                                                                 FROM   Situaciones
+                                                                                                 FROM   SituacionesPlaza
                                                                                                  WHERE  Tipo = 'Ocupada');", idGaraje), conexion)
         Dim datos As MySqlDataReader
 
@@ -134,7 +134,7 @@ Public Class Plaza
         Dim comando As New MySqlCommand(String.Format("SELECT Veh.Matricula, Veh.Marca, Veh.Modelo, Plz.IdPlaza, Sit.Tipo
                                                        FROM   Vehiculos Veh 
 	                                                          JOIN Plazas Plz ON Plz.IdPlaza = Veh.IdPlaza 
-                                                              JOIN Situaciones Sit ON Sit.IdSituacion = Plz.IdSituacion 
+                                                              JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion 
                                                        WHERE Veh.IdGaraje = {0};", idGaraje), conexion)
         Dim datos As MySqlDataReader
 

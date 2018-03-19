@@ -33,7 +33,7 @@ Public Class FormInfPlazas
                                                                       JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
                                                                WHERE  Plz.IdGaraje = {0} AND Plz.IdSituacion = (
 												                                                                SELECT IdSituacion
-                                                                                                                FROM   Situaciones
+                                                                                                                FROM   SituacionesPlaza
                                                                                                                 WHERE  Tipo = 'Libre');", IdGarajeSelec), conexion)
             Adaptador.Fill(dtPlazas, "Plazas")
             conexion.Close()
@@ -62,7 +62,7 @@ Public Class FormInfPlazas
                                                                       JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
                                                                WHERE  Plz.IdGaraje = {0} AND Plz.IdSituacion = (
 												                                                                SELECT IdSituacion
-                                                                                                                FROM   Situaciones
+                                                                                                                FROM   SituacionesPlaza
                                                                                                                 WHERE  Tipo = 'Ocupada');", IdGarajeSelec), conexion)
             Adaptador.Fill(dtPlazas, "Plazas")
             conexion.Close()
@@ -91,7 +91,7 @@ Public Class FormInfPlazas
                                                                       JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
                                                                WHERE  Plz.IdGaraje = {0} AND Plz.IdSituacion IN (
 												                                                                 SELECT IdSituacion
-                                                                                                                 FROM   Situaciones);", IdGarajeSelec), conexion)
+                                                                                                                 FROM   SituacionesPlaza);", IdGarajeSelec), conexion)
             Adaptador.Fill(dtPlazas, "Plazas")
             conexion.Close()
 
