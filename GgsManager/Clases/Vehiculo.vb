@@ -103,6 +103,54 @@ Public Class Vehiculo
 
 
     ''' <summary>
+    ''' Obtiene los datos del vehículo a partir del Id de un cliente.
+    ''' </summary>
+    ''' <param name="idCliente">El Id del cliente.</param>
+    ''' <returns>Los datos del vehículo.</returns>
+    Public Shared Function ObtenerVehiculoPorIdCliente(ByRef idCliente As Integer) As Vehiculo
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("SELECT Marca, Modelo, Matricula
+                                                       FROM   Vehiculos
+                                                       WHERE  IdCliente = {0};", idCliente), conexion)
+        Dim datos As MySqlDataReader
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener el vehículo del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim vehiculo As Vehiculo
+
+            While datos.Read()
+
+                Dim marca As String = datos.GetString("Marca")
+                Dim modelo As String = datos.GetString("Modelo")
+                Dim matricula As String = datos.GetString("Matricula")
+
+                vehiculo = New Vehiculo(marca, modelo, matricula)
+
+            End While
+
+            datos.Close()
+            conexion.Close()
+
+            Return vehiculo
+
+        End If
+
+        Return Nothing
+
+    End Function
+
+
+    ''' <summary>
     ''' Inserta un vehículo.
     ''' </summary>
     ''' <param name="vehiculo">Datos del vehículo a insertar.</param>
@@ -249,6 +297,14 @@ Public Class Vehiculo
         Me.IdPlaza = idPlaza
         Me.PrecioBase = precioBase
         Me.PrecioTotal = precioTotal
+
+    End Sub
+
+    Public Sub New(marca As String, modelo As String, matricula As String)                  ' Para mostrar sus datos en la factura.
+
+        Me.Marca = marca
+        Me.Modelo = modelo
+        Me.Matricula = matricula
 
     End Sub
 

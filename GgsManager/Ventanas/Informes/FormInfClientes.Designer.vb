@@ -24,12 +24,22 @@ Partial Class FormInfClientes
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Me.ReportViewer = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.DtClientes = New GgsManager.DtClientes()
         Me.ClientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        CType(Me.DtClientes, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.DtClientes = New GgsManager.DtClientes()
+        Me.ReportViewer = New Microsoft.Reporting.WinForms.ReportViewer()
         CType(Me.ClientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DtClientes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'ClientesBindingSource
+        '
+        Me.ClientesBindingSource.DataMember = "Clientes"
+        Me.ClientesBindingSource.DataSource = Me.DtClientes
+        '
+        'DtClientes
+        '
+        Me.DtClientes.DataSetName = "DtClientes"
+        Me.DtClientes.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'ReportViewer
         '
@@ -43,16 +53,6 @@ Partial Class FormInfClientes
         Me.ReportViewer.Size = New System.Drawing.Size(717, 375)
         Me.ReportViewer.TabIndex = 0
         '
-        'DtClientes
-        '
-        Me.DtClientes.DataSetName = "DtClientes"
-        Me.DtClientes.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'ClientesBindingSource
-        '
-        Me.ClientesBindingSource.DataMember = "Clientes"
-        Me.ClientesBindingSource.DataSource = Me.DtClientes
-        '
         'FormInfClientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -62,8 +62,8 @@ Partial Class FormInfClientes
         Me.Name = "FormInfClientes"
         Me.Text = "Informe de Clientes"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        CType(Me.DtClientes, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ClientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DtClientes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

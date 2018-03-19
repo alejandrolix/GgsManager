@@ -18,9 +18,6 @@
 
             Dim vntVehic As WPF.MDI.MdiChild
             Dim vntPlz As WPF.MDI.MdiChild
-            Dim formInfClientes As FormInfClientes
-            Dim formInfPlazas As FormInfPlazas
-            Dim formEstGarajes As FormEstGarajes
 
             Select Case Ventana
                 Case Foo.Ventana.Vehiculos
@@ -41,21 +38,25 @@
                     vntPlz.Width = 500
                     vntPlz.Height = 401
 
-                Case Foo.Ventana.InfClientes
-                    formInfClientes = New FormInfClientes(gjSelec.Id)
+                Case Foo.Ventana.InformeClientes
+                    Dim formInfClientes As New FormInfClientes(gjSelec.Id)
                     formInfClientes.ShowDialog()
 
-                Case Foo.Ventana.InfPlazas
-                    formInfPlazas = New FormInfPlazas(gjSelec.Id)
+                Case Foo.Ventana.InformePlazas
+                    Dim formInfPlazas As New FormInfPlazas(gjSelec.Id)
                     formInfPlazas.ShowDialog()
 
-                Case Foo.Ventana.InfEstadGaraje
-                    formEstGarajes = New FormEstGarajes(False, gjSelec.Id)
+                Case Foo.Ventana.InformeEstadGaraje
+                    Dim formEstGarajes As New FormEstGarajes(False, gjSelec.Id)
                     formEstGarajes.ShowDialog()
+
+                Case Foo.Ventana.FacturaIndividual
+                    Dim vntSeleccCliente As New VntSeleccCliente(gjSelec.Id)
+                    vntSeleccCliente.ShowDialog()
 
             End Select
 
-            If Ventana <> Foo.Ventana.InfEstadGaraje Then
+            If Ventana <> Foo.Ventana.InformeEstadGaraje Then
 
                 Me.Close()
 

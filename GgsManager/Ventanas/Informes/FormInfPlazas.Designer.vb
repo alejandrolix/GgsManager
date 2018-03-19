@@ -23,23 +23,33 @@ Partial Class FormInfPlazas
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ReportDataSource5 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Me.PlazasBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DtPlazas = New GgsManager.DtPlazas()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.ReportViewer = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.DtPlazas = New GgsManager.DtPlazas()
-        Me.PlazasBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.PlLibreRb = New System.Windows.Forms.RadioButton()
-        Me.PlOcupadaRb = New System.Windows.Forms.RadioButton()
         Me.PlTodasRb = New System.Windows.Forms.RadioButton()
+        Me.PlOcupadaRb = New System.Windows.Forms.RadioButton()
+        Me.PlLibreRb = New System.Windows.Forms.RadioButton()
+        CType(Me.PlazasBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DtPlazas, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
-        CType(Me.DtPlazas, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PlazasBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'PlazasBindingSource
+        '
+        Me.PlazasBindingSource.DataMember = "Plazas"
+        Me.PlazasBindingSource.DataSource = Me.DtPlazas
+        '
+        'DtPlazas
+        '
+        Me.DtPlazas.DataSetName = "DtPlazas"
+        Me.DtPlazas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'SplitContainer1
         '
@@ -61,24 +71,14 @@ Partial Class FormInfPlazas
         'ReportViewer
         '
         Me.ReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        ReportDataSource5.Name = "DtPlazas"
-        ReportDataSource5.Value = Me.PlazasBindingSource
-        Me.ReportViewer.LocalReport.DataSources.Add(ReportDataSource5)
+        ReportDataSource1.Name = "DtPlazas"
+        ReportDataSource1.Value = Me.PlazasBindingSource
+        Me.ReportViewer.LocalReport.DataSources.Add(ReportDataSource1)
         Me.ReportViewer.LocalReport.ReportEmbeddedResource = "GgsManager.InfPlazas.rdlc"
         Me.ReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer.Name = "ReportViewer"
         Me.ReportViewer.Size = New System.Drawing.Size(784, 526)
         Me.ReportViewer.TabIndex = 0
-        '
-        'DtPlazas
-        '
-        Me.DtPlazas.DataSetName = "DtPlazas"
-        Me.DtPlazas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'PlazasBindingSource
-        '
-        Me.PlazasBindingSource.DataMember = "Plazas"
-        Me.PlazasBindingSource.DataSource = Me.DtPlazas
         '
         'GroupBox1
         '
@@ -93,16 +93,16 @@ Partial Class FormInfPlazas
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Situación Plaza"
         '
-        'PlLibreRb
+        'PlTodasRb
         '
-        Me.PlLibreRb.AutoSize = True
-        Me.PlLibreRb.Location = New System.Drawing.Point(12, 38)
-        Me.PlLibreRb.Name = "PlLibreRb"
-        Me.PlLibreRb.Size = New System.Drawing.Size(58, 22)
-        Me.PlLibreRb.TabIndex = 0
-        Me.PlLibreRb.TabStop = True
-        Me.PlLibreRb.Text = "Libre"
-        Me.PlLibreRb.UseVisualStyleBackColor = True
+        Me.PlTodasRb.AutoSize = True
+        Me.PlTodasRb.Location = New System.Drawing.Point(12, 94)
+        Me.PlTodasRb.Name = "PlTodasRb"
+        Me.PlTodasRb.Size = New System.Drawing.Size(68, 22)
+        Me.PlTodasRb.TabIndex = 2
+        Me.PlTodasRb.TabStop = True
+        Me.PlTodasRb.Text = "Todas"
+        Me.PlTodasRb.UseVisualStyleBackColor = True
         '
         'PlOcupadaRb
         '
@@ -115,16 +115,16 @@ Partial Class FormInfPlazas
         Me.PlOcupadaRb.Text = "Ocupada"
         Me.PlOcupadaRb.UseVisualStyleBackColor = True
         '
-        'PlTodasRb
+        'PlLibreRb
         '
-        Me.PlTodasRb.AutoSize = True
-        Me.PlTodasRb.Location = New System.Drawing.Point(12, 94)
-        Me.PlTodasRb.Name = "PlTodasRb"
-        Me.PlTodasRb.Size = New System.Drawing.Size(68, 22)
-        Me.PlTodasRb.TabIndex = 2
-        Me.PlTodasRb.TabStop = True
-        Me.PlTodasRb.Text = "Todas"
-        Me.PlTodasRb.UseVisualStyleBackColor = True
+        Me.PlLibreRb.AutoSize = True
+        Me.PlLibreRb.Location = New System.Drawing.Point(12, 38)
+        Me.PlLibreRb.Name = "PlLibreRb"
+        Me.PlLibreRb.Size = New System.Drawing.Size(58, 22)
+        Me.PlLibreRb.TabIndex = 0
+        Me.PlLibreRb.TabStop = True
+        Me.PlLibreRb.Text = "Libre"
+        Me.PlLibreRb.UseVisualStyleBackColor = True
         '
         'FormInfPlazas
         '
@@ -135,12 +135,12 @@ Partial Class FormInfPlazas
         Me.Name = "FormInfPlazas"
         Me.Text = "Informe de Plazas"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
+        CType(Me.PlazasBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DtPlazas, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        CType(Me.DtPlazas, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PlazasBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)

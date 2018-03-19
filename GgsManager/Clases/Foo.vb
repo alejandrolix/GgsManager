@@ -145,9 +145,10 @@ Public Class Foo
     Enum Ventana
         Vehiculos
         Plazas
-        InfClientes
-        InfPlazas
-        InfEstadGaraje
+        InformeClientes
+        InformePlazas
+        InformeEstadGaraje
+        FacturaIndividual
     End Enum
 
 End Class

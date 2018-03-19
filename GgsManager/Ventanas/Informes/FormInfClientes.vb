@@ -43,10 +43,10 @@ Public Class FormInfClientes
 
     End Sub
 
-    Public Sub New(idGarajeSelec As Integer)
+    Public Sub New(idGaraje As Integer)
 
         InitializeComponent()
-        Me.IdGarajeSelec = idGarajeSelec
+        Me.IdGarajeSelec = idGaraje
 
     End Sub
 

@@ -35,7 +35,10 @@ Public Class Plaza
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("SELECT IdPlaza
                                                        FROM   Plazas
-                                                       WHERE  IdGaraje = {0} AND IdSituacion = 1;", idGaraje), conexion)
+                                                       WHERE  IdGaraje = {0} AND IdSituacion = (
+                                                                                                 SELECT IdSituacion
+                                                                                                 FROM   Situaciones
+                                                                                                 WHERE  Tipo = 'Libre');", idGaraje), conexion)
         Dim datos As MySqlDataReader
 
         Try
@@ -81,7 +84,10 @@ Public Class Plaza
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand(String.Format("SELECT IdPlaza
                                                        FROM   Plazas
-                                                       WHERE  IdGaraje = {0} AND IdSituacion = 2;", idGaraje), conexion)
+                                                       WHERE  IdGaraje = {0} AND IdSituacion = (
+                                                                                                 SELECT IdSituacion
+                                                                                                 FROM   Situaciones
+                                                                                                 WHERE  Tipo = 'Ocupada');", idGaraje), conexion)
         Dim datos As MySqlDataReader
 
         Try

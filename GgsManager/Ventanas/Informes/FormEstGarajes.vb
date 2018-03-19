@@ -55,7 +55,7 @@ Public Class FormEstGarajes
         Else
 
             Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGarajeSelec)
-            Dim rpTituloInf As New ReportParameter("TituloInforme", "Estadísticas del garaje " & nombreGaraje)
+            Dim rpTituloInf As New ReportParameter("TituloInforme", "Estadísticas del garaje de " & nombreGaraje)
 
             ReportViewer.LocalReport.SetParameters(rpTituloInf)
 
@@ -70,16 +70,13 @@ Public Class FormEstGarajes
 
     End Sub
 
-    Public Sub New(sonTodosGarajes As Boolean, idGarajeSelec As Integer)
+    Public Sub New(sonTodosGarajes As Boolean, idGaraje As Integer)
 
         InitializeComponent()
 
         Me.SonTodosGarajes = sonTodosGarajes
-        Me.IdGarajeSelec = idGarajeSelec
+        Me.IdGarajeSelec = idGaraje
 
     End Sub
 
-    Private Sub FormEstGarajes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

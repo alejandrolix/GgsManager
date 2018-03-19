@@ -155,20 +155,67 @@ Public Class Cliente
 
 
     ''' <summary>
+    ''' Obtiene el Id, nombre y apellidos de los clientes a partir del Id de un garaje.
+    ''' </summary>
+    ''' <returns>Lista con el Id, nombre y apellidos de los clientes.</returns>
+    Public Shared Function ObtenerNombreYApellidosClientesPorIdGaraje(ByRef idGaraje As Integer) As List(Of Cliente)
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos
+                                                       FROM   Clientes Cli
+	                                                          JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
+                                                       WHERE  Veh.IdGaraje = {0};", idGaraje), conexion)
+        Dim datos As MySqlDataReader = Nothing
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim listaClientes As New List(Of Cliente)()
+
+            While datos.Read()
+
+                Dim id As Integer = datos.GetInt32("IdCliente")
+                Dim nombre As String = datos.GetString("Nombre")
+                Dim apellidos As String = datos.GetString("Apellidos")
+
+                Dim cliente As New Cliente(id, nombre, apellidos)
+                listaClientes.Add(cliente)
+
+            End While
+
+            datos.Close()
+            conexion.Close()
+
+            Return listaClientes
+
+        End If
+
+        Return Nothing
+
+    End Function
+
+
+    ''' <summary>
     ''' Obtiene el nuevo Id de la tabla "Clientes", (ultimoId + 1) para guardar su imagen.
     ''' </summary>
     ''' <returns>El nuevo Id de la imagen.</returns>
     Public Shared Function ObtenerNuevoIdClientes() As Integer
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT MAX(IdCliente) 
+        Dim comando As New MySqlCommand("SELECT MAX(IdCliente) + 1
                                          FROM   Clientes;", conexion)
-        Dim ultimoId As Integer
+        Dim nuevoId As Integer
 
         Try
-            ultimoId = CType(comando.ExecuteScalar(), Integer)
-            ultimoId += 1
-
+            nuevoId = CType(comando.ExecuteScalar(), Integer)
             conexion.Close()
 
         Catch ex As Exception
@@ -177,7 +224,57 @@ Public Class Cliente
 
         End Try
 
-        Return ultimoId
+        Return nuevoId
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene un cliente a partir de su Id.
+    ''' </summary>
+    ''' <param name="idCliente">El Id del cliente.</param>
+    ''' <returns>Los datos del cliente.</returns>
+    Public Shared Function ObtenerClientePorId(ByRef idCliente As Integer) As Cliente
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand(String.Format("SELECT CONCAT(Nombre, ' ', Apellidos) AS 'Nombre', DNI, Direccion, Provincia, Movil
+                                                       FROM   Clientes
+                                                       WHERE  IdCliente = {0};", idCliente), conexion)
+        Dim datos As MySqlDataReader = Nothing
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim cliente As Cliente
+
+            While datos.Read()
+
+                Dim nombre As String = datos.GetString("Nombre")
+                Dim dni As String = datos.GetString("DNI")
+                Dim direccion As String = datos.GetString("Direccion")
+                Dim provincia As String = datos.GetString("Provincia")
+                Dim movil As String = datos.GetString("Movil")
+
+                cliente = New Cliente(nombre, dni, direccion, provincia, movil)
+
+            End While
+
+            datos.Close()
+            conexion.Close()
+
+            Return cliente
+
+        End If
+
+        Return Nothing
 
     End Function
 
@@ -367,6 +464,16 @@ Public Class Cliente
     Public Sub New(id As Integer)               ' Para crear un vehículo.
 
         Me.Id = id
+
+    End Sub
+
+    Public Sub New(nombre As String, dni As String, direccion As String, provincia As String, movil As String)              ' Para mostrar la factura con sus datos.
+
+        Me.Nombre = nombre
+        Me.DNI = dni
+        Me.Direccion = direccion
+        Me.Provincia = provincia
+        Me.Movil = movil
 
     End Sub
 

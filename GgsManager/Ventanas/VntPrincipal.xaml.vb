@@ -80,17 +80,19 @@
 
     Private Sub InfClientes_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntSeleccGaraje(Foo.Ventana.InfClientes)
+        AbrirVntSeleccGaraje(Foo.Ventana.InformeClientes)
 
     End Sub
 
     Private Sub InfPlazas_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntSeleccGaraje(Foo.Ventana.InfPlazas)
+        AbrirVntSeleccGaraje(Foo.Ventana.InformePlazas)
 
     End Sub
 
-    Private Sub Facturas_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub FactIndividual_Click(sender As Object, e As RoutedEventArgs)
+
+        AbrirVntSeleccGaraje(Foo.Ventana.FacturaIndividual)
 
     End Sub
 
@@ -148,7 +150,7 @@
 
     Private Sub EstadGaraje_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntSeleccGaraje(Foo.Ventana.InfEstadGaraje)
+        AbrirVntSeleccGaraje(Foo.Ventana.InformeEstadGaraje)
 
     End Sub
 

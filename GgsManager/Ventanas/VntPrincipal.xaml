@@ -22,7 +22,7 @@
                 <MenuItem Name="InfPlazas" Header="Plazas" Click="InfPlazas_Click" Margin="2" />
             </MenuItem>
             <MenuItem Name="Facturas" Header="Facturas" Margin="0,0,8,0">
-                <MenuItem Header="Individual" Margin="2" />
+                <MenuItem Name="FactIndividual" Header="Individual" Margin="2" Click="FactIndividual_Click" />
                 <MenuItem Header="Conjunto" Margin="2" />
             </MenuItem>
             <MenuItem Name="Configuracion" Header="Configuración" Margin="0,0,8,0">
