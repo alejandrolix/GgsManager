@@ -141,8 +141,14 @@
 
     Private Sub EstadTodosGarajes_Click(sender As Object, e As RoutedEventArgs)
 
-        'Dim form1 As New Form1()
-        'form1.ShowDialog()
+        Dim formEstGarajes As New FormEstGarajes(True)
+        formEstGarajes.ShowDialog()
+
+    End Sub
+
+    Private Sub EstadGaraje_Click(sender As Object, e As RoutedEventArgs)
+
+        AbrirVntSeleccGaraje(Foo.Ventana.InfEstadGaraje)
 
     End Sub
 

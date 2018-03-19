@@ -20,12 +20,12 @@ Option Explicit On
  Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
  Global.System.ComponentModel.ToolboxItem(true),  _
  Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema"),  _
- Global.System.Xml.Serialization.XmlRootAttribute("DtPlazas"),  _
+ Global.System.Xml.Serialization.XmlRootAttribute("DtPorcGaraje"),  _
  Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")>  _
-Partial Public Class DtPlazas
+Partial Public Class DtPorcGaraje
     Inherits Global.System.Data.DataSet
     
-    Private tablePlazas As PlazasDataTable
+    Private tableEstadisticas As EstadisticasDataTable
     
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
@@ -56,8 +56,8 @@ Partial Public Class DtPlazas
         If (Me.DetermineSchemaSerializationMode(info, context) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
-            If (Not (ds.Tables("Plazas")) Is Nothing) Then
-                MyBase.Tables.Add(New PlazasDataTable(ds.Tables("Plazas")))
+            If (Not (ds.Tables("Estadisticas")) Is Nothing) Then
+                MyBase.Tables.Add(New EstadisticasDataTable(ds.Tables("Estadisticas")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -80,9 +80,9 @@ Partial Public Class DtPlazas
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.Browsable(false),  _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-    Public ReadOnly Property Plazas() As PlazasDataTable
+    Public ReadOnly Property Estadisticas() As EstadisticasDataTable
         Get
-            Return Me.tablePlazas
+            Return Me.tableEstadisticas
         End Get
     End Property
     
@@ -128,7 +128,7 @@ Partial Public Class DtPlazas
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Overrides Function Clone() As Global.System.Data.DataSet
-        Dim cln As DtPlazas = CType(MyBase.Clone,DtPlazas)
+        Dim cln As DtPorcGaraje = CType(MyBase.Clone,DtPorcGaraje)
         cln.InitVars
         cln.SchemaSerializationMode = Me.SchemaSerializationMode
         Return cln
@@ -153,8 +153,8 @@ Partial Public Class DtPlazas
             Me.Reset
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXml(reader)
-            If (Not (ds.Tables("Plazas")) Is Nothing) Then
-                MyBase.Tables.Add(New PlazasDataTable(ds.Tables("Plazas")))
+            If (Not (ds.Tables("Estadisticas")) Is Nothing) Then
+                MyBase.Tables.Add(New EstadisticasDataTable(ds.Tables("Estadisticas")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -188,10 +188,10 @@ Partial Public Class DtPlazas
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Friend Overloads Sub InitVars(ByVal initTable As Boolean)
-        Me.tablePlazas = CType(MyBase.Tables("Plazas"),PlazasDataTable)
+        Me.tableEstadisticas = CType(MyBase.Tables("Estadisticas"),EstadisticasDataTable)
         If (initTable = true) Then
-            If (Not (Me.tablePlazas) Is Nothing) Then
-                Me.tablePlazas.InitVars
+            If (Not (Me.tableEstadisticas) Is Nothing) Then
+                Me.tableEstadisticas.InitVars
             End If
         End If
     End Sub
@@ -199,18 +199,18 @@ Partial Public Class DtPlazas
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Sub InitClass()
-        Me.DataSetName = "DtPlazas"
+        Me.DataSetName = "DtPorcGaraje"
         Me.Prefix = ""
-        Me.Namespace = "http://tempuri.org/DtPlazas.xsd"
+        Me.Namespace = "http://tempuri.org/DtPorcGaraje.xsd"
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
-        Me.tablePlazas = New PlazasDataTable()
-        MyBase.Tables.Add(Me.tablePlazas)
+        Me.tableEstadisticas = New EstadisticasDataTable()
+        MyBase.Tables.Add(Me.tableEstadisticas)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Private Function ShouldSerializePlazas() As Boolean
+    Private Function ShouldSerializeEstadisticas() As Boolean
         Return false
     End Function
     
@@ -225,7 +225,7 @@ Partial Public Class DtPlazas
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Shared Function GetTypedDataSetSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-        Dim ds As DtPlazas = New DtPlazas()
+        Dim ds As DtPorcGaraje = New DtPorcGaraje()
         Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
         Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
         Dim any As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
@@ -273,33 +273,29 @@ Partial Public Class DtPlazas
     End Function
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Delegate Sub PlazasRowChangeEventHandler(ByVal sender As Object, ByVal e As PlazasRowChangeEvent)
+    Public Delegate Sub EstadisticasRowChangeEventHandler(ByVal sender As Object, ByVal e As EstadisticasRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
-    Partial Public Class PlazasDataTable
-        Inherits Global.System.Data.TypedTableBase(Of PlazasRow)
+    Partial Public Class EstadisticasDataTable
+        Inherits Global.System.Data.TypedTableBase(Of EstadisticasRow)
         
-        Private columnIdPlaza As Global.System.Data.DataColumn
+        Private columnNombreGaraje As Global.System.Data.DataColumn
         
-        Private columnCliente As Global.System.Data.DataColumn
+        Private columnNumeroPlazas As Global.System.Data.DataColumn
         
-        Private columnMatricula As Global.System.Data.DataColumn
+        Private columnPorcentajePlazasLibres As Global.System.Data.DataColumn
         
-        Private columnMarca As Global.System.Data.DataColumn
-        
-        Private columnModelo As Global.System.Data.DataColumn
-        
-        Private columnPrecioTotal As Global.System.Data.DataColumn
+        Private columnPorcentajePlazasOcupadas As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
             MyBase.New
-            Me.TableName = "Plazas"
+            Me.TableName = "Estadisticas"
             Me.BeginInit
             Me.InitClass
             Me.EndInit
@@ -332,49 +328,33 @@ Partial Public Class DtPlazas
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property IdPlazaColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property NombreGarajeColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnIdPlaza
+                Return Me.columnNombreGaraje
             End Get
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property ClienteColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property NumeroPlazasColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnCliente
+                Return Me.columnNumeroPlazas
             End Get
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property MatriculaColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property PorcentajePlazasLibresColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnMatricula
+                Return Me.columnPorcentajePlazasLibres
             End Get
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property MarcaColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property PorcentajePlazasOcupadasColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnMarca
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property ModeloColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnModelo
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property PrecioTotalColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnPrecioTotal
+                Return Me.columnPorcentajePlazasOcupadas
             End Get
         End Property
         
@@ -389,44 +369,44 @@ Partial Public Class DtPlazas
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Default ReadOnly Property Item(ByVal index As Integer) As PlazasRow
+        Public Default ReadOnly Property Item(ByVal index As Integer) As EstadisticasRow
             Get
-                Return CType(Me.Rows(index),PlazasRow)
+                Return CType(Me.Rows(index),EstadisticasRow)
             End Get
         End Property
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event PlazasRowChanging As PlazasRowChangeEventHandler
+        Public Event EstadisticasRowChanging As EstadisticasRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event PlazasRowChanged As PlazasRowChangeEventHandler
+        Public Event EstadisticasRowChanged As EstadisticasRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event PlazasRowDeleting As PlazasRowChangeEventHandler
+        Public Event EstadisticasRowDeleting As EstadisticasRowChangeEventHandler
         
         <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event PlazasRowDeleted As PlazasRowChangeEventHandler
+        Public Event EstadisticasRowDeleted As EstadisticasRowChangeEventHandler
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Sub AddPlazasRow(ByVal row As PlazasRow)
+        Public Overloads Sub AddEstadisticasRow(ByVal row As EstadisticasRow)
             Me.Rows.Add(row)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddPlazasRow(ByVal IdPlaza As Integer, ByVal Cliente As String, ByVal Matricula As String, ByVal Marca As String, ByVal Modelo As String, ByVal PrecioTotal As Decimal) As PlazasRow
-            Dim rowPlazasRow As PlazasRow = CType(Me.NewRow,PlazasRow)
-            Dim columnValuesArray() As Object = New Object() {IdPlaza, Cliente, Matricula, Marca, Modelo, PrecioTotal}
-            rowPlazasRow.ItemArray = columnValuesArray
-            Me.Rows.Add(rowPlazasRow)
-            Return rowPlazasRow
+        Public Overloads Function AddEstadisticasRow(ByVal NombreGaraje As String, ByVal NumeroPlazas As Integer, ByVal PorcentajePlazasLibres As Integer, ByVal PorcentajePlazasOcupadas As Integer) As EstadisticasRow
+            Dim rowEstadisticasRow As EstadisticasRow = CType(Me.NewRow,EstadisticasRow)
+            Dim columnValuesArray() As Object = New Object() {NombreGaraje, NumeroPlazas, PorcentajePlazasLibres, PorcentajePlazasOcupadas}
+            rowEstadisticasRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowEstadisticasRow)
+            Return rowEstadisticasRow
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As PlazasDataTable = CType(MyBase.Clone,PlazasDataTable)
+            Dim cln As EstadisticasDataTable = CType(MyBase.Clone,EstadisticasDataTable)
             cln.InitVars
             Return cln
         End Function
@@ -434,61 +414,55 @@ Partial Public Class DtPlazas
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New PlazasDataTable()
+            Return New EstadisticasDataTable()
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
-            Me.columnIdPlaza = MyBase.Columns("IdPlaza")
-            Me.columnCliente = MyBase.Columns("Cliente")
-            Me.columnMatricula = MyBase.Columns("Matricula")
-            Me.columnMarca = MyBase.Columns("Marca")
-            Me.columnModelo = MyBase.Columns("Modelo")
-            Me.columnPrecioTotal = MyBase.Columns("PrecioTotal")
+            Me.columnNombreGaraje = MyBase.Columns("NombreGaraje")
+            Me.columnNumeroPlazas = MyBase.Columns("NumeroPlazas")
+            Me.columnPorcentajePlazasLibres = MyBase.Columns("PorcentajePlazasLibres")
+            Me.columnPorcentajePlazasOcupadas = MyBase.Columns("PorcentajePlazasOcupadas")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitClass()
-            Me.columnIdPlaza = New Global.System.Data.DataColumn("IdPlaza", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnIdPlaza)
-            Me.columnCliente = New Global.System.Data.DataColumn("Cliente", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnCliente)
-            Me.columnMatricula = New Global.System.Data.DataColumn("Matricula", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMatricula)
-            Me.columnMarca = New Global.System.Data.DataColumn("Marca", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMarca)
-            Me.columnModelo = New Global.System.Data.DataColumn("Modelo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnModelo)
-            Me.columnPrecioTotal = New Global.System.Data.DataColumn("PrecioTotal", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnPrecioTotal)
+            Me.columnNombreGaraje = New Global.System.Data.DataColumn("NombreGaraje", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnNombreGaraje)
+            Me.columnNumeroPlazas = New Global.System.Data.DataColumn("NumeroPlazas", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnNumeroPlazas)
+            Me.columnPorcentajePlazasLibres = New Global.System.Data.DataColumn("PorcentajePlazasLibres", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPorcentajePlazasLibres)
+            Me.columnPorcentajePlazasOcupadas = New Global.System.Data.DataColumn("PorcentajePlazasOcupadas", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPorcentajePlazasOcupadas)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function NewPlazasRow() As PlazasRow
-            Return CType(Me.NewRow,PlazasRow)
+        Public Function NewEstadisticasRow() As EstadisticasRow
+            Return CType(Me.NewRow,EstadisticasRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New PlazasRow(builder)
+            Return New EstadisticasRow(builder)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(PlazasRow)
+            Return GetType(EstadisticasRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
-            If (Not (Me.PlazasRowChangedEvent) Is Nothing) Then
-                RaiseEvent PlazasRowChanged(Me, New PlazasRowChangeEvent(CType(e.Row,PlazasRow), e.Action))
+            If (Not (Me.EstadisticasRowChangedEvent) Is Nothing) Then
+                RaiseEvent EstadisticasRowChanged(Me, New EstadisticasRowChangeEvent(CType(e.Row,EstadisticasRow), e.Action))
             End If
         End Sub
         
@@ -496,8 +470,8 @@ Partial Public Class DtPlazas
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
-            If (Not (Me.PlazasRowChangingEvent) Is Nothing) Then
-                RaiseEvent PlazasRowChanging(Me, New PlazasRowChangeEvent(CType(e.Row,PlazasRow), e.Action))
+            If (Not (Me.EstadisticasRowChangingEvent) Is Nothing) Then
+                RaiseEvent EstadisticasRowChanging(Me, New EstadisticasRowChangeEvent(CType(e.Row,EstadisticasRow), e.Action))
             End If
         End Sub
         
@@ -505,8 +479,8 @@ Partial Public Class DtPlazas
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
-            If (Not (Me.PlazasRowDeletedEvent) Is Nothing) Then
-                RaiseEvent PlazasRowDeleted(Me, New PlazasRowChangeEvent(CType(e.Row,PlazasRow), e.Action))
+            If (Not (Me.EstadisticasRowDeletedEvent) Is Nothing) Then
+                RaiseEvent EstadisticasRowDeleted(Me, New EstadisticasRowChangeEvent(CType(e.Row,EstadisticasRow), e.Action))
             End If
         End Sub
         
@@ -514,14 +488,14 @@ Partial Public Class DtPlazas
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
-            If (Not (Me.PlazasRowDeletingEvent) Is Nothing) Then
-                RaiseEvent PlazasRowDeleting(Me, New PlazasRowChangeEvent(CType(e.Row,PlazasRow), e.Action))
+            If (Not (Me.EstadisticasRowDeletingEvent) Is Nothing) Then
+                RaiseEvent EstadisticasRowDeleting(Me, New EstadisticasRowChangeEvent(CType(e.Row,EstadisticasRow), e.Action))
             End If
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub RemovePlazasRow(ByVal row As PlazasRow)
+        Public Sub RemoveEstadisticasRow(ByVal row As EstadisticasRow)
             Me.Rows.Remove(row)
         End Sub
         
@@ -530,7 +504,7 @@ Partial Public Class DtPlazas
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As DtPlazas = New DtPlazas()
+            Dim ds As DtPorcGaraje = New DtPorcGaraje()
             Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
             any1.Namespace = "http://www.w3.org/2001/XMLSchema"
             any1.MinOccurs = New Decimal(0)
@@ -548,7 +522,7 @@ Partial Public Class DtPlazas
             type.Attributes.Add(attribute1)
             Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
             attribute2.Name = "tableTypeName"
-            attribute2.FixedValue = "PlazasDataTable"
+            attribute2.FixedValue = "EstadisticasDataTable"
             type.Attributes.Add(attribute2)
             type.Particle = sequence
             Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
@@ -595,178 +569,126 @@ Partial Public Class DtPlazas
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
-    Partial Public Class PlazasRow
+    Partial Public Class EstadisticasRow
         Inherits Global.System.Data.DataRow
         
-        Private tablePlazas As PlazasDataTable
+        Private tableEstadisticas As EstadisticasDataTable
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tablePlazas = CType(Me.Table,PlazasDataTable)
+            Me.tableEstadisticas = CType(Me.Table,EstadisticasDataTable)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property IdPlaza() As Integer
+        Public Property NombreGaraje() As String
             Get
                 Try 
-                    Return CType(Me(Me.tablePlazas.IdPlazaColumn),Integer)
+                    Return CType(Me(Me.tableEstadisticas.NombreGarajeColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'IdPlaza' de la tabla 'Plazas' es DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'NombreGaraje' de la tabla 'Estadisticas' es DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tablePlazas.IdPlazaColumn) = value
+                Me(Me.tableEstadisticas.NombreGarajeColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Cliente() As String
+        Public Property NumeroPlazas() As Integer
             Get
                 Try 
-                    Return CType(Me(Me.tablePlazas.ClienteColumn),String)
+                    Return CType(Me(Me.tableEstadisticas.NumeroPlazasColumn),Integer)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Cliente' de la tabla 'Plazas' es DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'NumeroPlazas' de la tabla 'Estadisticas' es DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tablePlazas.ClienteColumn) = value
+                Me(Me.tableEstadisticas.NumeroPlazasColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Matricula() As String
+        Public Property PorcentajePlazasLibres() As Integer
             Get
                 Try 
-                    Return CType(Me(Me.tablePlazas.MatriculaColumn),String)
+                    Return CType(Me(Me.tableEstadisticas.PorcentajePlazasLibresColumn),Integer)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Matricula' de la tabla 'Plazas' es DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'PorcentajePlazasLibres' de la tabla 'Estadisticas' es DBN"& _ 
+                            "ull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tablePlazas.MatriculaColumn) = value
+                Me(Me.tableEstadisticas.PorcentajePlazasLibresColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Marca() As String
+        Public Property PorcentajePlazasOcupadas() As Integer
             Get
                 Try 
-                    Return CType(Me(Me.tablePlazas.MarcaColumn),String)
+                    Return CType(Me(Me.tableEstadisticas.PorcentajePlazasOcupadasColumn),Integer)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Marca' de la tabla 'Plazas' es DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'PorcentajePlazasOcupadas' de la tabla 'Estadisticas' es D"& _ 
+                            "BNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tablePlazas.MarcaColumn) = value
+                Me(Me.tableEstadisticas.PorcentajePlazasOcupadasColumn) = value
             End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Modelo() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tablePlazas.ModeloColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'Modelo' de la tabla 'Plazas' es DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablePlazas.ModeloColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property PrecioTotal() As Decimal
-            Get
-                Try 
-                    Return CType(Me(Me.tablePlazas.PrecioTotalColumn),Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'PrecioTotal' de la tabla 'Plazas' es DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablePlazas.PrecioTotalColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsIdPlazaNull() As Boolean
-            Return Me.IsNull(Me.tablePlazas.IdPlazaColumn)
+        Public Function IsNombreGarajeNull() As Boolean
+            Return Me.IsNull(Me.tableEstadisticas.NombreGarajeColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetIdPlazaNull()
-            Me(Me.tablePlazas.IdPlazaColumn) = Global.System.Convert.DBNull
+        Public Sub SetNombreGarajeNull()
+            Me(Me.tableEstadisticas.NombreGarajeColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsClienteNull() As Boolean
-            Return Me.IsNull(Me.tablePlazas.ClienteColumn)
+        Public Function IsNumeroPlazasNull() As Boolean
+            Return Me.IsNull(Me.tableEstadisticas.NumeroPlazasColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetClienteNull()
-            Me(Me.tablePlazas.ClienteColumn) = Global.System.Convert.DBNull
+        Public Sub SetNumeroPlazasNull()
+            Me(Me.tableEstadisticas.NumeroPlazasColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsMatriculaNull() As Boolean
-            Return Me.IsNull(Me.tablePlazas.MatriculaColumn)
+        Public Function IsPorcentajePlazasLibresNull() As Boolean
+            Return Me.IsNull(Me.tableEstadisticas.PorcentajePlazasLibresColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetMatriculaNull()
-            Me(Me.tablePlazas.MatriculaColumn) = Global.System.Convert.DBNull
+        Public Sub SetPorcentajePlazasLibresNull()
+            Me(Me.tableEstadisticas.PorcentajePlazasLibresColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsMarcaNull() As Boolean
-            Return Me.IsNull(Me.tablePlazas.MarcaColumn)
+        Public Function IsPorcentajePlazasOcupadasNull() As Boolean
+            Return Me.IsNull(Me.tableEstadisticas.PorcentajePlazasOcupadasColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetMarcaNull()
-            Me(Me.tablePlazas.MarcaColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsModeloNull() As Boolean
-            Return Me.IsNull(Me.tablePlazas.ModeloColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetModeloNull()
-            Me(Me.tablePlazas.ModeloColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsPrecioTotalNull() As Boolean
-            Return Me.IsNull(Me.tablePlazas.PrecioTotalColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetPrecioTotalNull()
-            Me(Me.tablePlazas.PrecioTotalColumn) = Global.System.Convert.DBNull
+        Public Sub SetPorcentajePlazasOcupadasNull()
+            Me(Me.tableEstadisticas.PorcentajePlazasOcupadasColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -774,16 +696,16 @@ Partial Public Class DtPlazas
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Class PlazasRowChangeEvent
+    Public Class EstadisticasRowChangeEvent
         Inherits Global.System.EventArgs
         
-        Private eventRow As PlazasRow
+        Private eventRow As EstadisticasRow
         
         Private eventAction As Global.System.Data.DataRowAction
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New(ByVal row As PlazasRow, ByVal action As Global.System.Data.DataRowAction)
+        Public Sub New(ByVal row As EstadisticasRow, ByVal action As Global.System.Data.DataRowAction)
             MyBase.New
             Me.eventRow = row
             Me.eventAction = action
@@ -791,7 +713,7 @@ Partial Public Class DtPlazas
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Row() As PlazasRow
+        Public ReadOnly Property Row() As EstadisticasRow
             Get
                 Return Me.eventRow
             End Get

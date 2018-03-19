@@ -27,7 +27,7 @@ Public Class FormInfPlazas
             Dim conexion As MySqlConnection = Foo.ConexionABd()
             Dim dtPlazas As New DtPlazas()
 
-            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo
+            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, Veh.PrecioTotal
                                                                FROM   Plazas Plz
                                                                       JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
                                                                       JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
@@ -56,7 +56,7 @@ Public Class FormInfPlazas
             Dim conexion As MySqlConnection = Foo.ConexionABd()
             Dim dtPlazas As New DtPlazas()
 
-            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo
+            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, Veh.PrecioTotal
                                                                FROM   Plazas Plz
                                                                       JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
                                                                       JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
@@ -85,7 +85,7 @@ Public Class FormInfPlazas
             Dim conexion As MySqlConnection = Foo.ConexionABd()
             Dim dtPlazas As New DtPlazas()
 
-            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo
+            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, Veh.PrecioTotal
                                                                FROM   Plazas Plz
                                                                       JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
                                                                       JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       

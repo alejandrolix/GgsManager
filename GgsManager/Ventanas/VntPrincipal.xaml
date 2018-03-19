@@ -30,7 +30,7 @@
             </MenuItem>
             <MenuItem Name="Estadisticas" Header="Estadísticas" Margin="0,0,8,0">
                 <MenuItem Name="EstadTodosGarajes" Header="Todos los Garajes" Click="EstadTodosGarajes_Click" Margin="2" />
-                <MenuItem Header="Por Garaje" Margin="2" />
+                <MenuItem Name="EstadGaraje" Header="Por Garaje" Margin="2" Click="EstadGaraje_Click" />
             </MenuItem>
             <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Margin="0,0,8,0" />
         </Menu>

@@ -20,40 +20,46 @@
             Dim vntPlz As WPF.MDI.MdiChild
             Dim formInfClientes As FormInfClientes
             Dim formInfPlazas As FormInfPlazas
+            Dim formEstGarajes As FormEstGarajes
 
-            If Ventana = Foo.Ventana.Vehiculos Then
+            Select Case Ventana
+                Case Foo.Ventana.Vehiculos
+                    vntVehic = New WPF.MDI.MdiChild()
+                    vntVehic.Title = "Gestión de Vehículos"
+                    vntVehic.Content = New VntVehiculos()
 
-                vntVehic = New WPF.MDI.MdiChild()
-                vntVehic.Title = "Gestión de Vehículos"
-                vntVehic.Content = New VntVehiculos()
+                    VntVehiculos.IdGaraje = gjSelec.Id
+                    vntVehic.Width = 800
+                    vntVehic.Height = 401
 
-                VntVehiculos.IdGaraje = gjSelec.Id
-                vntVehic.Width = 800
-                vntVehic.Height = 401
+                Case Foo.Ventana.Plazas
+                    vntPlz = New WPF.MDI.MdiChild()
+                    vntPlz.Title = "Gestión de Plazas"
+                    vntPlz.Content = New VntPlazas()
 
-            ElseIf Ventana = Foo.Ventana.Plazas Then
+                    VntPlazas.IdGaraje = gjSelec.Id
+                    vntPlz.Width = 500
+                    vntPlz.Height = 401
 
-                vntPlz = New WPF.MDI.MdiChild()
-                vntPlz.Title = "Gestión de Plazas"
-                vntPlz.Content = New VntPlazas()
+                Case Foo.Ventana.InfClientes
+                    formInfClientes = New FormInfClientes(gjSelec.Id)
+                    formInfClientes.ShowDialog()
 
-                VntPlazas.IdGaraje = gjSelec.Id
-                vntPlz.Width = 500
-                vntPlz.Height = 401
+                Case Foo.Ventana.InfPlazas
+                    formInfPlazas = New FormInfPlazas(gjSelec.Id)
+                    formInfPlazas.ShowDialog()
 
-            ElseIf Ventana = Foo.Ventana.InfClientes Then
+                Case Foo.Ventana.InfEstadGaraje
+                    formEstGarajes = New FormEstGarajes(False, gjSelec.Id)
+                    formEstGarajes.ShowDialog()
 
-                formInfClientes = New FormInfClientes(gjSelec.Id)
-                formInfClientes.ShowDialog()
+            End Select
 
-            ElseIf Ventana = Foo.Ventana.InfPlazas Then
+            If Ventana <> Foo.Ventana.InfEstadGaraje Then
 
-                formInfPlazas = New FormInfPlazas(gjSelec.Id)
-                formInfPlazas.ShowDialog()
+                Me.Close()
 
             End If
-
-            Me.Close()
 
             If vntVehic IsNot Nothing Then
 
