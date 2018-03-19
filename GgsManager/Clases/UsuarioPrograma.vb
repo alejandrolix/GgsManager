@@ -25,14 +25,16 @@ Public Class UsuarioPrograma
     ''' <summary>
     ''' Comprueba si existe el usuario introducido.
     ''' </summary>
-    ''' <param name="usuario">Nombre de usuario a comprobar.</param>
+    ''' <param name="nombreUsuario">Nombre de usuario a comprobar.</param>
     ''' <returns>True: El usuario existe. False: El usuario no existe.</returns>
-    Public Shared Function ExisteUsuario(ByRef usuario As String) As Boolean
+    Public Shared Function ExisteUsuario(ByRef nombreUsuario As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT COUNT(IdUsuario) 
-                                                       FROM   UsuariosPrograma 
-                                                       WHERE  Nombre = '{0}';", usuario), conexion)
+        Dim comando As New MySqlCommand("SELECT COUNT(IdUsuario) 
+                                         FROM   UsuariosPrograma 
+                                         WHERE  Nombre = @Nombre;", conexion)
+
+        comando.Parameters.AddWithValue("@Nombre", nombreUsuario)
         Dim resultado As Integer
 
         Try
@@ -58,9 +60,11 @@ Public Class UsuarioPrograma
     Public Shared Function ObtenerUsuarioPrograma(ByRef nombreUsuario As String) As UsuarioPrograma
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT IdUsuario, EsGestor 
-                                                       FROM   UsuariosPrograma 
-                                                       WHERE  Nombre = '{0}';", nombreUsuario), conexion)
+        Dim comando As New MySqlCommand("SELECT IdUsuario, EsGestor 
+                                         FROM   UsuariosPrograma 
+                                         WHERE  Nombre = @Nombre;", conexion)
+
+        comando.Parameters.AddWithValue("@Nombre", nombreUsuario)
         Dim datos As MySqlDataReader
         Dim usuarioPrograma As UsuarioPrograma
 
@@ -172,9 +176,11 @@ Public Class UsuarioPrograma
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim hashPasswordIntroducida As String = ObtenerSHA1HashFromPassword(passwordIntroducida)
 
-        Dim comando As New MySqlCommand(String.Format("SELECT Password 
-                                                       FROM   UsuariosPrograma 
-                                                       WHERE  Nombre = '{0}';", UsuarioLogueado.Nombre), conexion)
+        Dim comando As New MySqlCommand("SELECT Password 
+                                         FROM   UsuariosPrograma 
+                                         WHERE  Nombre = @Nombre;", conexion)
+
+        comando.Parameters.AddWithValue("@Nombre", UsuarioLogueado.Nombre)
         Dim hashPasswordBd As String = ""
 
         Try
@@ -201,7 +207,11 @@ Public Class UsuarioPrograma
     Public Shared Function InsertarUsuario(ByRef usuarioPrograma As UsuarioPrograma, ByRef hashPassword As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO UsuariosPrograma (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, '{0}', '{1}', {2});", usuarioPrograma.Nombre, hashPassword, usuarioPrograma.EsGestorB), conexion)
+        Dim comando As New MySqlCommand("INSERT INTO UsuariosPrograma (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, @Nombre, @Password, @EsGestorB);", conexion)
+
+        comando.Parameters.AddWithValue("@Nombre", usuarioPrograma.Nombre)
+        comando.Parameters.AddWithValue("@Password", hashPassword)
+        comando.Parameters.AddWithValue("@EsGestorB", usuarioPrograma.EsGestorB)
         Dim numFila As Integer
 
         Try
@@ -229,9 +239,13 @@ Public Class UsuarioPrograma
     Public Shared Function ModificarUsuarioPorId(ByRef nombre As String, ByRef esGestor As Boolean, ByRef idUsuario As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("UPDATE UsuariosPrograma
-                                                       SET    Nombre = '{0}', EsGestor = {1}
-                                                       WHERE  IdUsuario = {2}", nombre, esGestor, idUsuario), conexion)
+        Dim comando As New MySqlCommand("UPDATE UsuariosPrograma
+                                         SET    Nombre = @Nombre, EsGestor = @EsGestor
+                                         WHERE  IdUsuario = @IdUsuario;", conexion)
+
+        comando.Parameters.AddWithValue("@Nombre", nombre)
+        comando.Parameters.AddWithValue("@EsGestor", esGestor)
+        comando.Parameters.AddWithValue("@IdUsuario", idUsuario)
         Dim numFila As Integer
 
         Try
@@ -258,9 +272,12 @@ Public Class UsuarioPrograma
     Public Shared Function ModificarPasswordPorId(ByRef idUsuario As Integer, ByRef hashPassword As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("UPDATE UsuariosPrograma
-                                                       SET    Password = '{0}'
-                                                       WHERE  IdUsuario = {1}", hashPassword, idUsuario), conexion)
+        Dim comando As New MySqlCommand("UPDATE UsuariosPrograma
+                                         SET    Password = @Password
+                                         WHERE  IdUsuario = @IdUsuario;", conexion)
+
+        comando.Parameters.AddWithValue("@Password", hashPassword)
+        comando.Parameters.AddWithValue("@IdUsuario", idUsuario)
         Dim numFila As Integer
 
         Try
@@ -286,8 +303,10 @@ Public Class UsuarioPrograma
     Public Shared Function EliminarUsuarioPorId(ByRef idUsuario As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("DELETE FROM UsuariosPrograma
-                                                       WHERE  IdUsuario = {0}", idUsuario), conexion)
+        Dim comando As New MySqlCommand("DELETE FROM UsuariosPrograma
+                                         WHERE  IdUsuario = @IdUsuario;", conexion)
+
+        comando.Parameters.AddWithValue("@IdUsuario", idUsuario)
         Dim numFila As Integer
 
         Try

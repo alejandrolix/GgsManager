@@ -143,9 +143,11 @@ Public Class Garaje
     Public Shared Function ObtenerNombreGarajePorId(ByRef idGaraje As Integer) As String
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT Nombre
-                                                       FROM   Garajes
-                                                       WHERE  IdGaraje = {0};", idGaraje), conexion)
+        Dim comando As New MySqlCommand("SELECT Nombre
+                                         FROM   Garajes
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim nombreGaraje As String
 
         Try
@@ -197,8 +199,10 @@ Public Class Garaje
     Public Shared Function EliminarGarajePorId(ByRef idGaraje As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("DELETE FROM Garajes 
-                                                       WHERE IdGaraje = {0};", idGaraje), conexion)
+        Dim comando As New MySqlCommand("DELETE FROM Garajes 
+                                         WHERE IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim numFila As Integer
 
         Try
@@ -228,13 +232,19 @@ Public Class Garaje
 
         If Foo.HayTexto(garaje.Observaciones) Then
 
-            comando = New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, {3}, 0, '{4}');", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.NumPlazas, garaje.Observaciones), conexion)
+            comando = New MySqlCommand("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) 
+                                        VALUES (NULL, @Nombre, @Direccion, @NumPlazas, @NumPlazasLibres, 0, @Observaciones);", conexion)
+
+            comando.Parameters.AddWithValue("@Observaciones", garaje.Observaciones)
         Else
 
-            comando = New MySqlCommand(String.Format("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) VALUES (NULL, '{0}', '{1}', {2}, {3}, 0, NULL);", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.NumPlazas), conexion)
-
+            comando = New MySqlCommand("INSERT INTO Garajes (IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones) 
+                                        VALUES (NULL, @Nombre, @Direccion, @NumPlazas, @NumPlazasLibres, 0, NULL);", conexion)
         End If
 
+        comando.Parameters.AddWithValue("@Nombre", garaje.Nombre)
+        comando.Parameters.AddWithValue("@Direccion", garaje.Direccion)
+        comando.Parameters.AddWithValue("@NumPlazas", garaje.NumPlazas)
         Dim numFila As Integer
 
         Try
@@ -264,15 +274,22 @@ Public Class Garaje
 
         If Foo.HayTexto(garaje.Observaciones) Then
 
-            comando = New MySqlCommand(String.Format("UPDATE Garajes 
-                                                      SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = '{3}' 
-                                                      WHERE  IdGaraje = {4};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Observaciones, garaje.Id), conexion)
+            comando = New MySqlCommand("UPDATE Garajes 
+                                        SET    Nombre = @Nombre, Direccion = @Direccion, NumPlazas = @NumPlazas, Observaciones = @Observaciones
+                                        WHERE  IdGaraje = @IdGaraje;", conexion)
+
+            comando.Parameters.AddWithValue("@Observaciones", garaje.Observaciones)
         Else
 
-            comando = New MySqlCommand(String.Format("UPDATE Garajes 
-                                                      SET Nombre = '{0}', Direccion = '{1}', NumPlazas = {2}, Observaciones = NULL 
-                                                      WHERE  IdGaraje = {3};", garaje.Nombre, garaje.Direccion, garaje.NumPlazas, garaje.Id), conexion)
+            comando = New MySqlCommand("UPDATE Garajes 
+                                        SET    Nombre = @Nombre, Direccion = @Direccion, NumPlazas = @NumPlazas, Observaciones = NULL 
+                                        WHERE  IdGaraje = @IdGaraje;", conexion)
         End If
+
+        comando.Parameters.AddWithValue("@Nombre", garaje.Nombre)
+        comando.Parameters.AddWithValue("@Direccion", garaje.Direccion)
+        comando.Parameters.AddWithValue("@NumPlazas", garaje.NumPlazas)
+        comando.Parameters.AddWithValue("@IdGaraje", garaje.Id)
 
         Dim numFila As Integer
 

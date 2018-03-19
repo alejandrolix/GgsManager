@@ -1,5 +1,4 @@
 ﻿Imports Microsoft.Reporting.WinForms
-Imports MySql.Data.MySqlClient
 
 Public Class FormFactIndividual
 

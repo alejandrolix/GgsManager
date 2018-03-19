@@ -58,7 +58,7 @@
 
     Private Sub Vehiculos_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntSeleccGaraje(Foo.Ventana.Vehiculos)
+        AbrirVntSeleccGaraje(Me, Foo.Ventana.Vehiculos)
 
     End Sub
 

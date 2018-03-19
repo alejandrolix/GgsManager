@@ -161,10 +161,12 @@ Public Class Cliente
     Public Shared Function ObtenerNombreYApellidosClientesPorIdGaraje(ByRef idGaraje As Integer) As List(Of Cliente)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos
-                                                       FROM   Clientes Cli
-	                                                          JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
-                                                       WHERE  Veh.IdGaraje = {0};", idGaraje), conexion)
+        Dim comando As New MySqlCommand("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos
+                                         FROM   Clientes Cli
+	                                            JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
+                                         WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader = Nothing
 
         Try
@@ -237,9 +239,11 @@ Public Class Cliente
     Public Shared Function ObtenerClientePorId(ByRef idCliente As Integer) As Cliente
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT CONCAT(Nombre, ' ', Apellidos) AS 'Nombre', DNI, Direccion, Provincia, Movil
-                                                       FROM   Clientes
-                                                       WHERE  IdCliente = {0};", idCliente), conexion)
+        Dim comando As New MySqlCommand("SELECT CONCAT(Nombre, ' ', Apellidos) AS 'Nombre', DNI, Direccion, Provincia, Movil
+                                         FROM   Clientes
+                                         WHERE  IdCliente = @IdCliente;", conexion)
+
+        comando.Parameters.AddWithValue("@IdCliente", idCliente)
         Dim datos As MySqlDataReader = Nothing
 
         Try
@@ -292,14 +296,23 @@ Public Class Cliente
 
         If Foo.HayTexto(cliente.Observaciones) Then                ' Insertamos al cliente las observaciones, aparte de sus principales datos.
 
-            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones)
-                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), '{7}');", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.Observaciones), conexion)
+            comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones)
+                                        VALUES (NULL, @Nombre, @Apellidos, @DNI, @Direccion, @Poblacion, @Provincia, @Movil, NOW(), @Observaciones);", conexion)
+
+            comando.Parameters.AddWithValue("@Observaciones", cliente.Observaciones)
         Else
 
-            comando = New MySqlCommand(String.Format("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones)
-                                                      VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', NOW(), NULL);", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil), conexion)
-
+            comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaAlta, Observaciones)
+                                        VALUES (NULL, @Nombre, @Apellidos, @DNI, @Direccion, @Poblacion, @Provincia, @Movil, NOW(), NULL);", conexion)
         End If
+
+        comando.Parameters.AddWithValue("@Nombre", cliente.Nombre)
+        comando.Parameters.AddWithValue("@Apellidos", cliente.Apellidos)
+        comando.Parameters.AddWithValue("@DNI", cliente.DNI)
+        comando.Parameters.AddWithValue("@Direccion", cliente.Direccion)
+        comando.Parameters.AddWithValue("@Poblacion", cliente.Poblacion)
+        comando.Parameters.AddWithValue("@Provincia", cliente.Provincia)
+        comando.Parameters.AddWithValue("@Movil", cliente.Movil)
 
         Try
             numFila = comando.ExecuteNonQuery()
@@ -324,8 +337,10 @@ Public Class Cliente
     Public Shared Function EliminarClientePorId(ByRef idCliente As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("DELETE FROM Clientes
-                                                       WHERE  IdCliente = {0}", idCliente), conexion)
+        Dim comando As New MySqlCommand("DELETE FROM Clientes
+                                         WHERE  IdCliente = @IdCliente", conexion)
+
+        comando.Parameters.AddWithValue("@IdCliente", idCliente)
         Dim numFila As Integer
 
         Try
@@ -369,9 +384,19 @@ Public Class Cliente
     Public Shared Function ModificarCliente(ByRef cliente As Cliente) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("UPDATE Clientes
-                                                       SET    Nombre = '{0}', Apellidos = '{1}', DNI = '{2}', Direccion = '{3}', Poblacion = '{4}', Provincia = '{5}', Movil = '{6}', Observaciones = '{7}'
-                                                       WHERE  IdCliente = {8};", cliente.Nombre, cliente.Apellidos, cliente.DNI, cliente.Direccion, cliente.Poblacion, cliente.Provincia, cliente.Movil, cliente.Observaciones, cliente.Id), conexion)
+        Dim comando As New MySqlCommand("UPDATE Clientes
+                                         SET    Nombre = @Nombre, Apellidos = @Apellidos, DNI = @DNI, Direccion = @Direccion, Poblacion = @Poblacion, Provincia = @Provincia, Movil = @Movil, Observaciones = @Observaciones
+                                         WHERE  IdCliente = @IdCliente;", conexion)
+
+        comando.Parameters.AddWithValue("@Nombre", cliente.Nombre)
+        comando.Parameters.AddWithValue("@Apellidos", cliente.Apellidos)
+        comando.Parameters.AddWithValue("@DNI", cliente.DNI)
+        comando.Parameters.AddWithValue("@Direccion", cliente.Direccion)
+        comando.Parameters.AddWithValue("@Poblacion", cliente.Poblacion)
+        comando.Parameters.AddWithValue("@Provincia", cliente.Provincia)
+        comando.Parameters.AddWithValue("@Movil", cliente.Movil)
+        comando.Parameters.AddWithValue("@Observaciones", cliente.Observaciones)
+        comando.Parameters.AddWithValue("@IdCliente", cliente.Id)
         Dim numFila As Integer
 
         Try

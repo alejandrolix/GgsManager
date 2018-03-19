@@ -1,5 +1,4 @@
 ﻿Imports System.ComponentModel
-Imports System.IO
 
 ''' <summary>
 ''' Convierte la URL de la imagen a un objeto BitmapImage.

@@ -26,10 +26,12 @@ Public Class Vehiculo
     Public Shared Function ObtenerVehiculosPorIdGaraje(ByRef idGaraje As Integer) As List(Of Vehiculo)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase, Veh.PrecioTotal
-                                                       FROM   Vehiculos Veh
-                                                              JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente
-                                                       WHERE  Veh.IdGaraje = {0};", idGaraje), conexion)
+        Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase, Veh.PrecioTotal
+                                         FROM   Vehiculos Veh
+                                                JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente
+                                         WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader
 
         Try
@@ -81,14 +83,12 @@ Public Class Vehiculo
     Public Shared Function ObtenerNuevoIdVehiculos() As Integer
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT MAX(IdVehiculo) 
+        Dim comando As New MySqlCommand("SELECT MAX(IdVehiculo) + 1
                                          FROM   Vehiculos;", conexion)
         Dim ultimoId As Integer
 
         Try
             ultimoId = CType(comando.ExecuteScalar(), Integer)
-            ultimoId += 1
-
             conexion.Close()
 
         Catch ex As Exception
@@ -110,9 +110,11 @@ Public Class Vehiculo
     Public Shared Function ObtenerVehiculoPorIdCliente(ByRef idCliente As Integer) As Vehiculo
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT Marca, Modelo, Matricula, PrecioBase
-                                                       FROM   Vehiculos
-                                                       WHERE  IdCliente = {0};", idCliente), conexion)
+        Dim comando As New MySqlCommand("SELECT Marca, Modelo, Matricula, PrecioBase
+                                         FROM   Vehiculos
+                                         WHERE  IdCliente = @IdCliente;", conexion)
+
+        comando.Parameters.AddWithValue("@IdCliente", idCliente)
         Dim datos As MySqlDataReader
 
         Try
@@ -159,9 +161,17 @@ Public Class Vehiculo
     Public Shared Function InsertarVehiculo(ByRef vehiculo As Vehiculo) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
-                                                       VALUES (NULL, '{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7});", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo,
-                                                       vehiculo.Cliente.Id, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase.ToString("F2", CultureInfo.InvariantCulture), vehiculo.PrecioTotal.ToString("F2", CultureInfo.InvariantCulture)), conexion)
+        Dim comando As New MySqlCommand("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
+                                         VALUES (NULL, @Matricula, @Marca, @Modelo, @IdCliente, @IdGaraje, @IdPlaza, @PrecioBase, @PrecioTotal);", conexion)
+
+        comando.Parameters.AddWithValue("@Matricula", vehiculo.Matricula)
+        comando.Parameters.AddWithValue("@Marca", vehiculo.Marca)
+        comando.Parameters.AddWithValue("@Modelo", vehiculo.Modelo)
+        comando.Parameters.AddWithValue("@IdCliente", vehiculo.Cliente.Id)
+        comando.Parameters.AddWithValue("@IdGaraje", vehiculo.IdGaraje)
+        comando.Parameters.AddWithValue("@IdPlaza", vehiculo.IdPlaza)
+        comando.Parameters.AddWithValue("@PrecioBase", vehiculo.PrecioBase)
+        comando.Parameters.AddWithValue("@PrecioTotal", vehiculo.PrecioTotal)
         Dim numFila As Integer
 
         Try
@@ -187,9 +197,18 @@ Public Class Vehiculo
     Public Shared Function ModificarVehiculo(ByRef vehiculo As Vehiculo) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("UPDATE Vehiculos
-                                                       SET    Matricula = '{0}', Marca = '{1}', Modelo = '{2}', IdGaraje = {3}, IdPlaza = {4}, PrecioBase = {5}, PrecioTotal = {6}
-                                                       WHERE  IdVehiculo = {7};", vehiculo.Matricula, vehiculo.Marca, vehiculo.Modelo, vehiculo.IdGaraje, vehiculo.IdPlaza, vehiculo.PrecioBase.ToString("F2", CultureInfo.InvariantCulture), vehiculo.PrecioTotal.ToString("F2", CultureInfo.InvariantCulture), vehiculo.Id), conexion)
+        Dim comando As New MySqlCommand("UPDATE Vehiculos
+                                         SET    Matricula = @Matricula, Marca = @Marca, Modelo = @Modelo, IdGaraje = @IdGaraje, IdPlaza = @IdPlaza, PrecioBase = @PrecioBase, PrecioTotal = @PrecioTotal
+                                         WHERE  IdVehiculo = @IdVehiculo;", conexion)
+
+        comando.Parameters.AddWithValue("@Matricula", vehiculo.Matricula)
+        comando.Parameters.AddWithValue("@Marca", vehiculo.Marca)
+        comando.Parameters.AddWithValue("@Modelo", vehiculo.Modelo)
+        comando.Parameters.AddWithValue("@IdGaraje", vehiculo.IdGaraje)
+        comando.Parameters.AddWithValue("@IdPlaza", vehiculo.IdPlaza)
+        comando.Parameters.AddWithValue("@PrecioBase", vehiculo.PrecioBase)
+        comando.Parameters.AddWithValue("@PrecioTotal", vehiculo.PrecioTotal)
+        comando.Parameters.AddWithValue("@IdVehiculo", vehiculo.Id)
         Dim numFila As Integer
 
         Try
@@ -215,8 +234,10 @@ Public Class Vehiculo
     Public Shared Function EliminarVehiculoPorId(ByRef idVehiculo As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("DELETE FROM Vehiculos
-                                                       WHERE  IdVehiculo = {0};", idVehiculo), conexion)
+        Dim comando As New MySqlCommand("DELETE FROM Vehiculos
+                                         WHERE  IdVehiculo = @IdVehiculo;", conexion)
+
+        comando.Parameters.AddWithValue("@IdVehiculo", idVehiculo)
         Dim numFila As Integer
 
         Try
@@ -242,8 +263,10 @@ Public Class Vehiculo
     Public Shared Function EliminarVehiculosPorIdCliente(ByRef idCliente As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("DELETE FROM Vehiculos
-                                                       WHERE  IdCliente = {0};", idCliente), conexion)
+        Dim comando As New MySqlCommand("DELETE FROM Vehiculos
+                                         WHERE  IdCliente = @IdCliente;", conexion)
+
+        comando.Parameters.AddWithValue("@IdCliente", idCliente)
         Dim numFila As Integer
 
         Try

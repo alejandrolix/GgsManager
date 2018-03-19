@@ -33,12 +33,13 @@ Public Class Plaza
     Public Shared Function ObtenerIdPlazasLibresPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT IdPlaza
-                                                       FROM   Plazas
-                                                       WHERE  IdGaraje = {0} AND IdSituacion = (
-                                                                                                 SELECT IdSituacion
-                                                                                                 FROM   SituacionesPlaza
-                                                                                                 WHERE  Tipo = 'Libre');", idGaraje), conexion)
+        Dim comando As New MySqlCommand("SELECT IdPlaza
+                                         FROM   Plazas
+                                         WHERE  IdGaraje = @IdGaraje AND IdSituacion = (
+                                                                                        SELECT IdSituacion
+                                                                                        FROM   SituacionesPlaza
+                                                                                        WHERE  Tipo = 'Libre');", conexion)
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader
 
         Try
@@ -82,12 +83,13 @@ Public Class Plaza
     Public Shared Function ObtenerIdPlazasOcupadasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT IdPlaza
-                                                       FROM   Plazas
-                                                       WHERE  IdGaraje = {0} AND IdSituacion = (
-                                                                                                 SELECT IdSituacion
-                                                                                                 FROM   SituacionesPlaza
-                                                                                                 WHERE  Tipo = 'Ocupada');", idGaraje), conexion)
+        Dim comando As New MySqlCommand("SELECT IdPlaza
+                                         FROM   Plazas
+                                         WHERE  IdGaraje = @IdGaraje AND IdSituacion = (
+                                                                                        SELECT IdSituacion
+                                                                                        FROM   SituacionesPlaza
+                                                                                        WHERE  Tipo = 'Ocupada');", conexion)
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader
 
         Try
@@ -131,11 +133,13 @@ Public Class Plaza
     Public Shared Function ObtenerPlazasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("SELECT Veh.Matricula, Veh.Marca, Veh.Modelo, Plz.IdPlaza, Sit.Tipo
-                                                       FROM   Vehiculos Veh 
-	                                                          JOIN Plazas Plz ON Plz.IdPlaza = Veh.IdPlaza 
-                                                              JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion 
-                                                       WHERE Veh.IdGaraje = {0};", idGaraje), conexion)
+        Dim comando As New MySqlCommand("SELECT Veh.Matricula, Veh.Marca, Veh.Modelo, Plz.IdPlaza, Sit.Tipo
+                                         FROM   Vehiculos Veh 
+	                                            JOIN Plazas Plz ON Plz.IdPlaza = Veh.IdPlaza 
+                                                JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion 
+                                         WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader
 
         Try
@@ -190,7 +194,10 @@ Public Class Plaza
 
         For i As Integer = 1 To numPlazas Step 1                ' Añadimos uno a uno cada plaza.
 
-            comando.CommandText = String.Format("INSERT INTO Plazas (IdPlaza, IdGaraje, IdSituacion) VALUES ({0}, {1}, 1);", i, idGaraje)
+            comando.CommandText = "INSERT INTO Plazas (IdPlaza, IdGaraje, IdSituacion) VALUES (@IdPlaza, @IdGaraje, 1);"
+
+            comando.Parameters.AddWithValue("@IdPlaza", i)
+            comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
             comando.ExecuteNonQuery()
 
             numPlzInsertadas += 1
@@ -212,9 +219,12 @@ Public Class Plaza
     Public Shared Function CambiarSituacionPlazaToLibre(ByRef idPlaza As Integer, ByRef idGaraje As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("UPDATE Plazas
-                                                       SET    IdSituacion = 1
-                                                       WHERE  IdPlaza = {0} AND IdGaraje = {1}", idPlaza, idGaraje), conexion)
+        Dim comando As New MySqlCommand("UPDATE Plazas
+                                         SET    IdSituacion = 1
+                                         WHERE  IdPlaza = @IdPlaza AND IdGaraje = @IdGaraje", conexion)
+
+        comando.Parameters.AddWithValue("@IdPlaza", idPlaza)
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim numFila As Integer
 
         Try
@@ -241,9 +251,12 @@ Public Class Plaza
     Public Shared Function CambiarSituacionPlazaToOcupada(ByRef idPlaza As Integer, ByRef idGaraje As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand(String.Format("UPDATE Plazas
-                                                       SET    IdSituacion = 2
-                                                       WHERE  IdPlaza = {0} AND IdGaraje = {1}", idPlaza, idGaraje), conexion)
+        Dim comando As New MySqlCommand("UPDATE Plazas
+                                         SET    IdSituacion = 2
+                                         WHERE  IdPlaza = @IdPlaza AND IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdPlaza", idPlaza)
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim numFila As Integer
 
         Try

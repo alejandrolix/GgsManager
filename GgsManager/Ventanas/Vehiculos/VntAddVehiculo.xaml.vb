@@ -245,19 +245,12 @@ Public Class VntAddVehiculo
                 Dim precioTotal As Decimal = PrecioBase + porcentajeIva
                 Dim vehiculoo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, precioTotal)
 
-                If PrecBaseVehiculoTxt.Text.Contains(".") Then              ' Si el usuario introduce un ".", se tiene que cambiar por una ",".
+                If Vehiculo.InsertarVehiculo(vehiculoo) Then
 
-                    MessageBox.Show("Tienes que cambiar el ""."" por "",""", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-                Else
+                    If Plaza.CambiarSituacionPlazaToOcupada(plazaSelec.Id, IdGaraje) Then
 
-                    If Vehiculo.InsertarVehiculo(vehiculoo) Then
-
-                        If Plaza.CambiarSituacionPlazaToOcupada(plazaSelec.Id, IdGaraje) Then
-
-                            MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                            LimpiarCampos()
-
-                        End If
+                        MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                        LimpiarCampos()
 
                     End If
 
@@ -270,16 +263,9 @@ Public Class VntAddVehiculo
 
                 Dim vehiculoo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, Decimal.Parse(PrecTotalVehiculoTxt.Text))
 
-                If PrecTotalVehiculoTxt.Text.Contains(".") Then
+                If Vehiculo.ModificarVehiculo(vehiculoo) Then
 
-                    MessageBox.Show("Tienes que cambiar el ""."" por "",""", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-                Else
-
-                    If Vehiculo.ModificarVehiculo(vehiculoo) Then
-
-                        MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
-
-                    End If
+                    MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
 
                 End If
 
