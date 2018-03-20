@@ -68,7 +68,7 @@ Public Class FacturaRealizada
 
             Dim numFila As Integer
             Try
-                numFila = CType(comando.ExecuteScalar(), Integer)
+                numFila = comando.ExecuteNonQuery()
                 conexion.Close()
 
             Catch ex As Exception
@@ -77,7 +77,7 @@ Public Class FacturaRealizada
 
             End Try
 
-            Return numFila >= 0
+            Return numFila >= 1
 
         End If
 
