@@ -12,6 +12,7 @@ Public Class FormFactIndividual
         AddParametrosCliente()
         AddParametrosVehiculo()
         AddParametrosImporte()
+        AddParametroNumFactura()
 
         ReportViewer.RefreshReport()
 
@@ -78,6 +79,26 @@ Public Class FormFactIndividual
         listaRp.Add(New ReportParameter("Total", total.ToString()))
 
         ReportViewer.LocalReport.SetParameters(listaRp)
+
+    End Sub
+
+    Private Sub ReportViewer_PrintingBegin(sender As Object, e As ReportPrintEventArgs) Handles ReportViewer.PrintingBegin
+
+        Dim factura As New FacturaRealizada(Date.Now.Date, IdClienteSelec)
+        FacturaRealizada.InsertarFacturaToCliente(factura)
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Añade el número de la factura a su campo correspondiente.
+    ''' </summary>
+    Private Sub AddParametroNumFactura()
+
+        Dim nuevoId As Integer = FacturaRealizada.ObtenerNuevoIdFactura()
+        Dim rpNumFactura As New ReportParameter("NumFactura", nuevoId.ToString())
+
+        ReportViewer.LocalReport.SetParameters(rpNumFactura)
 
     End Sub
 

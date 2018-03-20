@@ -100,6 +100,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clases\FacturaRealizada.vb" />
     <Compile Include="Clases\Plaza.vb" />
     <Compile Include="DataSets\DtClientes.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -131,10 +132,10 @@
     <Compile Include="Ventanas\Informes\FormEstGarajes.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ventanas\Informes\FormFactIndividual.Designer.vb">
+    <Compile Include="Ventanas\Facturas\FormFactIndividual.Designer.vb">
       <DependentUpon>FormFactIndividual.vb</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\Informes\FormFactIndividual.vb">
+    <Compile Include="Ventanas\Facturas\FormFactIndividual.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ventanas\Informes\FormInfClientes.Designer.vb">
@@ -309,7 +310,7 @@
     <EmbeddedResource Include="Ventanas\Informes\FormEstGarajes.resx">
       <DependentUpon>FormEstGarajes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Ventanas\Informes\FormFactIndividual.resx">
+    <EmbeddedResource Include="Ventanas\Facturas\FormFactIndividual.resx">
       <DependentUpon>FormFactIndividual.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Informes\FormInfClientes.resx">
