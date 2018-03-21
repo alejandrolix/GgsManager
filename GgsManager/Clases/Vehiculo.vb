@@ -1,5 +1,4 @@
-﻿Imports System.Globalization
-Imports MySql.Data.MySqlClient
+﻿Imports MySql.Data.MySqlClient
 
 ''' <summary>
 ''' Representa un vehículo de la tabla "Vehiculos".
@@ -71,6 +70,8 @@ Public Class Vehiculo
 
         End If
 
+        conexion.Close()
+
         Return Nothing
 
     End Function
@@ -89,13 +90,14 @@ Public Class Vehiculo
 
         Try
             ultimoId = CType(comando.ExecuteScalar(), Integer)
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al obtener el nuevo Id de la tabla Vehiculos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return ultimoId
 
@@ -148,6 +150,8 @@ Public Class Vehiculo
 
         End If
 
+        conexion.Close()
+
         Return Nothing
 
     End Function
@@ -176,13 +180,14 @@ Public Class Vehiculo
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al insertar el vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -213,13 +218,14 @@ Public Class Vehiculo
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al modificar los datos del vehículo seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -242,13 +248,14 @@ Public Class Vehiculo
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al eliminar el vehículo seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -271,13 +278,14 @@ Public Class Vehiculo
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al eliminar los vehículos del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 

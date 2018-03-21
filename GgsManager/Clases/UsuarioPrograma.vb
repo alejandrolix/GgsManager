@@ -39,13 +39,14 @@ Public Class UsuarioPrograma
 
         Try
             resultado = CType(comando.ExecuteScalar(), Integer)
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al comprobar si existe el usuario introducido.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return Not resultado = 0
 
@@ -77,7 +78,7 @@ Public Class UsuarioPrograma
 
         End Try
 
-        If datos.HasRows Then
+        If datos IsNot Nothing Then
 
             If datos.Read() Then
 
@@ -88,7 +89,11 @@ Public Class UsuarioPrograma
 
             End If
 
+            datos.Close()
+
         End If
+
+        conexion.Close()
 
         Return usuarioPrograma
 
@@ -161,6 +166,8 @@ Public Class UsuarioPrograma
 
         End If
 
+        conexion.Close()
+
         Return Nothing
 
     End Function
@@ -185,13 +192,14 @@ Public Class UsuarioPrograma
 
         Try
             hashPasswordBd = CType(comando.ExecuteScalar(), String)
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al obtener el hash de la contraseña del usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return hashPasswordIntroducida.Equals(hashPasswordBd)
 
@@ -216,13 +224,14 @@ Public Class UsuarioPrograma
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al insertar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -250,13 +259,14 @@ Public Class UsuarioPrograma
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al modificar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -282,13 +292,14 @@ Public Class UsuarioPrograma
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al modificar la contraseña del usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -311,13 +322,14 @@ Public Class UsuarioPrograma
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al eliminar el usuario seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 

@@ -84,7 +84,7 @@ Public Class FormFactIndividual
 
     Private Sub ReportViewer_PrintingBegin(sender As Object, e As ReportPrintEventArgs) Handles ReportViewer.PrintingBegin
 
-        Dim factura As New FacturaRealizada(Date.Now.Date, IdClienteSelec)
+        Dim factura As New FacturaRealizada(Date.Now.Date, IdClienteSelec, True)
         FacturaRealizada.InsertarFacturaToCliente(factura)
 
     End Sub

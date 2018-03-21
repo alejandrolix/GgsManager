@@ -94,12 +94,14 @@ Public Class Cliente
 
             End While
 
-            datos.Close()
             conexion.Close()
+            datos.Close()
 
             Return listaClientes
 
         End If
+
+        conexion.Close()
 
         Return Nothing
 
@@ -142,12 +144,14 @@ Public Class Cliente
 
             End While
 
-            datos.Close()
             conexion.Close()
+            datos.Close()
 
             Return listaClientes
 
         End If
+
+        conexion.Close()
 
         Return Nothing
 
@@ -193,12 +197,14 @@ Public Class Cliente
 
             End While
 
-            datos.Close()
             conexion.Close()
+            datos.Close()
 
             Return listaClientes
 
         End If
+
+        conexion.Close()
 
         Return Nothing
 
@@ -218,13 +224,14 @@ Public Class Cliente
 
         Try
             nuevoId = CType(comando.ExecuteScalar(), Integer)
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al obtener el nuevo Id de la tabla Clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return nuevoId
 
@@ -271,12 +278,14 @@ Public Class Cliente
 
             End While
 
-            datos.Close()
             conexion.Close()
+            datos.Close()
 
             Return cliente
 
         End If
+
+        conexion.Close()
 
         Return Nothing
 
@@ -316,13 +325,14 @@ Public Class Cliente
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al añadir el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -345,13 +355,14 @@ Public Class Cliente
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al eliminar el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -401,13 +412,14 @@ Public Class Cliente
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al modificar los datos del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 

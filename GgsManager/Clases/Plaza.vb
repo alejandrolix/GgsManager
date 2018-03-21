@@ -70,6 +70,8 @@ Public Class Plaza
 
         End If
 
+        conexion.Close()
+
         Return Nothing
 
     End Function
@@ -119,6 +121,8 @@ Public Class Plaza
             Return listaPlazas
 
         End If
+
+        conexion.Close()
 
         Return Nothing
 
@@ -174,6 +178,8 @@ Public Class Plaza
             Return listaPlazas
 
         End If
+
+        conexion.Close()
 
         Return Nothing
 
@@ -237,6 +243,8 @@ Public Class Plaza
 
         End Try
 
+        conexion.Close()
+
         Return numFila >= 1
 
     End Function
@@ -261,13 +269,14 @@ Public Class Plaza
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Ocupado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 

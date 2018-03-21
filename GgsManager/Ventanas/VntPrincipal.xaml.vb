@@ -98,7 +98,7 @@
 
     Private Sub FactPorGaraje_Click(sender As Object, e As RoutedEventArgs)
 
-
+        AbrirVntSeleccGaraje(Foo.Ventana.FacturaGaraje)
 
     End Sub
 

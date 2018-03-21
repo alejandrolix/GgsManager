@@ -76,13 +76,16 @@ Public Class Garaje
                 End While
 
                 datos.Close()
-                conexion.Close()
 
             End If
+
+            conexion.Close()
 
             Return listaGarajes
 
         End If
+
+        conexion.Close()
 
         Return Nothing
 
@@ -123,8 +126,8 @@ Public Class Garaje
 
             End While
 
-            datos.Close()
             conexion.Close()
+            datos.Close()
 
             Return listaGarajes
 
@@ -152,13 +155,14 @@ Public Class Garaje
 
         Try
             nombreGaraje = CType(comando.ExecuteScalar, String)
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return nombreGaraje
 
@@ -179,13 +183,14 @@ Public Class Garaje
 
         Try
             ultimoId = CType(comando.ExecuteScalar(), Integer)
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al obtener el último Id del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return ultimoId
 
@@ -207,13 +212,14 @@ Public Class Garaje
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al eliminar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -249,13 +255,14 @@ Public Class Garaje
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 
@@ -295,13 +302,14 @@ Public Class Garaje
 
         Try
             numFila = comando.ExecuteNonQuery()
-            conexion.Close()
 
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
+
+        conexion.Close()
 
         Return numFila >= 1
 

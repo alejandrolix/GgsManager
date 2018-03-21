@@ -149,6 +149,7 @@ Public Class Foo
         InformePlazas
         InformeEstadGaraje
         FacturaIndividual
+        FacturaGaraje
     End Enum
 
 End Class
