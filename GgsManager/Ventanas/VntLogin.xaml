@@ -27,6 +27,6 @@
             <PasswordBox Grid.Row="1" Grid.Column="1" Name="PasswordBox" PasswordChar="*" VerticalAlignment="Bottom" FontSize="16" HorizontalAlignment="Right" Width="144" />
         </Grid>
 
-        <Button Name="IniciarSesion" Content="Iniciar Sesión" Width="110" Height="29" Margin="0,50,0,0" FontSize="16" Click="IniciarSesion_Click" />
+        <Button Name="IniciarSesion" Content="Iniciar Sesión" Width="112" Height="34" Margin="0,60,0,0" FontSize="16" Click="IniciarSesion_Click" />
     </StackPanel>
 </Window>

@@ -318,7 +318,7 @@
             <Caption>Gráfico Porcentajes Plazas</Caption>
             <Style>
               <BackgroundGradientType>None</BackgroundGradientType>
-              <FontSize>12pt</FontSize>
+              <FontSize>13pt</FontSize>
               <FontWeight>Bold</FontWeight>
               <TextDecoration>Underline</TextDecoration>
               <TextAlign>General</TextAlign>

@@ -374,6 +374,5 @@
   <ItemGroup>
     <Resource Include="LogoGgsManager.ico" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
