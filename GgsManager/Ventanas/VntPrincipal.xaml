@@ -27,6 +27,10 @@
             </MenuItem>
             <MenuItem Name="Configuracion" Header="Configuración" Margin="0,0,8,0">
                 <MenuItem Name="CambiarIVA" Header="Cambiar I.V.A." Click="CambiarIVA_Click" Margin="2" />
+                <MenuItem Header="Base de Datos" Margin="2">
+                    <MenuItem Name="ImportarBd" Header="Importar" Click="ImportarBd_Click" Margin="2" />
+                    <MenuItem Name="ExportarBd" Header="Exportar" Click="ExportarBd_Click" Margin="2" />
+                </MenuItem>
             </MenuItem>
             <MenuItem Name="Estadisticas" Header="Estadísticas" Margin="0,0,8,0">
                 <MenuItem Name="EstadTodosGarajes" Header="Todos los Garajes" Click="EstadTodosGarajes_Click" Margin="2" />

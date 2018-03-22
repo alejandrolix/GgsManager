@@ -18,5 +18,8 @@
     <Setting Name="RutaArchivos" Type="System.String" Scope="User">
       <Value Profile="(Default)">../../Archivos/</Value>
     </Setting>
+    <Setting Name="RutaBd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:/BdGgs/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

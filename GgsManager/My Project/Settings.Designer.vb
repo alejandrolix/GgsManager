@@ -96,6 +96,18 @@ Partial Friend NotInheritable Class MySettings
             Me("RutaArchivos") = value
         End Set
     End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("C:/BdGgs/")>  _
+    Public Property RutaBd() As String
+        Get
+            Return CType(Me("RutaBd"),String)
+        End Get
+        Set
+            Me("RutaBd") = value
+        End Set
+    End Property
 End Class
 
 Namespace My

@@ -160,4 +160,30 @@
 
     End Sub
 
+    Private Sub ImportarBd_Click(sender As Object, e As RoutedEventArgs)
+
+        If Foo.ImportarBd() Then
+
+            MessageBox.Show("Importación Realizada con Éxito.", "Importación Realizada", MessageBoxButton.OK, MessageBoxImage.Information)
+        Else
+
+            MessageBox.Show("Ha habido un error al importar la base de datos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
+
+    End Sub
+
+    Private Sub ExportarBd_Click(sender As Object, e As RoutedEventArgs)
+
+        If Foo.ExportarBd() Then
+
+            MessageBox.Show("Exportación Realizada con Éxito.", "Exportación Realizada", MessageBoxButton.OK, MessageBoxImage.Information)
+        Else
+
+            MessageBox.Show("Ha habido un error al exportar la base de datos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
+
+    End Sub
+
 End Class

@@ -129,6 +129,72 @@ Public Class Foo
 
 
     ''' <summary>
+    ''' Importa el fichero sql a la base de datos.
+    ''' </summary>
+    ''' <returns>True: Los datos del fichero se ha importado a la base de datos. False: Los datos del fichero no se ha importado a la base de datos.</returns>
+    Public Shared Function ImportarBd() As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand()
+        Dim importar As New MySqlBackup(comando)
+        Dim haImportadoBd As Boolean
+
+        comando.Connection = conexion
+
+        Try
+            importar.ImportFromFile(My.Settings.RutaBd & "Bd.sql")
+            haImportadoBd = True
+
+        Catch ex As Exception
+
+            haImportadoBd = False
+
+        End Try
+
+        conexion.Close()
+
+        Return haImportadoBd
+
+    End Function
+
+
+    ''' <summary>
+    ''' Exporta el fichero sql de la base de datos.
+    ''' </summary>
+    ''' <returns>True: La base de datos se ha exportado al fichero. False: La base de datos no se ha exportado al fichero.</returns>
+    Public Shared Function ExportarBd() As Boolean
+
+        If Not Directory.Exists(My.Settings.RutaBd) Then
+
+            Directory.CreateDirectory(My.Settings.RutaBd)
+
+        End If
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand()
+        Dim exportar As New MySqlBackup(comando)
+        Dim haExportadoBd As Boolean
+
+        comando.Connection = conexion
+
+        Try
+            exportar.ExportToFile(My.Settings.RutaBd & "Bd.sql")
+            haExportadoBd = True
+
+        Catch ex As Exception
+
+            haExportadoBd = False
+
+        End Try
+
+        conexion.Close()
+
+        Return haExportadoBd
+
+    End Function
+
+
+    ''' <summary>
     ''' Indica la acción que se va a realizar en un mismo formulario. Como añadir o modificar datos.
     ''' </summary>
     Enum Accion
