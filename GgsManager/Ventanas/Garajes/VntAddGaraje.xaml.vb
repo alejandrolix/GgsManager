@@ -134,7 +134,7 @@
                 Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
                 garaje.Direccion = Foo.ComprobarDireccion(garaje.Direccion)
 
-                If Garaje.InsertarGaraje(garaje) Then
+                If garaje.InsertarGaraje() Then
 
                     Dim ultimoId As Integer = Garaje.ObtenerUltimoIdGarajes()               ' Obtenemos el último Id del garaje.
 
@@ -152,7 +152,7 @@
                 Dim garaje As New Garaje(GarajeSelec.Id, NombreGarajeTxt.Text, DireccionGarajeTxt.Text, Integer.Parse(NumPlazasGarajeTxt.Text), ObservGarajeTxt.Text)
                 garaje.Direccion = Foo.ComprobarDireccion(garaje.Direccion)
 
-                If Garaje.ModificarGaraje(garaje) Then
+                If garaje.ModificarGaraje() Then
 
                     MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
 

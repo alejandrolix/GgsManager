@@ -27,7 +27,7 @@
             MessageBox.Show("Tienes que seleccionar un vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If Vehiculo.EliminarVehiculoPorId(vehiculoSelec.Id) Then
+            If vehiculoSelec.EliminarVehiculo() Then
 
                 If Plaza.CambiarSituacionPlazaToLibre(vehiculoSelec.IdPlaza, vehiculoSelec.IdGaraje) Then
 

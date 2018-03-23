@@ -219,7 +219,7 @@ Public Class VntAddVehiculo
 
                 If Foo.HayImagen(Vehic1Img.Source) Or Foo.HayImagen(Vehic2Img.Source) Then
 
-                    nuevoId = Vehiculo.ObtenerNuevoIdVehiculos()
+                    nuevoId = GgsManager.Vehiculo.ObtenerNuevoIdVehiculos()
 
                 End If
 
@@ -243,9 +243,9 @@ Public Class VntAddVehiculo
 
                 ' Calculamos el precio total para el pago mensual.
                 Dim precioTotal As Decimal = PrecioBase + porcentajeIva
-                Dim vehiculoo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, precioTotal)
+                Dim vehiculo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, precioTotal)
 
-                If Vehiculo.InsertarVehiculo(vehiculoo) Then
+                If vehiculo.InsertarVehiculo() Then
 
                     If Plaza.CambiarSituacionPlazaToOcupada(plazaSelec.Id, IdGaraje) Then
 
@@ -261,9 +261,9 @@ Public Class VntAddVehiculo
                 PrecioBase = Decimal.Parse(PrecTotalVehiculoTxt.Text)
                 PrecioBase -= porcentajeIva
 
-                Dim vehiculoo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, Decimal.Parse(PrecTotalVehiculoTxt.Text))
+                Dim vehiculo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, Decimal.Parse(PrecTotalVehiculoTxt.Text))
 
-                If Vehiculo.ModificarVehiculo(vehiculoo) Then
+                If vehiculo.ModificarVehiculo() Then
 
                     MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
 

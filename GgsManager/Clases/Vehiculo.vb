@@ -159,23 +159,22 @@ Public Class Vehiculo
 
     ''' <summary>
     ''' Inserta un vehículo.
-    ''' </summary>
-    ''' <param name="vehiculo">Datos del vehículo a insertar.</param>
+    ''' </summary>    
     ''' <returns>True: El vehículo se ha insertado. False: El vehículo no se ha insertado.</returns>
-    Public Shared Function InsertarVehiculo(ByRef vehiculo As Vehiculo) As Boolean
+    Public Function InsertarVehiculo() As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
                                          VALUES (NULL, @Matricula, @Marca, @Modelo, @IdCliente, @IdGaraje, @IdPlaza, @PrecioBase, @PrecioTotal);", conexion)
 
-        comando.Parameters.AddWithValue("@Matricula", vehiculo.Matricula)
-        comando.Parameters.AddWithValue("@Marca", vehiculo.Marca)
-        comando.Parameters.AddWithValue("@Modelo", vehiculo.Modelo)
-        comando.Parameters.AddWithValue("@IdCliente", vehiculo.Cliente.Id)
-        comando.Parameters.AddWithValue("@IdGaraje", vehiculo.IdGaraje)
-        comando.Parameters.AddWithValue("@IdPlaza", vehiculo.IdPlaza)
-        comando.Parameters.AddWithValue("@PrecioBase", vehiculo.PrecioBase)
-        comando.Parameters.AddWithValue("@PrecioTotal", vehiculo.PrecioTotal)
+        comando.Parameters.AddWithValue("@Matricula", Matricula)
+        comando.Parameters.AddWithValue("@Marca", Marca)
+        comando.Parameters.AddWithValue("@Modelo", Modelo)
+        comando.Parameters.AddWithValue("@IdCliente", Cliente.Id)
+        comando.Parameters.AddWithValue("@IdGaraje", IdGaraje)
+        comando.Parameters.AddWithValue("@IdPlaza", IdPlaza)
+        comando.Parameters.AddWithValue("@PrecioBase", PrecioBase)
+        comando.Parameters.AddWithValue("@PrecioTotal", PrecioTotal)
         Dim numFila As Integer
 
         Try
@@ -195,25 +194,24 @@ Public Class Vehiculo
 
 
     ''' <summary>
-    ''' Modifica los datos de un vehículo seleccionado.
-    ''' </summary>
-    ''' <param name="vehiculo">Datos del vehículo seleccionado.</param>
+    ''' Modifica los datos de un vehículo.
+    ''' </summary>    
     ''' <returns>True: Se ha modificado los datos del vehículo. False: No se ha modificado los datos del vehículo.</returns>
-    Public Shared Function ModificarVehiculo(ByRef vehiculo As Vehiculo) As Boolean
+    Public Function ModificarVehiculo() As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Vehiculos
                                          SET    Matricula = @Matricula, Marca = @Marca, Modelo = @Modelo, IdGaraje = @IdGaraje, IdPlaza = @IdPlaza, PrecioBase = @PrecioBase, PrecioTotal = @PrecioTotal
                                          WHERE  IdVehiculo = @IdVehiculo;", conexion)
 
-        comando.Parameters.AddWithValue("@Matricula", vehiculo.Matricula)
-        comando.Parameters.AddWithValue("@Marca", vehiculo.Marca)
-        comando.Parameters.AddWithValue("@Modelo", vehiculo.Modelo)
-        comando.Parameters.AddWithValue("@IdGaraje", vehiculo.IdGaraje)
-        comando.Parameters.AddWithValue("@IdPlaza", vehiculo.IdPlaza)
-        comando.Parameters.AddWithValue("@PrecioBase", vehiculo.PrecioBase)
-        comando.Parameters.AddWithValue("@PrecioTotal", vehiculo.PrecioTotal)
-        comando.Parameters.AddWithValue("@IdVehiculo", vehiculo.Id)
+        comando.Parameters.AddWithValue("@Matricula", Matricula)
+        comando.Parameters.AddWithValue("@Marca", Marca)
+        comando.Parameters.AddWithValue("@Modelo", Modelo)
+        comando.Parameters.AddWithValue("@IdGaraje", IdGaraje)
+        comando.Parameters.AddWithValue("@IdPlaza", IdPlaza)
+        comando.Parameters.AddWithValue("@PrecioBase", PrecioBase)
+        comando.Parameters.AddWithValue("@PrecioTotal", PrecioTotal)
+        comando.Parameters.AddWithValue("@IdVehiculo", Id)
         Dim numFila As Integer
 
         Try
@@ -233,17 +231,16 @@ Public Class Vehiculo
 
 
     ''' <summary>
-    ''' Elimina un vehículo a partir de su Id.
-    ''' </summary>
-    ''' <param name="idVehiculo">Id del vehículo a eliminar.</param>
+    ''' Elimina un vehículo.
+    ''' </summary>    
     ''' <returns>True: Se ha eliminado el vehículo. False: No se ha eliminado el vehículo.</returns>
-    Public Shared Function EliminarVehiculoPorId(ByRef idVehiculo As Integer) As Boolean
+    Public Function EliminarVehiculo() As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("DELETE FROM Vehiculos
                                          WHERE  IdVehiculo = @IdVehiculo;", conexion)
 
-        comando.Parameters.AddWithValue("@IdVehiculo", idVehiculo)
+        comando.Parameters.AddWithValue("@IdVehiculo", Id)
         Dim numFila As Integer
 
         Try
@@ -267,7 +264,7 @@ Public Class Vehiculo
     ''' </summary>
     ''' <param name="idCliente">Id del cliente.</param>
     ''' <returns>True: Se han eliminado los vehículos del cliente. False: No se han eliminado los vehículos del cliente.</returns>
-    Public Shared Function EliminarVehiculosPorIdCliente(ByRef idCliente As Integer) As Boolean
+    Public Shared Function EliminarVehiculoPorIdCliente(ByRef idCliente As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("DELETE FROM Vehiculos

@@ -252,7 +252,7 @@ Public Class VntAddCliente
 
                 End If
 
-                If Cliente.InsertarCliente(cliente) Then
+                If cliente.InsertarCliente() Then
 
                     MessageBox.Show("Se ha añadido el cliente.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -266,7 +266,7 @@ Public Class VntAddCliente
 
                 cliente.Direccion = Foo.ComprobarDireccion(cliente.Direccion)
 
-                If Cliente.ModificarCliente(cliente) Then
+                If cliente.ModificarCliente() Then
 
                     MessageBox.Show("Se ha modificado el cliente.", "Cliente Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
 

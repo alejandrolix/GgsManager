@@ -294,34 +294,30 @@ Public Class Cliente
 
     ''' <summary>
     ''' Inserta un cliente.
-    ''' </summary>
-    ''' <param name="cliente">Datos del cliente a insertar.</param>
+    ''' </summary>    
     ''' <returns>True: El cliente se ha insertado. False: El cliente no se ha insertado.</returns>
-    Public Shared Function InsertarCliente(ByRef cliente As Cliente) As Boolean
+    Public Function InsertarCliente() As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As MySqlCommand
         Dim numFila As Integer
 
-        If Foo.HayTexto(cliente.Observaciones) Then                ' Insertamos al cliente las observaciones, aparte de sus principales datos.
+        If Foo.HayTexto(Observaciones) Then              ' Insertamos al cliente las observaciones, aparte de sus principales datos.
 
             comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones)
                                         VALUES (NULL, @Nombre, @Apellidos, @DNI, @Direccion, @Poblacion, @Provincia, @Movil, NOW(), @Observaciones);", conexion)
-
-            comando.Parameters.AddWithValue("@Observaciones", cliente.Observaciones)
         Else
-
             comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones)
                                         VALUES (NULL, @Nombre, @Apellidos, @DNI, @Direccion, @Poblacion, @Provincia, @Movil, NOW(), NULL);", conexion)
         End If
 
-        comando.Parameters.AddWithValue("@Nombre", cliente.Nombre)
-        comando.Parameters.AddWithValue("@Apellidos", cliente.Apellidos)
-        comando.Parameters.AddWithValue("@DNI", cliente.DNI)
-        comando.Parameters.AddWithValue("@Direccion", cliente.Direccion)
-        comando.Parameters.AddWithValue("@Poblacion", cliente.Poblacion)
-        comando.Parameters.AddWithValue("@Provincia", cliente.Provincia)
-        comando.Parameters.AddWithValue("@Movil", cliente.Movil)
+        comando.Parameters.AddWithValue("@Nombre", Nombre)
+        comando.Parameters.AddWithValue("@Apellidos", Apellidos)
+        comando.Parameters.AddWithValue("@DNI", DNI)
+        comando.Parameters.AddWithValue("@Direccion", Direccion)
+        comando.Parameters.AddWithValue("@Poblacion", Poblacion)
+        comando.Parameters.AddWithValue("@Provincia", Provincia)
+        comando.Parameters.AddWithValue("@Movil", Movil)
 
         Try
             numFila = comando.ExecuteNonQuery()
@@ -340,17 +336,16 @@ Public Class Cliente
 
 
     ''' <summary>
-    ''' Elimina un cliente a partir de su Id.
-    ''' </summary>
-    ''' <param name="idCliente">El Id del cliente a eliminar.</param>
+    ''' Elimina un cliente.
+    ''' </summary>    
     ''' <returns>True: El cliente se ha eliminado. False: El cliente no se ha eliminado.</returns>
-    Public Shared Function EliminarClientePorId(ByRef idCliente As Integer) As Boolean
+    Public Function EliminarCliente() As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("DELETE FROM Clientes
                                          WHERE  IdCliente = @IdCliente;", conexion)
 
-        comando.Parameters.AddWithValue("@IdCliente", idCliente)
+        comando.Parameters.AddWithValue("@IdCliente", Id)
         Dim numFila As Integer
 
         Try
@@ -370,13 +365,12 @@ Public Class Cliente
 
 
     ''' <summary>
-    ''' Elimina la imagen de un cliente a partir de su Id.
-    ''' </summary>
-    ''' <param name="idCliente">El Id del cliente.</param>
-    Public Shared Sub EliminarImgClientePorId(ByRef idCliente As Integer)
+    ''' Elimina la imagen de un cliente.
+    ''' </summary>    
+    Public Sub EliminarImgCliente()
 
         Dim cadena As New StringBuilder()
-        cadena.Append(My.Settings.RutaClientes).Append(idCliente).Append(".jpg")
+        cadena.Append(My.Settings.RutaClientes).Append(Id).Append(".jpg")
 
         If File.Exists(cadena.ToString()) Then
 
@@ -388,26 +382,25 @@ Public Class Cliente
 
 
     ''' <summary>
-    ''' Modifica los datos de un cliente seleccionado.
-    ''' </summary>
-    ''' <param name="cliente">Datos del cliente a modificar.</param>
+    ''' Modifica los datos de un cliente.
+    ''' </summary>    
     ''' <returns>True: Se han modificado los datos del cliente. False: No se han modificado los datos del cliente.</returns>
-    Public Shared Function ModificarCliente(ByRef cliente As Cliente) As Boolean
+    Public Function ModificarCliente() As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Clientes
                                          SET    Nombre = @Nombre, Apellidos = @Apellidos, DNI = @DNI, Direccion = @Direccion, Poblacion = @Poblacion, Provincia = @Provincia, Movil = @Movil, Observaciones = @Observaciones
                                          WHERE  IdCliente = @IdCliente;", conexion)
 
-        comando.Parameters.AddWithValue("@Nombre", cliente.Nombre)
-        comando.Parameters.AddWithValue("@Apellidos", cliente.Apellidos)
-        comando.Parameters.AddWithValue("@DNI", cliente.DNI)
-        comando.Parameters.AddWithValue("@Direccion", cliente.Direccion)
-        comando.Parameters.AddWithValue("@Poblacion", cliente.Poblacion)
-        comando.Parameters.AddWithValue("@Provincia", cliente.Provincia)
-        comando.Parameters.AddWithValue("@Movil", cliente.Movil)
-        comando.Parameters.AddWithValue("@Observaciones", cliente.Observaciones)
-        comando.Parameters.AddWithValue("@IdCliente", cliente.Id)
+        comando.Parameters.AddWithValue("@Nombre", Nombre)
+        comando.Parameters.AddWithValue("@Apellidos", Apellidos)
+        comando.Parameters.AddWithValue("@DNI", DNI)
+        comando.Parameters.AddWithValue("@Direccion", Direccion)
+        comando.Parameters.AddWithValue("@Poblacion", Poblacion)
+        comando.Parameters.AddWithValue("@Provincia", Provincia)
+        comando.Parameters.AddWithValue("@Movil", Movil)
+        comando.Parameters.AddWithValue("@Observaciones", Observaciones)
+        comando.Parameters.AddWithValue("@IdCliente", Id)
         Dim numFila As Integer
 
         Try

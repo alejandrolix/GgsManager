@@ -23,6 +23,7 @@
 
                 Usuarios.IsEnabled = False
                 Configuracion.IsEnabled = False
+                Estadisticas.IsEnabled = False
 
             End If
 

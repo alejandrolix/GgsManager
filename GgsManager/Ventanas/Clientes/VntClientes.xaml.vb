@@ -47,13 +47,13 @@
             MessageBox.Show("Tienes que seleccionar un cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If Vehiculo.EliminarVehiculosPorIdCliente(clienteSelec.Id) Then
+            If Vehiculo.EliminarVehiculoPorIdCliente(clienteSelec.Id) Then
 
                 If Factura.EliminarFacturasPorIdCliente(clienteSelec.Id) Then
 
-                    If Cliente.EliminarClientePorId(clienteSelec.Id) Then
+                    If clienteSelec.EliminarCliente() Then
 
-                        Cliente.EliminarImgClientePorId(clienteSelec.Id)               ' Eliminamos la imagen del cliente.
+                        clienteSelec.EliminarImgCliente()               ' Eliminamos la imagen del cliente.
                         Vista.Source = Cliente.ObtenerClientes()
 
                         MessageBox.Show("Se ha eliminado el cliente.", "Cliente Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
