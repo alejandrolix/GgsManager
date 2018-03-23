@@ -26,7 +26,7 @@
             MessageBox.Show("Tienes que seleccionar un garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If FacturaRealizada.EliminarFacturasPorIdGaraje(garajeSelec.Id) Then
+            If Factura.EliminarFacturasPorIdGaraje(garajeSelec.Id) Then
 
                 If Garaje.EliminarGarajePorId(garajeSelec.Id) Then
 

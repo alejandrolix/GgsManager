@@ -84,8 +84,8 @@ Public Class FormFactIndividual
 
     Private Sub ReportViewer_PrintingBegin(sender As Object, e As ReportPrintEventArgs) Handles ReportViewer.PrintingBegin
 
-        Dim factura As New FacturaRealizada(Date.Now.Date, IdClienteSelec, True)
-        FacturaRealizada.InsertarFacturaToCliente(factura)
+        Dim factura As New Factura(Date.Now.Date, IdClienteSelec, True)
+        Factura.InsertarFacturaToCliente(factura)
 
     End Sub
 
@@ -95,7 +95,7 @@ Public Class FormFactIndividual
     ''' </summary>
     Private Sub AddParametroNumFactura()
 
-        Dim nuevoId As Integer = FacturaRealizada.ObtenerNuevoIdFactura()
+        Dim nuevoId As Integer = Factura.ObtenerNuevoIdFactura()
         Dim rpNumFactura As New ReportParameter("NumFactura", nuevoId.ToString())
 
         ReportViewer.LocalReport.SetParameters(rpNumFactura)

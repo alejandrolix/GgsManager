@@ -5,7 +5,7 @@
     ''' <summary>
     ''' Contiene los datos del usuario seleccionado.
     ''' </summary>
-    Private UsuarioSelec As UsuarioPrograma
+    Private UsuarioSelec As Usuario
 
     ''' <summary>
     ''' Para actualizar el DataGrid de usuarios.
@@ -36,10 +36,10 @@
 
             If Accion = Foo.Accion.Insertar Then
 
-                Dim hashPassword As String = UsuarioPrograma.ObtenerSHA1HashFromPassword(PasswordUsuPb.Password)
-                Dim usuarioProgramaa As New UsuarioPrograma(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
+                Dim hashPassword As String = Usuario.ObtenerSHA1HashFromPassword(PasswordUsuPb.Password)
+                Dim usuarioProgramaa As New Usuario(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
 
-                If UsuarioPrograma.InsertarUsuario(usuarioProgramaa, hashPassword) Then
+                If Usuario.InsertarUsuario(usuarioProgramaa, hashPassword) Then
 
                     MessageBox.Show("Se ha añadido el usuario.", "Usuario Añadido", MessageBoxButton.OK, MessageBoxImage.Error)
                     LimpiarCampos()
@@ -48,7 +48,7 @@
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                If UsuarioPrograma.ModificarUsuarioPorId(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value, UsuarioSelec.Id) Then
+                If Usuario.ModificarUsuarioPorId(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value, UsuarioSelec.Id) Then
 
                     MessageBox.Show("Se ha modificado los datos del usuario seleccionado.", "Usuario Modificado", MessageBoxButton.OK, MessageBoxImage.Error)
 
@@ -56,7 +56,7 @@
 
             End If
 
-            VntUsuarios.UsuariosDg.DataContext = UsuarioPrograma.ObtenerUsuariosPrograma()                  ' Actualizamos el DataGrid de Usuarios.
+            VntUsuarios.UsuariosDg.DataContext = Usuario.ObtenerUsuarios()                  ' Actualizamos el DataGrid de Usuarios.
 
         End If
 
@@ -126,7 +126,7 @@
 
     End Sub
 
-    Public Sub New(accion As Foo.Accion, usuarioSelec As UsuarioPrograma)
+    Public Sub New(accion As Foo.Accion, usuarioSelec As Usuario)
 
         InitializeComponent()
 

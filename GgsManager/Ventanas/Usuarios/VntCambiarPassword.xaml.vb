@@ -6,12 +6,12 @@
 
         If ComprobarDatosIntroducidos() Then
 
-            Dim hashPassword As String = UsuarioPrograma.ObtenerSHA1HashFromPassword(NuevaPasswordPsb.Password)
+            Dim hashPassword As String = Usuario.ObtenerSHA1HashFromPassword(NuevaPasswordPsb.Password)
 
             NuevaPasswordPsb.Clear()
             RepetirPasswordPsb.Clear()
 
-            If UsuarioPrograma.ModificarPasswordPorId(IdUsuario, hashPassword) Then
+            If Usuario.ModificarPasswordPorId(IdUsuario, hashPassword) Then
 
                 MessageBox.Show("Se ha modificado la contraseña del usuario seleccionado.", "Contraseña Modificada", MessageBoxButton.OK, MessageBoxImage.Error)
 

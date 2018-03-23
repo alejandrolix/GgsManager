@@ -1,9 +1,9 @@
 ﻿Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Representa una factura de la tabla "FacturasRealizadas".
+''' Representa una factura de la tabla "Facturas".
 ''' </summary>
-Public Class FacturaRealizada
+Public Class Factura
 
     Property IdFactura As Integer
     Property Fecha As Date
@@ -15,10 +15,10 @@ Public Class FacturaRealizada
     ''' Inserta una factura para un cliente.
     ''' </summary>
     ''' <param name="factura">Los datos de la factura.</param>    
-    Public Shared Sub InsertarFacturaToCliente(ByRef factura As FacturaRealizada)
+    Public Shared Sub InsertarFacturaToCliente(ByRef factura As Factura)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("INSERT INTO FacturasRealizadas (IdFactura, Fecha, IdCliente, IdGaraje) VALUES (NULL, @Fecha, @IdCliente, NULL);", conexion)
+        Dim comando As New MySqlCommand("INSERT INTO Facturas (IdFactura, Fecha, IdCliente, IdGaraje) VALUES (NULL, @Fecha, @IdCliente, NULL);", conexion)
 
         comando.Parameters.AddWithValue("@Fecha", factura.Fecha)
         comando.Parameters.AddWithValue("@IdCliente", factura.IdCliente)
@@ -42,10 +42,10 @@ Public Class FacturaRealizada
     ''' Inserta una factura para un garaje.
     ''' </summary>
     ''' <param name="factura">Los datos de la factura.</param>    
-    Public Shared Sub InsertarFacturaToGaraje(ByRef factura As FacturaRealizada)
+    Public Shared Sub InsertarFacturaToGaraje(ByRef factura As Factura)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("INSERT INTO FacturasRealizadas (IdFactura, Fecha, IdCliente, IdGaraje) VALUES (NULL, @Fecha, NULL, @IdGaraje);", conexion)
+        Dim comando As New MySqlCommand("INSERT INTO Facturas (IdFactura, Fecha, IdCliente, IdGaraje) VALUES (NULL, @Fecha, NULL, @IdGaraje);", conexion)
 
         comando.Parameters.AddWithValue("@Fecha", factura.Fecha)
         comando.Parameters.AddWithValue("@IdGaraje", factura.IdGaraje)
@@ -77,7 +77,7 @@ Public Class FacturaRealizada
         If numFacturasCliente >= 1 Then
 
             Dim conexion As MySqlConnection = Foo.ConexionABd()
-            Dim comando As New MySqlCommand("DELETE FROM FacturasRealizadas
+            Dim comando As New MySqlCommand("DELETE FROM Facturas
                                              WHERE  IdCliente = @IdCliente;", conexion)
 
             comando.Parameters.AddWithValue("@IdCliente", idCliente)
@@ -110,7 +110,7 @@ Public Class FacturaRealizada
         If numFacturasGaraje >= 1 Then
 
             Dim conexion As MySqlConnection = Foo.ConexionABd()
-            Dim comando As New MySqlCommand("DELETE FROM FacturasRealizadas
+            Dim comando As New MySqlCommand("DELETE FROM Facturas
                                              WHERE  IdGaraje = @IdGaraje;", conexion)
 
             comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
@@ -145,7 +145,7 @@ Public Class FacturaRealizada
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT COUNT(IdFactura)
-                                         FROM   FacturasRealizadas
+                                         FROM   Facturas
                                          WHERE  IdCliente = @IdCliente;", conexion)
 
         comando.Parameters.AddWithValue("@IdCliente", idCliente)
@@ -176,7 +176,7 @@ Public Class FacturaRealizada
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT COUNT(IdFactura)
-                                         FROM   FacturasRealizadas
+                                         FROM   Facturas
                                          WHERE  IdGaraje = @IdGaraje;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
@@ -206,7 +206,7 @@ Public Class FacturaRealizada
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT MAX(IdFactura) + 1
-                                         FROM   FacturasRealizadas;", conexion)
+                                         FROM   Facturas;", conexion)
         Dim nuevoId As Integer
 
         Try

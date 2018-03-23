@@ -49,7 +49,7 @@
 
             If Vehiculo.EliminarVehiculosPorIdCliente(clienteSelec.Id) Then
 
-                If FacturaRealizada.EliminarFacturasPorIdCliente(clienteSelec.Id) Then
+                If Factura.EliminarFacturasPorIdCliente(clienteSelec.Id) Then
 
                     If Cliente.EliminarClientePorId(clienteSelec.Id) Then
 

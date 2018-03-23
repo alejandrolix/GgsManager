@@ -2,7 +2,7 @@
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
 
-        UsuariosDg.DataContext = UsuarioPrograma.ObtenerUsuariosPrograma()
+        UsuariosDg.DataContext = Usuario.ObtenerUsuarios()
 
     End Sub
 
@@ -14,16 +14,16 @@
 
     Private Sub EliminarUsuarioBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim usuarioSelec As UsuarioPrograma = CType(UsuariosDg.SelectedItem, UsuarioPrograma)
+        Dim usuarioSelec As Usuario = CType(UsuariosDg.SelectedItem, Usuario)
 
         If usuarioSelec Is Nothing Then
 
             MessageBox.Show("Tienes que seleccionar un usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If UsuarioPrograma.EliminarUsuarioPorId(usuarioSelec.Id) Then
+            If Usuario.EliminarUsuarioPorId(usuarioSelec.Id) Then
 
-                UsuariosDg.DataContext = UsuarioPrograma.ObtenerUsuariosPrograma()
+                UsuariosDg.DataContext = Usuario.ObtenerUsuarios()
                 MessageBox.Show("Se ha eliminado el usuario.", "Usuario Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
 
             End If
@@ -34,7 +34,7 @@
 
     Private Sub ModificarUsuarioBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim usuarioSelec As UsuarioPrograma = CType(UsuariosDg.SelectedItem, UsuarioPrograma)
+        Dim usuarioSelec As Usuario = CType(UsuariosDg.SelectedItem, Usuario)
 
         If usuarioSelec Is Nothing Then
 
@@ -67,7 +67,7 @@
     ''' </summary>
     ''' <param name="accion">Acción a realizar.</param>
     ''' <param name="usuarioSelec">Datos del usuario seleccionado.</param>
-    Private Sub AbrirVntAddUsuario(ByRef accion As Foo.Accion, ByRef usuarioSelec As UsuarioPrograma)
+    Private Sub AbrirVntAddUsuario(ByRef accion As Foo.Accion, ByRef usuarioSelec As Usuario)
 
         Dim vntAddUsuario As New VntAddUsuario(accion, usuarioSelec)
         vntAddUsuario.Title = "Modificar Usuario"

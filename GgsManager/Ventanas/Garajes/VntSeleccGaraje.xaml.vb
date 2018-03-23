@@ -55,8 +55,8 @@
                     vntSeleccCliente.ShowDialog()
 
                 Case Foo.Ventana.FacturaGaraje
-                    Dim factura As New FacturaRealizada(Date.Now.Date, gjSelec.Id, False)
-                    FacturaRealizada.InsertarFacturaToGaraje(factura)
+                    Dim factura As New Factura(Date.Now.Date, gjSelec.Id, False)
+                    Factura.InsertarFacturaToGaraje(factura)
 
             End Select
 

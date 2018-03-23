@@ -15,11 +15,11 @@
         Dim vntLogin As New VntLogin()
         vntLogin.ShowDialog()
 
-        If UsuarioPrograma.UsuarioLogueado IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
+        If Usuario.UsuarioLogueado IsNot Nothing Then           ' Si se ha iniciado sesión, activamos el menú.
 
             MenuPrincipal.IsEnabled = True
 
-            If UsuarioPrograma.UsuarioLogueado.EsGestorB = False Then           ' Si el usuario logueado no es un gestor, desactivamos las opciones de "Usuarios" y "Configuración".
+            If Usuario.UsuarioLogueado.EsGestorB = False Then           ' Si el usuario logueado no es un gestor, desactivamos las opciones de "Usuarios" y "Configuración".
 
                 Usuarios.IsEnabled = False
                 Configuracion.IsEnabled = False

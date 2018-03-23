@@ -3,9 +3,9 @@ Imports System.Text
 Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Representa un usuario del programa de la tabla "UsuariosPrograma".
+''' Representa un usuario de la tabla "Usuarios".
 ''' </summary>
-Public Class UsuarioPrograma
+Public Class Usuario
 
     Property Id As Integer
     Property Nombre As String
@@ -19,7 +19,7 @@ Public Class UsuarioPrograma
     ''' <summary>
     ''' Almacena el usuario que ha iniciado sesión en el programa.
     ''' </summary>    
-    Public Shared Property UsuarioLogueado As UsuarioPrograma
+    Public Shared Property UsuarioLogueado As Usuario
 
 
     ''' <summary>
@@ -31,7 +31,7 @@ Public Class UsuarioPrograma
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT COUNT(IdUsuario) 
-                                         FROM   UsuariosPrograma 
+                                         FROM   Usuarios 
                                          WHERE  Nombre = @Nombre;", conexion)
 
         comando.Parameters.AddWithValue("@Nombre", nombreUsuario)
@@ -58,23 +58,23 @@ Public Class UsuarioPrograma
     ''' </summary>
     ''' <param name="nombreUsuario">Nombre del usuario introducido.</param>
     ''' <returns>Datos del usuario iniciado.</returns>
-    Public Shared Function ObtenerUsuarioPrograma(ByRef nombreUsuario As String) As UsuarioPrograma
+    Public Shared Function ObtenerUsuarioPrograma(ByRef nombreUsuario As String) As Usuario
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, EsGestor 
-                                         FROM   UsuariosPrograma 
+                                         FROM   Usuarios 
                                          WHERE  Nombre = @Nombre;", conexion)
 
         comando.Parameters.AddWithValue("@Nombre", nombreUsuario)
         Dim datos As MySqlDataReader
-        Dim usuarioPrograma As UsuarioPrograma
+        Dim usuarioPrograma As Usuario
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener el usuario del programa.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al obtener el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -85,7 +85,7 @@ Public Class UsuarioPrograma
                 Dim idUsuario As Integer = datos.GetInt32("IdUsuario")
                 Dim esGestor As Boolean = datos.GetBoolean("EsGestor")
 
-                usuarioPrograma = New UsuarioPrograma(idUsuario, nombreUsuario, esGestor)
+                usuarioPrograma = New Usuario(idUsuario, nombreUsuario, esGestor)
 
             End If
 
@@ -125,14 +125,14 @@ Public Class UsuarioPrograma
 
 
     ''' <summary>
-    ''' Obtiene todos los usuarios del programa.
+    ''' Obtiene todos los usuarios.
     ''' </summary>
-    ''' <returns>Lista con los usuarios del programa.</returns>
-    Public Shared Function ObtenerUsuariosPrograma() As List(Of UsuarioPrograma)
+    ''' <returns>Lista con los usuarios.</returns>
+    Public Shared Function ObtenerUsuarios() As List(Of Usuario)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, Nombre, EsGestor
-                                         FROM   UsuariosPrograma", conexion)
+                                         FROM   Usuarios", conexion)
         Dim datos As MySqlDataReader
 
         Try
@@ -140,13 +140,13 @@ Public Class UsuarioPrograma
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener los usuarios del programa.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al obtener los usuarios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
         If datos IsNot Nothing Then
 
-            Dim listaUsuarios As New List(Of UsuarioPrograma)()
+            Dim listaUsuarios As New List(Of Usuario)()
 
             While datos.Read()
 
@@ -154,7 +154,7 @@ Public Class UsuarioPrograma
                 Dim nombre As String = datos.GetString("Nombre")
                 Dim esGestor As Boolean = datos.GetBoolean("EsGestor")
 
-                Dim usuarioPrograma As New UsuarioPrograma(id, nombre, esGestor)
+                Dim usuarioPrograma As New Usuario(id, nombre, esGestor)
                 listaUsuarios.Add(usuarioPrograma)
 
             End While
@@ -184,7 +184,7 @@ Public Class UsuarioPrograma
         Dim hashPasswordIntroducida As String = ObtenerSHA1HashFromPassword(passwordIntroducida)
 
         Dim comando As New MySqlCommand("SELECT Password 
-                                         FROM   UsuariosPrograma 
+                                         FROM   Usuarios 
                                          WHERE  Nombre = @Nombre;", conexion)
 
         comando.Parameters.AddWithValue("@Nombre", UsuarioLogueado.Nombre)
@@ -212,10 +212,10 @@ Public Class UsuarioPrograma
     ''' <param name="usuarioPrograma">Datos del usuario.</param>
     ''' <param name="hashPassword">El hash de la contraseña.</param>    
     ''' <returns>True: Se ha insertado el usuario. False: No se ha insertado el usuario.</returns>
-    Public Shared Function InsertarUsuario(ByRef usuarioPrograma As UsuarioPrograma, ByRef hashPassword As String) As Boolean
+    Public Shared Function InsertarUsuario(ByRef usuarioPrograma As Usuario, ByRef hashPassword As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("INSERT INTO UsuariosPrograma (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, @Nombre, @Password, @EsGestorB);", conexion)
+        Dim comando As New MySqlCommand("INSERT INTO Usuarios (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, @Nombre, @Password, @EsGestorB);", conexion)
 
         comando.Parameters.AddWithValue("@Nombre", usuarioPrograma.Nombre)
         comando.Parameters.AddWithValue("@Password", hashPassword)
@@ -248,7 +248,7 @@ Public Class UsuarioPrograma
     Public Shared Function ModificarUsuarioPorId(ByRef nombre As String, ByRef esGestor As Boolean, ByRef idUsuario As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("UPDATE UsuariosPrograma
+        Dim comando As New MySqlCommand("UPDATE Usuarios
                                          SET    Nombre = @Nombre, EsGestor = @EsGestor
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 
@@ -282,7 +282,7 @@ Public Class UsuarioPrograma
     Public Shared Function ModificarPasswordPorId(ByRef idUsuario As Integer, ByRef hashPassword As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("UPDATE UsuariosPrograma
+        Dim comando As New MySqlCommand("UPDATE Usuarios
                                          SET    Password = @Password
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 
@@ -314,7 +314,7 @@ Public Class UsuarioPrograma
     Public Shared Function EliminarUsuarioPorId(ByRef idUsuario As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("DELETE FROM UsuariosPrograma
+        Dim comando As New MySqlCommand("DELETE FROM Usuarios
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 
         comando.Parameters.AddWithValue("@IdUsuario", idUsuario)
