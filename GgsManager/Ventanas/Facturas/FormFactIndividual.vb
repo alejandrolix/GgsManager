@@ -89,8 +89,6 @@ Public Class FormFactIndividual
     ''' </summary>
     Private Sub AddParametrosEmpresa()
 
-        Foo.GuardarDatosEmpresa()
-
         Dim arrayDatosEmpresa As String() = Foo.LeerDatosEmpresa()
 
         Dim listaRp As New ReportParameterCollection()
