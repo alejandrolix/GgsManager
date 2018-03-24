@@ -34,12 +34,14 @@
 
         If ComprobarDatosIntroducidos() Then
 
+            Dim usuario As Usuario
+
             If Accion = Foo.Accion.Insertar Then
 
                 Dim hashPassword As String = Usuario.ObtenerSHA1HashFromPassword(PasswordUsuPb.Password)
-                Dim usuarioProgramaa As New Usuario(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
+                usuario = New Usuario(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
 
-                If Usuario.InsertarUsuario(usuarioProgramaa, hashPassword) Then
+                If usuario.InsertarUsuario(hashPassword) Then
 
                     MessageBox.Show("Se ha añadido el usuario.", "Usuario Añadido", MessageBoxButton.OK, MessageBoxImage.Error)
                     LimpiarCampos()
@@ -48,7 +50,9 @@
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                If Usuario.ModificarUsuarioPorId(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value, UsuarioSelec.Id) Then
+                usuario = New Usuario(UsuarioSelec.Id, NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
+
+                If usuario.ModificarUsuario() Then
 
                     MessageBox.Show("Se ha modificado los datos del usuario seleccionado.", "Usuario Modificado", MessageBoxButton.OK, MessageBoxImage.Error)
 

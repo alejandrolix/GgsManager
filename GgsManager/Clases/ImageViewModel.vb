@@ -19,8 +19,8 @@ Public Class ImageViewModel
         End Set
     End Property
 
-    Protected Sub OnPropertyChanged(ByVal name As String)
-        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(name))
+    Protected Sub OnPropertyChanged(ByVal nombre As String)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(nombre))
     End Sub
 
     Public Sub New(urlFoto As String)

@@ -30,7 +30,7 @@ Public Class Garaje
     ''' <returns>Lista con todos los garajes.</returns>
     Public Shared Function ObtenerGarajes() As List(Of Garaje)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
                                          FROM   Garajes;", conexion)
         Dim datos As MySqlDataReader
@@ -98,7 +98,7 @@ Public Class Garaje
     ''' <returns>Lista con los nombres de los garajes.</returns>
     Public Shared Function ObtenerNombresGarajes() As List(Of Garaje)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre
                                          FROM   Garajes", conexion)
         Dim datos As MySqlDataReader
@@ -145,7 +145,7 @@ Public Class Garaje
     ''' <returns>El nombre del garaje correspondiente.</returns>
     Public Shared Function ObtenerNombreGarajePorId(ByRef idGaraje As Integer) As String
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT Nombre
                                          FROM   Garajes
                                          WHERE  IdGaraje = @IdGaraje;", conexion)
@@ -175,7 +175,7 @@ Public Class Garaje
     ''' <returns>El último Id de la tabla "Garajes".</returns>
     Public Shared Function ObtenerUltimoIdGarajes() As Integer
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT MAX(IdGaraje)
                                          FROM   Garajes;", conexion)
 
@@ -202,7 +202,7 @@ Public Class Garaje
     ''' <returns>True: El garaje se ha eliminado. False: El garaje no se ha eliminado.</returns>
     Public Function EliminarGaraje() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("DELETE FROM Garajes 
                                          WHERE IdGaraje = @IdGaraje;", conexion)
 
@@ -231,7 +231,7 @@ Public Class Garaje
     ''' <returns>True: El garaje se ha insertado. False: El garaje no se ha insertado.</returns>
     Public Function InsertarGaraje() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As MySqlCommand
 
         If Foo.HayTexto(Observaciones) Then
@@ -273,7 +273,7 @@ Public Class Garaje
     ''' <returns>True: Se ha modificado el garaje. False: No se ha modificado el garaje.</returns>
     Public Function ModificarGaraje() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As MySqlCommand
 
         If Foo.HayTexto(Observaciones) Then
