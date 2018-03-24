@@ -33,11 +33,11 @@ Public Class Foo
 
 
     ''' <summary>
-    ''' Comprueba si la dirección contiene una "\". Si es así, devolverá "\\" para insertarlo en la tabla.
+    ''' Comprueba si la dirección contiene una "\". Si es así, lo cambia por "\\" para insertarlo en la tabla.
     ''' </summary>
     ''' <param name="direccion">Dirección introducida a comprobar.</param>
     ''' <returns>La nueva dirección o la misma.</returns>
-    Public Shared Function ComprobarDireccion(ByRef direccion As String) As String
+    Public Shared Function CambiarDireccion(ByRef direccion As String) As String
 
         If direccion.Contains("\") Then
 
@@ -54,7 +54,7 @@ Public Class Foo
     ''' Realiza una conexión a la base de datos.
     ''' </summary>
     ''' <returns>Conexión a la base de datos.</returns>
-    Public Shared Function ConexionABd() As MySqlConnection
+    Public Shared Function ConexionToBd() As MySqlConnection
 
         Dim conexion As New MySqlConnection(My.Settings.ConexionABd)
 
@@ -134,7 +134,7 @@ Public Class Foo
     ''' <returns>True: Los datos del fichero se ha importado a la base de datos. False: Los datos del fichero no se ha importado a la base de datos.</returns>
     Public Shared Function ImportarBd() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand()
         Dim importar As New MySqlBackup(comando)
         Dim haImportadoBd As Boolean
@@ -170,7 +170,7 @@ Public Class Foo
 
         End If
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand()
         Dim exportar As New MySqlBackup(comando)
         Dim haExportadoBd As Boolean

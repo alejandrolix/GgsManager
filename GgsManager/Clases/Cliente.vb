@@ -39,7 +39,7 @@ Public Class Cliente
     ''' <returns>Lista de los clientes.</returns>
     Public Shared Function ObtenerClientes() As List(Of Cliente)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
                                          FROM   Clientes", conexion)
 
@@ -114,7 +114,7 @@ Public Class Cliente
     ''' <returns>Lista con el Id, nombre y apellidos de los clientes.</returns>
     Public Shared Function ObtenerNombreYApellidosClientes() As List(Of Cliente)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos
                                          FROM   Clientes", conexion)
 
@@ -164,7 +164,7 @@ Public Class Cliente
     ''' <returns>Lista con el Id, nombre y apellidos de los clientes.</returns>
     Public Shared Function ObtenerNombreYApellidosClientesPorIdGaraje(ByRef idGaraje As Integer) As List(Of Cliente)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos
                                          FROM   Clientes Cli
 	                                            JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
@@ -217,7 +217,7 @@ Public Class Cliente
     ''' <returns>El nuevo Id de la imagen.</returns>
     Public Shared Function ObtenerNuevoIdClientes() As Integer
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT MAX(IdCliente) + 1
                                          FROM   Clientes;", conexion)
         Dim nuevoId As Integer
@@ -245,7 +245,7 @@ Public Class Cliente
     ''' <returns>Los datos del cliente.</returns>
     Public Shared Function ObtenerClientePorId(ByRef idCliente As Integer) As Cliente
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT CONCAT(Nombre, ' ', Apellidos) AS 'Nombre', DNI, Direccion, Provincia, Movil
                                          FROM   Clientes
                                          WHERE  IdCliente = @IdCliente;", conexion)
@@ -298,7 +298,7 @@ Public Class Cliente
     ''' <returns>True: El cliente se ha insertado. False: El cliente no se ha insertado.</returns>
     Public Function InsertarCliente() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As MySqlCommand
         Dim numFila As Integer
 
@@ -341,7 +341,7 @@ Public Class Cliente
     ''' <returns>True: El cliente se ha eliminado. False: El cliente no se ha eliminado.</returns>
     Public Function EliminarCliente() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("DELETE FROM Clientes
                                          WHERE  IdCliente = @IdCliente;", conexion)
 
@@ -387,7 +387,7 @@ Public Class Cliente
     ''' <returns>True: Se han modificado los datos del cliente. False: No se han modificado los datos del cliente.</returns>
     Public Function ModificarCliente() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("UPDATE Clientes
                                          SET    Nombre = @Nombre, Apellidos = @Apellidos, DNI = @DNI, Direccion = @Direccion, Poblacion = @Poblacion, Provincia = @Provincia, Movil = @Movil, Observaciones = @Observaciones
                                          WHERE  IdCliente = @IdCliente;", conexion)

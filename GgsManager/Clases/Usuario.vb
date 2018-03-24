@@ -29,7 +29,7 @@ Public Class Usuario
     ''' <returns>True: El usuario existe. False: El usuario no existe.</returns>
     Public Shared Function ExisteUsuario(ByRef nombreUsuario As String) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT COUNT(IdUsuario) 
                                          FROM   Usuarios 
                                          WHERE  Nombre = @Nombre;", conexion)
@@ -60,7 +60,7 @@ Public Class Usuario
     ''' <returns>Datos del usuario iniciado.</returns>
     Public Shared Function ObtenerUsuarioPrograma(ByRef nombreUsuario As String) As Usuario
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, EsGestor 
                                          FROM   Usuarios 
                                          WHERE  Nombre = @Nombre;", conexion)
@@ -130,7 +130,7 @@ Public Class Usuario
     ''' <returns>Lista con los usuarios.</returns>
     Public Shared Function ObtenerUsuarios() As List(Of Usuario)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, Nombre, EsGestor
                                          FROM   Usuarios", conexion)
         Dim datos As MySqlDataReader
@@ -180,7 +180,7 @@ Public Class Usuario
     ''' <returns>True: Los hashes son iguales. False: Los hashes no son iguales.</returns>
     Public Shared Function ComprobarHashPassword(ByRef passwordIntroducida As String) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim hashPasswordIntroducida As String = ObtenerSHA1HashFromPassword(passwordIntroducida)
 
         Dim comando As New MySqlCommand("SELECT Password 
@@ -208,18 +208,17 @@ Public Class Usuario
 
     ''' <summary>
     ''' Inserta un usuario.
-    ''' </summary>
-    ''' <param name="usuarioPrograma">Datos del usuario.</param>
+    ''' </summary>    
     ''' <param name="hashPassword">El hash de la contraseña.</param>    
     ''' <returns>True: Se ha insertado el usuario. False: No se ha insertado el usuario.</returns>
-    Public Shared Function InsertarUsuario(ByRef usuarioPrograma As Usuario, ByRef hashPassword As String) As Boolean
+    Public Function InsertarUsuario(ByRef hashPassword As String) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("INSERT INTO Usuarios (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, @Nombre, @Password, @EsGestorB);", conexion)
 
-        comando.Parameters.AddWithValue("@Nombre", usuarioPrograma.Nombre)
+        comando.Parameters.AddWithValue("@Nombre", Nombre)
         comando.Parameters.AddWithValue("@Password", hashPassword)
-        comando.Parameters.AddWithValue("@EsGestorB", usuarioPrograma.EsGestorB)
+        comando.Parameters.AddWithValue("@EsGestorB", EsGestorB)
         Dim numFila As Integer
 
         Try
@@ -240,21 +239,18 @@ Public Class Usuario
 
     ''' <summary>
     ''' Modifica los datos de un usuario.
-    ''' </summary>
-    ''' <param name="nombre">Nombre del usuario.</param>
-    ''' <param name="esGestor">Es gestor el usuario.</param>
-    ''' <param name="idUsuario">Id del usuario.</param>
+    ''' </summary>        
     ''' <returns>True: Se ha modificado el usuario. False: No se ha modificado el usuario.</returns>
-    Public Shared Function ModificarUsuarioPorId(ByRef nombre As String, ByRef esGestor As Boolean, ByRef idUsuario As Integer) As Boolean
+    Public Function ModificarUsuario() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("UPDATE Usuarios
-                                         SET    Nombre = @Nombre, EsGestor = @EsGestor
+                                         SET    Nombre = @Nombre, EsGestor = @EsGestorB
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 
-        comando.Parameters.AddWithValue("@Nombre", nombre)
-        comando.Parameters.AddWithValue("@EsGestor", esGestor)
-        comando.Parameters.AddWithValue("@IdUsuario", idUsuario)
+        comando.Parameters.AddWithValue("@Nombre", Nombre)
+        comando.Parameters.AddWithValue("@EsGestorB", EsGestorB)
+        comando.Parameters.AddWithValue("@IdUsuario", Id)
         Dim numFila As Integer
 
         Try
@@ -281,7 +277,7 @@ Public Class Usuario
     ''' <returns>True: Se ha modificado la contraseña del usuario. False: No se ha modificado la contraseña del usuario.</returns>
     Public Shared Function ModificarPasswordPorId(ByRef idUsuario As Integer, ByRef hashPassword As String) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("UPDATE Usuarios
                                          SET    Password = @Password
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
@@ -307,17 +303,16 @@ Public Class Usuario
 
 
     ''' <summary>
-    ''' Elimina un usuario a partir de su Id.
-    ''' </summary>
-    ''' <param name="idUsuario">El Id del usuario a eliminar.</param>
+    ''' Elimina un usuario.
+    ''' </summary>    
     ''' <returns>True: Se ha eliminado el usuario. False: No se ha eliminado el usuario.</returns>
-    Public Shared Function EliminarUsuarioPorId(ByRef idUsuario As Integer) As Boolean
+    Public Function EliminarUsuario() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("DELETE FROM Usuarios
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 
-        comando.Parameters.AddWithValue("@IdUsuario", idUsuario)
+        comando.Parameters.AddWithValue("@IdUsuario", Id)
         Dim numFila As Integer
 
         Try

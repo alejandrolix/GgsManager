@@ -132,7 +132,7 @@
             If Accion = Foo.Accion.Insertar Then
 
                 Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
-                garaje.Direccion = Foo.ComprobarDireccion(garaje.Direccion)
+                garaje.Direccion = Foo.CambiarDireccion(garaje.Direccion)
 
                 If garaje.InsertarGaraje() Then
 
@@ -150,7 +150,7 @@
             ElseIf Accion = Foo.Accion.Modificar Then
 
                 Dim garaje As New Garaje(GarajeSelec.Id, NombreGarajeTxt.Text, DireccionGarajeTxt.Text, Integer.Parse(NumPlazasGarajeTxt.Text), ObservGarajeTxt.Text)
-                garaje.Direccion = Foo.ComprobarDireccion(garaje.Direccion)
+                garaje.Direccion = Foo.CambiarDireccion(garaje.Direccion)
 
                 If garaje.ModificarGaraje() Then
 

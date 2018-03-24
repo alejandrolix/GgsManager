@@ -244,7 +244,7 @@ Public Class VntAddCliente
                 Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
                                            MovilClienteTxt.Text, ObservClienteTxt.Text)
 
-                cliente.Direccion = Foo.ComprobarDireccion(cliente.Direccion)
+                cliente.Direccion = Foo.CambiarDireccion(cliente.Direccion)
 
                 If Foo.HayImagen(ClienteImg.Source) Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
 
@@ -264,7 +264,7 @@ Public Class VntAddCliente
                 Dim cliente As New Cliente(ClienteSelec.Id, NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
                                            MovilClienteTxt.Text, ObservClienteTxt.Text)
 
-                cliente.Direccion = Foo.ComprobarDireccion(cliente.Direccion)
+                cliente.Direccion = Foo.CambiarDireccion(cliente.Direccion)
 
                 If cliente.ModificarCliente() Then
 

@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 ''' <summary>
-''' Representa una plaza de la tabla "Plazas" de la base de datos.
+''' Representa una plaza de la tabla "Plazas".
 ''' </summary>
 Public Class Plaza
 
@@ -32,7 +32,7 @@ Public Class Plaza
     ''' <returns>Lista con las plazas libres.</returns>
     Public Shared Function ObtenerIdPlazasLibresPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT IdPlaza
                                          FROM   Plazas
                                          WHERE  IdGaraje = @IdGaraje AND IdSituacion = (
@@ -84,7 +84,7 @@ Public Class Plaza
     ''' <returns>Lista con las plazas ocupadas.</returns>
     Public Shared Function ObtenerIdPlazasOcupadasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT IdPlaza
                                          FROM   Plazas
                                          WHERE  IdGaraje = @IdGaraje AND IdSituacion = (
@@ -136,7 +136,7 @@ Public Class Plaza
     ''' <returns>Lista con los datos de las plazas.</returns>
     Public Shared Function ObtenerPlazasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("SELECT Veh.Matricula, Veh.Marca, Veh.Modelo, Plz.IdPlaza, Sit.Tipo
                                          FROM   Vehiculos Veh 
 	                                            JOIN Plazas Plz ON Plz.IdPlaza = Veh.IdPlaza 
@@ -194,7 +194,7 @@ Public Class Plaza
     ''' <returns>True: Se han insertado todas las plazas. False: No se han insertado todas las plazas.</returns>
     Public Shared Function AddPlazasToGaraje(ByRef numPlazas As Integer, ByRef idGaraje As Integer) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("", conexion)
         Dim numPlzInsertadas As Integer = 0
 
@@ -224,7 +224,7 @@ Public Class Plaza
     ''' <returns>True: Se ha cambiado la situación de la plaza. False: No se ha cambiado la situación de la plaza.</returns>
     Public Shared Function CambiarSituacionPlazaToLibre(ByRef idPlaza As Integer, ByRef idGaraje As Integer) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("UPDATE Plazas
                                          SET    IdSituacion = 1
                                          WHERE  IdPlaza = @IdPlaza AND IdGaraje = @IdGaraje", conexion)
@@ -258,7 +258,7 @@ Public Class Plaza
     ''' <returns>True: Se ha cambiado la situación de la plaza. False: No se ha cambiado la situación de la plaza.</returns>
     Public Shared Function CambiarSituacionPlazaToOcupada(ByRef idPlaza As Integer, ByRef idGaraje As Integer) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim conexion As MySqlConnection = Foo.ConexionToBd()
         Dim comando As New MySqlCommand("UPDATE Plazas
                                          SET    IdSituacion = 2
                                          WHERE  IdPlaza = @IdPlaza AND IdGaraje = @IdGaraje;", conexion)
