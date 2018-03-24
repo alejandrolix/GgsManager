@@ -13,6 +13,7 @@ Public Class FormFactIndividual
         AddParametrosVehiculo()
         AddParametrosImporte()
         AddParametroNumFactura()
+        AddParametrosEmpresa()
 
         ReportViewer.RefreshReport()
 
@@ -77,6 +78,26 @@ Public Class FormFactIndividual
         listaRp.Add(New ReportParameter("PorcIVA", porcentajeIva.ToString()))
         listaRp.Add(New ReportParameter("PrecioIVA", precioIva.ToString()))
         listaRp.Add(New ReportParameter("Total", total.ToString()))
+
+        ReportViewer.LocalReport.SetParameters(listaRp)
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Añade los datos de la empresa a sus campos correspondientes.
+    ''' </summary>
+    Private Sub AddParametrosEmpresa()
+
+        Foo.GuardarDatosEmpresa()
+
+        Dim arrayDatosEmpresa As String() = Foo.LeerDatosEmpresa()
+
+        Dim listaRp As New ReportParameterCollection()
+        listaRp.Add(New ReportParameter("DireccionEmpresa", arrayDatosEmpresa(0)))
+        listaRp.Add(New ReportParameter("TelefonoEmpresa", arrayDatosEmpresa(1)))
+        listaRp.Add(New ReportParameter("LocalidadEmpresa", arrayDatosEmpresa(2)))
+        listaRp.Add(New ReportParameter("CodPostalEmpresa", arrayDatosEmpresa(3)))
 
         ReportViewer.LocalReport.SetParameters(listaRp)
 

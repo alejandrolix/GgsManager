@@ -195,6 +195,68 @@ Public Class Foo
 
 
     ''' <summary>
+    ''' Guarda los principales datos de la empresa.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Shared Function GuardarDatosEmpresa() As Boolean
+
+        Dim datos As New JObject()
+        Dim haGuardadoDatos As Boolean
+
+        Try
+            datos.Add("Direccion", "Calle Marqués de Fontalba, 124")
+            datos.Add("Telefono", "324 54 97 90")
+            datos.Add("Localidad", "Alicante")
+            datos.Add("CodigoPostal", "03012")
+
+            Dim sw As StreamWriter = File.CreateText(My.Settings.RutaArchivos & "DatosEmpresa.json")
+            Dim jWriter As New JsonTextWriter(sw)
+
+            jWriter.Formatting = Formatting.Indented
+            datos.WriteTo(jWriter)
+
+            sw.Close()
+            jWriter.Close()
+
+            haGuardadoDatos = True
+
+        Catch ex As Exception
+
+            haGuardadoDatos = False
+
+        End Try
+
+        Return haGuardadoDatos
+
+    End Function
+
+
+    ''' <summary>
+    ''' Lee los principales datos de la empresa.
+    ''' </summary>
+    ''' <returns>Lista con los datos de la empresa.</returns>
+    Public Shared Function LeerDatosEmpresa() As String()
+
+        Dim sw As StreamReader = File.OpenText(My.Settings.RutaArchivos & "DatosEmpresa.json")
+        Dim jReader As New JsonTextReader(sw)
+
+        Dim datos As JObject = CType(JToken.ReadFrom(jReader), JObject)
+        Dim listaDatos As New List(Of String)()
+
+        listaDatos.Add(datos.Item("Direccion").ToString())
+        listaDatos.Add(datos.Item("Telefono").ToString())
+        listaDatos.Add(datos.Item("Localidad").ToString())
+        listaDatos.Add(datos.Item("CodigoPostal").ToString())
+
+        sw.Close()
+        jReader.Close()
+
+        Return listaDatos.ToArray()
+
+    End Function
+
+
+    ''' <summary>
     ''' Indica la acción que se va a realizar en un mismo formulario. Como añadir o modificar datos.
     ''' </summary>
     Enum Accion

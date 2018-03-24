@@ -25,7 +25,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.39688cm</Top>
+            <Top>0.35815cm</Top>
             <Left>2.32833cm</Left>
             <Height>0.6cm</Height>
             <Width>4.35208cm</Width>
@@ -57,7 +57,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>1.41111cm</Top>
+            <Top>1.37238cm</Top>
             <Left>0.3175cm</Left>
             <Height>0.6cm</Height>
             <Width>2.79104cm</Width>
@@ -90,7 +90,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>2.15222cm</Top>
+            <Top>2.11349cm</Top>
             <Left>0.3175cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
@@ -123,7 +123,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>2.92861cm</Top>
+            <Top>2.88988cm</Top>
             <Left>0.3175cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
@@ -156,7 +156,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>3.705cm</Top>
+            <Top>3.66627cm</Top>
             <Left>0.3175cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
@@ -189,7 +189,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>4.44611cm</Top>
+            <Top>4.40738cm</Top>
             <Left>0.3175cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
@@ -222,7 +222,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>5.2225cm</Top>
+            <Top>5.18377cm</Top>
             <Left>0.3175cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
@@ -255,7 +255,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>1.41111cm</Top>
+            <Top>1.37238cm</Top>
             <Left>4.92535cm</Left>
             <Height>0.6cm</Height>
             <Width>1.49049cm</Width>
@@ -290,7 +290,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ExecutionTime</rd:DefaultName>
-            <Top>1.41111cm</Top>
+            <Top>1.37238cm</Top>
             <Left>5.95722cm</Left>
             <Height>0.6cm</Height>
             <Width>2.57938cm</Width>
@@ -322,7 +322,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NombreYApellidosCliente</rd:DefaultName>
-            <Top>2.15222cm</Top>
+            <Top>2.11349cm</Top>
             <Left>2.99389cm</Left>
             <Height>0.6cm</Height>
             <Width>5.88667cm</Width>
@@ -354,7 +354,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DNICliente</rd:DefaultName>
-            <Top>2.92861cm</Top>
+            <Top>2.88988cm</Top>
             <Left>2.99389cm</Left>
             <Height>0.6cm</Height>
             <Width>3.42194cm</Width>
@@ -386,7 +386,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ProvinciaCliente</rd:DefaultName>
-            <Top>4.44611cm</Top>
+            <Top>4.40738cm</Top>
             <Left>2.99389cm</Left>
             <Height>0.6cm</Height>
             <Width>3.73944cm</Width>
@@ -418,7 +418,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DireccionCliente</rd:DefaultName>
-            <Top>3.66972cm</Top>
+            <Top>3.63099cm</Top>
             <Left>2.99389cm</Left>
             <Height>0.6cm</Height>
             <Width>5.88667cm</Width>
@@ -450,7 +450,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MovilCliente</rd:DefaultName>
-            <Top>5.2225cm</Top>
+            <Top>5.18377cm</Top>
             <Left>2.99389cm</Left>
             <Height>0.6cm</Height>
             <Width>3.42194cm</Width>
@@ -484,7 +484,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NumFactura</rd:DefaultName>
-            <Top>1.37583cm</Top>
+            <Top>1.3371cm</Top>
             <Left>2.04139cm</Left>
             <Height>0.6cm</Height>
             <Width>1.6757cm</Width>
@@ -501,9 +501,9 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>0.44662cm</Top>
+        <Top>4.29535cm</Top>
         <Left>0.04974cm</Left>
-        <Height>6.35cm</Height>
+        <Height>6.40856cm</Height>
         <Width>9.62139cm</Width>
         <Style>
           <Border>
@@ -745,7 +745,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>0.44662cm</Top>
+        <Top>2.66912cm</Top>
         <Left>10.43561cm</Left>
         <Height>4.305cm</Height>
         <Width>9.4891cm</Width>
@@ -1032,7 +1032,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>5.28849cm</Top>
+        <Top>7.51099cm</Top>
         <Left>10.43561cm</Left>
         <Height>3.19292cm</Height>
         <Width>9.4891cm</Width>
@@ -1043,58 +1043,268 @@
           </Border>
         </Style>
       </Rectangle>
+      <Textbox Name="Textbox1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>GgsManager, S.L.</Value>
+                <Style>
+                  <FontSize>17pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <TextDecoration>Underline</TextDecoration>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.12912cm</Top>
+        <Left>0.34079cm</Left>
+        <Height>0.99688cm</Height>
+        <Width>5.56917cm</Width>
+        <ZIndex>3</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox18">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Dirección:</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox18</rd:DefaultName>
+        <Top>1.42557cm</Top>
+        <Left>0.36724cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.10312cm</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox19">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Teléfono:</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox18</rd:DefaultName>
+        <Top>2.22251cm</Top>
+        <Left>0.36724cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.10312cm</Width>
+        <ZIndex>5</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox20">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Localidad:</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox18</rd:DefaultName>
+        <Top>2.96362cm</Top>
+        <Left>0.36724cm</Left>
+        <Height>0.6cm</Height>
+        <Width>2.10312cm</Width>
+        <ZIndex>6</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="DireccionEmpresa">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!DireccionEmpresa.Value</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>DireccionEmpresa</rd:DefaultName>
+        <Top>1.42557cm</Top>
+        <Left>2.64675cm</Left>
+        <Height>0.6cm</Height>
+        <Width>6.28355cm</Width>
+        <ZIndex>7</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="TelefonoEmpresa">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!TelefonoEmpresa.Value</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>TelefonoEmpresa</rd:DefaultName>
+        <Top>2.22251cm</Top>
+        <Left>2.64675cm</Left>
+        <Height>0.6cm</Height>
+        <Width>4.0834cm</Width>
+        <ZIndex>8</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="LocalidadEmpresa">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!LocalidadEmpresa.Value</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>LocalidadEmpresa</rd:DefaultName>
+        <Top>2.9989cm</Top>
+        <Left>2.64675cm</Left>
+        <Height>0.56472cm</Height>
+        <Width>4.0834cm</Width>
+        <ZIndex>9</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="CodPostalEmpresa">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Parameters!CodPostalEmpresa.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>CodPostalEmpresa</rd:DefaultName>
+        <Top>2.9989cm</Top>
+        <Left>7.17113cm</Left>
+        <Height>0.56472cm</Height>
+        <Width>2.5cm</Width>
+        <ZIndex>10</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>3.4205in</Height>
+    <Height>4.26622in</Height>
     <Style />
   </Body>
   <Width>7.99342in</Width>
   <Page>
-    <PageHeader>
-      <Height>2.75167cm</Height>
-      <PrintOnFirstPage>true</PrintOnFirstPage>
-      <PrintOnLastPage>true</PrintOnLastPage>
-      <ReportItems>
-        <Textbox Name="Textbox1">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>GgsManager</Value>
-                  <Style>
-                    <FontSize>20pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                    <TextDecoration>Underline</TextDecoration>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Left>6.84953cm</Left>
-          <Height>1.15562cm</Height>
-          <Width>4.88125cm</Width>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-      </ReportItems>
-      <Style>
-        <Border>
-          <Style>None</Style>
-        </Border>
-      </Style>
-    </PageHeader>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
     <LeftMargin>0.5cm</LeftMargin>
@@ -1156,6 +1366,22 @@
     </ReportParameter>
     <ReportParameter Name="NumFactura">
       <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DireccionEmpresa">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TelefonoEmpresa">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LocalidadEmpresa">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CodPostalEmpresa">
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
