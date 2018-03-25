@@ -1,4 +1,8 @@
-﻿Imports Microsoft.Reporting.WinForms
+﻿Imports System.Drawing.Imaging
+Imports System.IO
+Imports System.Text
+Imports System.Drawing.Printing
+Imports Microsoft.Reporting.WinForms
 
 Public Class FormFactIndividual
 
@@ -92,10 +96,11 @@ Public Class FormFactIndividual
         Dim arrayDatosEmpresa As String() = Foo.LeerDatosEmpresa()
 
         Dim listaRp As New ReportParameterCollection()
-        listaRp.Add(New ReportParameter("DireccionEmpresa", arrayDatosEmpresa(0)))
-        listaRp.Add(New ReportParameter("TelefonoEmpresa", arrayDatosEmpresa(1)))
-        listaRp.Add(New ReportParameter("LocalidadEmpresa", arrayDatosEmpresa(2)))
-        listaRp.Add(New ReportParameter("CodPostalEmpresa", arrayDatosEmpresa(3)))
+        listaRp.Add(New ReportParameter("CIFEmpresa", arrayDatosEmpresa(0)))
+        listaRp.Add(New ReportParameter("DireccionEmpresa", arrayDatosEmpresa(1)))
+        listaRp.Add(New ReportParameter("TelefonoEmpresa", arrayDatosEmpresa(2)))
+        listaRp.Add(New ReportParameter("LocalidadEmpresa", arrayDatosEmpresa(3)))
+        listaRp.Add(New ReportParameter("CodPostalEmpresa", arrayDatosEmpresa(4)))
 
         ReportViewer.LocalReport.SetParameters(listaRp)
 

@@ -204,6 +204,7 @@ Public Class Foo
         Dim haGuardadoDatos As Boolean
 
         Try
+            datos.Add("CIF", "B38201987")
             datos.Add("Direccion", "Calle Marqués de Fontalba, 124")
             datos.Add("Telefono", "324 54 97 90")
             datos.Add("Localidad", "Alicante")
@@ -243,6 +244,7 @@ Public Class Foo
         Dim datos As JObject = CType(JToken.ReadFrom(jReader), JObject)
         Dim listaDatos As New List(Of String)()
 
+        listaDatos.Add(datos.Item("CIF").ToString())
         listaDatos.Add(datos.Item("Direccion").ToString())
         listaDatos.Add(datos.Item("Telefono").ToString())
         listaDatos.Add(datos.Item("Localidad").ToString())

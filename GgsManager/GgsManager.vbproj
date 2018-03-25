@@ -130,6 +130,12 @@
     <Compile Include="Ventanas\Clientes\VntSeleccCliente.xaml.vb">
       <DependentUpon>VntSeleccCliente.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\Facturas\FormFactConjunto.Designer.vb">
+      <DependentUpon>FormFactConjunto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Facturas\FormFactConjunto.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Ventanas\Garajes\VntSeleccGaraje.xaml.vb">
       <DependentUpon>VntSeleccGaraje.xaml</DependentUpon>
     </Compile>
@@ -313,6 +319,9 @@
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventanas\Facturas\FormFactConjunto.resx">
+      <DependentUpon>FormFactConjunto.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Informes\FormEstGarajes.resx">
       <DependentUpon>FormEstGarajes.vb</DependentUpon>
