@@ -17,7 +17,7 @@ Public Class Cliente
     Property Movil As String
     Property FechaHoraAlta As Date
     Property Observaciones As String
-    Property Ivm As ImageViewModel
+    Property Ivm As ImageViewModelCliente
 
 
     ''' <summary>
@@ -84,7 +84,7 @@ Public Class Cliente
 
                 If arrayFoto.Length > 0 Then
 
-                    Dim ivm As New ImageViewModel(arrayFoto(0))
+                    Dim ivm As New ImageViewModelCliente(arrayFoto(0))
                     listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaHoraAlta, observaciones, ivm))
                 Else
 
@@ -445,7 +445,7 @@ Public Class Cliente
 
     End Sub
 
-    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaHoraAlta As Date, observaciones As String, ivm As ImageViewModel)              ' Para mostrar el cliente con su imagen en el DataGrid.
+    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaHoraAlta As Date, observaciones As String, ivm As ImageViewModelCliente)              ' Para mostrar el cliente con su imagen en el DataGrid.
 
         Me.Id = id
         Me.Nombre = nombre

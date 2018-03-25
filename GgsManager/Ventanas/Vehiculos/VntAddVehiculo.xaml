@@ -47,8 +47,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="2.6*" />
-            <RowDefinition Height="2.4*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         <TextBlock Text="Matrícula" Grid.Column="0" Grid.Row="0" Style="{StaticResource Etiquetas}" />
@@ -91,24 +90,7 @@
         </ComboBox>
         <TextBlock Name="PrecioLbl" Text="Precio Base" Grid.Column="0" Grid.Row="6" Style="{StaticResource Etiquetas}" />
 
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="6">
-            <TextBox Name="PrecBaseVehiculoTxt" Text="{Binding PrecioBase}" Style="{StaticResource TextBox}" Width="84" />
-            <TextBox Name="PrecTotalVehiculoTxt" Text="{Binding PrecioTotal}" Style="{StaticResource TextBox}" Width="86" />
-        </StackPanel>
-                
-        <TextBlock Text="Foto" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" />
-
-        <DockPanel Grid.Column="1" Grid.Row="7" LastChildFill="False">
-            <Border BorderThickness="2" BorderBrush="Black" Height="90" DockPanel.Dock="Left" Margin="0,0,0,0" VerticalAlignment="Bottom">
-                <Image Name="Vehic1Img" Width="114" Stretch="Fill" Source="{Binding Bitmap}" /> <!-- Cambiar el Source -->
-            </Border>
-            <Border BorderThickness="2" BorderBrush="Black" Height="90" DockPanel.Dock="Left" Margin="30,0,0,0" VerticalAlignment="Bottom">
-                <Image Name="Vehic2Img" Width="114" Stretch="Fill" Source="{Binding Bitmap}" />
-                <!-- Cambiar el Source -->
-            </Border>
-            <Button Name="AddFotoBtn" Width="80" Height="31" Content="Examinar" FontSize="16" Margin="26,14,0,0" Click="AddFotoBtn_Click" />
-        </DockPanel>
-
+        <TextBox Name="PrecBaseVehiculoTxt" Grid.Column="1" Grid.Row="6" Text="{Binding PrecioBase, StringFormat=N2}" Style="{StaticResource TextBox}" Width="86" />
         <Button Name="GuardarClienteBtn" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Width="100" Height="34" Content="Guardar" FontSize="16" Margin="0,24,0,0" Click="GuardarClienteBtn_Click" />
     </Grid>
 </Window>

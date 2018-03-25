@@ -4,10 +4,8 @@ Imports Microsoft.Win32
 
 Public Class VntAddVehiculo
 
-    Private ArrayUrlsImgs As String()
-
     ''' <summary>
-    ''' Indica cuantas veces se ha pulsado al botón "Examinar".
+    ''' Indica cuantas veces se ha pulsado al botón "Examinar" para seleccionar una foto.
     ''' </summary>
     Private NumPulsacionesBtnExaminar As Integer
     Private PrecioBase As Decimal
@@ -38,7 +36,6 @@ Public Class VntAddVehiculo
             PlazasCmb.SelectedIndex = 0
 
             Me.NumPulsacionesBtnExaminar = 0
-            PrecTotalVehiculoTxt.Visibility = Visibility.Collapsed
 
         ElseIf Accion = Foo.Accion.Modificar Then
 
@@ -46,11 +43,7 @@ Public Class VntAddVehiculo
             MarcaVehiculoTxt.DataContext = VehiculoSelec
             ModVehiculoTxt.DataContext = VehiculoSelec
 
-            PrecioLbl.Text = "Precio Total"
-            PrecBaseVehiculoTxt.Visibility = Visibility.Collapsed
-
-            PrecTotalVehiculoTxt.Language = Markup.XmlLanguage.GetLanguage(Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag)               ' Cambiamos el "." por una ",".
-            PrecTotalVehiculoTxt.DataContext = VehiculoSelec
+            PrecBaseVehiculoTxt.DataContext = VehiculoSelec
 
             Dim listaGarajes As List(Of Garaje) = Garaje.ObtenerNombresGarajes()
             GarajesCmb.DataContext = listaGarajes               ' Cargamos los garajes en su ComboBox.
@@ -161,48 +154,6 @@ Public Class VntAddVehiculo
 
     End Function
 
-    Private Sub AddFotoBtn_Click(sender As Object, e As RoutedEventArgs)
-
-        Dim abrirArchivo As New OpenFileDialog()
-        abrirArchivo.Filter = "JPG (*.jpg)|*.jpg|PNG (*.png)|*.png"
-
-        If abrirArchivo.ShowDialog() Then
-
-            NumPulsacionesBtnExaminar += 1
-            Me.ArrayUrlsImgs = New String(1) {}
-
-            Dim img As BitmapImage = ReducirImagen(abrirArchivo.FileName)
-
-            If NumPulsacionesBtnExaminar = 1 Then
-
-                Vehic1Img.Source = img
-                ArrayUrlsImgs(0) = abrirArchivo.FileName
-            Else
-
-                Vehic2Img.Source = img
-                ArrayUrlsImgs(1) = abrirArchivo.FileName
-
-            End If
-
-        End If
-
-    End Sub
-
-
-    ''' <summary>
-    ''' Reduce el tamaño de la imagen seleccionada.
-    ''' </summary>
-    ''' <param name="rutaImg">Ruta de la imagen seleccionada.</param>
-    ''' <returns>Imagen reducida.</returns>
-    Private Function ReducirImagen(ByRef rutaImg As String) As BitmapImage
-
-        Dim img As New BitmapImage(New Uri(rutaImg))
-        img.DecodePixelWidth = 114
-
-        Return img
-
-    End Function
-
     Private Sub GuardarClienteBtn_Click(sender As Object, e As RoutedEventArgs)
 
         If ComprobarDatosIntroducidos() Then
@@ -210,40 +161,11 @@ Public Class VntAddVehiculo
             Dim clienteSelec As Cliente = CType(ClientesCmb.SelectedItem, Cliente)              ' Obtenemos los datos del cliente seleccionado en su ComboBox.
             Dim plazaSelec As Plaza = CType(PlazasCmb.SelectedItem, Plaza)              ' Obtenemos los datos de la plaza seleccionada en su ComboBox.            
 
-            Dim porcentajeIva As Decimal = (PrecioBase * Foo.LeerIVA) / 100
             Dim cliente As New Cliente(clienteSelec.Id)         ' Creamos el cliente.
 
             If Accion = Foo.Accion.Insertar Then
 
-                Dim nuevoId As Integer
-
-                If Foo.HayImagen(Vehic1Img.Source) Or Foo.HayImagen(Vehic2Img.Source) Then
-
-                    nuevoId = GgsManager.Vehiculo.ObtenerNuevoIdVehiculos()
-
-                End If
-
-                If Foo.HayImagen(Vehic1Img.Source) Then
-
-                    GuardarFoto(Vehic1Img.Source, ArrayUrlsImgs(0), nuevoId, 1)
-
-                End If
-
-                If Foo.HayImagen(Vehic2Img.Source) Then
-
-                    GuardarFoto(Vehic2Img.Source, ArrayUrlsImgs(1), nuevoId, 2)
-
-                End If
-
-                If ArrayUrlsImgs IsNot Nothing Then
-
-                    ArrayUrlsImgs = Nothing             ' Quitamos las URLs de las imágenes.
-
-                End If
-
-                ' Calculamos el precio total para el pago mensual.
-                Dim precioTotal As Decimal = PrecioBase + porcentajeIva
-                Dim vehiculo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, precioTotal)
+                Dim vehiculo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase)
 
                 If vehiculo.Insertar() Then
 
@@ -258,10 +180,7 @@ Public Class VntAddVehiculo
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                PrecioBase = Decimal.Parse(PrecTotalVehiculoTxt.Text)
-                PrecioBase -= porcentajeIva
-
-                Dim vehiculo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, Decimal.Parse(PrecTotalVehiculoTxt.Text))
+                Dim vehiculo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase)
 
                 If vehiculo.Modificar() Then
 
@@ -291,51 +210,6 @@ Public Class VntAddVehiculo
         PrecBaseVehiculoTxt.ClearValue(TextBox.TextProperty)
         PlazasCmb.ClearValue(ComboBox.TextProperty)
 
-        If Foo.HayImagen(Vehic1Img.Source) Then
-
-            Vehic1Img.ClearValue(Image.SourceProperty)
-
-        End If
-
-        If Foo.HayImagen(Vehic2Img.Source) Then
-
-            Vehic2Img.ClearValue(Image.SourceProperty)
-
-        End If
-
-    End Sub
-
-
-    ''' <summary>
-    ''' Crea un archivo JPG que contiene la imagen que ha seleccionado el usuario.
-    ''' </summary>
-    ''' <param name="img">Imagen a convertir en archivo.</param>
-    ''' <param name="urlFotoSeleccionada">URL de la foto seleccionada.</param>
-    ''' <param name="nuevoId">Id de la foto.</param>
-    ''' <param name="subId">SubId de la foto.</param>
-    Private Sub GuardarFoto(ByRef img As ImageSource, ByRef urlFotoSeleccionada As String, ByRef nuevoId As Integer, ByRef subId As Integer)
-
-        Dim bitmap As New BitmapImage()
-
-        bitmap.BeginInit()
-        bitmap.DecodePixelWidth = 106
-        bitmap.DecodePixelHeight = 92
-        bitmap.CacheOption = BitmapCacheOption.OnLoad
-        bitmap.UriSource = New Uri(urlFotoSeleccionada)
-        bitmap.EndInit()
-
-        Dim encoder As New JpegBitmapEncoder()
-        encoder.Frames.Add(BitmapFrame.Create(bitmap))
-
-        Dim cadena As New StringBuilder()
-        cadena.Append(My.Settings.RutaVehiculos).Append(nuevoId).Append("_").Append(subId).Append(".jpg")           ' Creamos la nueva ruta para guardar la imagen del vehículo.
-
-        Using stream As New FileStream(cadena.ToString(), FileMode.Create)
-
-            encoder.Save(stream)
-
-        End Using
-
     End Sub
 
 
@@ -345,7 +219,7 @@ Public Class VntAddVehiculo
     ''' <returns>True: Los datos son correctos. False: Los datos no son correctos.</returns>
     Private Function ComprobarDatosIntroducidos() As Boolean
 
-        Dim hayMatricula, hayMarca, hayModelo As Boolean
+        Dim hayMatricula, hayMarca, hayModelo, hayPrecioBase As Boolean
 
         If Foo.HayTexto(MatrVehiculoTxt.Text) Then
 
@@ -374,51 +248,23 @@ Public Class VntAddVehiculo
 
         End If
 
-        If Accion = Foo.Accion.Insertar Then
+        Try
+            Me.PrecioBase = Decimal.Parse(PrecBaseVehiculoTxt.Text)
+            hayPrecioBase = True
 
-            Dim hayPrecioBase As Boolean
+        Catch ex As Exception
 
-            Try
-                Me.PrecioBase = Decimal.Parse(PrecBaseVehiculoTxt.Text)
-                hayPrecioBase = True
+            MessageBox.Show("Tienes que introducir un precio base.", "Precio Base Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
 
-            Catch ex As Exception
+            If Foo.HayTexto(PrecBaseVehiculoTxt.Text) Then
 
-                MessageBox.Show("Tienes que introducir un precio base.", "Precio Base Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+                PrecBaseVehiculoTxt.ClearValue(TextBox.TextProperty)
 
-                If Foo.HayTexto(PrecBaseVehiculoTxt.Text) Then
+            End If
 
-                    PrecBaseVehiculoTxt.ClearValue(TextBox.TextProperty)
+        End Try
 
-                End If
-
-            End Try
-
-            Return hayMatricula And hayMarca And hayModelo And hayPrecioBase
-
-        ElseIf Accion = Foo.Accion.Modificar Then
-
-            Dim hayPrecioTotal As Boolean
-
-            Try
-                Decimal.Parse(PrecTotalVehiculoTxt.Text)
-                hayPrecioTotal = True
-
-            Catch ex As Exception
-
-                MessageBox.Show("Tienes que introducir un precio total.", "Precio Total Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
-
-                If Foo.HayTexto(PrecTotalVehiculoTxt.Text) Then
-
-                    PrecTotalVehiculoTxt.ClearValue(TextBox.TextProperty)
-
-                End If
-
-            End Try
-
-            Return hayMatricula And hayMarca And hayModelo And hayPrecioTotal
-
-        End If
+        Return hayMatricula And hayMarca And hayModelo And hayPrecioBase
 
     End Function
 

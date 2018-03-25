@@ -76,7 +76,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>                                                                       
 
-                        <DataGridTextColumn Header="Precio Mensual" Binding="{Binding PrecioTotal, StringFormat=C}" Width="*" IsReadOnly="True">
+                        <DataGridTextColumn Header="Precio Base" Binding="{Binding PrecioBase, StringFormat=C}" Width="*" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />

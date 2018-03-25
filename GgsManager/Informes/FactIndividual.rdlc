@@ -25,7 +25,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.35815cm</Top>
+            <Top>0.04065cm</Top>
             <Left>2.32833cm</Left>
             <Height>0.6cm</Height>
             <Width>4.35208cm</Width>
@@ -399,7 +399,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.50589cm</Top>
+            <Top>0.18839cm</Top>
             <Left>2.32833cm</Left>
             <Height>0.6cm</Height>
             <Width>4.74896cm</Width>
@@ -611,7 +611,7 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>2.66912cm</Top>
-        <Left>10.43561cm</Left>
+        <Left>10.11811cm</Left>
         <Height>4.305cm</Height>
         <Width>9.4891cm</Width>
         <ZIndex>1</ZIndex>
@@ -898,7 +898,7 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>7.50273cm</Top>
-        <Left>10.43561cm</Left>
+        <Left>10.11811cm</Left>
         <Height>3.38667cm</Height>
         <Width>9.4891cm</Width>
         <ZIndex>2</ZIndex>
@@ -959,7 +959,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>2.69557cm</Top>
+        <Top>2.37807cm</Top>
         <Left>0.36724cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -992,7 +992,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>3.49251cm</Top>
+        <Top>3.17501cm</Top>
         <Left>0.36724cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -1025,7 +1025,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>4.23362cm</Top>
+        <Top>3.91612cm</Top>
         <Left>0.36724cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -1057,7 +1057,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DireccionEmpresa</rd:DefaultName>
-        <Top>2.69557cm</Top>
+        <Top>2.37807cm</Top>
         <Left>2.64675cm</Left>
         <Height>0.6cm</Height>
         <Width>6.28355cm</Width>
@@ -1089,7 +1089,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>TelefonoEmpresa</rd:DefaultName>
-        <Top>3.49251cm</Top>
+        <Top>3.17501cm</Top>
         <Left>2.64675cm</Left>
         <Height>0.6cm</Height>
         <Width>4.0834cm</Width>
@@ -1121,7 +1121,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>LocalidadEmpresa</rd:DefaultName>
-        <Top>4.2689cm</Top>
+        <Top>3.9514cm</Top>
         <Left>2.64675cm</Left>
         <Height>0.56472cm</Height>
         <Width>4.0834cm</Width>
@@ -1153,7 +1153,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>CodPostalEmpresa</rd:DefaultName>
-        <Top>4.2689cm</Top>
+        <Top>3.9514cm</Top>
         <Left>6.53613cm</Left>
         <Height>0.56472cm</Height>
         <Width>2.5cm</Width>
@@ -1186,7 +1186,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>1.95446cm</Top>
+        <Top>1.63696cm</Top>
         <Left>0.36724cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -1218,7 +1218,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>CIFEmpresa</rd:DefaultName>
-        <Top>1.98974cm</Top>
+        <Top>1.67224cm</Top>
         <Left>2.64675cm</Left>
         <Height>0.56472cm</Height>
         <Width>3.81882cm</Width>
@@ -1372,14 +1372,14 @@
     <Height>4.52664in</Height>
     <Style />
   </Body>
-  <Width>7.89646in</Width>
+  <Width>7.83396in</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
     <LeftMargin>0.5cm</LeftMargin>
     <RightMargin>0.5cm</RightMargin>
     <TopMargin>2cm</TopMargin>
-    <BottomMargin>2cm</BottomMargin>
+    <BottomMargin>0.5cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>

@@ -108,6 +108,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Clases\Factura.vb" />
+    <Compile Include="Clases\ImageViewModelCliente.vb" />
     <Compile Include="Clases\Plaza.vb" />
     <Compile Include="DataSets\DtClientes.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -247,7 +248,6 @@
     <Compile Include="Clases\Cliente.vb" />
     <Compile Include="Clases\Foo.vb" />
     <Compile Include="Clases\Garaje.vb" />
-    <Compile Include="Clases\ImageViewModel.vb" />
     <Compile Include="Clases\Usuario.vb" />
     <Compile Include="Clases\Vehiculo.vb" />
     <Compile Include="Ventanas\Clientes\VntAddCliente.xaml.vb">

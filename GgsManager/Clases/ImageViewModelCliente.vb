@@ -3,7 +3,7 @@
 ''' <summary>
 ''' Convierte la URL de la imagen a un objeto BitmapImage.
 ''' </summary>
-Public Class ImageViewModel
+Public Class ImageViewModelCliente
     Implements INotifyPropertyChanged
 
     Private _bitmap As BitmapImage

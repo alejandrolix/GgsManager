@@ -25,7 +25,7 @@ Public Class Vehiculo
     Public Shared Function ObtenerVehiculosPorIdGaraje(ByRef idGaraje As Integer) As List(Of Vehiculo)
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase, Veh.PrecioTotal
+        Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase
                                          FROM   Vehiculos Veh
                                                 JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente
                                          WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
@@ -56,9 +56,8 @@ Public Class Vehiculo
                 Dim idGj As Integer = datos.GetInt32("IdGaraje")
                 Dim idPl As Integer = datos.GetInt32("IdPlaza")
                 Dim precioBase As Decimal = datos.GetDecimal("PrecioBase")
-                Dim precioTotal As Decimal = datos.GetDecimal("PrecioTotal")
 
-                Dim vehiculo As New Vehiculo(id, matricula, marca, modelo, cliente, idGj, idPl, precioBase, precioTotal)
+                Dim vehiculo As New Vehiculo(id, matricula, marca, modelo, cliente, idGj, idPl, precioBase)
                 listaVehiculos.Add(vehiculo)
 
             End While
@@ -167,6 +166,8 @@ Public Class Vehiculo
         Dim comando As New MySqlCommand("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
                                          VALUES (NULL, @Matricula, @Marca, @Modelo, @IdCliente, @IdGaraje, @IdPlaza, @PrecioBase, @PrecioTotal);", conexion)
 
+        Dim precioTotal As Decimal = CalcularPrecioTotal()
+
         comando.Parameters.AddWithValue("@Matricula", Matricula)
         comando.Parameters.AddWithValue("@Marca", Marca)
         comando.Parameters.AddWithValue("@Modelo", Modelo)
@@ -174,7 +175,7 @@ Public Class Vehiculo
         comando.Parameters.AddWithValue("@IdGaraje", IdGaraje)
         comando.Parameters.AddWithValue("@IdPlaza", IdPlaza)
         comando.Parameters.AddWithValue("@PrecioBase", PrecioBase)
-        comando.Parameters.AddWithValue("@PrecioTotal", PrecioTotal)
+        comando.Parameters.AddWithValue("@PrecioTotal", precioTotal)
         Dim numFila As Integer
 
         Try
@@ -204,13 +205,15 @@ Public Class Vehiculo
                                          SET    Matricula = @Matricula, Marca = @Marca, Modelo = @Modelo, IdGaraje = @IdGaraje, IdPlaza = @IdPlaza, PrecioBase = @PrecioBase, PrecioTotal = @PrecioTotal
                                          WHERE  IdVehiculo = @IdVehiculo;", conexion)
 
+        Dim precioTotal As Decimal = CalcularPrecioTotal()
+
         comando.Parameters.AddWithValue("@Matricula", Matricula)
         comando.Parameters.AddWithValue("@Marca", Marca)
         comando.Parameters.AddWithValue("@Modelo", Modelo)
         comando.Parameters.AddWithValue("@IdGaraje", IdGaraje)
         comando.Parameters.AddWithValue("@IdPlaza", IdPlaza)
         comando.Parameters.AddWithValue("@PrecioBase", PrecioBase)
-        comando.Parameters.AddWithValue("@PrecioTotal", PrecioTotal)
+        comando.Parameters.AddWithValue("@PrecioTotal", precioTotal)
         comando.Parameters.AddWithValue("@IdVehiculo", Id)
         Dim numFila As Integer
 
@@ -288,7 +291,22 @@ Public Class Vehiculo
 
     End Function
 
-    Public Sub New(id As Integer, matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal, precioTotal As Decimal)               ' Para modificar los datos de un vehículo seleccionado y mostrarlos en el DataGrid.
+
+    ''' <summary>
+    ''' Calcula el precio más el I.V.A. a partir del precio base.
+    ''' </summary>
+    ''' <returns>El precio más el I.V.A.</returns>
+    Private Function CalcularPrecioTotal() As Decimal
+
+        Dim porcentajeIva As Integer = Foo.LeerIVA()
+        Dim porcPrecioTotal As Decimal = (PrecioBase * porcentajeIva) / 100
+        Dim precioTotal As Decimal = PrecioBase + porcPrecioTotal
+
+        Return precioTotal
+
+    End Function
+
+    Public Sub New(id As Integer, matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal)               ' Para mostrar los vehículos en el DataGrid.
 
         Me.Id = id
         Me.Matricula = matricula
@@ -298,24 +316,10 @@ Public Class Vehiculo
         Me.IdGaraje = idGaraje
         Me.IdPlaza = idPlaza
         Me.PrecioBase = precioBase
-        Me.PrecioTotal = precioTotal
 
     End Sub
 
-    Public Sub New(id As Integer, matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioTotal As Decimal)               ' Para mostrar los vehículos en el DataGrid.
-
-        Me.Id = id
-        Me.Matricula = matricula
-        Me.Marca = marca
-        Me.Modelo = modelo
-        Me.Cliente = cliente
-        Me.IdGaraje = idGaraje
-        Me.IdPlaza = idPlaza
-        Me.PrecioTotal = precioTotal
-
-    End Sub
-
-    Public Sub New(matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal, precioTotal As Decimal)                  ' Para crear un vehículo.
+    Public Sub New(matricula As String, marca As String, modelo As String, cliente As Cliente, idGaraje As Integer, idPlaza As Integer, precioBase As Decimal)                  ' Para crear un vehículo.
 
         Me.Id = Id
         Me.Matricula = matricula
@@ -325,7 +329,6 @@ Public Class Vehiculo
         Me.IdGaraje = idGaraje
         Me.IdPlaza = idPlaza
         Me.PrecioBase = precioBase
-        Me.PrecioTotal = precioTotal
 
     End Sub
 

@@ -12,9 +12,6 @@
     <Setting Name="RutaClientes" Type="System.String" Scope="Application">
       <Value Profile="(Default)">../../Imgs/Clientes/</Value>
     </Setting>
-    <Setting Name="RutaVehiculos" Type="System.String" Scope="User">
-      <Value Profile="(Default)">../../Imgs/Vehiculos/</Value>
-    </Setting>
     <Setting Name="RutaArchivos" Type="System.String" Scope="User">
       <Value Profile="(Default)">../../Archivos/</Value>
     </Setting>
