@@ -49,11 +49,11 @@
 
             If Vehiculo.EliminarVehiculoPorIdCliente(clienteSelec.Id) Then
 
-                If Factura.EliminarFacturaPorIdCliente(clienteSelec.Id) Then
+                If Factura.EliminarFacturasPorIdCliente(clienteSelec.Id) Then
 
-                    If clienteSelec.EliminarCliente() Then
+                    If clienteSelec.Eliminar() Then
 
-                        clienteSelec.EliminarImgCliente()               ' Eliminamos la imagen del cliente.
+                        clienteSelec.EliminarImg()               ' Eliminamos la imagen del cliente.
                         Vista.Source = Cliente.ObtenerClientes()
 
                         MessageBox.Show("Se ha eliminado el cliente.", "Cliente Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)

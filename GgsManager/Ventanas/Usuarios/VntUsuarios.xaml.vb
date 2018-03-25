@@ -21,7 +21,7 @@
             MessageBox.Show("Tienes que seleccionar un usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If usuarioSelec.EliminarUsuario() Then
+            If usuarioSelec.Eliminar() Then
 
                 UsuariosDg.DataContext = Usuario.ObtenerUsuarios()
                 MessageBox.Show("Se ha eliminado el usuario.", "Usuario Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)

@@ -24,7 +24,7 @@ Public Class Vehiculo
     ''' <returns>Lista con los vehículos del garaje seleccionado.</returns>
     Public Shared Function ObtenerVehiculosPorIdGaraje(ByRef idGaraje As Integer) As List(Of Vehiculo)
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase, Veh.PrecioTotal
                                          FROM   Vehiculos Veh
                                                 JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente
@@ -83,7 +83,7 @@ Public Class Vehiculo
     ''' <returns>El nuevo Id de la imagen.</returns>
     Public Shared Function ObtenerNuevoIdVehiculos() As Integer
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT MAX(IdVehiculo) + 1
                                          FROM   Vehiculos;", conexion)
         Dim ultimoId As Integer
@@ -111,7 +111,7 @@ Public Class Vehiculo
     ''' <returns>Los datos del vehículo.</returns>
     Public Shared Function ObtenerVehiculoPorIdCliente(ByRef idCliente As Integer) As Vehiculo
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT Marca, Modelo, Matricula, PrecioBase
                                          FROM   Vehiculos
                                          WHERE  IdCliente = @IdCliente;", conexion)
@@ -161,9 +161,9 @@ Public Class Vehiculo
     ''' Inserta un vehículo.
     ''' </summary>    
     ''' <returns>True: El vehículo se ha insertado. False: El vehículo no se ha insertado.</returns>
-    Public Function InsertarVehiculo() As Boolean
+    Public Function Insertar() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
                                          VALUES (NULL, @Matricula, @Marca, @Modelo, @IdCliente, @IdGaraje, @IdPlaza, @PrecioBase, @PrecioTotal);", conexion)
 
@@ -197,9 +197,9 @@ Public Class Vehiculo
     ''' Modifica los datos de un vehículo.
     ''' </summary>    
     ''' <returns>True: Se ha modificado los datos del vehículo. False: No se ha modificado los datos del vehículo.</returns>
-    Public Function ModificarVehiculo() As Boolean
+    Public Function Modificar() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Vehiculos
                                          SET    Matricula = @Matricula, Marca = @Marca, Modelo = @Modelo, IdGaraje = @IdGaraje, IdPlaza = @IdPlaza, PrecioBase = @PrecioBase, PrecioTotal = @PrecioTotal
                                          WHERE  IdVehiculo = @IdVehiculo;", conexion)
@@ -234,9 +234,9 @@ Public Class Vehiculo
     ''' Elimina un vehículo.
     ''' </summary>    
     ''' <returns>True: Se ha eliminado el vehículo. False: No se ha eliminado el vehículo.</returns>
-    Public Function EliminarVehiculo() As Boolean
+    Public Function Eliminar() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("DELETE FROM Vehiculos
                                          WHERE  IdVehiculo = @IdVehiculo;", conexion)
 
@@ -266,7 +266,7 @@ Public Class Vehiculo
     ''' <returns>True: Se han eliminado los vehículos del cliente. False: No se han eliminado los vehículos del cliente.</returns>
     Public Shared Function EliminarVehiculoPorIdCliente(ByRef idCliente As Integer) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("DELETE FROM Vehiculos
                                          WHERE  IdCliente = @IdCliente;", conexion)
 

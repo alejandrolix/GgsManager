@@ -1062,8 +1062,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.12912cm</Top>
-        <Left>0.34079cm</Left>
+        <Left>1.92829cm</Left>
         <Height>0.99688cm</Height>
         <Width>5.56917cm</Width>
         <ZIndex>3</ZIndex>
@@ -1087,6 +1086,7 @@
                 <Value>Dirección:</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1119,6 +1119,7 @@
                 <Value>Teléfono:</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1151,6 +1152,7 @@
                 <Value>Localidad:</Value>
                 <Style>
                   <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1285,7 +1287,7 @@
         </Paragraphs>
         <rd:DefaultName>CodPostalEmpresa</rd:DefaultName>
         <Top>2.9989cm</Top>
-        <Left>7.17113cm</Left>
+        <Left>6.53613cm</Left>
         <Height>0.56472cm</Height>
         <Width>2.5cm</Width>
         <ZIndex>10</ZIndex>

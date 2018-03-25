@@ -13,15 +13,14 @@ Public Class Factura
 
     ''' <summary>
     ''' Inserta una factura para un cliente.
-    ''' </summary>
-    ''' <param name="factura">Los datos de la factura.</param>    
-    Public Shared Sub InsertarFacturaToCliente(ByRef factura As Factura)
+    ''' </summary>    
+    Public Sub InsertarParaCliente()
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("INSERT INTO Facturas (IdFactura, Fecha, IdCliente, IdGaraje) VALUES (NULL, @Fecha, @IdCliente, NULL);", conexion)
 
-        comando.Parameters.AddWithValue("@Fecha", factura.Fecha)
-        comando.Parameters.AddWithValue("@IdCliente", factura.IdCliente)
+        comando.Parameters.AddWithValue("@Fecha", Fecha)
+        comando.Parameters.AddWithValue("@IdCliente", IdCliente)
         Dim numFila As Integer
 
         Try
@@ -40,15 +39,14 @@ Public Class Factura
 
     ''' <summary>
     ''' Inserta una factura para un garaje.
-    ''' </summary>
-    ''' <param name="factura">Los datos de la factura.</param>    
-    Public Shared Sub InsertarFacturaToGaraje(ByRef factura As Factura)
+    ''' </summary>    
+    Public Sub InsertarParaGaraje()
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("INSERT INTO Facturas (IdFactura, Fecha, IdCliente, IdGaraje) VALUES (NULL, @Fecha, NULL, @IdGaraje);", conexion)
 
-        comando.Parameters.AddWithValue("@Fecha", factura.Fecha)
-        comando.Parameters.AddWithValue("@IdGaraje", factura.IdGaraje)
+        comando.Parameters.AddWithValue("@Fecha", Fecha)
+        comando.Parameters.AddWithValue("@IdGaraje", IdGaraje)
         Dim numFila As Integer
 
         Try
@@ -66,17 +64,17 @@ Public Class Factura
 
 
     ''' <summary>
-    ''' Elimina la factura de un cliente a partir de su Id.
+    ''' Elimina las facturas de un cliente a partir de su Id.
     ''' </summary>
     ''' <param name="idCliente">El Id del cliente.</param>
     ''' <returns>True: Se ha eliminado la factura del cliente. False: No se ha eliminado la factura del cliente.</returns>
-    Public Shared Function EliminarFacturaPorIdCliente(ByRef idCliente As Integer) As Boolean
+    Public Shared Function EliminarFacturasPorIdCliente(ByRef idCliente As Integer) As Boolean
 
         Dim numFacturasCliente As Integer = ObtenerNumFacturasPorIdCliente(idCliente)
 
         If numFacturasCliente >= 1 Then
 
-            Dim conexion As MySqlConnection = Foo.ConexionToBd()
+            Dim conexion As MySqlConnection = Foo.ConexionABd()
             Dim comando As New MySqlCommand("DELETE FROM Facturas
                                              WHERE  IdCliente = @IdCliente;", conexion)
 
@@ -104,7 +102,7 @@ Public Class Factura
 
 
     ''' <summary>
-    ''' Elimina la factura de un garaje a partir de su Id.
+    ''' Elimina las facturas de un garaje a partir de su Id.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje.</param>
     ''' <returns>True: Se ha eliminado la factura del garaje. False: No se ha eliminado la factura del garaje.</returns>
@@ -114,7 +112,7 @@ Public Class Factura
 
         If numFacturasGaraje >= 1 Then
 
-            Dim conexion As MySqlConnection = Foo.ConexionToBd()
+            Dim conexion As MySqlConnection = Foo.ConexionABd()
             Dim comando As New MySqlCommand("DELETE FROM Facturas
                                              WHERE  IdGaraje = @IdGaraje;", conexion)
 
@@ -148,7 +146,7 @@ Public Class Factura
     ''' <returns>El número de facturas del cliente.</returns>
     Private Shared Function ObtenerNumFacturasPorIdCliente(ByRef idCliente As Integer) As Integer
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT COUNT(IdFactura)
                                          FROM   Facturas
                                          WHERE  IdCliente = @IdCliente;", conexion)
@@ -179,7 +177,7 @@ Public Class Factura
     ''' <returns>El número de facturas del garaje.</returns>
     Private Shared Function ObtenerNumFacturasPorIdGaraje(ByRef idGaraje As Integer) As Integer
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT COUNT(IdFactura)
                                          FROM   Facturas
                                          WHERE  IdGaraje = @IdGaraje;", conexion)
@@ -209,7 +207,7 @@ Public Class Factura
     ''' <returns>El nuevo Id de la factura.</returns>
     Public Shared Function ObtenerNuevoIdFactura() As Integer
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT MAX(IdFactura) + 1
                                          FROM   Facturas;", conexion)
         Dim nuevoId As Integer

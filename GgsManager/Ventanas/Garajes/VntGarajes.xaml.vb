@@ -28,7 +28,7 @@
 
             If Factura.EliminarFacturasPorIdGaraje(garajeSelec.Id) Then
 
-                If garajeSelec.EliminarGaraje() Then
+                If garajeSelec.Eliminar() Then
 
                     GarajesDg.DataContext = Garaje.ObtenerGarajes()
                     MessageBox.Show("Se ha eliminado el garaje.", "Garaje Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)

@@ -245,9 +245,9 @@ Public Class VntAddVehiculo
                 Dim precioTotal As Decimal = PrecioBase + porcentajeIva
                 Dim vehiculo As New Vehiculo(MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, precioTotal)
 
-                If vehiculo.InsertarVehiculo() Then
+                If vehiculo.Insertar() Then
 
-                    If Plaza.CambiarSituacionPlazaToOcupada(plazaSelec.Id, IdGaraje) Then
+                    If Plaza.CambiarSituacionPlazaAOcupada(plazaSelec.Id, IdGaraje) Then
 
                         MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                         LimpiarCampos()
@@ -263,7 +263,7 @@ Public Class VntAddVehiculo
 
                 Dim vehiculo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase, Decimal.Parse(PrecTotalVehiculoTxt.Text))
 
-                If vehiculo.ModificarVehiculo() Then
+                If vehiculo.Modificar() Then
 
                     MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
 

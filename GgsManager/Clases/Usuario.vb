@@ -29,7 +29,7 @@ Public Class Usuario
     ''' <returns>True: El usuario existe. False: El usuario no existe.</returns>
     Public Shared Function ExisteUsuario(ByRef nombreUsuario As String) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT COUNT(IdUsuario) 
                                          FROM   Usuarios 
                                          WHERE  Nombre = @Nombre;", conexion)
@@ -60,7 +60,7 @@ Public Class Usuario
     ''' <returns>Datos del usuario iniciado.</returns>
     Public Shared Function ObtenerUsuarioPrograma(ByRef nombreUsuario As String) As Usuario
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, EsGestor 
                                          FROM   Usuarios 
                                          WHERE  Nombre = @Nombre;", conexion)
@@ -130,7 +130,7 @@ Public Class Usuario
     ''' <returns>Lista con los usuarios.</returns>
     Public Shared Function ObtenerUsuarios() As List(Of Usuario)
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, Nombre, EsGestor
                                          FROM   Usuarios", conexion)
         Dim datos As MySqlDataReader
@@ -180,7 +180,7 @@ Public Class Usuario
     ''' <returns>True: Los hashes son iguales. False: Los hashes no son iguales.</returns>
     Public Shared Function ComprobarHashPassword(ByRef passwordIntroducida As String) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim hashPasswordIntroducida As String = ObtenerSHA1HashFromPassword(passwordIntroducida)
 
         Dim comando As New MySqlCommand("SELECT Password 
@@ -211,9 +211,9 @@ Public Class Usuario
     ''' </summary>    
     ''' <param name="hashPassword">El hash de la contraseña.</param>    
     ''' <returns>True: Se ha insertado el usuario. False: No se ha insertado el usuario.</returns>
-    Public Function InsertarUsuario(ByRef hashPassword As String) As Boolean
+    Public Function Insertar(ByRef hashPassword As String) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("INSERT INTO Usuarios (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, @Nombre, @Password, @EsGestorB);", conexion)
 
         comando.Parameters.AddWithValue("@Nombre", Nombre)
@@ -241,9 +241,9 @@ Public Class Usuario
     ''' Modifica los datos de un usuario.
     ''' </summary>        
     ''' <returns>True: Se ha modificado el usuario. False: No se ha modificado el usuario.</returns>
-    Public Function ModificarUsuario() As Boolean
+    Public Function Modificar() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Usuarios
                                          SET    Nombre = @Nombre, EsGestor = @EsGestorB
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
@@ -277,7 +277,7 @@ Public Class Usuario
     ''' <returns>True: Se ha modificado la contraseña del usuario. False: No se ha modificado la contraseña del usuario.</returns>
     Public Shared Function ModificarPasswordPorId(ByRef idUsuario As Integer, ByRef hashPassword As String) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Usuarios
                                          SET    Password = @Password
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
@@ -306,9 +306,9 @@ Public Class Usuario
     ''' Elimina un usuario.
     ''' </summary>    
     ''' <returns>True: Se ha eliminado el usuario. False: No se ha eliminado el usuario.</returns>
-    Public Function EliminarUsuario() As Boolean
+    Public Function Eliminar() As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionToBd()
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("DELETE FROM Usuarios
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 

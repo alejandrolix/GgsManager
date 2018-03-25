@@ -134,11 +134,11 @@
                 Dim garaje As New Garaje(NombreGarajeTxt.Text, DireccionGarajeTxt.Text, NumPlazas, ObservGarajeTxt.Text)
                 garaje.Direccion = Foo.CambiarDireccion(garaje.Direccion)
 
-                If garaje.InsertarGaraje() Then
+                If garaje.Insertar() Then
 
                     Dim ultimoId As Integer = Garaje.ObtenerUltimoIdGarajes()               ' Obtenemos el último Id del garaje.
 
-                    If Plaza.AddPlazasToGaraje(garaje.NumPlazas, ultimoId) Then
+                    If Plaza.AddPlazasAGaraje(garaje.NumPlazas, ultimoId) Then
 
                         MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                         LimpiarCampos()
@@ -152,7 +152,7 @@
                 Dim garaje As New Garaje(GarajeSelec.Id, NombreGarajeTxt.Text, DireccionGarajeTxt.Text, Integer.Parse(NumPlazasGarajeTxt.Text), ObservGarajeTxt.Text)
                 garaje.Direccion = Foo.CambiarDireccion(garaje.Direccion)
 
-                If garaje.ModificarGaraje() Then
+                If garaje.Modificar() Then
 
                     MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
 

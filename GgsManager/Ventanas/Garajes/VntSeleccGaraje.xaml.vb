@@ -56,7 +56,7 @@
 
                 Case Foo.Ventana.FacturaGaraje
                     Dim factura As New Factura(Date.Now.Date, gjSelec.Id, False)
-                    Factura.InsertarFacturaToGaraje(factura)
+                    factura.InsertarParaGaraje()
 
             End Select
 
