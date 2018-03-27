@@ -311,7 +311,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Informes\FactIndividual.rdlc" />
+    <EmbeddedResource Include="Facturas\FactConjunto.rdlc" />
+    <EmbeddedResource Include="Facturas\FactIndividual.rdlc" />
     <EmbeddedResource Include="Informes\InfClientes.rdlc" />
     <EmbeddedResource Include="Informes\InfEstGarajes.rdlc" />
     <EmbeddedResource Include="Informes\InfPlazas.rdlc" />

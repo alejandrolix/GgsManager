@@ -1,8 +1,4 @@
-﻿Imports System.Drawing.Imaging
-Imports System.IO
-Imports System.Text
-Imports System.Drawing.Printing
-Imports Microsoft.Reporting.WinForms
+﻿Imports Microsoft.Reporting.WinForms
 
 Public Class FormFactIndividual
 
@@ -18,6 +14,9 @@ Public Class FormFactIndividual
         AddParametrosImporte()
         AddParametroNumFactura()
         AddParametrosEmpresa()
+
+        Dim factura As New Factura(Date.Now.Date, IdClienteSelec, True)
+        factura.InsertarParaCliente()
 
         ReportViewer.RefreshReport()
 
@@ -103,13 +102,6 @@ Public Class FormFactIndividual
         listaRp.Add(New ReportParameter("CodPostalEmpresa", arrayDatosEmpresa(4)))
 
         ReportViewer.LocalReport.SetParameters(listaRp)
-
-    End Sub
-
-    Private Sub ReportViewer_PrintingBegin(sender As Object, e As ReportPrintEventArgs) Handles ReportViewer.PrintingBegin
-
-        Dim factura As New Factura(Date.Now.Date, IdClienteSelec, True)
-        factura.InsertarParaCliente()
 
     End Sub
 
