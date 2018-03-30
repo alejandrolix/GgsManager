@@ -11,13 +11,18 @@
 
     Private Sub AceptarBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        Me.Close()
         Dim clienteSelec As Cliente = CType(ClientesCmb.SelectedItem, Cliente)
 
         If clienteSelec IsNot Nothing Then
 
-            Dim formFactIndividual As New FormFactIndividual(clienteSelec.Id)
-            formFactIndividual.ShowDialog()
+            Dim factura As New Factura(Date.Now.Date, clienteSelec.Id, True)
+
+            If factura.InsertarParaCliente() Then
+
+                Dim formFactIndividual As New FormFactIndividual(clienteSelec.Id)
+                formFactIndividual.ShowDialog()
+
+            End If
 
         End If
 

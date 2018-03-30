@@ -55,19 +55,18 @@
                     vntSeleccCliente.ShowDialog()
 
                 Case Foo.Ventana.FacturaGaraje
-                    'Dim factura As New Factura(Date.Now.Date, gjSelec.Id, False)
-                    'factura.InsertarParaGaraje()
+                    Dim factura As New Factura(Date.Now.Date, gjSelec.Id, False)
 
-                    Dim formFactConjunto As New FormFactConjunto(gjSelec.Id)
-                    formFactConjunto.ShowDialog()
+                    If factura.InsertarParaGaraje() Then
+
+                        Dim formFactConjunto As New FormFactConjunto(gjSelec.Id)
+                        formFactConjunto.EmpezarImpresion()
+
+                    End If
 
             End Select
 
-            If Ventana <> Foo.Ventana.InformeEstadGaraje Then
-
-                Me.Close()
-
-            End If
+            ' Ventana <> Foo.Ventana.InformeEstadGaraje            
 
             If vntVehic IsNot Nothing Then
 
