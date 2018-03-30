@@ -17,6 +17,7 @@ Public Class Cliente
     Property Movil As String
     Property FechaHoraAlta As Date
     Property Observaciones As String
+    Property Vehiculo As Vehiculo
     Property Ivm As ImageViewModelCliente
 
 
@@ -116,7 +117,7 @@ Public Class Cliente
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos
-                                         FROM   Clientes", conexion)
+                                         FROM   Clientes;", conexion)
 
         Dim datos As MySqlDataReader = Nothing
 
@@ -201,6 +202,77 @@ Public Class Cliente
             datos.Close()
 
             Return listaClientes
+
+        End If
+
+        conexion.Close()
+
+        Return Nothing
+
+    End Function
+
+    ''' <summary>
+    ''' Obtiene los datos de los clientes a partir del Id de un garaje.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    ''' <returns>Array con los datos de los clientes.</returns>
+    Public Shared Function ObtenerClientesPorIdGaraje(ByRef idGaraje As Integer) As Cliente()
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("SELECT CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Nombre', Cli.DNI, Cli.Direccion, Cli.Provincia, Cli.Movil, Veh.Marca, Veh.Modelo, Veh.Matricula, Veh.PrecioBase
+                                         FROM   Clientes Cli
+	                                            JOIN Vehiculos Veh ON Cli.IdCliente = Veh.IdCliente
+                                         WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+        Dim datos As MySqlDataReader
+
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener los clientes del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        If datos IsNot Nothing Then
+
+            Dim listaClientes As New List(Of Cliente)()
+            Dim numCliente As Integer = 0
+
+            While datos.Read()
+
+                numCliente += 1
+
+                Dim nombre As String = datos.GetString("Nombre")
+                Dim dni As String = datos.GetString("DNI")
+                Dim direccion As String = datos.GetString("Direccion")
+                Dim provincia As String = datos.GetString("Provincia")
+                Dim movil As String = datos.GetString("Movil")
+                Dim marca As String = datos.GetString("Marca")
+                Dim modelo As String = datos.GetString("Modelo")
+                Dim matricula As String = datos.GetString("Matricula")
+                Dim precioBase As Decimal = datos.GetDecimal("PrecioBase")
+
+                Dim cliente As New Cliente(nombre, dni, direccion, provincia, movil)
+                Dim vehiculo As New Vehiculo(marca, modelo, matricula, precioBase)
+
+                cliente.Vehiculo = vehiculo
+                listaClientes.Add(cliente)
+
+                If numCliente = 2 Then
+
+                    Exit While
+
+                End If
+
+            End While
+
+            datos.Close()
+            conexion.Close()
+
+            Return listaClientes.ToArray()
 
         End If
 

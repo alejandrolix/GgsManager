@@ -265,7 +265,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.6926cm</Height>
+              <Height>0.67468cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -492,7 +492,7 @@
         <DataSetName>DtClientes</DataSetName>
         <Top>1.64042cm</Top>
         <Left>0.58208cm</Left>
-        <Height>1.3852cm</Height>
+        <Height>1.36728cm</Height>
         <Width>24.33979cm</Width>
         <Style>
           <Border>
@@ -501,7 +501,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.79872in</Height>
+    <Height>3.26747in</Height>
     <Style />
   </Body>
   <Width>9.81176in</Width>

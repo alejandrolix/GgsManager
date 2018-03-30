@@ -41,7 +41,7 @@ Partial Class FormFactConjunto
         Me.ClientSize = New System.Drawing.Size(602, 365)
         Me.Controls.Add(Me.ReportViewer)
         Me.Name = "FormFactConjunto"
-        Me.Text = "FormFactConjunto"
+        Me.Text = "Factura de Clientes por Garaje"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
 

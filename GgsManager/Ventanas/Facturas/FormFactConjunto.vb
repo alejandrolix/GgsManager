@@ -7,64 +7,90 @@ Public Class FormFactConjunto
     Private Sub FormFactConjunto_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         AddParametrosEmpresa()
+        AddParametroIVA()
+        Dim arrayClientes As Cliente() = Cliente.ObtenerClientesPorIdGaraje(IdGarajeSelec)
 
-        'Dim conexion As MySqlConnection = Foo.ConexionABd()
-        'Dim comando As New MySqlCommand("SELECT CONCAT(Nombre, ' ', Apellidos) AS 'Nombre', DNI, Direccion, Provincia, Movil
-        '                                 FROM   Clientes
-        '                                 LIMIT  2;", conexion)
+        For i As Integer = 0 To arrayClientes.Length - 1
 
-        'Dim datos As MySqlDataReader = comando.ExecuteReader()
-        'Dim numFila As Integer = 0
+            If i = 0 Then
 
-        'While datos.Read()
+                Dim rpNumFactura As New ReportParameter("NumFactura1", "1")
+                ReportViewer.LocalReport.SetParameters(rpNumFactura)
 
-        '    numFila += 1
-        '    Dim nombre As String = datos.GetString("Nombre")
+                AddParametrosCliente(1, arrayClientes(i))
+                AddParametrosVehiculo(1, arrayClientes(i).Vehiculo)
+                AddParametrosImporte(1, arrayClientes(i).Vehiculo.PrecioBase)
+            Else
 
-        '    If numFila = 1 Then
+                Dim rpNumFactura As New ReportParameter("NumFactura2", "2")
+                ReportViewer.LocalReport.SetParameters(rpNumFactura)
 
-        '        Dim dni As String = datos.GetString("DNI")
-        '        Dim direccion As String = datos.GetString("Direccion")
-        '        Dim provincia As String = datos.GetString("Provincia")
-        '        Dim movil As String = datos.GetString("Movil")
+                AddParametrosCliente(2, arrayClientes(i))
+                AddParametrosVehiculo(2, arrayClientes(i).Vehiculo)
+                AddParametrosImporte(2, arrayClientes(i).Vehiculo.PrecioBase)
 
-        '        Dim listaRp As New ReportParameterCollection()
-        '        listaRp.Add(New ReportParameter("NombreYApellidosCliente", nombre))
-        '        listaRp.Add(New ReportParameter("DNICliente", dni))
-        '        listaRp.Add(New ReportParameter("DireccionCliente", direccion))
-        '        listaRp.Add(New ReportParameter("ProvinciaCliente", provincia))
-        '        listaRp.Add(New ReportParameter("MovilCliente", movil))
+            End If
 
-        '        ReportViewer.LocalReport.SetParameters(listaRp)
+        Next
 
-        '        Dim listaRp1 As New ReportParameterCollection()
-        '        listaRp1.Add(New ReportParameter("MarcaVehiculo", "Hola"))
-        '        listaRp1.Add(New ReportParameter("ModeloVehiculo", "Hola"))
-        '        listaRp1.Add(New ReportParameter("MatriculaVehiculo", "Hola"))
+        ReportViewer.RefreshReport()
 
-        '        ReportViewer.LocalReport.SetParameters(listaRp1)
+    End Sub
 
-        '        Dim listaRp2 As New ReportParameterCollection()
-        '        listaRp2.Add(New ReportParameter("BaseImponible", "13"))
-        '        listaRp2.Add(New ReportParameter("PorcIVA", "21"))
-        '        listaRp2.Add(New ReportParameter("PrecioIVA", "13.40"))
-        '        listaRp2.Add(New ReportParameter("Total", "20"))
 
-        '        ReportViewer.LocalReport.SetParameters(listaRp2)
+    ''' <summary>
+    ''' Añade los datos del cliente a sus campos correspondientes.
+    ''' </summary>
+    ''' <param name="numCliente">Id para identificar la factura.</param>
+    ''' <param name="cliente">Los datos de un cliente.</param>
+    Private Sub AddParametrosCliente(ByRef numCliente As Integer, ByRef cliente As Cliente)
 
-        '    ElseIf numFila = 2 Then
+        Dim listaRp As New ReportParameterCollection()
+        listaRp.Add(New ReportParameter("NombreApeCliente" & numCliente, cliente.Nombre))
+        listaRp.Add(New ReportParameter("DNICliente" & numCliente, cliente.DNI))
+        listaRp.Add(New ReportParameter("DireccionCliente" & numCliente, cliente.Direccion))
+        listaRp.Add(New ReportParameter("ProvinciaCliente" & numCliente, cliente.Provincia))
+        listaRp.Add(New ReportParameter("MovilCliente" & numCliente, cliente.Movil))
 
-        '        Dim rpNomApeCliente2 As New ReportParameter("NombreYApellidosCliente2", nombre)
-        '        ReportViewer.LocalReport.SetParameters(rpNomApeCliente2)
+        ReportViewer.LocalReport.SetParameters(listaRp)
 
-        '    End If
+    End Sub
 
-        'End While
 
-        'Dim rpNumFactura As New ReportParameter("NumFactura", "3")
-        'ReportViewer.LocalReport.SetParameters(rpNumFactura)
+    ''' <summary>
+    ''' Añade los datos del vehículo a sus campos correspondientes.
+    ''' </summary>
+    ''' <param name="numCliente">Id para identificar la factura.</param>
+    ''' <param name="vehiculo">Los datos de un vehículo.</param>
+    Private Sub AddParametrosVehiculo(ByRef numCliente As Integer, ByRef vehiculo As Vehiculo)
 
-        'ReportViewer.RefreshReport()
+        Dim listaRp As New ReportParameterCollection()
+        listaRp.Add(New ReportParameter("MarcaVehiculo" & numCliente, vehiculo.Marca))
+        listaRp.Add(New ReportParameter("ModeloVehiculo" & numCliente, vehiculo.Modelo))
+        listaRp.Add(New ReportParameter("MatriculaVehiculo" & numCliente, vehiculo.Matricula))
+
+        ReportViewer.LocalReport.SetParameters(listaRp)
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Añade los datos del importe a sus campos correspondientes.
+    ''' </summary>
+    ''' <param name="numCliente">Id para identificar la factura.</param>
+    ''' <param name="precioBase">El precio base.</param>
+    Private Sub AddParametrosImporte(ByRef numCliente As Integer, ByRef precioBase As Decimal)
+
+        Dim listaRp As New ReportParameterCollection()
+        Dim precioConIva As Decimal = Vehiculo.CalcularPrecioTotal(precioBase)
+
+        listaRp.Add(New ReportParameter("BaseImponible" & numCliente, precioBase.ToString()))
+        listaRp.Add(New ReportParameter("PrecioIVA" & numCliente, precioConIva.ToString()))
+
+        Dim total As Decimal = precioBase + precioConIva
+        listaRp.Add(New ReportParameter("Total" & numCliente, total.ToString()))
+
+        ReportViewer.LocalReport.SetParameters(listaRp)
 
     End Sub
 
@@ -84,6 +110,19 @@ Public Class FormFactConjunto
         listaRp.Add(New ReportParameter("CodPostalEmpresa", arrayDatosEmpresa(4)))
 
         ReportViewer.LocalReport.SetParameters(listaRp)
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Añade los datos del importe a sus campos correspondientes.
+    ''' </summary>
+    Private Sub AddParametroIVA()
+
+        Dim porcIva As Integer = Foo.LeerIVA()
+        Dim rpPorcIva As New ReportParameter("PorcIVA", porcIva.ToString())
+
+        ReportViewer.LocalReport.SetParameters(rpPorcIva)
 
     End Sub
 

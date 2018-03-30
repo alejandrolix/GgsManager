@@ -77,33 +77,6 @@ Public Class Vehiculo
 
 
     ''' <summary>
-    ''' Obtiene el nuevo Id de la tabla "Vehiculos", (ultimoId + 1) para guardar su imagen.
-    ''' </summary>
-    ''' <returns>El nuevo Id de la imagen.</returns>
-    Public Shared Function ObtenerNuevoIdVehiculos() As Integer
-
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT MAX(IdVehiculo) + 1
-                                         FROM   Vehiculos;", conexion)
-        Dim ultimoId As Integer
-
-        Try
-            ultimoId = CType(comando.ExecuteScalar(), Integer)
-
-        Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener el nuevo Id de la tabla Vehiculos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        End Try
-
-        conexion.Close()
-
-        Return ultimoId
-
-    End Function
-
-
-    ''' <summary>
     ''' Obtiene los datos del vehículo a partir del Id de un cliente.
     ''' </summary>
     ''' <param name="idCliente">El Id del cliente.</param>
@@ -303,6 +276,22 @@ Public Class Vehiculo
         Dim precioTotal As Decimal = PrecioBase + porcPrecioTotal
 
         Return precioTotal
+
+    End Function
+
+
+    ''' <summary>
+    ''' Calcula el precio más el I.V.A. a partir del precio base.
+    ''' </summary>
+    ''' <param name="precioBase">El precio base.</param>
+    ''' <returns>El precio más el I.V.A.</returns>
+    Public Shared Function CalcularPrecioTotal(ByRef precioBase As Decimal) As Decimal
+
+        Dim porcentajeIva As Integer = Foo.LeerIVA()
+        Dim porcPrecioTotal As Decimal = (precioBase * porcentajeIva) / 100
+        Dim precioConIva As Decimal = precioBase + porcPrecioTotal
+
+        Return precioConIva
 
     End Function
 
