@@ -814,7 +814,7 @@
             </Paragraphs>
             <rd:DefaultName>PorcIVA</rd:DefaultName>
             <Top>1.69278cm</Top>
-            <Left>3.78764cm</Left>
+            <Left>4.10514cm</Left>
             <Height>0.6cm</Height>
             <Width>2.41653cm</Width>
             <ZIndex>5</ZIndex>
@@ -1418,23 +1418,23 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="BaseImponible">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="PorcIVA">
-      <DataType>Integer</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="PrecioIVA">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Total">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="NumFactura">
-      <DataType>Integer</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="DireccionEmpresa">

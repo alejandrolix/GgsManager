@@ -239,11 +239,8 @@ Public Class Cliente
         If datos IsNot Nothing Then
 
             Dim listaClientes As New List(Of Cliente)()
-            Dim numCliente As Integer = 0
 
             While datos.Read()
-
-                numCliente += 1
 
                 Dim nombre As String = datos.GetString("Nombre")
                 Dim dni As String = datos.GetString("DNI")
@@ -260,12 +257,6 @@ Public Class Cliente
 
                 cliente.Vehiculo = vehiculo
                 listaClientes.Add(cliente)
-
-                If numCliente = 2 Then
-
-                    Exit While
-
-                End If
 
             End While
 

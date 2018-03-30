@@ -366,7 +366,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>6.51785cm</Top>
+        <Top>5.88285cm</Top>
         <Left>0.36724cm</Left>
         <Height>5.64155cm</Height>
         <Width>9.62139cm</Width>
@@ -610,7 +610,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>3.93912cm</Top>
+        <Top>3.30412cm</Top>
         <Left>10.43561cm</Left>
         <Height>4.305cm</Height>
         <Width>9.4891cm</Width>
@@ -814,7 +814,7 @@
             </Paragraphs>
             <rd:DefaultName>PorcIVA</rd:DefaultName>
             <Top>1.69278cm</Top>
-            <Left>3.78764cm</Left>
+            <Left>4.10514cm</Left>
             <Height>0.6cm</Height>
             <Width>2.41653cm</Width>
             <ZIndex>5</ZIndex>
@@ -897,7 +897,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>8.77273cm</Top>
+        <Top>8.13773cm</Top>
         <Left>10.43561cm</Left>
         <Height>3.38667cm</Height>
         <Width>9.4891cm</Width>
@@ -927,7 +927,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>1.00542cm</Top>
+        <Top>0.37042cm</Top>
         <Left>0.59372cm</Left>
         <Height>0.99688cm</Height>
         <Width>5.86021cm</Width>
@@ -960,7 +960,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>3.64807cm</Top>
+        <Top>3.01307cm</Top>
         <Left>0.68474cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -993,7 +993,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>4.44501cm</Top>
+        <Top>3.81001cm</Top>
         <Left>0.68474cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -1026,7 +1026,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>5.18612cm</Top>
+        <Top>4.55112cm</Top>
         <Left>0.68474cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -1058,7 +1058,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DireccionEmpresa</rd:DefaultName>
-        <Top>3.64807cm</Top>
+        <Top>3.01307cm</Top>
         <Left>2.96425cm</Left>
         <Height>0.6cm</Height>
         <Width>6.28355cm</Width>
@@ -1090,7 +1090,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>TelefonoEmpresa</rd:DefaultName>
-        <Top>4.44501cm</Top>
+        <Top>3.81001cm</Top>
         <Left>2.96425cm</Left>
         <Height>0.6cm</Height>
         <Width>4.0834cm</Width>
@@ -1122,7 +1122,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>LocalidadEmpresa</rd:DefaultName>
-        <Top>5.2214cm</Top>
+        <Top>4.5864cm</Top>
         <Left>2.96425cm</Left>
         <Height>0.56472cm</Height>
         <Width>4.0834cm</Width>
@@ -1154,7 +1154,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>CodPostalEmpresa</rd:DefaultName>
-        <Top>5.2214cm</Top>
+        <Top>4.5864cm</Top>
         <Left>6.85363cm</Left>
         <Height>0.56472cm</Height>
         <Width>2.5cm</Width>
@@ -1187,7 +1187,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>2.90696cm</Top>
+        <Top>2.27196cm</Top>
         <Left>0.68474cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -1219,7 +1219,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>CIFEmpresa</rd:DefaultName>
-        <Top>2.94224cm</Top>
+        <Top>2.30724cm</Top>
         <Left>2.96425cm</Left>
         <Height>0.56472cm</Height>
         <Width>3.81882cm</Width>
@@ -1252,7 +1252,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>2.27196cm</Top>
+        <Top>1.63696cm</Top>
         <Left>11.35755cm</Left>
         <Height>0.6cm</Height>
         <Width>2.79104cm</Width>
@@ -1285,7 +1285,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>2.27196cm</Top>
+        <Top>1.63696cm</Top>
         <Left>15.9654cm</Left>
         <Height>0.6cm</Height>
         <Width>1.49049cm</Width>
@@ -1320,7 +1320,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ExecutionTime</rd:DefaultName>
-        <Top>2.27196cm</Top>
+        <Top>1.63696cm</Top>
         <Left>17.31477cm</Left>
         <Height>0.56472cm</Height>
         <Width>2.57938cm</Width>
@@ -1354,7 +1354,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>NumFactura</rd:DefaultName>
-        <Top>2.23668cm</Top>
+        <Top>1.60168cm</Top>
         <Left>13.08144cm</Left>
         <Height>0.6cm</Height>
         <Width>1.6757cm</Width>
@@ -1733,7 +1733,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>19.42057cm</Top>
+        <Top>18.78557cm</Top>
         <Left>0.27622cm</Left>
         <Height>5.64155cm</Height>
         <Width>9.62139cm</Width>
@@ -1978,7 +1978,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>16.84184cm</Top>
+        <Top>16.20684cm</Top>
         <Left>10.34459cm</Left>
         <Height>4.305cm</Height>
         <Width>9.4891cm</Width>
@@ -2182,7 +2182,7 @@
             </Paragraphs>
             <rd:DefaultName>PorcIVA</rd:DefaultName>
             <Top>1.69278cm</Top>
-            <Left>3.78764cm</Left>
+            <Left>4.10514cm</Left>
             <Height>0.6cm</Height>
             <Width>2.41653cm</Width>
             <ZIndex>5</ZIndex>
@@ -2265,7 +2265,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>21.67545cm</Top>
+        <Top>21.04045cm</Top>
         <Left>10.34459cm</Left>
         <Height>3.38667cm</Height>
         <Width>9.4891cm</Width>
@@ -2295,7 +2295,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>13.90814cm</Top>
+        <Top>13.27314cm</Top>
         <Left>0.59372cm</Left>
         <Height>0.99688cm</Height>
         <Width>5.86021cm</Width>
@@ -2328,7 +2328,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>16.55079cm</Top>
+        <Top>15.91579cm</Top>
         <Left>0.59372cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -2361,7 +2361,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>17.34773cm</Top>
+        <Top>16.71273cm</Top>
         <Left>0.59372cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -2394,7 +2394,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>18.08884cm</Top>
+        <Top>17.45384cm</Top>
         <Left>0.59372cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -2426,7 +2426,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DireccionEmpresa</rd:DefaultName>
-        <Top>16.55079cm</Top>
+        <Top>15.91579cm</Top>
         <Left>2.87323cm</Left>
         <Height>0.6cm</Height>
         <Width>6.28355cm</Width>
@@ -2458,7 +2458,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>TelefonoEmpresa</rd:DefaultName>
-        <Top>17.34773cm</Top>
+        <Top>16.71273cm</Top>
         <Left>2.87323cm</Left>
         <Height>0.6cm</Height>
         <Width>4.0834cm</Width>
@@ -2490,7 +2490,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>LocalidadEmpresa</rd:DefaultName>
-        <Top>18.12412cm</Top>
+        <Top>17.48912cm</Top>
         <Left>2.87323cm</Left>
         <Height>0.56472cm</Height>
         <Width>4.0834cm</Width>
@@ -2522,7 +2522,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>CodPostalEmpresa</rd:DefaultName>
-        <Top>18.12412cm</Top>
+        <Top>17.48912cm</Top>
         <Left>6.76261cm</Left>
         <Height>0.56472cm</Height>
         <Width>2.5cm</Width>
@@ -2555,7 +2555,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox18</rd:DefaultName>
-        <Top>15.80968cm</Top>
+        <Top>15.17468cm</Top>
         <Left>0.59372cm</Left>
         <Height>0.6cm</Height>
         <Width>2.10312cm</Width>
@@ -2587,7 +2587,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>CIFEmpresa</rd:DefaultName>
-        <Top>15.84496cm</Top>
+        <Top>15.20996cm</Top>
         <Left>2.87323cm</Left>
         <Height>0.56472cm</Height>
         <Width>3.81882cm</Width>
@@ -2620,7 +2620,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>15.17468cm</Top>
+        <Top>14.53968cm</Top>
         <Left>11.26653cm</Left>
         <Height>0.6cm</Height>
         <Width>2.79104cm</Width>
@@ -2653,7 +2653,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
-        <Top>15.17468cm</Top>
+        <Top>14.53968cm</Top>
         <Left>15.87438cm</Left>
         <Height>0.6cm</Height>
         <Width>1.49049cm</Width>
@@ -2688,7 +2688,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>ExecutionTime</rd:DefaultName>
-        <Top>15.17468cm</Top>
+        <Top>14.53968cm</Top>
         <Left>17.22375cm</Left>
         <Height>0.56472cm</Height>
         <Width>2.57938cm</Width>
@@ -2722,7 +2722,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>NumFactura</rd:DefaultName>
-        <Top>15.1394cm</Top>
+        <Top>14.5044cm</Top>
         <Left>12.99042cm</Left>
         <Height>0.6cm</Height>
         <Width>1.6757cm</Width>
@@ -2787,23 +2787,23 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="BaseImponible1">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="PorcIVA">
-      <DataType>Integer</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="PrecioIVA1">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Total1">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="NumFactura1">
-      <DataType>Integer</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="DireccionEmpresa">
@@ -2847,7 +2847,7 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="NumFactura2">
-      <DataType>Integer</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="MarcaVehiculo2">
@@ -2863,15 +2863,15 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="BaseImponible2">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="PrecioIVA2">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Total2">
-      <DataType>Float</DataType>
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
