@@ -24,11 +24,12 @@ Public Class Garaje
 
     End Function
 
+
     ''' <summary>
     ''' Obtiene todos los garajes.
     ''' </summary>
-    ''' <returns>Lista con todos los garajes.</returns>
-    Public Shared Function ObtenerGarajes() As List(Of Garaje)
+    ''' <returns>Array con todos los garajes.</returns>
+    Public Shared Function ObtenerGarajes() As Garaje()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
@@ -81,7 +82,7 @@ Public Class Garaje
 
             conexion.Close()
 
-            Return listaGarajes
+            Return listaGarajes.ToArray()
 
         End If
 
@@ -95,8 +96,8 @@ Public Class Garaje
     ''' <summary>
     ''' Obtiene los nombres de todos los garajes.
     ''' </summary>
-    ''' <returns>Lista con los nombres de los garajes.</returns>
-    Public Shared Function ObtenerNombresGarajes() As List(Of Garaje)
+    ''' <returns>Array con los nombres de los garajes.</returns>
+    Public Shared Function ObtenerNombresGarajes() As Garaje()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre
@@ -129,7 +130,7 @@ Public Class Garaje
             conexion.Close()
             datos.Close()
 
-            Return listaGarajes
+            Return listaGarajes.ToArray()
 
         End If
 

@@ -45,10 +45,10 @@ Public Class VntAddVehiculo
 
             PrecBaseVehiculoTxt.DataContext = VehiculoSelec
 
-            Dim listaGarajes As List(Of Garaje) = Garaje.ObtenerNombresGarajes()
-            GarajesCmb.DataContext = listaGarajes               ' Cargamos los garajes en su ComboBox.
+            Dim arrayGarajes As Garaje() = Garaje.ObtenerNombresGarajes()
+            GarajesCmb.DataContext = arrayGarajes               ' Cargamos los garajes en su ComboBox.
 
-            Dim posicionGaraje As Integer = ObtenerPosicionGaraje(listaGarajes)
+            Dim posicionGaraje As Integer = ObtenerPosicionGaraje(arrayGarajes)
 
             If posicionGaraje <> -1 Then
 
@@ -56,10 +56,10 @@ Public Class VntAddVehiculo
 
             End If
 
-            Dim listaClientes As List(Of Cliente) = Cliente.ObtenerNombreYApellidosClientes()
-            ClientesCmb.DataContext = listaClientes                 ' Cargamos los clientes en su ComboBox.
+            Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientes()
+            ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
 
-            Dim posicionCliente As Integer = ObtenerPosicionCliente(listaClientes)
+            Dim posicionCliente As Integer = ObtenerPosicionCliente(arrayClientes)
 
             If posicionCliente <> -1 Then
 
@@ -67,10 +67,10 @@ Public Class VntAddVehiculo
 
             End If
 
-            Dim listaPlazasOcupadas As List(Of Plaza) = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(listaGarajes(posicionGaraje).Id)
-            PlazasCmb.DataContext = listaPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
+            Dim arrayPlazasOcupadas As Plaza() = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(arrayGarajes(posicionGaraje).Id)
+            PlazasCmb.DataContext = arrayPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
 
-            Dim posicionPlaza As Integer = ObtenerPosicionPlaza(listaPlazasOcupadas)
+            Dim posicionPlaza As Integer = ObtenerPosicionPlaza(arrayPlazasOcupadas)
 
             If posicionPlaza <> -1 Then
 
@@ -86,13 +86,13 @@ Public Class VntAddVehiculo
     ''' <summary>
     ''' Obtiene la posición de la lista donde el nombre y apellidos del cliente coincida con el del vehículo seleccionado.
     ''' </summary>
-    ''' <param name="listaClientes">La lista de los clientes.</param>
-    ''' <returns>La posición de la lista.</returns>
-    Private Function ObtenerPosicionCliente(ByRef listaClientes As List(Of Cliente)) As Integer
+    ''' <param name="arrayClientes">El array de los clientes.</param>
+    ''' <returns>La posición del array.</returns>
+    Private Function ObtenerPosicionCliente(ByRef arrayClientes As Cliente()) As Integer
 
-        For i As Integer = 0 To listaClientes.Count - 1 Step 1
+        For i As Integer = 0 To arrayClientes.Count - 1 Step 1
 
-            Dim cliente As Cliente = listaClientes(i)
+            Dim cliente As Cliente = arrayClientes(i)
 
             If cliente.Nombre.Equals(VehiculoSelec.Cliente.Nombre) And cliente.Apellidos.Equals(VehiculoSelec.Cliente.Apellidos) Then
 
@@ -110,13 +110,13 @@ Public Class VntAddVehiculo
     ''' <summary>
     ''' Obtiene la posición de la lista donde el Id del garaje coincida con el del vehículo seleccionado.
     ''' </summary>
-    ''' <param name="listaGarajes">La lista de los garajes.</param>
-    ''' <returns>La posición de la lista.</returns>
-    Private Function ObtenerPosicionGaraje(ByRef listaGarajes As List(Of Garaje)) As Integer
+    ''' <param name="arrayGarajes">El array de los garajes.</param>
+    ''' <returns>La posición del array.</returns>
+    Private Function ObtenerPosicionGaraje(ByRef arrayGarajes As Garaje()) As Integer
 
-        For i As Integer = 0 To listaGarajes.Count - 1 Step 1
+        For i As Integer = 0 To arrayGarajes.Count - 1 Step 1
 
-            Dim garaje As Garaje = listaGarajes(i)
+            Dim garaje As Garaje = arrayGarajes(i)
 
             If garaje.Id = VehiculoSelec.IdGaraje Then
 
@@ -134,13 +134,13 @@ Public Class VntAddVehiculo
     ''' <summary>
     ''' Obtiene la posición de la lista donde el Id de la plaza coincida con el del vehículo seleccionado.
     ''' </summary>
-    ''' <param name="listaPlazasLibres">La lista de las plazas libres.</param>
-    ''' <returns>La posición de la lista.</returns>
-    Private Function ObtenerPosicionPlaza(ByRef listaPlazasLibres As List(Of Plaza)) As Integer
+    ''' <param name="arrayPlazasLibres">El array de las plazas libres.</param>
+    ''' <returns>La posición del array.</returns>
+    Private Function ObtenerPosicionPlaza(ByRef arrayPlazasLibres As Plaza()) As Integer
 
-        For i As Integer = 0 To listaPlazasLibres.Count - 1 Step 1
+        For i As Integer = 0 To arrayPlazasLibres.Count - 1 Step 1
 
-            Dim plaza As Plaza = listaPlazasLibres(i)
+            Dim plaza As Plaza = arrayPlazasLibres(i)
 
             If plaza.Id = VehiculoSelec.IdPlaza Then
 

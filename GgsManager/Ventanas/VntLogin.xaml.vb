@@ -26,7 +26,7 @@
 
             If Usuario.ExisteUsuario(UsuarioTxt.Text) Then
 
-                Usuario.UsuarioLogueado = Usuario.ObtenerUsuarioPrograma(UsuarioTxt.Text)           ' Guardamos el usuario que ha iniciado sesión.
+                Usuario.UsuarioLogueado = Usuario.ObtenerUsuario(UsuarioTxt.Text)           ' Guardamos el usuario que ha iniciado sesión.
 
                 If Usuario.ComprobarHashPassword(PasswordBox.Password) Then
 

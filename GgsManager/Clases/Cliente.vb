@@ -34,11 +34,12 @@ Public Class Cliente
 
     End Function
 
+
     ''' <summary>
     ''' Obtiene todos los clientes.
     ''' </summary>
-    ''' <returns>Lista de los clientes.</returns>
-    Public Shared Function ObtenerClientes() As List(Of Cliente)
+    ''' <returns>Array con los clientes.</returns>
+    Public Shared Function ObtenerClientes() As Cliente()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
@@ -98,7 +99,7 @@ Public Class Cliente
             conexion.Close()
             datos.Close()
 
-            Return listaClientes
+            Return listaClientes.ToArray()
 
         End If
 
@@ -112,8 +113,8 @@ Public Class Cliente
     ''' <summary>
     ''' Obtiene el Id, nombre y apellidos de todos los clientes.
     ''' </summary>
-    ''' <returns>Lista con el Id, nombre y apellidos de los clientes.</returns>
-    Public Shared Function ObtenerNombreYApellidosClientes() As List(Of Cliente)
+    ''' <returns>Array con el Id, nombre y apellidos de los clientes.</returns>
+    Public Shared Function ObtenerNombreYApellidosClientes() As Cliente()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos
@@ -148,7 +149,7 @@ Public Class Cliente
             conexion.Close()
             datos.Close()
 
-            Return listaClientes
+            Return listaClientes.ToArray()
 
         End If
 
@@ -162,8 +163,8 @@ Public Class Cliente
     ''' <summary>
     ''' Obtiene el Id, nombre y apellidos de los clientes a partir del Id de un garaje.
     ''' </summary>
-    ''' <returns>Lista con el Id, nombre y apellidos de los clientes.</returns>
-    Public Shared Function ObtenerNombreYApellidosClientesPorIdGaraje(ByRef idGaraje As Integer) As List(Of Cliente)
+    ''' <returns>Array con el Id, nombre y apellidos de los clientes.</returns>
+    Public Shared Function ObtenerNombreYApellidosClientesPorIdGaraje(ByRef idGaraje As Integer) As Cliente()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos
@@ -201,7 +202,7 @@ Public Class Cliente
             conexion.Close()
             datos.Close()
 
-            Return listaClientes
+            Return listaClientes.ToArray()
 
         End If
 

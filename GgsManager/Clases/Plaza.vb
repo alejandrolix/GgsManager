@@ -29,8 +29,8 @@ Public Class Plaza
     ''' Obtiene todos los Id de las plazas libres a partir del Id del garaje.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje.</param>
-    ''' <returns>Lista con las plazas libres.</returns>
-    Public Shared Function ObtenerIdPlazasLibresPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
+    ''' <returns>Array con las plazas libres.</returns>
+    Public Shared Function ObtenerIdPlazasLibresPorIdGaraje(ByRef idGaraje As Integer) As Plaza()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdPlaza
@@ -66,7 +66,7 @@ Public Class Plaza
             conexion.Close()
             datos.Close()
 
-            Return listaPlazas
+            Return listaPlazas.ToArray()
 
         End If
 
@@ -81,8 +81,8 @@ Public Class Plaza
     ''' Obtiene todos los Id de las plazas ocupadas a partir del Id del garaje.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje.</param>
-    ''' <returns>Lista con las plazas ocupadas.</returns>
-    Public Shared Function ObtenerIdPlazasOcupadasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
+    ''' <returns>Array con las plazas ocupadas.</returns>
+    Public Shared Function ObtenerIdPlazasOcupadasPorIdGaraje(ByRef idGaraje As Integer) As Plaza()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdPlaza
@@ -118,7 +118,7 @@ Public Class Plaza
             conexion.Close()
             datos.Close()
 
-            Return listaPlazas
+            Return listaPlazas.ToArray()
 
         End If
 
@@ -133,8 +133,8 @@ Public Class Plaza
     ''' Obtiene todas las plazas a partir del Id del garaje.
     ''' </summary>
     ''' <param name="idGaraje">Id del garaje.</param>
-    ''' <returns>Lista con los datos de las plazas.</returns>
-    Public Shared Function ObtenerPlazasPorIdGaraje(ByRef idGaraje As Integer) As List(Of Plaza)
+    ''' <returns>Array con los datos de las plazas.</returns>
+    Public Shared Function ObtenerPlazasPorIdGaraje(ByRef idGaraje As Integer) As Plaza()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT Veh.Matricula, Veh.Marca, Veh.Modelo, Plz.IdPlaza, Sit.Tipo
@@ -175,7 +175,7 @@ Public Class Plaza
             datos.Close()
             conexion.Close()
 
-            Return listaPlazas
+            Return listaPlazas.ToArray()
 
         End If
 

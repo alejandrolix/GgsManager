@@ -21,8 +21,8 @@ Public Class Vehiculo
     ''' Obtiene todos los vehículos a partir del Id de un garaje.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje seleccionado.</param>
-    ''' <returns>Lista con los vehículos del garaje seleccionado.</returns>
-    Public Shared Function ObtenerVehiculosPorIdGaraje(ByRef idGaraje As Integer) As List(Of Vehiculo)
+    ''' <returns>Array con los vehículos del garaje seleccionado.</returns>
+    Public Shared Function ObtenerVehiculosPorIdGaraje(ByRef idGaraje As Integer) As Vehiculo()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase
@@ -65,7 +65,7 @@ Public Class Vehiculo
             datos.Close()
             conexion.Close()
 
-            Return listaVehiculos
+            Return listaVehiculos.ToArray()
 
         End If
 

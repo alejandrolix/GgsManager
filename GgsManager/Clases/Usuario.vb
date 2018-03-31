@@ -58,7 +58,7 @@ Public Class Usuario
     ''' </summary>
     ''' <param name="nombreUsuario">Nombre del usuario introducido.</param>
     ''' <returns>Datos del usuario iniciado.</returns>
-    Public Shared Function ObtenerUsuarioPrograma(ByRef nombreUsuario As String) As Usuario
+    Public Shared Function ObtenerUsuario(ByRef nombreUsuario As String) As Usuario
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, EsGestor 
@@ -67,7 +67,7 @@ Public Class Usuario
 
         comando.Parameters.AddWithValue("@Nombre", nombreUsuario)
         Dim datos As MySqlDataReader
-        Dim usuarioPrograma As Usuario
+        Dim usuario As Usuario
 
         Try
             datos = comando.ExecuteReader()
@@ -85,7 +85,7 @@ Public Class Usuario
                 Dim idUsuario As Integer = datos.GetInt32("IdUsuario")
                 Dim esGestor As Boolean = datos.GetBoolean("EsGestor")
 
-                usuarioPrograma = New Usuario(idUsuario, nombreUsuario, esGestor)
+                usuario = New Usuario(idUsuario, nombreUsuario, esGestor)
 
             End If
 
@@ -95,7 +95,7 @@ Public Class Usuario
 
         conexion.Close()
 
-        Return usuarioPrograma
+        Return usuario
 
     End Function
 
@@ -127,8 +127,8 @@ Public Class Usuario
     ''' <summary>
     ''' Obtiene todos los usuarios.
     ''' </summary>
-    ''' <returns>Lista con los usuarios.</returns>
-    Public Shared Function ObtenerUsuarios() As List(Of Usuario)
+    ''' <returns>Array con los usuarios.</returns>
+    Public Shared Function ObtenerUsuarios() As Usuario()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, Nombre, EsGestor
@@ -154,15 +154,15 @@ Public Class Usuario
                 Dim nombre As String = datos.GetString("Nombre")
                 Dim esGestor As Boolean = datos.GetBoolean("EsGestor")
 
-                Dim usuarioPrograma As New Usuario(id, nombre, esGestor)
-                listaUsuarios.Add(usuarioPrograma)
+                Dim usuario As New Usuario(id, nombre, esGestor)
+                listaUsuarios.Add(usuario)
 
             End While
 
             datos.Close()
             conexion.Close()
 
-            Return listaUsuarios
+            Return listaUsuarios.ToArray()
 
         End If
 
