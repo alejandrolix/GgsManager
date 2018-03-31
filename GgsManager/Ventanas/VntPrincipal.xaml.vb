@@ -75,7 +75,7 @@
 
     Private Sub Plazas_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntSeleccGaraje(Foo.Ventana.Plazas)
+        AbrirVntSeleccGaraje(Me, Foo.Ventana.Plazas)
 
     End Sub
 
