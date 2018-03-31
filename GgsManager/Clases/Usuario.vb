@@ -214,25 +214,35 @@ Public Class Usuario
     Public Function Insertar(ByRef hashPassword As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("INSERT INTO Usuarios (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, @Nombre, @Password, @EsGestorB);", conexion)
 
-        comando.Parameters.AddWithValue("@Nombre", Nombre)
-        comando.Parameters.AddWithValue("@Password", hashPassword)
-        comando.Parameters.AddWithValue("@EsGestorB", EsGestorB)
-        Dim numFila As Integer
+        If ExisteUsuario(Nombre) Then
 
-        Try
-            numFila = comando.ExecuteNonQuery()
+            MessageBox.Show("El usuario introducido ya existe, introduzca otro usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
-        Catch ex As Exception
+            Dim comando As New MySqlCommand("INSERT INTO Usuarios (IdUsuario, Nombre, Password, EsGestor) VALUES (NULL, @Nombre, @Password, @EsGestorB);", conexion)
 
-            MessageBox.Show("Ha habido un problema al insertar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            comando.Parameters.AddWithValue("@Nombre", Nombre)
+            comando.Parameters.AddWithValue("@Password", hashPassword)
+            comando.Parameters.AddWithValue("@EsGestorB", EsGestorB)
+            Dim numFila As Integer
 
-        End Try
+            Try
+                numFila = comando.ExecuteNonQuery()
 
-        conexion.Close()
+            Catch ex As Exception
 
-        Return numFila >= 1
+                MessageBox.Show("Ha habido un problema al insertar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+            End Try
+
+            conexion.Close()
+
+            Return numFila >= 1
+
+        End If
+
+        Return False
 
     End Function
 

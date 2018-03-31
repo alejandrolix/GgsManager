@@ -240,6 +240,7 @@ Public Class Factura
 
             Me.IdCliente = id
         Else
+
             Me.IdGaraje = id
 
         End If

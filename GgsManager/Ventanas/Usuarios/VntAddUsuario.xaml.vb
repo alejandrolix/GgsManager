@@ -45,6 +45,9 @@
 
                     MessageBox.Show("Se ha añadido el usuario.", "Usuario Añadido", MessageBoxButton.OK, MessageBoxImage.Error)
                     LimpiarCampos()
+                Else
+
+                    NombreUsuTxt.Text = ""
 
                 End If
 

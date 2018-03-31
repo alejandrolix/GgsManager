@@ -38,7 +38,9 @@ Public Class Plaza
                                          WHERE  IdGaraje = @IdGaraje AND IdSituacion = (
                                                                                         SELECT IdSituacion
                                                                                         FROM   SituacionesPlaza
-                                                                                        WHERE  Tipo = 'Libre');", conexion)
+                                                                                        WHERE  Tipo = 'Libre')
+                                         ORDER BY IdPlaza;", conexion)
+
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader
 
@@ -90,7 +92,9 @@ Public Class Plaza
                                          WHERE  IdGaraje = @IdGaraje AND IdSituacion = (
                                                                                         SELECT IdSituacion
                                                                                         FROM   SituacionesPlaza
-                                                                                        WHERE  Tipo = 'Ocupada');", conexion)
+                                                                                        WHERE  Tipo = 'Ocupada')
+                                         ORDER BY IdPlaza;", conexion)
+
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader
 
@@ -141,7 +145,8 @@ Public Class Plaza
                                          FROM   Vehiculos Veh 
 	                                            JOIN Plazas Plz ON Plz.IdPlaza = Veh.IdPlaza 
                                                 JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion 
-                                         WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+                                         WHERE  Veh.IdGaraje = @IdGaraje
+                                         ORDER BY Plz.IdPlaza;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader

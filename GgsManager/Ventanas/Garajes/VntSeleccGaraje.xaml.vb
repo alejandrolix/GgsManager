@@ -66,7 +66,11 @@
 
             End Select
 
-            ' Ventana <> Foo.Ventana.InformeEstadGaraje            
+            If Ventana <> Foo.Ventana.InformeEstadGaraje Then
+
+                Me.Close()
+
+            End If
 
             If vntVehic IsNot Nothing Then
 

@@ -33,7 +33,8 @@ Public Class Garaje
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
-                                         FROM   Garajes;", conexion)
+                                         FROM   Garajes
+                                         ORDER BY Nombre;", conexion)
         Dim datos As MySqlDataReader
 
         Try
@@ -101,7 +102,8 @@ Public Class Garaje
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre
-                                         FROM   Garajes", conexion)
+                                         FROM   Garajes
+                                         ORDER BY Nombre;", conexion)
         Dim datos As MySqlDataReader
 
         Try

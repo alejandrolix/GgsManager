@@ -43,8 +43,8 @@ Public Class Cliente
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
-                                         FROM   Clientes", conexion)
-
+                                         FROM   Clientes
+                                         ORDER BY Apellidos;", conexion)
         Dim datos As MySqlDataReader = Nothing
 
         Try
@@ -118,7 +118,8 @@ Public Class Cliente
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos
-                                         FROM   Clientes;", conexion)
+                                         FROM   Clientes
+                                         ORDER BY Apellidos;", conexion)
 
         Dim datos As MySqlDataReader = Nothing
 
@@ -170,7 +171,8 @@ Public Class Cliente
         Dim comando As New MySqlCommand("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos
                                          FROM   Clientes Cli
 	                                            JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
-                                         WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+                                         WHERE  Veh.IdGaraje = @IdGaraje
+                                         ORDER BY Cli.Apellidos;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader = Nothing
@@ -223,7 +225,8 @@ Public Class Cliente
         Dim comando As New MySqlCommand("SELECT CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Nombre', Cli.DNI, Cli.Direccion, Cli.Provincia, Cli.Movil, Veh.Marca, Veh.Modelo, Veh.Matricula, Veh.PrecioBase
                                          FROM   Clientes Cli
 	                                            JOIN Vehiculos Veh ON Cli.IdCliente = Veh.IdCliente
-                                         WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+                                         WHERE  Veh.IdGaraje = @IdGaraje
+                                         ORDER BY Nombre;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader

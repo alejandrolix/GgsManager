@@ -28,7 +28,8 @@ Public Class Vehiculo
         Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase
                                          FROM   Vehiculos Veh
                                                 JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente
-                                         WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+                                         WHERE  Veh.IdGaraje = @IdGaraje
+                                         ORDER BY Cli.Apellidos;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
         Dim datos As MySqlDataReader
