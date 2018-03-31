@@ -9,20 +9,7 @@ Public Class FormInfClientes
 
         ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
 
-        Dim conexion As New MySqlConnection(My.Settings.ConexionABd)
-        conexion.Open()
-
-        Dim adaptador As New MySqlDataAdapter("SELECT Cli.IdCliente, Cli.Nombre, Cli.DNI, Cli.Movil, Cli.Observaciones
-                                               FROM   Clientes Cli
-	                                                  JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
-                                               WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
-
-        adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", IdGarajeSelec)
-        Dim dtClientes As New DtClientes()
-
-        adaptador.Fill(dtClientes, "Clientes")
-        conexion.Close()
-
+        Dim dtClientes As DtClientes = Cliente.RellenarDatosClientesPorIdGaraje(IdGarajeSelec)
         EstablecerNombreGaraje()
 
         ReportViewer.ProcessingMode = ProcessingMode.Local

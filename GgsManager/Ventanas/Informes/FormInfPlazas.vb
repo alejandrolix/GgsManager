@@ -1,10 +1,8 @@
 ﻿Imports Microsoft.Reporting.WinForms
-Imports MySql.Data.MySqlClient
 
 Public Class FormInfPlazas
 
     Private IdGarajeSelec As Integer
-    Private Adaptador As MySqlDataAdapter
 
     Private Sub FormInfPlazas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -24,7 +22,7 @@ Public Class FormInfPlazas
 
         If PlLibreRb.Checked Then
 
-            Dim dtPlazas As DtPlazas = Plaza.ObtenerDatosPlazasLibresPorIdGaraje(IdGarajeSelec)
+            Dim dtPlazas As DtPlazas = Plaza.RellenarDatosPlazasLibresPorIdGaraje(IdGarajeSelec)
 
             ReportViewer.ProcessingMode = ProcessingMode.Local
             ReportViewer.LocalReport.DataSources.Clear()
@@ -41,7 +39,7 @@ Public Class FormInfPlazas
 
         If PlOcupadaRb.Checked Then
 
-            Dim dtPlazas As DtPlazas = Plaza.ObtenerDatosPlazasOcupadasPorIdGaraje(IdGarajeSelec)
+            Dim dtPlazas As DtPlazas = Plaza.RellenarDatosPlazasOcupadasPorIdGaraje(IdGarajeSelec)
 
             ReportViewer.ProcessingMode = ProcessingMode.Local
             ReportViewer.LocalReport.DataSources.Clear()
@@ -58,7 +56,7 @@ Public Class FormInfPlazas
 
         If PlTodasRb.Checked Then
 
-            Dim dtPlazas As DtPlazas = Plaza.ObtenerDatosTodasPlazasPorIdGaraje(IdGarajeSelec)
+            Dim dtPlazas As DtPlazas = Plaza.RellenarDatosTodasPlazasPorIdGaraje(IdGarajeSelec)
 
             ReportViewer.ProcessingMode = ProcessingMode.Local
             ReportViewer.LocalReport.DataSources.Clear()

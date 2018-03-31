@@ -196,7 +196,7 @@ Public Class Plaza
     ''' </summary>
     ''' <param name="idGaraje">El Id de un garaje.</param>    
     ''' <returns>DataSet con los datos de las plazas libres.</returns>
-    Public Shared Function ObtenerDatosPlazasLibresPorIdGaraje(ByRef idGaraje As Integer) As DtPlazas
+    Public Shared Function RellenarDatosPlazasLibresPorIdGaraje(ByRef idGaraje As Integer) As DtPlazas
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim dtPlazas As New DtPlazas()
@@ -233,7 +233,7 @@ Public Class Plaza
     ''' </summary>
     ''' <param name="idGaraje">El Id de un garaje.</param>    
     ''' <returns>DataSet con los datos de las plazas ocupadas.</returns>
-    Public Shared Function ObtenerDatosPlazasOcupadasPorIdGaraje(ByRef idGaraje As Integer) As DtPlazas
+    Public Shared Function RellenarDatosPlazasOcupadasPorIdGaraje(ByRef idGaraje As Integer) As DtPlazas
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim dtPlazas As New DtPlazas()
@@ -270,7 +270,7 @@ Public Class Plaza
     ''' </summary>
     ''' <param name="idGaraje">El Id de un garaje.</param>    
     ''' <returns>DataSet con los datos de todas las plazas.</returns>
-    Public Shared Function ObtenerDatosTodasPlazasPorIdGaraje(ByRef idGaraje As Integer) As DtPlazas
+    Public Shared Function RellenarDatosTodasPlazasPorIdGaraje(ByRef idGaraje As Integer) As DtPlazas
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim dtPlazas As New DtPlazas()

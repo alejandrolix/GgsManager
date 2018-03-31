@@ -279,6 +279,39 @@ Public Class Cliente
 
 
     ''' <summary>
+    ''' Obtiene los datos de los clientes a partir del Id de un garaje.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    ''' <returns>DataSet con los datos de los clientes.</returns>
+    Public Shared Function RellenarDatosClientesPorIdGaraje(ByRef idGaraje As Integer) As DtClientes
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim dtClientes As New DtClientes()
+
+        Try
+            Dim adaptador As New MySqlDataAdapter("SELECT Cli.IdCliente, Cli.Nombre, Cli.DNI, Cli.Movil, Cli.Observaciones
+                                                   FROM   Clientes Cli
+	                                                      JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
+                                                   WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+
+            adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", idGaraje)
+
+            adaptador.Fill(dtClientes, "Clientes")
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al obtener los datos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        conexion.Close()
+
+        Return dtClientes
+
+    End Function
+
+
+    ''' <summary>
     ''' Obtiene el nuevo Id de la tabla "Clientes", (ultimoId + 1) para guardar su imagen.
     ''' </summary>
     ''' <returns>El nuevo Id de la imagen.</returns>
