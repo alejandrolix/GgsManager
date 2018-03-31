@@ -39,7 +39,7 @@ Public Class Cliente
     ''' Obtiene todos los clientes.
     ''' </summary>
     ''' <returns>Array con los clientes.</returns>
-    Public Shared Function ObtenerClientes() As List(Of Cliente)
+    Public Shared Function ObtenerClientes() As Cliente()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
@@ -99,7 +99,7 @@ Public Class Cliente
             conexion.Close()
             datos.Close()
 
-            Return listaClientes
+            Return listaClientes.ToArray()
 
         End If
 
