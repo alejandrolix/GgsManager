@@ -23,7 +23,7 @@ Partial Class FormInfPlazas
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ReportDataSource4 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource10 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.PlazasBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DtPlazas = New GgsManager.DtPlazas()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
@@ -65,19 +65,19 @@ Partial Class FormInfPlazas
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.GroupBox1)
         Me.SplitContainer1.Size = New System.Drawing.Size(894, 526)
-        Me.SplitContainer1.SplitterDistance = 784
+        Me.SplitContainer1.SplitterDistance = 807
         Me.SplitContainer1.TabIndex = 0
         '
         'ReportViewer
         '
         Me.ReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        ReportDataSource4.Name = "DtPlazas"
-        ReportDataSource4.Value = Me.PlazasBindingSource
-        Me.ReportViewer.LocalReport.DataSources.Add(ReportDataSource4)
+        ReportDataSource10.Name = "DtPlazas"
+        ReportDataSource10.Value = Me.PlazasBindingSource
+        Me.ReportViewer.LocalReport.DataSources.Add(ReportDataSource10)
         Me.ReportViewer.LocalReport.ReportEmbeddedResource = "GgsManager.InfPlazas.rdlc"
         Me.ReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer.Name = "ReportViewer"
-        Me.ReportViewer.Size = New System.Drawing.Size(784, 526)
+        Me.ReportViewer.Size = New System.Drawing.Size(807, 526)
         Me.ReportViewer.TabIndex = 0
         '
         'GroupBox1
@@ -86,7 +86,7 @@ Partial Class FormInfPlazas
         Me.GroupBox1.Controls.Add(Me.PlOcupadaRb)
         Me.GroupBox1.Controls.Add(Me.PlLibreRb)
         Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(13, 256)
+        Me.GroupBox1.Location = New System.Drawing.Point(20, 379)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(139, 136)
         Me.GroupBox1.TabIndex = 0

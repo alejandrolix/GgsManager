@@ -13,8 +13,6 @@ Public Class Vehiculo
     Property IdPlaza As Integer
     Property IdGaraje As Integer
     Property PrecioBase As Decimal
-    Property PrecioTotal As Decimal
-    Property ArrayUrlFotos As String()
 
 
     ''' <summary>

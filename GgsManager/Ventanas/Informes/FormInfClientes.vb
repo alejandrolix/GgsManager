@@ -12,10 +12,12 @@ Public Class FormInfClientes
         Dim conexion As New MySqlConnection(My.Settings.ConexionABd)
         conexion.Open()
 
-        Dim adaptador As New MySqlDataAdapter(String.Format("SELECT Cli.IdCliente, Cli.Nombre, Cli.DNI, Cli.Movil, Cli.Observaciones
-                                                             FROM   Clientes Cli
-	                                                                JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
-                                                             WHERE  Veh.IdGaraje = {0};", IdGarajeSelec), conexion)
+        Dim adaptador As New MySqlDataAdapter("SELECT Cli.IdCliente, Cli.Nombre, Cli.DNI, Cli.Movil, Cli.Observaciones
+                                               FROM   Clientes Cli
+	                                                  JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
+                                               WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+
+        adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", IdGarajeSelec)
         Dim dtClientes As New DtClientes()
 
         adaptador.Fill(dtClientes, "Clientes")

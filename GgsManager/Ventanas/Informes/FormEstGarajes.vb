@@ -21,9 +21,12 @@ Public Class FormEstGarajes
                                               FROM   Garajes;", conexion)
         Else
 
-            adaptador = New MySqlDataAdapter(String.Format("SELECT Nombre AS 'NombreGaraje', NumPlazas AS 'NumeroPlazas', TRUNCATE((NumPlazasLibres * NumPlazas) / 100, 0) AS 'PorcentajePlazasLibres', TRUNCATE((NumPlazasOcupadas * NumPlazas) / 100, 0) AS 'PorcentajePlazasOcupadas'
-                                                            FROM   Garajes
-                                                            WHERE  IdGaraje = {0}", IdGarajeSelec), conexion)
+            adaptador = New MySqlDataAdapter("SELECT Nombre AS 'NombreGaraje', NumPlazas AS 'NumeroPlazas', TRUNCATE((NumPlazasLibres * NumPlazas) / 100, 0) AS 'PorcentajePlazasLibres', TRUNCATE((NumPlazasOcupadas * NumPlazas) / 100, 0) AS 'PorcentajePlazasOcupadas'
+                                              FROM   Garajes
+                                              WHERE  IdGaraje = @IdGaraje;", conexion)
+
+            adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", IdGarajeSelec)
+
         End If
 
         EstablecerTituloInforme()

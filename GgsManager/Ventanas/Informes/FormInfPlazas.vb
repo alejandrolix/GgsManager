@@ -24,19 +24,7 @@ Public Class FormInfPlazas
 
         If PlLibreRb.Checked Then
 
-            Dim conexion As MySqlConnection = Foo.ConexionABd()
-            Dim dtPlazas As New DtPlazas()
-
-            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, Veh.PrecioTotal
-                                                               FROM   Plazas Plz
-                                                                      JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
-                                                                      JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
-                                                               WHERE  Plz.IdGaraje = {0} AND Plz.IdSituacion = (
-												                                                                SELECT IdSituacion
-                                                                                                                FROM   SituacionesPlaza
-                                                                                                                WHERE  Tipo = 'Libre');", IdGarajeSelec), conexion)
-            Adaptador.Fill(dtPlazas, "Plazas")
-            conexion.Close()
+            Dim dtPlazas As DtPlazas = Plaza.ObtenerDatosPlazasLibresPorIdGaraje(IdGarajeSelec)
 
             ReportViewer.ProcessingMode = ProcessingMode.Local
             ReportViewer.LocalReport.DataSources.Clear()
@@ -53,19 +41,7 @@ Public Class FormInfPlazas
 
         If PlOcupadaRb.Checked Then
 
-            Dim conexion As MySqlConnection = Foo.ConexionABd()
-            Dim dtPlazas As New DtPlazas()
-
-            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, Veh.PrecioTotal
-                                                               FROM   Plazas Plz
-                                                                      JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
-                                                                      JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
-                                                               WHERE  Plz.IdGaraje = {0} AND Plz.IdSituacion = (
-												                                                                SELECT IdSituacion
-                                                                                                                FROM   SituacionesPlaza
-                                                                                                                WHERE  Tipo = 'Ocupada');", IdGarajeSelec), conexion)
-            Adaptador.Fill(dtPlazas, "Plazas")
-            conexion.Close()
+            Dim dtPlazas As DtPlazas = Plaza.ObtenerDatosPlazasOcupadasPorIdGaraje(IdGarajeSelec)
 
             ReportViewer.ProcessingMode = ProcessingMode.Local
             ReportViewer.LocalReport.DataSources.Clear()
@@ -82,18 +58,7 @@ Public Class FormInfPlazas
 
         If PlTodasRb.Checked Then
 
-            Dim conexion As MySqlConnection = Foo.ConexionABd()
-            Dim dtPlazas As New DtPlazas()
-
-            Me.Adaptador = New MySqlDataAdapter(String.Format("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, Veh.PrecioTotal
-                                                               FROM   Plazas Plz
-                                                                      JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
-                                                                      JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
-                                                               WHERE  Plz.IdGaraje = {0} AND Plz.IdSituacion IN (
-												                                                                 SELECT IdSituacion
-                                                                                                                 FROM   SituacionesPlaza);", IdGarajeSelec), conexion)
-            Adaptador.Fill(dtPlazas, "Plazas")
-            conexion.Close()
+            Dim dtPlazas As DtPlazas = Plaza.ObtenerDatosTodasPlazasPorIdGaraje(IdGarajeSelec)
 
             ReportViewer.ProcessingMode = ProcessingMode.Local
             ReportViewer.LocalReport.DataSources.Clear()
