@@ -483,6 +483,7 @@
           <TablixMembers>
             <TablixMember>
               <KeepWithGroup>After</KeepWithGroup>
+              <RepeatOnNewPage>true</RepeatOnNewPage>
             </TablixMember>
             <TablixMember>
               <Group Name="Detalles" />
@@ -501,7 +502,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>3.26747in</Height>
+    <Height>1.51747in</Height>
     <Style />
   </Body>
   <Width>9.81176in</Width>
