@@ -3,7 +3,7 @@
     ''' <summary>
     ''' Para actualizar el DataGrid de garajes.
     ''' </summary>    
-    Property VntGarajes As VntGarajes
+    Private VntGarajes As PgGarajes
 
     ''' <summary>
     ''' Contiene los datos del garaje seleccionado.
@@ -109,22 +109,6 @@
 
     End Sub
 
-    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Garaje)
-
-        InitializeComponent()
-
-        Me.Accion = accion
-        Me.GarajeSelec = garaje
-
-    End Sub
-
-    Public Sub New(ByRef accion As Foo.Accion)
-
-        InitializeComponent()
-        Me.Accion = accion
-
-    End Sub
-
     Private Sub AceptarBtn_Click(sender As Object, e As RoutedEventArgs)
 
         If ComprobarDatosIntroducidos() Then
@@ -162,7 +146,25 @@
 
         End If
 
-        VntGarajes.GarajesDg.DataContext = Garaje.ObtenerGarajes()              ' Actualizamos el DataGrid de Garajes.
+        ' Garajes.GarajesDg.DataContext = Garaje.ObtenerGarajes()              ' Actualizamos el DataGrid de Garajes.
+
+    End Sub
+
+    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Garaje)
+
+        InitializeComponent()
+
+        Me.Accion = accion
+        Me.GarajeSelec = garaje
+
+    End Sub
+
+    Public Sub New(ByRef accion As Foo.Accion, ByRef pgGarajes As PgGarajes)
+
+        InitializeComponent()
+
+        Me.Accion = accion
+        Me.VntGarajes = pgGarajes
 
     End Sub
 

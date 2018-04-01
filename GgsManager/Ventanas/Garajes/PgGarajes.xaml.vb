@@ -1,11 +1,13 @@
-﻿Public Class VntGarajes
+﻿Class PgGarajes
+
+    Private VntPrincipal As VntPrincipal
 
     ''' <summary>
     ''' Contiene los datos del garaje seleccionado.
     ''' </summary>    
     Property GarajeSelec As Garaje
 
-    Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         GarajesDg.DataContext = Garaje.ObtenerGarajes()
 
@@ -62,8 +64,7 @@
     ''' </summary>
     Private Sub AbrirVentanaAddGaraje()
 
-        Dim vntAddGaraje As New AddGaraje(Foo.Accion.Insertar)
-        vntAddGaraje.VntGarajes = Me
+        Dim vntAddGaraje As New AddGaraje(Foo.Accion.Insertar, Me)
         vntAddGaraje.ShowDialog()
 
     End Sub
@@ -73,12 +74,11 @@
     ''' Abre "AddGaraje" para modificar los datos de un garaje seleccionado.
     ''' </summary>
     ''' <param name="accion">Enum para modificar el garaje.</param>
-    ''' <param name="garajeSelec">Datos del garaje seleccionado para poder editarlos.</param>
-    Private Sub AbrirVentanaAddGaraje(ByRef accion As Integer, ByRef garajeSelec As Garaje)
+    ''' <param name="garaje">Datos del garaje seleccionado para poder modificarlos.</param>
+    Private Sub AbrirVentanaAddGaraje(ByRef accion As Integer, ByRef garaje As Garaje)
 
-        Dim vntAddGaraje As New AddGaraje(Foo.Accion.Modificar, garajeSelec)
+        Dim vntAddGaraje As New AddGaraje(Foo.Accion.Modificar, garaje)
         vntAddGaraje.Title = "Modificar Garaje"
-        vntAddGaraje.VntGarajes = Me
         vntAddGaraje.ShowDialog()
 
     End Sub

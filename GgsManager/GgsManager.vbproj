@@ -137,6 +137,9 @@
     <Compile Include="Ventanas\Facturas\FormFactConjunto.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Ventanas\Garajes\PgGarajes.xaml.vb">
+      <DependentUpon>PgGarajes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Garajes\VntSeleccGaraje.xaml.vb">
       <DependentUpon>VntSeleccGaraje.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ventanas\Garajes\PgGarajes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\Garajes\VntAddGaraje.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -229,10 +236,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\Garajes\VntGarajes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Ventanas\VntLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -258,9 +261,6 @@
     </Compile>
     <Compile Include="Ventanas\Clientes\VntClientes.xaml.vb">
       <DependentUpon>VntClientes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ventanas\Garajes\VntGarajes.xaml.vb">
-      <DependentUpon>VntGarajes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\VntLogin.xaml.vb">
       <DependentUpon>VntLogin.xaml</DependentUpon>

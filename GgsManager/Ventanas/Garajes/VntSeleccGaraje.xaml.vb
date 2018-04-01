@@ -74,11 +74,11 @@
 
             If vntVehic IsNot Nothing Then
 
-                VntPrincipal.ContenedorMDI.Children.Add(vntVehic)               ' Mostramos "VntVehiculos".
+                ' VntPrincipal.ContenedorMDI.Children.Add(vntVehic)               ' Mostramos "VntVehiculos".
 
             ElseIf vntPlz IsNot Nothing Then
 
-                VntPrincipal.ContenedorMDI.Children.Add(vntPlz)             ' Mostramos "VntPlazas".
+                ' VntPrincipal.ContenedorMDI.Children.Add(vntPlz)             ' Mostramos "VntPlazas".
 
             End If
 

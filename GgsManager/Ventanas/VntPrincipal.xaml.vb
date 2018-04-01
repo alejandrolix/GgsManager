@@ -19,7 +19,7 @@
 
             MenuPrincipal.IsEnabled = True
 
-            If Usuario.UsuarioLogueado.EsGestorB = False Then           ' Si el usuario logueado no es un gestor, desactivamos las opciones de "Usuarios" y "Configuración".
+            If Usuario.UsuarioLogueado.EsGestorB = False Then           ' Si el usuario logueado no es un gestor, desactivamos las opciones de "Usuarios", "Configuración" y "Estadísticas".
 
                 Usuarios.IsEnabled = False
                 Configuracion.IsEnabled = False
@@ -33,14 +33,16 @@
 
     Private Sub Garajes_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim vntGarajes As New WPF.MDI.MdiChild()
-        vntGarajes.Title = "Gestión de Garajes"
-        vntGarajes.Content = New VntGarajes()
+        Frame.Content = New PgGarajes()
 
-        vntGarajes.Width = 726
-        vntGarajes.Height = 404
+        'Dim vntGarajes As New WPF.MDI.MdiChild()
+        'vntGarajes.Title = "Gestión de Garajes"
+        'vntGarajes.Content = New VntGarajes()
 
-        ContenedorMDI.Children.Add(vntGarajes)
+        'vntGarajes.Width = 726
+        'vntGarajes.Height = 404
+
+        ' ContenedorMDI.Children.Add(vntGarajes)
 
     End Sub
 
@@ -53,7 +55,7 @@
         vntClientes.Width = 1460
         vntClientes.Height = 483
 
-        ContenedorMDI.Children.Add(vntClientes)
+        ' ContenedorMDI.Children.Add(vntClientes)
 
     End Sub
 
@@ -69,7 +71,7 @@
         vntUsuarios.Title = "Gestión de Usuarios"
         vntUsuarios.Content = New VntUsuarios()
 
-        ContenedorMDI.Children.Add(vntUsuarios)
+        ' ContenedorMDI.Children.Add(vntUsuarios)
 
     End Sub
 
@@ -144,7 +146,7 @@
         vntCambiarIva.Width = 558
         vntCambiarIva.Height = 339
 
-        ContenedorMDI.Children.Add(vntCambiarIva)
+        ' ContenedorMDI.Children.Add(vntCambiarIva)
 
     End Sub
 

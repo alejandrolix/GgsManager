@@ -39,6 +39,8 @@
             <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Margin="0,0,8,0" />
         </Menu>
 
-        <mdi:MdiContainer Name="ContenedorMDI" Theme="Aero" DockPanel.Dock="Bottom" />
+        <!-- <mdi:MdiContainer Name="ContenedorMDI" Theme="Aero" DockPanel.Dock="Bottom" /> -->
+
+        <Frame Name="Frame" NavigationUIVisibility="Hidden" Background="#f0f0f0" DockPanel.Dock="Bottom" />
     </DockPanel>
 </Window>

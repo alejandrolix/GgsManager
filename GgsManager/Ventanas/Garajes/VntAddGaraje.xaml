@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
-        Title="Añadir Garaje" Height="345.575" Width="551.9"
+        Title="Añadir Garaje" Height="394.031" Width="577.36"
         Background="#f0f0f0"
         ResizeMode="NoResize" Loaded="Window_Loaded">
     <Window.Resources>
@@ -22,7 +22,7 @@
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="Height" Value="24" />
             <Setter Property="Width" Value="150" />
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="16" />
         </Style>
     </Window.Resources>
 
@@ -43,12 +43,12 @@
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre" Style="{StaticResource Etiquetas}" />
         <TextBox Grid.Column="1" Grid.Row="0" Name="NombreGarajeTxt" Text="{Binding Nombre}" Style="{StaticResource TextBox}" />
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Dirección" Style="{StaticResource Etiquetas}" />
-        <TextBox Grid.Column="1" Grid.Row="1" Width="170" Name="DireccionGarajeTxt" Text="{Binding Direccion}" Style="{StaticResource TextBox}" />
+        <TextBox Grid.Column="1" Grid.Row="1" Width="230" Name="DireccionGarajeTxt" Text="{Binding Direccion}" Style="{StaticResource TextBox}" />
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Número de Plazas" Style="{StaticResource Etiquetas}" />
         <TextBox Grid.Column="1" Grid.Row="2" Name="NumPlazasGarajeTxt" Width="60" Text="{Binding NumPlazas}" Style="{StaticResource TextBox}" />
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Observaciones" Style="{StaticResource Etiquetas}" />
         <TextBox Grid.Column="1" Grid.Row="3" Name="ObservGarajeTxt" Width="170" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
 
-        <Button Name="AceptarBtn" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Aceptar" FontSize="15" Width="80" Height="30" Margin="0,20,0,0" Click="AceptarBtn_Click" />
+        <Button Name="AceptarBtn" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Aceptar" FontSize="18" Width="94" Height="34" Margin="0,40,0,0" Click="AceptarBtn_Click" />
     </Grid>
 </Window>

@@ -28,7 +28,7 @@
 
                 Usuario.UsuarioLogueado = Usuario.ObtenerUsuario(UsuarioTxt.Text)           ' Guardamos el usuario que ha iniciado sesión.
 
-                If Usuario.ComprobarHashPassword(PasswordBox.Password) Then
+                If Usuario.ComprobarHashPassword(PasswordBox.Password) Then             ' Si el hash de la contraseña es igual, cerramos la ventana para poder usar el programa.
 
                     Me.Close()
                 Else
