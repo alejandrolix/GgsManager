@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
         Title="Añadir Usuario" Height="350.712" Width="581.734" Background="#f0f0f0"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
             <Setter Property="Margin" Value="0,20,0,0" />

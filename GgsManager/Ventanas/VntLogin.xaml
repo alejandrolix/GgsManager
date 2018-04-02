@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Inicio de Sesión" Height="350.427" Width="555.102"
         WindowStartupLocation="CenterScreen"
-        Loaded="Window_Loaded" Background="#f0f0f0" Icon="/GgsManager;component/LogoGgsManager.ico">
+        Loaded="Window_Loaded" Background="#f0f0f0" Icon="/GgsManager;component/Logo.ico">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid Width="273">

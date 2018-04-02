@@ -24,12 +24,23 @@ Partial Class FormEstGarajes
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Me.ReportViewer = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.DtPorcGaraje = New GgsManager.DtPorcGaraje()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormEstGarajes))
         Me.EstadisticasBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        CType(Me.DtPorcGaraje, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.DtPorcGaraje = New GgsManager.DtPorcGaraje()
+        Me.ReportViewer = New Microsoft.Reporting.WinForms.ReportViewer()
         CType(Me.EstadisticasBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DtPorcGaraje, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'EstadisticasBindingSource
+        '
+        Me.EstadisticasBindingSource.DataMember = "Estadisticas"
+        Me.EstadisticasBindingSource.DataSource = Me.DtPorcGaraje
+        '
+        'DtPorcGaraje
+        '
+        Me.DtPorcGaraje.DataSetName = "DtPorcGaraje"
+        Me.DtPorcGaraje.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'ReportViewer
         '
@@ -43,27 +54,18 @@ Partial Class FormEstGarajes
         Me.ReportViewer.Size = New System.Drawing.Size(757, 394)
         Me.ReportViewer.TabIndex = 0
         '
-        'DtPorcGaraje
-        '
-        Me.DtPorcGaraje.DataSetName = "DtPorcGaraje"
-        Me.DtPorcGaraje.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'EstadisticasBindingSource
-        '
-        Me.EstadisticasBindingSource.DataMember = "Estadisticas"
-        Me.EstadisticasBindingSource.DataSource = Me.DtPorcGaraje
-        '
         'FormEstGarajes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(757, 394)
         Me.Controls.Add(Me.ReportViewer)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormEstGarajes"
         Me.Text = "Estadísticas de Garajes"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
-        CType(Me.DtPorcGaraje, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.EstadisticasBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DtPorcGaraje, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

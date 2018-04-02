@@ -24,6 +24,7 @@ Partial Class FormInfClientes
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormInfClientes))
         Me.ClientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DtClientes = New GgsManager.DtClientes()
         Me.ReportViewer = New Microsoft.Reporting.WinForms.ReportViewer()
@@ -59,6 +60,7 @@ Partial Class FormInfClientes
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(717, 375)
         Me.Controls.Add(Me.ReportViewer)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormInfClientes"
         Me.Text = "Informe de Clientes"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

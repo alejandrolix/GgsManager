@@ -22,6 +22,7 @@ Partial Class FormFactIndividual
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormFactIndividual))
         Me.ReportViewer = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.SuspendLayout()
         '
@@ -40,6 +41,7 @@ Partial Class FormFactIndividual
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(677, 364)
         Me.Controls.Add(Me.ReportViewer)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormFactIndividual"
         Me.Text = "Factura Individual"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

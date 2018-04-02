@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
         Title="Añadir Vehículo" Height="585.642" Width="665.929" ResizeMode="NoResize"
-        Background="#f0f0f0" Loaded="Window_Loaded">
+        Background="#f0f0f0" Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico">
+    
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
             <Setter Property="Margin" Value="0,30,0,0" />

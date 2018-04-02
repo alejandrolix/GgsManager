@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Añadir Garaje" Height="394.031" Width="577.36"
         Background="#f0f0f0"
-        ResizeMode="NoResize" Loaded="Window_Loaded">
+        ResizeMode="NoResize" Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
             <Setter Property="Margin" Value="0,20,0,0" />

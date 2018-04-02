@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="GgsManager" Height="481.853" Width="732.428"
         WindowState="Maximized"
-        Loaded="Window_Loaded" Icon="/GgsManager;component/LogoGgsManager.ico">
+        Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico">
     
     <DockPanel>
         <Menu Name="MenuPrincipal" DockPanel.Dock="Top" FontSize="17" Padding="2" IsEnabled="True">

@@ -22,6 +22,7 @@ Partial Class FormFactConjunto
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormFactConjunto))
         Me.PrintDialog = New System.Windows.Forms.PrintDialog()
         Me.SuspendLayout()
         '
@@ -34,6 +35,7 @@ Partial Class FormFactConjunto
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(602, 365)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormFactConjunto"
         Me.Text = "Factura de Clientes por Garaje"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

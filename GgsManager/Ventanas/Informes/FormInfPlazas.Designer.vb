@@ -23,7 +23,8 @@ Partial Class FormInfPlazas
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ReportDataSource10 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormInfPlazas))
         Me.PlazasBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DtPlazas = New GgsManager.DtPlazas()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
@@ -71,9 +72,9 @@ Partial Class FormInfPlazas
         'ReportViewer
         '
         Me.ReportViewer.Dock = System.Windows.Forms.DockStyle.Fill
-        ReportDataSource10.Name = "DtPlazas"
-        ReportDataSource10.Value = Me.PlazasBindingSource
-        Me.ReportViewer.LocalReport.DataSources.Add(ReportDataSource10)
+        ReportDataSource1.Name = "DtPlazas"
+        ReportDataSource1.Value = Me.PlazasBindingSource
+        Me.ReportViewer.LocalReport.DataSources.Add(ReportDataSource1)
         Me.ReportViewer.LocalReport.ReportEmbeddedResource = "GgsManager.InfPlazas.rdlc"
         Me.ReportViewer.Location = New System.Drawing.Point(0, 0)
         Me.ReportViewer.Name = "ReportViewer"
@@ -132,6 +133,7 @@ Partial Class FormInfPlazas
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(894, 526)
         Me.Controls.Add(Me.SplitContainer1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormInfPlazas"
         Me.Text = "Informe de Plazas"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
         Title="Añadir Cliente" Height="585.642" Width="665.929"
-        Background="#f0f0f0" Loaded="Window_Loaded" ResizeMode="NoResize">
+        Background="#f0f0f0" Loaded="Window_Loaded" ResizeMode="NoResize" Icon="/GgsManager;component/Logo.ico">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
             <Setter Property="Margin" Value="0,20,0,0" />

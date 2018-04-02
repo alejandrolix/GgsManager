@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Seleccionar Cliente" Height="321.994" Width="474.876"
         ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen"
-        Background="#f0f0f0">
+        Background="#f0f0f0" Icon="/GgsManager;component/Logo.ico">
     
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal" Margin="0,0,0,90">
