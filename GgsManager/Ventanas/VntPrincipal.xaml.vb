@@ -87,6 +87,8 @@
 
     Private Sub CerrarSesion_Click(sender As Object, e As RoutedEventArgs)
 
+        Frame.Content = Nothing
+
         MenuPrincipal.IsEnabled = False
         AbrirVntLogin()
 
