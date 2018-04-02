@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GgsManager"
-        xmlns:mdi="clr-namespace:WPF.MDI;assembly=WPF.MDI"
+        xmlns:local="clr-namespace:GgsManager"        
         mc:Ignorable="d"
         Title="GgsManager" Height="481.853" Width="732.428"
         WindowState="Maximized"
@@ -38,8 +37,6 @@
             </MenuItem>
             <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Margin="0,0,8,0" />
         </Menu>
-
-        <!-- <mdi:MdiContainer Name="ContenedorMDI" Theme="Aero" DockPanel.Dock="Bottom" /> -->
 
         <Frame Name="Frame" NavigationUIVisibility="Hidden" Background="#f0f0f0" DockPanel.Dock="Bottom" />
     </DockPanel>
