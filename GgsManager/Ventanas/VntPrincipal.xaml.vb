@@ -51,11 +51,7 @@
 
     Private Sub Usuarios_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim vntUsuarios As New WPF.MDI.MdiChild()
-        vntUsuarios.Title = "Gestión de Usuarios"
-        vntUsuarios.Content = New VntUsuarios()
-
-        ' ContenedorMDI.Children.Add(vntUsuarios)
+        Frame.Content = New PgUsuarios()
 
     End Sub
 

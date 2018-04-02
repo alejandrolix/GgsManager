@@ -10,7 +10,7 @@
     ''' <summary>
     ''' Para actualizar el DataGrid de usuarios.
     ''' </summary>    
-    Property VntUsuarios As VntUsuarios
+    Private PgUsuarios As PgUsuarios
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
@@ -63,7 +63,7 @@
 
             End If
 
-            VntUsuarios.UsuariosDg.DataContext = Usuario.ObtenerUsuarios()                  ' Actualizamos el DataGrid de Usuarios.
+            PgUsuarios.UsuariosDg.DataContext = Usuario.ObtenerUsuarios()                  ' Actualizamos el DataGrid de Usuarios.
 
         End If
 
@@ -126,29 +126,29 @@
 
     End Function
 
-    Public Sub New(accion As Foo.Accion)
+    Private Sub CambiarPasswordBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        InitializeComponent()
-        Me.Accion = accion
+        Dim vntCambPassword As New VntCambiarPassword(UsuarioSelec.Id)
+        vntCambPassword.Title = "Cambiar Contraseña"
+        vntCambPassword.ShowDialog()
 
     End Sub
 
-    Public Sub New(accion As Foo.Accion, usuarioSelec As Usuario)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef pgUsuarios As PgUsuarios)
+
+        InitializeComponent()
+        Me.Accion = accion
+        Me.PgUsuarios = pgUsuarios
+
+    End Sub
+
+    Public Sub New(ByRef accion As Foo.Accion, ByRef usuarioSelec As Usuario, ByRef pgUsuarios As PgUsuarios)
 
         InitializeComponent()
 
         Me.Accion = accion
         Me.UsuarioSelec = usuarioSelec
-
-    End Sub
-
-    Private Sub CambiarPasswordBtn_Click(sender As Object, e As RoutedEventArgs)
-
-        Dim vntCambPassword As New VntCambiarPassword()
-        vntCambPassword.Title = "Cambiar Contraseña"
-        vntCambPassword.IdUsuario = UsuarioSelec.Id
-
-        vntCambPassword.ShowDialog()
+        Me.PgUsuarios = pgUsuarios
 
     End Sub
 

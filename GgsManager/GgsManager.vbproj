@@ -176,14 +176,14 @@
     <Compile Include="Ventanas\SubMenus\VntCambiarIVA.xaml.vb">
       <DependentUpon>VntCambiarIVA.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\Usuarios\PgUsuarios.xaml.vb">
+      <DependentUpon>PgUsuarios.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Usuarios\VntAddUsuario.xaml.vb">
       <DependentUpon>VntAddUsuario.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Usuarios\VntCambiarPassword.xaml.vb">
       <DependentUpon>VntCambiarPassword.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ventanas\Usuarios\VntUsuarios.xaml.vb">
-      <DependentUpon>VntUsuarios.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Vehiculos\PgVehiculos.xaml.vb">
       <DependentUpon>PgVehiculos.xaml</DependentUpon>
@@ -223,15 +223,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ventanas\Usuarios\PgUsuarios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\Usuarios\VntAddUsuario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Usuarios\VntCambiarPassword.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ventanas\Usuarios\VntUsuarios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

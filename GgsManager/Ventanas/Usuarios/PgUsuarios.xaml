@@ -1,19 +1,12 @@
-﻿<UserControl x:Class="VntUsuarios"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GgsManager"
-             mc:Ignorable="d" 
-             Background="#f0f0f0" Loaded="UserControl_Loaded">
-    <UserControl.Resources>
-        <Style TargetType="Button" x:Key="Boton">
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="Width" Value="100" />
-            <Setter Property="Height" Value="28" />
-        </Style>
-    </UserControl.Resources>
-    
+﻿<Page x:Class="PgUsuarios"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GgsManager"
+      mc:Ignorable="d"      
+      Title="Usuarios" Loaded="Page_Loaded">
+
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <Grid>
@@ -27,12 +20,13 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Button Name="NuevoUsuarioBtn" Width="116" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Content="Añadir Usuario" Margin="0,20,16,18" Style="{StaticResource Boton}" Click="NuevoUsuarioBtn_Click" />
+                <Button Name="NuevoUsuarioBtn" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" FontSize="18" Width="130" Height="34" Content="Añadir Usuario" Margin="0,20,16,18" Click="NuevoUsuarioBtn_Click" />
 
-                <DataGrid Name="UsuariosDg" IsSynchronizedWithCurrentItem="False" BorderThickness="1" BorderBrush="#f0f0f0" Grid.Column="0" Grid.Row="1" Margin="12,0" Grid.ColumnSpan="2" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
+                <DataGrid Name="UsuariosDg" RowHeight="31" IsSynchronizedWithCurrentItem="False" BorderThickness="1" BorderBrush="#f0f0f0" Grid.Column="0" Grid.Row="1" Margin="12,0" Grid.ColumnSpan="2" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="FontSize" Value="19" />
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
 
@@ -42,6 +36,7 @@
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="FontSize" Value="19" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -51,6 +46,7 @@
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="FontSize" Value="19" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -58,10 +54,10 @@
                 </DataGrid>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,50,0,0" HorizontalAlignment="Center">
-                    <Button Name="EliminarUsuarioBtn" Content="Eliminar Usuario" Width="122" Margin="0,0,200,0" Style="{StaticResource Boton}" Click="EliminarUsuarioBtn_Click" />
-                    <Button Name="ModificarUsuarioBtn" Content="Modificar Usuario" Width="131" Style="{StaticResource Boton}" Click="ModificarUsuarioBtn_Click" />
+                    <Button Name="EliminarUsuarioBtn" Content="Eliminar Usuario" Width="142" Height="34" FontSize="18" Margin="0,0,240,0" Click="EliminarUsuarioBtn_Click" />
+                    <Button Name="ModificarUsuarioBtn" Content="Modificar Usuario" Width="152" Height="34" FontSize="18" Click="ModificarUsuarioBtn_Click" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>
     </Grid>
-</UserControl>
+</Page>

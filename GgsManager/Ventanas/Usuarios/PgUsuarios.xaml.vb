@@ -1,6 +1,6 @@
-﻿Public Class VntUsuarios
+﻿Class PgUsuarios
 
-    Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         UsuariosDg.DataContext = Usuario.ObtenerUsuarios()
 
@@ -54,9 +54,7 @@
     ''' <param name="accion">Acción a realizar.</param>
     Private Sub AbrirVntAddUsuario(ByRef accion As Foo.Accion)
 
-        Dim vntAddUsuario As New VntAddUsuario(accion)
-        vntAddUsuario.VntUsuarios = Me
-
+        Dim vntAddUsuario As New VntAddUsuario(accion, Me)
         vntAddUsuario.ShowDialog()
 
     End Sub
@@ -69,10 +67,8 @@
     ''' <param name="usuarioSelec">Datos del usuario seleccionado.</param>
     Private Sub AbrirVntAddUsuario(ByRef accion As Foo.Accion, ByRef usuarioSelec As Usuario)
 
-        Dim vntAddUsuario As New VntAddUsuario(accion, usuarioSelec)
+        Dim vntAddUsuario As New VntAddUsuario(accion, usuarioSelec, Me)
         vntAddUsuario.Title = "Modificar Usuario"
-        vntAddUsuario.VntUsuarios = Me
-
         vntAddUsuario.ShowDialog()
 
     End Sub

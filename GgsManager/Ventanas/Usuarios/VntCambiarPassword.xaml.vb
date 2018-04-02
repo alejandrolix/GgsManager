@@ -1,6 +1,6 @@
 ﻿Public Class VntCambiarPassword
 
-    Property IdUsuario As Integer
+    Private IdUsuario As Integer
 
     Private Sub AceptarBtn_Click(sender As Object, e As RoutedEventArgs)
 
@@ -70,5 +70,12 @@
         Return hayNuevaPassword And hayRepePassword
 
     End Function
+
+    Public Sub New(ByRef idUsuario As Integer)
+
+        InitializeComponent()
+        Me.IdUsuario = idUsuario
+
+    End Sub
 
 End Class
