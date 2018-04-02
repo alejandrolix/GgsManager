@@ -41,15 +41,6 @@
 
         Frame.Content = New PgClientes()
 
-        'Dim vntClientes As New WPF.MDI.MdiChild()
-        'vntClientes.Title = "Gestión de Clientes"
-        'vntClientes.Content = New VntClientes()
-
-        'vntClientes.Width = 1460
-        'vntClientes.Height = 483
-
-        ' ContenedorMDI.Children.Add(vntClientes)
-
     End Sub
 
     Private Sub Vehiculos_Click(sender As Object, e As RoutedEventArgs)

@@ -1,20 +1,20 @@
-﻿Public Class VntVehiculos
+﻿Class PgVehiculos
 
     ''' <summary>
     ''' Almacena el Id del garaje seleccionado.
     ''' </summary>    
-    Public Shared Property IdGaraje As Integer
+    Private IdGarajeSelec As Integer
 
-    Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         VehiculosDg.Language = Markup.XmlLanguage.GetLanguage(Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag)            ' Establece el idioma a español, (para el euro).        
-        VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)
+        VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGarajeSelec)
 
     End Sub
 
     Private Sub NuevoVehiculoBtn_Click(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntAddVehiculo(Foo.Accion.Insertar, IdGaraje)
+        AbrirVntAddVehiculo(Foo.Accion.Insertar, IdGarajeSelec)
 
     End Sub
 
@@ -31,7 +31,7 @@
 
                 If Plaza.CambiarSituacionPlazaALibre(vehiculoSelec.IdPlaza, vehiculoSelec.IdGaraje) Then
 
-                    VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)
+                    VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGarajeSelec)
                     MessageBox.Show("Se ha eliminado el vehículo.", "Vehículo Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
 
                 End If
@@ -64,9 +64,7 @@
     ''' <param name="accion">Acción a realizar.</param>
     Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion, ByRef idGaraje As Integer)
 
-        Dim vntAddVehiculo As New VntAddVehiculo(accion, idGaraje)
-        vntAddVehiculo.VntVehiculos = Me
-
+        Dim vntAddVehiculo As New VntAddVehiculo(accion, idGaraje, Me)
         vntAddVehiculo.ShowDialog()
 
     End Sub
@@ -79,11 +77,16 @@
     ''' <param name="vehiculoSelec">Datos del vehículo seleccionado.</param>
     Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion, ByRef vehiculoSelec As Vehiculo)
 
-        Dim vntAddVehiculo As New VntAddVehiculo(accion, vehiculoSelec)
+        Dim vntAddVehiculo As New VntAddVehiculo(accion, vehiculoSelec, Me)
         vntAddVehiculo.Title = "Modificar Vehículo"
-        vntAddVehiculo.VntVehiculos = Me
-
         vntAddVehiculo.ShowDialog()
+
+    End Sub
+
+    Public Sub New(ByRef idGaraje As Integer)
+
+        InitializeComponent()
+        Me.IdGarajeSelec = idGaraje
 
     End Sub
 

@@ -79,7 +79,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <TextBlock Text="Plaza" Grid.Column="0" Grid.Row="5" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="PlazasCmb" IsEditable="True" Width="60" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
+        <ComboBox Name="PlazasCmb" Width="60" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

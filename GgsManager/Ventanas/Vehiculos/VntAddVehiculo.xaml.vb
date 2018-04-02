@@ -1,13 +1,5 @@
-﻿Imports System.IO
-Imports System.Text
-Imports Microsoft.Win32
+﻿Public Class VntAddVehiculo
 
-Public Class VntAddVehiculo
-
-    ''' <summary>
-    ''' Indica cuantas veces se ha pulsado al botón "Examinar" para seleccionar una foto.
-    ''' </summary>
-    Private NumPulsacionesBtnExaminar As Integer
     Private PrecioBase As Decimal
 
     ''' <summary>
@@ -20,7 +12,7 @@ Public Class VntAddVehiculo
     ''' <summary>
     ''' Para actualizar el DataGrid de vehículos.
     ''' </summary>    
-    Property VntVehiculos As VntVehiculos
+    Private PgVehiculos As PgVehiculos
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
@@ -34,8 +26,6 @@ Public Class VntAddVehiculo
 
             PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas en su ComboBox.
             PlazasCmb.SelectedIndex = 0
-
-            Me.NumPulsacionesBtnExaminar = 0
 
         ElseIf Accion = Foo.Accion.Modificar Then
 
@@ -190,7 +180,7 @@ Public Class VntAddVehiculo
 
             End If
 
-            VntVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)               ' Actualizamos el DataGrid de vehículos.
+            PgVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)               ' Actualizamos el DataGrid de vehículos.
 
         End If
 
@@ -268,21 +258,23 @@ Public Class VntAddVehiculo
 
     End Function
 
-    Public Sub New(accion As Foo.Accion, idGaraje As Integer)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef idGaraje As Integer, ByRef pgVehiculos As PgVehiculos)
 
         InitializeComponent()
 
         Me.Accion = accion
         Me.IdGaraje = idGaraje
+        Me.PgVehiculos = pgVehiculos
 
     End Sub
 
-    Public Sub New(accion As Foo.Accion, vehiculoSelec As Vehiculo)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef vehiculoSelec As Vehiculo, ByRef pgVehiculos As PgVehiculos)
 
         InitializeComponent()
 
         Me.Accion = accion
         Me.VehiculoSelec = vehiculoSelec
+        Me.PgVehiculos = pgVehiculos
 
     End Sub
 

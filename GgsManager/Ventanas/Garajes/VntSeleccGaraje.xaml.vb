@@ -16,27 +16,20 @@
 
         If gjSelec IsNot Nothing Then
 
-            Dim vntVehic As WPF.MDI.MdiChild
-            Dim vntPlz As WPF.MDI.MdiChild
+            'Dim vntPlz As WPF.MDI.MdiChild
 
             Select Case Ventana
                 Case Foo.Ventana.Vehiculos
-                    vntVehic = New WPF.MDI.MdiChild()
-                    vntVehic.Title = "Gestión de Vehículos"
-                    vntVehic.Content = New VntVehiculos()
-
-                    VntVehiculos.IdGaraje = gjSelec.Id
-                    vntVehic.Width = 800
-                    vntVehic.Height = 401
+                    VntPrincipal.Frame.Content = New PgVehiculos(gjSelec.Id)
 
                 Case Foo.Ventana.Plazas
-                    vntPlz = New WPF.MDI.MdiChild()
-                    vntPlz.Title = "Gestión de Plazas"
-                    vntPlz.Content = New VntPlazas()
+                    'vntPlz = New WPF.MDI.MdiChild()
+                    'vntPlz.Title = "Gestión de Plazas"
+                    'vntPlz.Content = New VntPlazas()
 
-                    VntPlazas.IdGaraje = gjSelec.Id
-                    vntPlz.Width = 500
-                    vntPlz.Height = 401
+                    'VntPlazas.IdGaraje = gjSelec.Id
+                    'vntPlz.Width = 500
+                    'vntPlz.Height = 401
 
                 Case Foo.Ventana.InformeClientes
                     Dim formInfClientes As New FormInfClientes(gjSelec.Id)
@@ -72,15 +65,11 @@
 
             End If
 
-            If vntVehic IsNot Nothing Then
+            'ElseIf vntPlz IsNot Nothing Then
 
-                ' VntPrincipal.ContenedorMDI.Children.Add(vntVehic)               ' Mostramos "VntVehiculos".
+            '    ' VntPrincipal.ContenedorMDI.Children.Add(vntPlz)             ' Mostramos "VntPlazas".
 
-            ElseIf vntPlz IsNot Nothing Then
-
-                ' VntPrincipal.ContenedorMDI.Children.Add(vntPlz)             ' Mostramos "VntPlazas".
-
-            End If
+            'End If
 
         End If
 
