@@ -28,12 +28,20 @@
             MessageBox.Show("Tienes que seleccionar un garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If Factura.EliminarFacturasPorIdGaraje(garajeSelec.Id) Then
+            If Vehiculo.EliminarVehiculosPorIdGaraje(garajeSelec.Id) Then
 
-                If garajeSelec.Eliminar() Then
+                If Plaza.EliminarPlazasPorIdGaraje(garajeSelec.Id) Then
 
-                    GarajesDg.DataContext = Garaje.ObtenerGarajes()
-                    MessageBox.Show("Se ha eliminado el garaje.", "Garaje Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+                    If Factura.EliminarFacturasPorIdGaraje(garajeSelec.Id) Then
+
+                        If garajeSelec.Eliminar() Then
+
+                            GarajesDg.DataContext = Garaje.ObtenerGarajes()
+                            MessageBox.Show("Se ha eliminado el garaje.", "Garaje Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+
+                        End If
+
+                    End If
 
                 End If
 

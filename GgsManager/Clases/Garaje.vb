@@ -252,6 +252,7 @@ Public Class Garaje
         comando.Parameters.AddWithValue("@Nombre", Nombre)
         comando.Parameters.AddWithValue("@Direccion", Direccion)
         comando.Parameters.AddWithValue("@NumPlazas", NumPlazas)
+        comando.Parameters.AddWithValue("@NumPlazasLibres", NumPlazas)
         Dim numFila As Integer
 
         Try
@@ -282,20 +283,19 @@ Public Class Garaje
         If Foo.HayTexto(Observaciones) Then
 
             comando = New MySqlCommand("UPDATE Garajes 
-                                        SET    Nombre = @Nombre, Direccion = @Direccion, NumPlazas = @NumPlazas, Observaciones = @Observaciones
+                                        SET    Nombre = @Nombre, Direccion = @Direccion, Observaciones = @Observaciones
                                         WHERE  IdGaraje = @IdGaraje;", conexion)
 
             comando.Parameters.AddWithValue("@Observaciones", Observaciones)
         Else
 
             comando = New MySqlCommand("UPDATE Garajes 
-                                        SET    Nombre = @Nombre, Direccion = @Direccion, NumPlazas = @NumPlazas, Observaciones = NULL 
+                                        SET    Nombre = @Nombre, Direccion = @Direccion, Observaciones = NULL 
                                         WHERE  IdGaraje = @IdGaraje;", conexion)
         End If
 
         comando.Parameters.AddWithValue("@Nombre", Nombre)
         comando.Parameters.AddWithValue("@Direccion", Direccion)
-        comando.Parameters.AddWithValue("@NumPlazas", NumPlazas)
         comando.Parameters.AddWithValue("@IdGaraje", Id)
         Dim numFila As Integer
 

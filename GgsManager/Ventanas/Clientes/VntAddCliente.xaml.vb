@@ -7,8 +7,7 @@ Public Class VntAddCliente
 
     ''' <summary>
     ''' Para actualizar el DataGrid de clientes.
-    ''' </summary>
-    ''' <returns></returns>
+    ''' </summary>    
     Private PgClientes As PgClientes
 
     ''' <summary>

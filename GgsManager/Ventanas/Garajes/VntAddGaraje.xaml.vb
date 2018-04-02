@@ -20,6 +20,8 @@
 
         ElseIf Accion = Foo.Accion.Modificar Then
 
+            NumPlazasGarajeTxt.IsEnabled = False
+
             NombreGarajeTxt.DataContext = GarajeSelec
             DireccionGarajeTxt.DataContext = GarajeSelec
             NumPlazasGarajeTxt.DataContext = GarajeSelec

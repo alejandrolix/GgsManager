@@ -13,19 +13,6 @@ Public Class Plaza
 
 
     ''' <summary>
-    ''' Obtiene el Id de la plaza.
-    ''' </summary>
-    ''' <returns>El Id de la plaza.</returns>
-    Public Overrides Function ToString() As String
-
-        Dim id As String = CType(Me.Id, String)
-
-        Return id
-
-    End Function
-
-
-    ''' <summary>
     ''' Obtiene todos los Id de las plazas libres a partir del Id del garaje.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje.</param>
@@ -388,6 +375,36 @@ Public Class Plaza
         Catch ex As Exception
 
             MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Ocupado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        conexion.Close()
+
+        Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Elimina las plazas a partir del Id de un garaje.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    ''' <returns>True: Se han eliminado las plazas del garaje. False: No se han eliminado las plazas del garaje.</returns>
+    Public Shared Function EliminarPlazasPorIdGaraje(ByRef idGaraje As Integer) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("DELETE FROM Plazas
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al eliminar las plazas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 

@@ -235,10 +235,10 @@ Public Class Vehiculo
 
 
     ''' <summary>
-    ''' Elimina los vehículos a partir del Id de un cliente.
+    ''' Elimina el vehículo a partir del Id de un cliente.
     ''' </summary>
     ''' <param name="idCliente">Id del cliente.</param>
-    ''' <returns>True: Se han eliminado los vehículos del cliente. False: No se han eliminado los vehículos del cliente.</returns>
+    ''' <returns>True: Se ha eliminado el vehículo del cliente. False: No se ha eliminado el vehículo del cliente.</returns>
     Public Shared Function EliminarVehiculoPorIdCliente(ByRef idCliente As Integer) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
@@ -253,7 +253,37 @@ Public Class Vehiculo
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al eliminar los vehículos del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al eliminar el vehículo del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End Try
+
+        conexion.Close()
+
+        Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Elimina los vehículos a partir del Id de un garaje.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    ''' <returns>True: Se han eliminado los vehículos del garaje. False: No se han eliminado los vehículos del garaje.</returns>
+    Public Shared Function EliminarVehiculosPorIdGaraje(ByRef idGaraje As Integer) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("DELETE FROM Vehiculos
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+        Dim numFila As Integer
+
+        Try
+            numFila = comando.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+            MessageBox.Show("Ha habido un problema al eliminar los vehículos del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
