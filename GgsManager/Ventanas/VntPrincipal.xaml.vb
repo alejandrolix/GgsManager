@@ -35,25 +35,18 @@
 
         Frame.Content = New PgGarajes()
 
-        'Dim vntGarajes As New WPF.MDI.MdiChild()
-        'vntGarajes.Title = "Gestión de Garajes"
-        'vntGarajes.Content = New VntGarajes()
-
-        'vntGarajes.Width = 726
-        'vntGarajes.Height = 404
-
-        ' ContenedorMDI.Children.Add(vntGarajes)
-
     End Sub
 
     Private Sub Clientes_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim vntClientes As New WPF.MDI.MdiChild()
-        vntClientes.Title = "Gestión de Clientes"
-        vntClientes.Content = New VntClientes()
+        Frame.Content = New PgClientes()
 
-        vntClientes.Width = 1460
-        vntClientes.Height = 483
+        'Dim vntClientes As New WPF.MDI.MdiChild()
+        'vntClientes.Title = "Gestión de Clientes"
+        'vntClientes.Content = New VntClientes()
+
+        'vntClientes.Width = 1460
+        'vntClientes.Height = 483
 
         ' ContenedorMDI.Children.Add(vntClientes)
 

@@ -3,7 +3,7 @@
     ''' <summary>
     ''' Para actualizar el DataGrid de garajes.
     ''' </summary>    
-    Private VntGarajes As PgGarajes
+    Private PgGarajes As PgGarajes
 
     ''' <summary>
     ''' Contiene los datos del garaje seleccionado.
@@ -146,7 +146,7 @@
 
         End If
 
-        ' Garajes.GarajesDg.DataContext = Garaje.ObtenerGarajes()              ' Actualizamos el DataGrid de Garajes.
+        PgGarajes.GarajesDg.DataContext = Garaje.ObtenerGarajes()              ' Actualizamos el DataGrid de Garajes.
 
     End Sub
 
@@ -164,7 +164,7 @@
         InitializeComponent()
 
         Me.Accion = accion
-        Me.VntGarajes = pgGarajes
+        Me.PgGarajes = pgGarajes
 
     End Sub
 

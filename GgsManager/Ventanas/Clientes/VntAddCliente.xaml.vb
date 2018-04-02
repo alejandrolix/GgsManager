@@ -9,7 +9,7 @@ Public Class VntAddCliente
     ''' Para actualizar el DataGrid de clientes.
     ''' </summary>
     ''' <returns></returns>
-    Property VntClientes As VntClientes
+    Private PgClientes As PgClientes
 
     ''' <summary>
     ''' Contiene la ruta de la imagen seleccionada por el usuario.
@@ -274,25 +274,28 @@ Public Class VntAddCliente
 
             End If
 
-            VntClientes.ClientesDg.DataContext = Cliente.ObtenerClientes()              ' Actualizamos el DataGrid de Clientes.            
+            PgClientes.ClientesDg.DataContext = Cliente.ObtenerClientes()              ' Actualizamos el DataGrid de Clientes.            
 
         End If
 
     End Sub
 
-    Public Sub New(ByRef accion As Foo.Accion, ByRef clienteSelec As Cliente)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef clienteSelec As Cliente, ByRef pgClientes As PgClientes)
 
         InitializeComponent()
 
         Me.Accion = accion
         Me.ClienteSelec = clienteSelec
+        Me.PgClientes = pgClientes
 
     End Sub
 
-    Public Sub New(ByRef accion As Foo.Accion)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef pgClientes As PgClientes)
 
         InitializeComponent()
+
         Me.Accion = accion
+        Me.PgClientes = pgClientes
 
     End Sub
 

@@ -1,8 +1,8 @@
-﻿Public Class VntClientes
+﻿Class PgClientes
 
     Private Vista As CollectionViewSource
 
-    Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         Me.Vista = New CollectionViewSource()
         Vista.Source = Cliente.ObtenerClientes()
@@ -89,8 +89,7 @@
     ''' </summary>
     Private Sub AbrirVentanaAddCliente()
 
-        Dim vntAddCliente As New VntAddCliente(Foo.Accion.Insertar)
-        vntAddCliente.VntClientes = Me
+        Dim vntAddCliente As New VntAddCliente(Foo.Accion.Insertar, Me)
         vntAddCliente.ShowDialog()
 
     End Sub
@@ -103,9 +102,8 @@
     ''' <param name="clienteSelec">Datos del cliente seleccionado para poder editarlos.</param>
     Private Sub AbrirVentanaAddCliente(ByRef accion As Integer, ByRef clienteSelec As Cliente)
 
-        Dim vntAddCliente As New VntAddCliente(Foo.Accion.Modificar, clienteSelec)
+        Dim vntAddCliente As New VntAddCliente(Foo.Accion.Modificar, clienteSelec, Me)
         vntAddCliente.Title = "Modificar Cliente"
-        vntAddCliente.VntClientes = Me
         vntAddCliente.ShowDialog()
 
     End Sub
@@ -115,4 +113,5 @@
         Vista.View.Refresh()
 
     End Sub
+
 End Class
