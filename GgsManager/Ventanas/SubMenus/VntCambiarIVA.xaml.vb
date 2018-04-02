@@ -19,6 +19,11 @@
 
     End Sub
 
+
+    ''' <summary>
+    ''' Comprueba si se ha introducido un número.
+    ''' </summary>
+    ''' <returns>True: Se ha introducido un número. False: No se ha introducido un número.</returns>
     Private Function ComprobarNumIntroducido() As Boolean
 
         Dim hayNumero As Boolean
@@ -31,7 +36,7 @@
 
             Catch ex As Exception
 
-                MessageBox.Show("Tienes que introducir un número.", "I.V.A. Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+                MessageBox.Show("Tienes que introducir un número.", "I.V.A. Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 If Foo.HayTexto(NuevoIVATxt.Text) Then
 
@@ -51,5 +56,4 @@
         Return hayNumero
 
     End Function
-
 End Class

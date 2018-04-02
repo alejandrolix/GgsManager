@@ -119,14 +119,8 @@
 
     Private Sub CambiarIVA_Click(sender As Object, e As RoutedEventArgs)
 
-        Dim vntCambiarIva As New WPF.MDI.MdiChild()
-        vntCambiarIva.Title = "Cambiar I.V.A."
-        vntCambiarIva.Content = New VntCambiarIVA()
-
-        vntCambiarIva.Width = 558
-        vntCambiarIva.Height = 339
-
-        ' ContenedorMDI.Children.Add(vntCambiarIva)
+        Dim vntCambiarIva As New VntCambiarIVA()
+        vntCambiarIva.ShowDialog()
 
     End Sub
 

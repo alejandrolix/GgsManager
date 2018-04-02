@@ -170,8 +170,8 @@
     <Compile Include="Ventanas\Informes\FormInfPlazas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ventanas\Plazas\VntPlazas.xaml.vb">
-      <DependentUpon>VntPlazas.xaml</DependentUpon>
+    <Compile Include="Ventanas\Plazas\PgPlazas.xaml.vb">
+      <DependentUpon>PgPlazas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\SubMenus\VntCambiarIVA.xaml.vb">
       <DependentUpon>VntCambiarIVA.xaml</DependentUpon>
@@ -215,7 +215,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\Plazas\VntPlazas.xaml">
+    <Page Include="Ventanas\Plazas\PgPlazas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
