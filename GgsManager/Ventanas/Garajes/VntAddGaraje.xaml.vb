@@ -152,12 +152,13 @@
 
     End Sub
 
-    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Garaje)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef garaje As Garaje, ByRef pgGarajes As PgGarajes)
 
         InitializeComponent()
 
         Me.Accion = accion
         Me.GarajeSelec = garaje
+        Me.PgGarajes = pgGarajes
 
     End Sub
 

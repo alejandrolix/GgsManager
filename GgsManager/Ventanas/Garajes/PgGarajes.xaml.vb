@@ -85,7 +85,7 @@
     ''' <param name="garaje">Datos del garaje seleccionado para poder modificarlos.</param>
     Private Sub AbrirVentanaAddGaraje(ByRef accion As Integer, ByRef garaje As Garaje)
 
-        Dim vntAddGaraje As New AddGaraje(Foo.Accion.Modificar, garaje)
+        Dim vntAddGaraje As New AddGaraje(Foo.Accion.Modificar, garaje, Me)
         vntAddGaraje.Title = "Modificar Garaje"
         vntAddGaraje.ShowDialog()
 
