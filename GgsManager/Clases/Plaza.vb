@@ -308,6 +308,7 @@ Public Class Plaza
             comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
             comando.ExecuteNonQuery()
 
+            comando.Parameters.Clear()
             numPlzInsertadas += 1
 
         Next
