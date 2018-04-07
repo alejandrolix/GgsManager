@@ -3,7 +3,7 @@ Imports System.IO
 Imports System.Text
 
 ''' <summary>
-''' Representa un cliente de la tabla "Clientes".
+''' un cliente de la tabla "Clientes".
 ''' </summary>
 Public Class Cliente
 
