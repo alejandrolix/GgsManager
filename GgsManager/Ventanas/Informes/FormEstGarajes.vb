@@ -9,39 +9,55 @@ Public Class FormEstGarajes
     Private Sub ReportViewer_Load(sender As Object, e As EventArgs) Handles ReportViewer.Load
 
         ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
-
-        Dim conexion As New MySqlConnection(My.Settings.ConexionABd)
-        conexion.Open()
-
-        Dim adaptador As MySqlDataAdapter
+        Dim dtPorcGaraje As DtPorcGaraje
 
         If SonTodosGarajes Then
 
-            adaptador = New MySqlDataAdapter("SELECT Nombre AS 'NombreGaraje', NumPlazas AS 'NumeroPlazas', TRUNCATE((NumPlazasLibres * NumPlazas) / 100, 0) AS 'PorcentajePlazasLibres', TRUNCATE((NumPlazasOcupadas * NumPlazas) / 100, 0) AS 'PorcentajePlazasOcupadas'
-                                              FROM   Garajes;", conexion)
+            dtPorcGaraje = Garaje.RellenarDatosEstadTodosGarajes()          ' Obtenemos las estadísticas de todos los garajes.
+
+            If dtPorcGaraje Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener las estadísticas de los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                EstablecerTituloInforme()
+                EstablecerDataSourceInforme(dtPorcGaraje)
+
+                ReportViewer.RefreshReport()
+
+            End If
         Else
 
-            adaptador = New MySqlDataAdapter("SELECT Nombre AS 'NombreGaraje', NumPlazas AS 'NumeroPlazas', TRUNCATE((NumPlazasLibres * NumPlazas) / 100, 0) AS 'PorcentajePlazasLibres', TRUNCATE((NumPlazasOcupadas * NumPlazas) / 100, 0) AS 'PorcentajePlazasOcupadas'
-                                              FROM   Garajes
-                                              WHERE  IdGaraje = @IdGaraje;", conexion)
+            dtPorcGaraje = Garaje.RellenarDatosEstadGarajePorId(IdGarajeSelec)            ' Obtenemos las estadísticas del garaje seleccionado.
 
-            adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", IdGarajeSelec)
+            If dtPorcGaraje Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener las estadísticas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                EstablecerTituloInforme()
+                EstablecerDataSourceInforme(dtPorcGaraje)
+
+                ReportViewer.RefreshReport()
+
+            End If
 
         End If
 
-        EstablecerTituloInforme()
+    End Sub
 
-        Dim dtPorcGaraje As New DtClientes()
 
-        adaptador.Fill(dtPorcGaraje, "Estadisticas")
-        conexion.Close()
+    ''' <summary>
+    ''' Añade el DataSet con los datos al DataSource.
+    ''' </summary>
+    ''' <param name="dtPorcGaraje">DataSet con los datos de los garajes.</param>
+    Private Sub EstablecerDataSourceInforme(ByRef dtPorcGaraje As DtPorcGaraje)
 
         ReportViewer.ProcessingMode = ProcessingMode.Local
         ReportViewer.LocalReport.DataSources.Clear()
         ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPorcGaraje", dtPorcGaraje.Tables("Estadisticas")))
 
         ReportViewer.DocumentMapCollapsed = True
-        ReportViewer.RefreshReport()
 
     End Sub
 

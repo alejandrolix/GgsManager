@@ -21,24 +21,6 @@ Public Class Foo
 
 
     ''' <summary>
-    ''' Comprueba si la dirección contiene una "\". Si es así, lo cambia por "\\" para insertarlo en la tabla.
-    ''' </summary>
-    ''' <param name="direccion">Dirección introducida a comprobar.</param>
-    ''' <returns>La nueva dirección o la misma.</returns>
-    Public Shared Function CambiarDireccion(ByRef direccion As String) As String
-
-        If direccion.Contains("\") Then
-
-            direccion = direccion.Replace("\", "\\")
-
-        End If
-
-        Return direccion
-
-    End Function
-
-
-    ''' <summary>
     ''' Realiza una conexión a la base de datos.
     ''' </summary>
     ''' <returns>Conexión a la base de datos.</returns>
@@ -80,7 +62,6 @@ Public Class Foo
             jWriter.Formatting = Formatting.Indented
             iva.WriteTo(jWriter)
 
-            sw.Close()
             jWriter.Close()
 
             haGuardadoDatos = True
@@ -108,7 +89,6 @@ Public Class Foo
         Dim iva As JObject = CType(JToken.ReadFrom(jReader), JObject)
         Dim numero As Integer = Integer.Parse(iva.Item("Porcentaje").ToString())
 
-        sw.Close()
         jReader.Close()
 
         Return numero
@@ -204,7 +184,6 @@ Public Class Foo
             jWriter.Formatting = Formatting.Indented
             datos.WriteTo(jWriter)
 
-            sw.Close()
             jWriter.Close()
 
             haGuardadoDatos = True
@@ -238,7 +217,6 @@ Public Class Foo
         listaDatos.Add(datos.Item("Localidad").ToString())
         listaDatos.Add(datos.Item("CodigoPostal").ToString())
 
-        sw.Close()
         jReader.Close()
 
         Return listaDatos.ToArray()

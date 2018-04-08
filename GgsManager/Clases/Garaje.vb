@@ -185,6 +185,64 @@ Public Class Garaje
 
     End Function
 
+
+    ''' <summary>
+    ''' Obtiene las estadísticas de todos los garajes.
+    ''' </summary>
+    ''' <returns>DataSet con las estadísticas de los garajes.</returns>
+    Public Shared Function RellenarDatosEstadTodosGarajes() As DtPorcGaraje
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim dtPorcGaraje As New DtPorcGaraje()
+
+        Try
+            Dim adaptador As New MySqlDataAdapter("SELECT Nombre AS 'NombreGaraje', NumPlazas AS 'NumeroPlazas', TRUNCATE((NumPlazasLibres * NumPlazas) / 100, 0) AS 'PorcentajePlazasLibres', 
+                                                          TRUNCATE((NumPlazasOcupadas * NumPlazas) / 100, 0) AS 'PorcentajePlazasOcupadas'
+                                                   FROM   Garajes;", conexion)
+
+            adaptador.Fill(dtPorcGaraje, "Estadisticas")
+
+        Catch ex As Exception
+
+        End Try
+
+        conexion.Close()
+
+        Return dtPorcGaraje
+
+    End Function
+
+
+    ''' <summary>
+    ''' Obtiene las estadísticas de un garaje a partir de su Id.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    ''' <returns>DataSet con las estadísticas.</returns>
+    Public Shared Function RellenarDatosEstadGarajePorId(ByRef idGaraje As Integer) As DtPorcGaraje
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim dtPorcGaraje As New DtPorcGaraje()
+
+        Try
+            Dim adaptador As New MySqlDataAdapter("SELECT Nombre AS 'NombreGaraje', NumPlazas AS 'NumeroPlazas', TRUNCATE((NumPlazasLibres * NumPlazas) / 100, 0) AS 'PorcentajePlazasLibres', 
+                                                          TRUNCATE((NumPlazasOcupadas * NumPlazas) / 100, 0) AS 'PorcentajePlazasOcupadas'
+                                                   FROM   Garajes
+                                                   WHERE  IdGaraje = @IdGaraje;", conexion)
+
+            adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", idGaraje)
+            adaptador.Fill(dtPorcGaraje, "Estadisticas")
+
+        Catch ex As Exception
+
+        End Try
+
+        conexion.Close()
+
+        Return dtPorcGaraje
+
+    End Function
+
+
     ''' <summary>
     ''' Elimina un garaje.
     ''' </summary>    
