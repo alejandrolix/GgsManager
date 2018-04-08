@@ -10,14 +10,22 @@ Public Class FormInfClientes
         ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
 
         Dim dtClientes As DtClientes = Cliente.RellenarDatosClientesPorIdGaraje(IdGarajeSelec)
-        EstablecerNombreGaraje()
 
-        ReportViewer.ProcessingMode = ProcessingMode.Local
-        ReportViewer.LocalReport.DataSources.Clear()
-        ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtClientes", dtClientes.Tables("Clientes")))
+        If dtClientes Is Nothing Then
 
-        ReportViewer.DocumentMapCollapsed = True
-        ReportViewer.RefreshReport()
+            MessageBox.Show("Ha habido un problema al obtener los datos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
+
+            EstablecerNombreGaraje()
+
+            ReportViewer.ProcessingMode = ProcessingMode.Local
+            ReportViewer.LocalReport.DataSources.Clear()
+            ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtClientes", dtClientes.Tables("Clientes")))
+
+            ReportViewer.DocumentMapCollapsed = True
+            ReportViewer.RefreshReport()
+
+        End If
 
     End Sub
 
@@ -28,7 +36,15 @@ Public Class FormInfClientes
     Private Sub EstablecerNombreGaraje()
 
         Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGarajeSelec)
-        ReportViewer.LocalReport.SetParameters(New ReportParameter("NombreGaraje", nombreGaraje))
+
+        If nombreGaraje Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
+
+            ReportViewer.LocalReport.SetParameters(New ReportParameter("NombreGaraje", nombreGaraje))
+
+        End If
 
     End Sub
 

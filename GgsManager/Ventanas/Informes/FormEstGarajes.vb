@@ -58,9 +58,16 @@ Public Class FormEstGarajes
         Else
 
             Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGarajeSelec)
-            Dim rpTituloInf As New ReportParameter("TituloInforme", "Estadísticas del garaje de " & nombreGaraje)
 
-            ReportViewer.LocalReport.SetParameters(rpTituloInf)
+            If nombreGaraje Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                Dim rpTituloInf As New ReportParameter("TituloInforme", "Estadísticas del garaje de " & nombreGaraje)
+                ReportViewer.LocalReport.SetParameters(rpTituloInf)
+
+            End If
 
         End If
 

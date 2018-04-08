@@ -10,6 +10,12 @@
         VehiculosDg.Language = Markup.XmlLanguage.GetLanguage(Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag)            ' Establece el idioma a español, (para el euro).        
         VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGarajeSelec)
 
+        If VehiculosDg.DataContext Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener los vehículos del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
+
     End Sub
 
     Private Sub NuevoVehiculoBtn_Click(sender As Object, e As RoutedEventArgs)
@@ -31,10 +37,22 @@
 
                 If Plaza.CambiarSituacionPlazaALibre(vehiculoSelec.IdPlaza, vehiculoSelec.IdGaraje) Then
 
-                    VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGarajeSelec)
                     MessageBox.Show("Se ha eliminado el vehículo.", "Vehículo Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+                    VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGarajeSelec)
+
+                    If VehiculosDg.DataContext Is Nothing Then
+
+                        MessageBox.Show("Ha habido un problema al obtener los vehículos del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+                    End If
+                Else
+
+                    MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Libre.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
+            Else
+
+                MessageBox.Show("Ha habido un problema al eliminar el vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
             End If
 

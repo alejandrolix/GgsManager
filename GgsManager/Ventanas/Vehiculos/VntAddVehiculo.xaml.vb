@@ -22,10 +22,26 @@
             Keyboard.Focus(MatrVehiculoTxt)
 
             ClientesCmb.DataContext = Cliente.ObtenerNombreYApellidosClientes()           ' Cargamos los clientes en su ComboBox.
-            ClientesCmb.SelectedIndex = 0
+
+            If ClientesCmb.DataContext Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                ClientesCmb.SelectedIndex = 0
+
+            End If
 
             PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas en su ComboBox.
-            PlazasCmb.SelectedIndex = 0
+
+            If PlazasCmb.DataContext Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener las plazas libres del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                PlazasCmb.SelectedIndex = 0
+
+            End If
 
         ElseIf Accion = Foo.Accion.Modificar Then
 
@@ -36,35 +52,59 @@
             PrecBaseVehiculoTxt.DataContext = VehiculoSelec
 
             Dim arrayGarajes As Garaje() = Garaje.ObtenerNombresGarajes()
-            GarajesCmb.DataContext = arrayGarajes               ' Cargamos los garajes en su ComboBox.
 
-            Dim posicionGaraje As Integer = ObtenerPosicionGaraje(arrayGarajes)
+            If arrayGarajes Is Nothing Then
 
-            If posicionGaraje <> -1 Then
+                MessageBox.Show("Ha habido un problema al obtener los nombres de los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
 
-                GarajesCmb.SelectedIndex = posicionGaraje
+                GarajesCmb.DataContext = arrayGarajes               ' Cargamos los garajes en su ComboBox.
+
+                Dim posicionGaraje As Integer = ObtenerPosicionGaraje(arrayGarajes)
+
+                If posicionGaraje <> -1 Then
+
+                    GarajesCmb.SelectedIndex = posicionGaraje
+
+                End If
+
+                Dim arrayPlazasOcupadas As Plaza() = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(arrayGarajes(posicionGaraje).Id)
+
+                If arrayPlazasOcupadas Is Nothing Then
+
+                    MessageBox.Show("Ha habido un problema al obtener las plazas ocupadas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                Else
+
+                    PlazasCmb.DataContext = arrayPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
+
+                    Dim posicionPlaza As Integer = ObtenerPosicionPlaza(arrayPlazasOcupadas)
+
+                    If posicionPlaza <> -1 Then
+
+                        PlazasCmb.SelectedIndex = posicionPlaza
+
+                    End If
+
+                End If
 
             End If
 
             Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientes()
-            ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
 
-            Dim posicionCliente As Integer = ObtenerPosicionCliente(arrayClientes)
+            If arrayClientes Is Nothing Then             ' Comprobamos si hay datos.
 
-            If posicionCliente <> -1 Then
+                MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
 
-                ClientesCmb.SelectedIndex = posicionCliente
+                ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
 
-            End If
+                Dim posicionCliente As Integer = ObtenerPosicionCliente(arrayClientes)
 
-            Dim arrayPlazasOcupadas As Plaza() = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(arrayGarajes(posicionGaraje).Id)
-            PlazasCmb.DataContext = arrayPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
+                If posicionCliente <> -1 Then
 
-            Dim posicionPlaza As Integer = ObtenerPosicionPlaza(arrayPlazasOcupadas)
+                    ClientesCmb.SelectedIndex = posicionCliente
 
-            If posicionPlaza <> -1 Then
-
-                PlazasCmb.SelectedIndex = posicionPlaza
+                End If
 
             End If
 
@@ -163,8 +203,14 @@
 
                         MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                         LimpiarCampos()
+                    Else
+
+                        MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Ocupado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                     End If
+                Else
+
+                    MessageBox.Show("Ha habido un problema al insertar el vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
@@ -175,12 +221,21 @@
                 If vehiculo.Modificar() Then
 
                     MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+                Else
+
+                    MessageBox.Show("Ha habido un problema al modificar los datos del vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
             End If
 
             PgVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)               ' Actualizamos el DataGrid de vehículos.
+
+            If PgVehiculos.VehiculosDg.DataContext Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener los vehículos del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+            End If
 
         End If
 

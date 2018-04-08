@@ -6,7 +6,15 @@
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
         GarajesCmb.DataContext = Garaje.ObtenerNombresGarajes()
-        GarajesCmb.SelectedIndex = 0
+
+        If GarajesCmb.DataContext Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener los nombres de los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
+
+            GarajesCmb.SelectedIndex = 0
+
+        End If
 
     End Sub
 
@@ -46,6 +54,9 @@
 
                         Dim formFactConjunto As New FormFactConjunto(gjSelec.Id)
                         formFactConjunto.EmpezarImpresion()
+                    Else
+
+                        MessageBox.Show("Ha habido un problema al añadir la factura al garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                     End If
 

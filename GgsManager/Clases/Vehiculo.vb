@@ -30,14 +30,12 @@ Public Class Vehiculo
                                          ORDER BY Cli.Apellidos;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener los vehículos del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -65,12 +63,12 @@ Public Class Vehiculo
             conexion.Close()
 
             Return listaVehiculos.ToArray()
+        Else
+
+            conexion.Close()
+            Return Nothing
 
         End If
-
-        conexion.Close()
-
-        Return Nothing
 
     End Function
 
@@ -88,20 +86,18 @@ Public Class Vehiculo
                                          WHERE  IdCliente = @IdCliente;", conexion)
 
         comando.Parameters.AddWithValue("@IdCliente", idCliente)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener el vehículo del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         If datos IsNot Nothing Then
 
-            Dim vehiculo As Vehiculo
+            Dim vehiculo As Vehiculo = Nothing
 
             While datos.Read()
 
@@ -155,8 +151,6 @@ Public Class Vehiculo
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al insertar el vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -194,8 +188,6 @@ Public Class Vehiculo
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al modificar los datos del vehículo seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -222,8 +214,6 @@ Public Class Vehiculo
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al eliminar el vehículo seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -253,8 +243,6 @@ Public Class Vehiculo
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al eliminar el vehículo del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -282,8 +270,6 @@ Public Class Vehiculo
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al eliminar los vehículos del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 

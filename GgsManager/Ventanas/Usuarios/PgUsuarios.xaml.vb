@@ -4,6 +4,12 @@
 
         UsuariosDg.DataContext = Usuario.ObtenerUsuarios()
 
+        If UsuariosDg.DataContext Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener los usuarios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
+
     End Sub
 
     Private Sub NuevoUsuarioBtn_Click(sender As Object, e As RoutedEventArgs)
@@ -23,8 +29,17 @@
 
             If usuarioSelec.Eliminar() Then
 
-                UsuariosDg.DataContext = Usuario.ObtenerUsuarios()
                 MessageBox.Show("Se ha eliminado el usuario.", "Usuario Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+                UsuariosDg.DataContext = Usuario.ObtenerUsuarios()
+
+                If UsuariosDg.DataContext Is Nothing Then
+
+                    MessageBox.Show("Ha habido un problema al obtener los usuarios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+                End If
+            Else
+
+                MessageBox.Show("Ha habido un problema al eliminar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
             End If
 

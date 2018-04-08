@@ -29,14 +29,12 @@ Public Class Plaza
                                          ORDER BY IdPlaza;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener las plazas libres del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -48,7 +46,8 @@ Public Class Plaza
 
                 Dim id As Integer = datos.GetInt32("IdPlaza")
 
-                listaPlazas.Add(New Plaza(id))
+                Dim plaza As New Plaza(id)
+                listaPlazas.Add(plaza)
 
             End While
 
@@ -83,14 +82,12 @@ Public Class Plaza
                                          ORDER BY IdPlaza;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener las plazas ocupadas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -102,7 +99,8 @@ Public Class Plaza
 
                 Dim id As Integer = datos.GetInt32("IdPlaza")
 
-                listaPlazas.Add(New Plaza(id))
+                Dim plaza As New Plaza(id)
+                listaPlazas.Add(plaza)
 
             End While
 
@@ -136,14 +134,12 @@ Public Class Plaza
                                          ORDER BY Plz.IdPlaza;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un error al obtener las plazas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -204,8 +200,6 @@ Public Class Plaza
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener los datos de las plazas libres.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -241,8 +235,6 @@ Public Class Plaza
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener los datos de las plazas ocupadas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -276,8 +268,6 @@ Public Class Plaza
             adaptador.Fill(dtPlazas, "Plazas")
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener los datos de todas las plazas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -342,8 +332,6 @@ Public Class Plaza
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Libre.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -375,8 +363,6 @@ Public Class Plaza
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Ocupado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -404,8 +390,6 @@ Public Class Plaza
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al eliminar las plazas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 

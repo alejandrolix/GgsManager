@@ -31,8 +31,6 @@ Public Class Factura
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener el número de facturas del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -62,8 +60,6 @@ Public Class Factura
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener el número de facturas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -90,8 +86,6 @@ Public Class Factura
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener el nuevo Id de la factura.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         Return nuevoId
@@ -116,8 +110,6 @@ Public Class Factura
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al añadir la factura del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -146,8 +138,6 @@ Public Class Factura
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al añadir la factura del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -166,7 +156,10 @@ Public Class Factura
 
         Dim numFacturasCliente As Integer = ObtenerNumFacturasPorIdCliente(idCliente)
 
-        If numFacturasCliente >= 1 Then
+        If numFacturasCliente <= 0 Then
+
+            MessageBox.Show("Ha habido un problema al obtener el número de facturas del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
             Dim conexion As MySqlConnection = Foo.ConexionABd()
             Dim comando As New MySqlCommand("DELETE FROM Facturas
@@ -179,8 +172,6 @@ Public Class Factura
                 numFila = comando.ExecuteNonQuery()
 
             Catch ex As Exception
-
-                MessageBox.Show("Ha habido un problema al eliminar las facturas del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
             End Try
 
@@ -204,7 +195,10 @@ Public Class Factura
 
         Dim numFacturasGaraje As Integer = ObtenerNumFacturasPorIdGaraje(idGaraje)
 
-        If numFacturasGaraje >= 1 Then
+        If numFacturasGaraje <= 0 Then
+
+            MessageBox.Show("Ha habido un problema al obtener el número de facturas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
             Dim conexion As MySqlConnection = Foo.ConexionABd()
             Dim comando As New MySqlCommand("DELETE FROM Facturas

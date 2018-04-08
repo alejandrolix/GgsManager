@@ -16,9 +16,15 @@ Public Class FormFactIndividual
         AddParametrosEmpresa()
 
         Dim factura As New Factura(Date.Now.Date, IdClienteSelec, True)
-        factura.InsertarParaCliente()
 
-        ReportViewer.RefreshReport()
+        If factura.InsertarParaCliente() Then
+
+            ReportViewer.RefreshReport()
+        Else
+
+            MessageBox.Show("Ha habido un problema al añadir la factura al cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
 
     End Sub
 
@@ -30,7 +36,10 @@ Public Class FormFactIndividual
 
         Dim datosCliente As Cliente = Cliente.ObtenerClientePorId(IdClienteSelec)
 
-        If datosCliente IsNot Nothing Then
+        If datosCliente Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener los datos del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
             Dim listaRp As New ReportParameterCollection()
             listaRp.Add(New ReportParameter("NombreYApellidosCliente", datosCliente.Nombre))
@@ -52,6 +61,12 @@ Public Class FormFactIndividual
     Private Sub AddParametrosVehiculo()
 
         Me.DatosVehiculo = Vehiculo.ObtenerVehiculoPorIdCliente(IdClienteSelec)
+
+        If DatosVehiculo Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener el vehículo del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
 
         If DatosVehiculo IsNot Nothing Then
 
@@ -112,9 +127,16 @@ Public Class FormFactIndividual
     Private Sub AddParametroNumFactura()
 
         Dim nuevoId As Integer = Factura.ObtenerNuevoIdFactura()
-        Dim rpNumFactura As New ReportParameter("NumFactura", nuevoId.ToString())
 
-        ReportViewer.LocalReport.SetParameters(rpNumFactura)
+        If nuevoId <= 0 Then
+
+            MessageBox.Show("Ha habido un problema al obtener el nuevo Id de la factura.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
+
+            Dim rpNumFactura As New ReportParameter("NumFactura", nuevoId.ToString())
+            ReportViewer.LocalReport.SetParameters(rpNumFactura)
+
+        End If
 
     End Sub
 

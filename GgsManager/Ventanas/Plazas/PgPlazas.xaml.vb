@@ -9,6 +9,12 @@
 
         PlazasDg.DataContext = Plaza.ObtenerPlazasPorIdGaraje(IdGarajeSelec)
 
+        If PlazasDg.DataContext Is Nothing Then
+
+            MessageBox.Show("Ha habido un error al obtener las plazas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
+
     End Sub
 
     Public Sub New(ByRef idGaraje As Integer)
