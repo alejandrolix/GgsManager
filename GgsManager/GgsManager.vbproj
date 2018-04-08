@@ -113,7 +113,6 @@
     <Compile Include="Clases\Factura.vb" />
     <Compile Include="Clases\ImageViewModelCliente.vb" />
     <Compile Include="Clases\Plaza.vb" />
-    <Compile Include="Clases\Tests.vb" />
     <Compile Include="DataSets\DtClientes.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
