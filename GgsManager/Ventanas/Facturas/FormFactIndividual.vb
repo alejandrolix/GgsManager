@@ -62,6 +62,12 @@ Public Class FormFactIndividual
 
         Me.DatosVehiculo = Vehiculo.ObtenerVehiculoPorIdCliente(IdClienteSelec)
 
+        If DatosVehiculo Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener el vehículo del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
+
         If DatosVehiculo IsNot Nothing Then
 
             Dim listaRp As New ReportParameterCollection()

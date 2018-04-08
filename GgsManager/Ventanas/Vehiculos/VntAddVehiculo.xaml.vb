@@ -208,6 +208,9 @@
                         MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Ocupado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                     End If
+                Else
+
+                    MessageBox.Show("Ha habido un problema al insertar el vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
@@ -218,12 +221,21 @@
                 If vehiculo.Modificar() Then
 
                     MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+                Else
+
+                    MessageBox.Show("Ha habido un problema al modificar los datos del vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
             End If
 
             PgVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)               ' Actualizamos el DataGrid de vehículos.
+
+            If PgVehiculos.VehiculosDg.DataContext Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener los vehículos del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+            End If
 
         End If
 

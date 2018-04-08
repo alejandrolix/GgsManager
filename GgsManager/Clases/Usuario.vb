@@ -89,11 +89,13 @@ Public Class Usuario
 
             datos.Close()
 
+            Return usuario
+        Else
+
+            conexion.Close()
+            Return usuario
+
         End If
-
-        conexion.Close()
-
-        Return usuario
 
     End Function
 
@@ -159,12 +161,12 @@ Public Class Usuario
             conexion.Close()
 
             Return listaUsuarios.ToArray()
+        Else
+
+            conexion.Close()
+            Return Nothing
 
         End If
-
-        conexion.Close()
-
-        Return Nothing
 
     End Function
 
