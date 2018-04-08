@@ -44,13 +44,32 @@
             PrecBaseVehiculoTxt.DataContext = VehiculoSelec
 
             Dim arrayGarajes As Garaje() = Garaje.ObtenerNombresGarajes()
-            GarajesCmb.DataContext = arrayGarajes               ' Cargamos los garajes en su ComboBox.
 
-            Dim posicionGaraje As Integer = ObtenerPosicionGaraje(arrayGarajes)
+            If arrayGarajes Is Nothing Then
 
-            If posicionGaraje <> -1 Then
+                MessageBox.Show("Ha habido un problema al obtener los nombres de los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
 
-                GarajesCmb.SelectedIndex = posicionGaraje
+                GarajesCmb.DataContext = arrayGarajes               ' Cargamos los garajes en su ComboBox.
+
+                Dim posicionGaraje As Integer = ObtenerPosicionGaraje(arrayGarajes)
+
+                If posicionGaraje <> -1 Then
+
+                    GarajesCmb.SelectedIndex = posicionGaraje
+
+                End If
+
+                Dim arrayPlazasOcupadas As Plaza() = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(arrayGarajes(posicionGaraje).Id)
+                PlazasCmb.DataContext = arrayPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
+
+                Dim posicionPlaza As Integer = ObtenerPosicionPlaza(arrayPlazasOcupadas)
+
+                If posicionPlaza <> -1 Then
+
+                    PlazasCmb.SelectedIndex = posicionPlaza
+
+                End If
 
             End If
 
@@ -70,17 +89,6 @@
                     ClientesCmb.SelectedIndex = posicionCliente
 
                 End If
-
-            End If
-
-            Dim arrayPlazasOcupadas As Plaza() = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(arrayGarajes(posicionGaraje).Id)
-            PlazasCmb.DataContext = arrayPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
-
-            Dim posicionPlaza As Integer = ObtenerPosicionPlaza(arrayPlazasOcupadas)
-
-            If posicionPlaza <> -1 Then
-
-                PlazasCmb.SelectedIndex = posicionPlaza
 
             End If
 

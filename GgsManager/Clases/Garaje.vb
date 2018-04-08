@@ -35,61 +35,53 @@ Public Class Garaje
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
                                          FROM   Garajes
                                          ORDER BY Nombre;", conexion)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         If datos IsNot Nothing Then
 
-            Dim listaGarajes As List(Of Garaje) = Nothing
+            Dim listaGarajes As New List(Of Garaje)()
 
-            If datos.HasRows Then
+            While datos.Read()
 
-                listaGarajes = New List(Of Garaje)()
+                Dim id As Integer = datos.GetInt32("IdGaraje")
+                Dim nombre As String = datos.GetString("Nombre")
+                Dim direccion As String = datos.GetString("Direccion")
+                Dim numPlazas As Integer = datos.GetInt32("NumPlazas")
+                Dim numPlazasLibres As Integer = datos.GetInt32("NumPlazasLibres")
+                Dim numPlazasOcupadas As Integer = datos.GetInt32("NumPlazasOcupadas")
+                Dim observaciones As String
 
-                While datos.Read()
+                If datos.IsDBNull(6) Then               ' Si el contenido de la 2ª columna, (Observaciones), es NULL.
 
-                    Dim id As Integer = datos.GetInt32("IdGaraje")
-                    Dim nombre As String = datos.GetString("Nombre")
-                    Dim direccion As String = datos.GetString("Direccion")
-                    Dim numPlazas As Integer = datos.GetInt32("NumPlazas")
-                    Dim numPlazasLibres As Integer = datos.GetInt32("NumPlazasLibres")
-                    Dim numPlazasOcupadas As Integer = datos.GetInt32("NumPlazasOcupadas")
-                    Dim observaciones As String
+                    observaciones = ""
+                Else
 
-                    If datos.IsDBNull(6) Then               ' Si el contenido de la 2ª columna, (Observaciones), es NULL.
+                    observaciones = datos.GetString("Observaciones")
 
-                        observaciones = ""
-                    Else
+                End If
 
-                        observaciones = datos.GetString("Observaciones")
+                Dim garaje As New Garaje(id, nombre, direccion, numPlazas, numPlazasLibres, numPlazasOcupadas, observaciones)
+                listaGarajes.Add(garaje)
 
-                    End If
+            End While
 
-                    listaGarajes.Add(New Garaje(id, nombre, direccion, numPlazas, numPlazasLibres, numPlazasOcupadas, observaciones))
-
-                End While
-
-                datos.Close()
-
-            End If
-
+            datos.Close()
             conexion.Close()
 
             Return listaGarajes.ToArray()
+        Else
+
+            conexion.Close()
+            Return Nothing
 
         End If
-
-        conexion.Close()
-
-        Return Nothing
 
     End Function
 
@@ -104,14 +96,12 @@ Public Class Garaje
         Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre
                                          FROM   Garajes
                                          ORDER BY Nombre;", conexion)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener los nombres de los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -154,14 +144,12 @@ Public Class Garaje
                                          WHERE  IdGaraje = @IdGaraje;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim nombreGaraje As String
+        Dim nombreGaraje As String = Nothing
 
         Try
             nombreGaraje = CType(comando.ExecuteScalar, String)
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -189,8 +177,6 @@ Public Class Garaje
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener el último Id del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -216,8 +202,6 @@ Public Class Garaje
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al eliminar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -260,8 +244,6 @@ Public Class Garaje
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -303,8 +285,6 @@ Public Class Garaje
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al añadir el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 

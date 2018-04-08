@@ -36,7 +36,15 @@ Public Class FormInfClientes
     Private Sub EstablecerNombreGaraje()
 
         Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGarajeSelec)
-        ReportViewer.LocalReport.SetParameters(New ReportParameter("NombreGaraje", nombreGaraje))
+
+        If nombreGaraje Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
+
+            ReportViewer.LocalReport.SetParameters(New ReportParameter("NombreGaraje", nombreGaraje))
+
+        End If
 
     End Sub
 

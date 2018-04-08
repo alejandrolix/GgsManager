@@ -124,12 +124,22 @@
 
                     Dim ultimoId As Integer = Garaje.ObtenerUltimoIdGarajes()               ' Obtenemos el último Id del garaje.
 
-                    If Plaza.AddPlazasAGaraje(garaje.NumPlazas, ultimoId) Then
+                    If ultimoId <= 0 Then
 
-                        MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
-                        LimpiarCampos()
+                        MessageBox.Show("Ha habido un problema al obtener el último Id del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                    Else
+
+                        If Plaza.AddPlazasAGaraje(garaje.NumPlazas, ultimoId) Then
+
+                            MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                            LimpiarCampos()
+
+                        End If
 
                     End If
+                Else
+
+                    MessageBox.Show("Ha habido un problema al insertar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
@@ -141,6 +151,9 @@
                 If garaje.Modificar() Then
 
                     MessageBox.Show("Se ha modificado el garaje.", "Garaje Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+                Else
+
+                    MessageBox.Show("Ha habido un problema al modificar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
@@ -149,6 +162,12 @@
         End If
 
         PgGarajes.GarajesDg.DataContext = Garaje.ObtenerGarajes()              ' Actualizamos el DataGrid de Garajes.
+
+        If PgGarajes.GarajesDg.DataContext Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
 
     End Sub
 
