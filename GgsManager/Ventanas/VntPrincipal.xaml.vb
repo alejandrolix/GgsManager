@@ -45,6 +45,12 @@
 
     Private Sub Vehiculos_Click(sender As Object, e As RoutedEventArgs)
 
+        If Frame.Content IsNot Nothing Then
+
+            Frame.Content = Nothing
+
+        End If
+
         AbrirVntSeleccGaraje(Me, Foo.Ventana.Vehiculos)
 
     End Sub
@@ -57,11 +63,23 @@
 
     Private Sub Plazas_Click(sender As Object, e As RoutedEventArgs)
 
+        If Frame.Content IsNot Nothing Then
+
+            Frame.Content = Nothing
+
+        End If
+
         AbrirVntSeleccGaraje(Me, Foo.Ventana.Plazas)
 
     End Sub
 
     Private Sub InfClientes_Click(sender As Object, e As RoutedEventArgs)
+
+        If Frame.Content IsNot Nothing Then
+
+            Frame.Content = Nothing
+
+        End If
 
         AbrirVntSeleccGaraje(Foo.Ventana.InformeClientes)
 
@@ -69,17 +87,35 @@
 
     Private Sub InfPlazas_Click(sender As Object, e As RoutedEventArgs)
 
+        If Frame.Content IsNot Nothing Then
+
+            Frame.Content = Nothing
+
+        End If
+
         AbrirVntSeleccGaraje(Foo.Ventana.InformePlazas)
 
     End Sub
 
     Private Sub FactIndividual_Click(sender As Object, e As RoutedEventArgs)
 
+        If Frame.Content IsNot Nothing Then
+
+            Frame.Content = Nothing
+
+        End If
+
         AbrirVntSeleccGaraje(Foo.Ventana.FacturaIndividual)
 
     End Sub
 
     Private Sub FactPorGaraje_Click(sender As Object, e As RoutedEventArgs)
+
+        If Frame.Content IsNot Nothing Then
+
+            Frame.Content = Nothing
+
+        End If
 
         AbrirVntSeleccGaraje(Foo.Ventana.FacturaGaraje)
 
@@ -128,12 +164,24 @@
 
     Private Sub EstadTodosGarajes_Click(sender As Object, e As RoutedEventArgs)
 
+        If Frame.Content IsNot Nothing Then
+
+            Frame.Content = Nothing
+
+        End If
+
         Dim formEstGarajes As New FormEstGarajes(True)
         formEstGarajes.ShowDialog()
 
     End Sub
 
     Private Sub EstadGaraje_Click(sender As Object, e As RoutedEventArgs)
+
+        If Frame.Content IsNot Nothing Then
+
+            Frame.Content = Nothing
+
+        End If
 
         AbrirVntSeleccGaraje(Foo.Ventana.InformeEstadGaraje)
 
