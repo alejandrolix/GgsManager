@@ -46,6 +46,9 @@
 
                         Dim formFactConjunto As New FormFactConjunto(gjSelec.Id)
                         formFactConjunto.EmpezarImpresion()
+                    Else
+
+                        MessageBox.Show("Ha habido un problema al añadir la factura al garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                     End If
 

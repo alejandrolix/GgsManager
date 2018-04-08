@@ -349,7 +349,7 @@ Public Class Cliente
 
         If datos IsNot Nothing Then
 
-            Dim cliente As Cliente
+            Dim cliente As Cliente = Nothing
 
             While datos.Read()
 
@@ -494,6 +494,18 @@ Public Class Cliente
         conexion.Close()
 
         Return numFila >= 1
+
+    End Function
+
+
+    ''' <summary>
+    ''' Comprueba si hay una imagen en un Image.
+    ''' </summary>
+    ''' <param name="img">Imagen a comprobar.</param>
+    ''' <returns>True: Hay imagen. False: No hay imagen.</returns>
+    Public Shared Function HayImagen(ByRef img As ImageSource) As Boolean
+
+        Return img IsNot Nothing
 
     End Function
 

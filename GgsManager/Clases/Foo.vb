@@ -21,18 +21,6 @@ Public Class Foo
 
 
     ''' <summary>
-    ''' Comprueba si hay una imagen en un Image.
-    ''' </summary>
-    ''' <param name="img">Imagen a comprobar.</param>
-    ''' <returns>True: Hay imagen. False: No hay imagen.</returns>
-    Public Shared Function HayImagen(ByRef img As ImageSource) As Boolean
-
-        Return img IsNot Nothing
-
-    End Function
-
-
-    ''' <summary>
     ''' Comprueba si la dirección contiene una "\". Si es así, lo cambia por "\\" para insertarlo en la tabla.
     ''' </summary>
     ''' <param name="direccion">Dirección introducida a comprobar.</param>

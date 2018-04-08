@@ -8,7 +8,7 @@
 
         If ClientesCmb.DataContext Is Nothing Then
 
-            MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
             ClientesCmb.SelectedIndex = 0
@@ -29,6 +29,9 @@
 
                 Dim formFactIndividual As New FormFactIndividual(clienteSelec.Id)
                 formFactIndividual.ShowDialog()
+            Else
+
+                MessageBox.Show("Ha habido un problema al añadir la factura al cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
             End If
 

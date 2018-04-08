@@ -162,7 +162,7 @@ Public Class VntAddCliente
 
         End If
 
-        If Foo.HayImagen(ClienteImg.Source) Then                ' Si hay una imagen, la borramos.
+        If Cliente.HayImagen(ClienteImg.Source) Then                ' Si hay una imagen, la borramos.
 
             ClienteImg.ClearValue(Image.SourceProperty)
 
@@ -253,7 +253,7 @@ Public Class VntAddCliente
 
                 cliente.Direccion = Foo.CambiarDireccion(cliente.Direccion)
 
-                If Foo.HayImagen(ClienteImg.Source) Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
+                If Cliente.HayImagen(ClienteImg.Source) Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
 
                     GuardarFoto(ClienteImg.Source)
 
