@@ -28,6 +28,12 @@
 
                 Usuario.UsuarioLogueado = Usuario.ObtenerUsuario(UsuarioTxt.Text)           ' Guardamos el usuario que ha iniciado sesión.
 
+                If Usuario.UsuarioLogueado Is Nothing Then
+
+                    MessageBox.Show("Ha habido un problema al obtener el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+                End If
+
                 If Usuario.ComprobarHashPassword(PasswordBox.Password) Then             ' Si el hash de la contraseña es igual, cerramos la ventana para poder usar el programa.
 
                     Me.Close()

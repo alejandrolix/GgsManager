@@ -13,7 +13,10 @@
 
             If Usuario.ModificarPasswordPorId(IdUsuario, hashPassword) Then
 
-                MessageBox.Show("Se ha modificado la contraseña del usuario seleccionado.", "Contraseña Modificada", MessageBoxButton.OK, MessageBoxImage.Error)
+                MessageBox.Show("Se ha modificado la contraseña del usuario.", "Contraseña Modificada", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                MessageBox.Show("Ha habido un problema al modificar la contraseña del usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
             End If
 

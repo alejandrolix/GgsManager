@@ -47,7 +47,7 @@
                     LimpiarCampos()
                 Else
 
-                    NombreUsuTxt.Text = ""
+                    MessageBox.Show("Ha habido un problema al insertar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
@@ -58,12 +58,21 @@
                 If usuario.Modificar() Then
 
                     MessageBox.Show("Se ha modificado los datos del usuario seleccionado.", "Usuario Modificado", MessageBoxButton.OK, MessageBoxImage.Error)
+                Else
+
+                    MessageBox.Show("Ha habido un problema al modificar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
             End If
 
             PgUsuarios.UsuariosDg.DataContext = Usuario.ObtenerUsuarios()                  ' Actualizamos el DataGrid de Usuarios.
+
+            If PgUsuarios.UsuariosDg.DataContext Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener los usuarios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+
+            End If
 
         End If
 

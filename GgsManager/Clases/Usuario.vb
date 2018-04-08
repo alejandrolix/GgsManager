@@ -66,15 +66,13 @@ Public Class Usuario
                                          WHERE  Nombre = @Nombre;", conexion)
 
         comando.Parameters.AddWithValue("@Nombre", nombreUsuario)
-        Dim datos As MySqlDataReader
-        Dim usuario As Usuario
+        Dim datos As MySqlDataReader = Nothing
+        Dim usuario As Usuario = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -133,14 +131,12 @@ Public Class Usuario
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, Nombre, EsGestor
                                          FROM   Usuarios", conexion)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener los usuarios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -232,8 +228,6 @@ Public Class Usuario
 
             Catch ex As Exception
 
-                MessageBox.Show("Ha habido un problema al insertar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
             End Try
 
             conexion.Close()
@@ -268,8 +262,6 @@ Public Class Usuario
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al modificar el usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -301,8 +293,6 @@ Public Class Usuario
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al modificar la contraseña del usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -329,8 +319,6 @@ Public Class Usuario
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al eliminar el usuario seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
