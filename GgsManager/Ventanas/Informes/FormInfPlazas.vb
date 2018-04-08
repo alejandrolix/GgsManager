@@ -32,12 +32,19 @@ Public Class FormInfPlazas
 
             Dim dtPlazas As DtPlazas = Plaza.RellenarDatosPlazasLibresPorIdGaraje(IdGarajeSelec)
 
-            ReportViewer.ProcessingMode = ProcessingMode.Local
-            ReportViewer.LocalReport.DataSources.Clear()
-            ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
+            If dtPlazas Is Nothing Then
 
-            ReportViewer.DocumentMapCollapsed = True
-            ReportViewer.RefreshReport()
+                MessageBox.Show("Ha habido un problema al obtener los datos de las plazas libres.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                ReportViewer.ProcessingMode = ProcessingMode.Local
+                ReportViewer.LocalReport.DataSources.Clear()
+                ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
+
+                ReportViewer.DocumentMapCollapsed = True
+                ReportViewer.RefreshReport()
+
+            End If
 
         End If
 
@@ -49,12 +56,19 @@ Public Class FormInfPlazas
 
             Dim dtPlazas As DtPlazas = Plaza.RellenarDatosPlazasOcupadasPorIdGaraje(IdGarajeSelec)
 
-            ReportViewer.ProcessingMode = ProcessingMode.Local
-            ReportViewer.LocalReport.DataSources.Clear()
-            ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
+            If dtPlazas Is Nothing Then
 
-            ReportViewer.DocumentMapCollapsed = True
-            ReportViewer.RefreshReport()
+                MessageBox.Show("Ha habido un problema al obtener los datos de las plazas ocupadas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                ReportViewer.ProcessingMode = ProcessingMode.Local
+                ReportViewer.LocalReport.DataSources.Clear()
+                ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
+
+                ReportViewer.DocumentMapCollapsed = True
+                ReportViewer.RefreshReport()
+
+            End If
 
         End If
 
@@ -66,12 +80,19 @@ Public Class FormInfPlazas
 
             Dim dtPlazas As DtPlazas = Plaza.RellenarDatosTodasPlazasPorIdGaraje(IdGarajeSelec)
 
-            ReportViewer.ProcessingMode = ProcessingMode.Local
-            ReportViewer.LocalReport.DataSources.Clear()
-            ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
+            If dtPlazas Is Nothing Then
 
-            ReportViewer.DocumentMapCollapsed = True
-            ReportViewer.RefreshReport()
+                MessageBox.Show("Ha habido un problema al obtener los datos de todas las plazas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                ReportViewer.ProcessingMode = ProcessingMode.Local
+                ReportViewer.LocalReport.DataSources.Clear()
+                ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
+
+                ReportViewer.DocumentMapCollapsed = True
+                ReportViewer.RefreshReport()
+
+            End If
 
         End If
 

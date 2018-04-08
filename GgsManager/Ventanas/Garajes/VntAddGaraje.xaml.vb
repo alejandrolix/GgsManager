@@ -133,6 +133,9 @@
 
                             MessageBox.Show("Se ha añadido el garaje.", "Garaje Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                             LimpiarCampos()
+                        Else
+
+                            MessageBox.Show("Ha habido un problema al obtener las plazas al garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                         End If
 

@@ -33,6 +33,9 @@
 
                     VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGarajeSelec)
                     MessageBox.Show("Se ha eliminado el vehículo.", "Vehículo Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+                Else
+
+                    MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Libre.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 

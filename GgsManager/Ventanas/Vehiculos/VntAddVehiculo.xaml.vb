@@ -33,7 +33,15 @@
             End If
 
             PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas en su ComboBox.
-            PlazasCmb.SelectedIndex = 0
+
+            If PlazasCmb.DataContext Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener las plazas libres del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                PlazasCmb.SelectedIndex = 0
+
+            End If
 
         ElseIf Accion = Foo.Accion.Modificar Then
 
@@ -61,13 +69,21 @@
                 End If
 
                 Dim arrayPlazasOcupadas As Plaza() = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(arrayGarajes(posicionGaraje).Id)
-                PlazasCmb.DataContext = arrayPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
 
-                Dim posicionPlaza As Integer = ObtenerPosicionPlaza(arrayPlazasOcupadas)
+                If arrayPlazasOcupadas Is Nothing Then
 
-                If posicionPlaza <> -1 Then
+                    MessageBox.Show("Ha habido un problema al obtener las plazas ocupadas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                Else
 
-                    PlazasCmb.SelectedIndex = posicionPlaza
+                    PlazasCmb.DataContext = arrayPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
+
+                    Dim posicionPlaza As Integer = ObtenerPosicionPlaza(arrayPlazasOcupadas)
+
+                    If posicionPlaza <> -1 Then
+
+                        PlazasCmb.SelectedIndex = posicionPlaza
+
+                    End If
 
                 End If
 
@@ -187,6 +203,9 @@
 
                         MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                         LimpiarCampos()
+                    Else
+
+                        MessageBox.Show("Ha habido un problema al cambiar la situación de la plaza a Ocupado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                     End If
 
