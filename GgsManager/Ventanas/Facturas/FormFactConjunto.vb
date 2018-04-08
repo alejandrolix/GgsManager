@@ -17,62 +17,70 @@ Public Class FormFactConjunto
     Public Sub EmpezarImpresion()
 
         Dim arrayClientes As Cliente() = Cliente.ObtenerClientesPorIdGaraje(IdGarajeSelec)
-        Dim numFacturaActual As Integer = 0
-        Dim cantClientesTotal As Integer = arrayClientes.Length - 1
 
-        Dim factura As New LocalReport()
-        factura.ReportPath = "..\..\Facturas\FactConjunto.rdlc"
+        If arrayClientes Is Nothing Then
 
-        AddParametrosEmpresa(factura)
-        AddParametroIVA(factura)
+            MessageBox.Show("Ha habido un problema al obtener los clientes del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
-        For i As Integer = 0 To cantClientesTotal
+            Dim numFacturaActual As Integer = 0
+            Dim cantClientesTotal As Integer = arrayClientes.Length - 1
 
-            numFacturaActual += 1
+            Dim factura As New LocalReport()
+            factura.ReportPath = "..\..\Facturas\FactConjunto.rdlc"
 
-            Dim rpNumFactura As New ReportParameter("NumFactura" & numFacturaActual, numFacturaActual.ToString())
-            factura.SetParameters(rpNumFactura)
+            AddParametrosEmpresa(factura)
+            AddParametroIVA(factura)
 
-            If i <> cantClientesTotal Then           ' Si la posición del array es distinta al número total de clientes.
+            For i As Integer = 0 To cantClientesTotal
 
-                If numFacturaActual = 1 Then
+                numFacturaActual += 1
 
-                    AddParametrosCliente(numFacturaActual, arrayClientes(i), factura)
-                    AddParametrosVehiculo(numFacturaActual, arrayClientes(i).Vehiculo, factura)
-                    AddParametrosImporte(numFacturaActual, arrayClientes(i).Vehiculo.PrecioBase, factura)
+                Dim rpNumFactura As New ReportParameter("NumFactura" & numFacturaActual, numFacturaActual.ToString())
+                factura.SetParameters(rpNumFactura)
+
+                If i <> cantClientesTotal Then           ' Si la posición del array es distinta al número total de clientes.
+
+                    If numFacturaActual = 1 Then
+
+                        AddParametrosCliente(numFacturaActual, arrayClientes(i), factura)
+                        AddParametrosVehiculo(numFacturaActual, arrayClientes(i).Vehiculo, factura)
+                        AddParametrosImporte(numFacturaActual, arrayClientes(i).Vehiculo.PrecioBase, factura)
+                    Else
+
+                        AddParametrosCliente(numFacturaActual, arrayClientes(i), factura)
+                        AddParametrosVehiculo(numFacturaActual, arrayClientes(i).Vehiculo, factura)
+                        AddParametrosImporte(numFacturaActual, arrayClientes(i).Vehiculo.PrecioBase, factura)
+
+                        ImprimirFactura(factura)
+                        numFacturaActual = 0
+
+                    End If
                 Else
 
-                    AddParametrosCliente(numFacturaActual, arrayClientes(i), factura)
-                    AddParametrosVehiculo(numFacturaActual, arrayClientes(i).Vehiculo, factura)
-                    AddParametrosImporte(numFacturaActual, arrayClientes(i).Vehiculo.PrecioBase, factura)
+                    If numFacturaActual = 1 Then
+
+                        ' Se añade el último cliente a la primera factura, la otra se queda vacía.
+                        AddParametrosCliente(numFacturaActual, arrayClientes(i), factura)
+                        AddParametrosVehiculo(numFacturaActual, arrayClientes(i).Vehiculo, factura)
+                        AddParametrosImporte(numFacturaActual, arrayClientes(i).Vehiculo.PrecioBase, factura)
+
+                        AddParametrosVacios(numFacturaActual + 1, factura)
+                    Else
+
+                        AddParametrosCliente(numFacturaActual, arrayClientes(i), factura)
+                        AddParametrosVehiculo(numFacturaActual, arrayClientes(i).Vehiculo, factura)
+                        AddParametrosImporte(numFacturaActual, arrayClientes(i).Vehiculo.PrecioBase, factura)
+
+                    End If
 
                     ImprimirFactura(factura)
-                    numFacturaActual = 0
-
-                End If
-            Else
-
-                If numFacturaActual = 1 Then
-
-                    ' Se añade el último cliente a la primera factura, la otra se queda vacía.
-                    AddParametrosCliente(numFacturaActual, arrayClientes(i), factura)
-                    AddParametrosVehiculo(numFacturaActual, arrayClientes(i).Vehiculo, factura)
-                    AddParametrosImporte(numFacturaActual, arrayClientes(i).Vehiculo.PrecioBase, factura)
-
-                    AddParametrosVacios(numFacturaActual + 1, factura)
-                Else
-
-                    AddParametrosCliente(numFacturaActual, arrayClientes(i), factura)
-                    AddParametrosVehiculo(numFacturaActual, arrayClientes(i).Vehiculo, factura)
-                    AddParametrosImporte(numFacturaActual, arrayClientes(i).Vehiculo.PrecioBase, factura)
 
                 End If
 
-                ImprimirFactura(factura)
+            Next
 
-            End If
-
-        Next
+        End If
 
     End Sub
 

@@ -22,7 +22,15 @@
             Keyboard.Focus(MatrVehiculoTxt)
 
             ClientesCmb.DataContext = Cliente.ObtenerNombreYApellidosClientes()           ' Cargamos los clientes en su ComboBox.
-            ClientesCmb.SelectedIndex = 0
+
+            If ClientesCmb.DataContext Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                ClientesCmb.SelectedIndex = 0
+
+            End If
 
             PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas en su ComboBox.
             PlazasCmb.SelectedIndex = 0
@@ -47,13 +55,21 @@
             End If
 
             Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientes()
-            ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
 
-            Dim posicionCliente As Integer = ObtenerPosicionCliente(arrayClientes)
+            If arrayClientes Is Nothing Then             ' Comprobamos si hay datos.
 
-            If posicionCliente <> -1 Then
+                MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
 
-                ClientesCmb.SelectedIndex = posicionCliente
+                ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
+
+                Dim posicionCliente As Integer = ObtenerPosicionCliente(arrayClientes)
+
+                If posicionCliente <> -1 Then
+
+                    ClientesCmb.SelectedIndex = posicionCliente
+
+                End If
 
             End If
 

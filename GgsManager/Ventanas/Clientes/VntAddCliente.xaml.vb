@@ -209,28 +209,36 @@ Public Class VntAddCliente
     Private Sub GuardarFoto(ByRef img As ImageSource)
 
         Dim nuevoId As Integer = Cliente.ObtenerNuevoIdClientes()
-        Dim bitmap As New BitmapImage()
 
-        bitmap.BeginInit()
-        bitmap.DecodePixelWidth = 106
-        bitmap.DecodePixelHeight = 92
-        bitmap.CacheOption = BitmapCacheOption.OnLoad
-        bitmap.UriSource = New Uri(UrlFotoSeleccionada, UriKind.RelativeOrAbsolute)
-        bitmap.EndInit()
+        If nuevoId <= 0 Then
 
-        Dim encoder As New JpegBitmapEncoder()
-        encoder.Frames.Add(BitmapFrame.Create(bitmap))
+            MessageBox.Show("Ha habido un problema al obtener el nuevo Id del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
-        Dim cadena As New StringBuilder()
-        cadena.Append(My.Settings.RutaClientes).Append(nuevoId).Append(".jpg")
+            Dim bitmap As New BitmapImage()
 
-        UrlFotoSeleccionada = cadena.ToString()         ' Establecemos la nueva ruta de la imagen a guardar.
+            bitmap.BeginInit()
+            bitmap.DecodePixelWidth = 106
+            bitmap.DecodePixelHeight = 92
+            bitmap.CacheOption = BitmapCacheOption.OnLoad
+            bitmap.UriSource = New Uri(UrlFotoSeleccionada, UriKind.RelativeOrAbsolute)
+            bitmap.EndInit()
 
-        Using stream As New FileStream(UrlFotoSeleccionada, FileMode.Create)
+            Dim encoder As New JpegBitmapEncoder()
+            encoder.Frames.Add(BitmapFrame.Create(bitmap))
 
-            encoder.Save(stream)
+            Dim cadena As New StringBuilder()
+            cadena.Append(My.Settings.RutaClientes).Append(nuevoId).Append(".jpg")
 
-        End Using
+            UrlFotoSeleccionada = cadena.ToString()         ' Establecemos la nueva ruta de la imagen a guardar.
+
+            Using stream As New FileStream(UrlFotoSeleccionada, FileMode.Create)
+
+                encoder.Save(stream)
+
+            End Using
+
+        End If
 
     End Sub
 
@@ -251,10 +259,13 @@ Public Class VntAddCliente
 
                 End If
 
-                If cliente.Insertar() Then
+                If cliente.Insertar() Then          ' Guardamos el cliente.
 
                     MessageBox.Show("Se ha añadido el cliente.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
+                Else
+
+                    MessageBox.Show("Ha habido un problema al añadir el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
@@ -268,12 +279,24 @@ Public Class VntAddCliente
                 If cliente.Modificar() Then
 
                     MessageBox.Show("Se ha modificado el cliente.", "Cliente Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+                Else
+
+                    MessageBox.Show("Ha habido un problema al modificar los datos del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
 
             End If
 
-            PgClientes.ClientesDg.DataContext = Cliente.ObtenerClientes()              ' Actualizamos el DataGrid de Clientes.            
+            PgClientes.Vista.Source = Cliente.ObtenerClientes()         ' Actualizamos el DataGrid de Clientes.
+
+            If PgClientes.Vista.Source Is Nothing Then
+
+                MessageBox.Show("Ha habido un problema al obtener los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+            Else
+
+                PgClientes.ClientesDg.DataContext = PgClientes.Vista.Source
+
+            End If
 
         End If
 

@@ -180,8 +180,6 @@ Public Class Factura
 
             Catch ex As Exception
 
-                MessageBox.Show("Ha habido un problema al eliminar las facturas del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
             End Try
 
             conexion.Close()

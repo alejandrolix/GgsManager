@@ -30,7 +30,10 @@ Public Class FormFactIndividual
 
         Dim datosCliente As Cliente = Cliente.ObtenerClientePorId(IdClienteSelec)
 
-        If datosCliente IsNot Nothing Then
+        If datosCliente Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener los datos del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
             Dim listaRp As New ReportParameterCollection()
             listaRp.Add(New ReportParameter("NombreYApellidosCliente", datosCliente.Nombre))

@@ -253,8 +253,6 @@ Public Class Vehiculo
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al eliminar el vehículo del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()

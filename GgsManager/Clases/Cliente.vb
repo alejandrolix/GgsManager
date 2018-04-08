@@ -52,8 +52,6 @@ Public Class Cliente
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         If datos IsNot Nothing Then
@@ -100,12 +98,12 @@ Public Class Cliente
             datos.Close()
 
             Return listaClientes.ToArray()
+        Else
+
+            conexion.Close()
+            Return Nothing
 
         End If
-
-        conexion.Close()
-
-        Return Nothing
 
     End Function
 
@@ -128,8 +126,6 @@ Public Class Cliente
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         If datos IsNot Nothing Then
@@ -151,12 +147,12 @@ Public Class Cliente
             datos.Close()
 
             Return listaClientes.ToArray()
+        Else
+
+            conexion.Close()
+            Return Nothing
 
         End If
-
-        conexion.Close()
-
-        Return Nothing
 
     End Function
 
@@ -182,8 +178,6 @@ Public Class Cliente
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         If datos IsNot Nothing Then
@@ -205,12 +199,12 @@ Public Class Cliente
             datos.Close()
 
             Return listaClientes.ToArray()
+        Else
+
+            conexion.Close()
+            Return Nothing
 
         End If
-
-        conexion.Close()
-
-        Return Nothing
 
     End Function
 
@@ -229,14 +223,12 @@ Public Class Cliente
                                          ORDER BY Nombre;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader
+        Dim datos As MySqlDataReader = Nothing
 
         Try
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener los clientes del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -268,12 +260,12 @@ Public Class Cliente
             conexion.Close()
 
             Return listaClientes.ToArray()
+        Else
+
+            conexion.Close()
+            Return Nothing
 
         End If
-
-        conexion.Close()
-
-        Return Nothing
 
     End Function
 
@@ -295,12 +287,9 @@ Public Class Cliente
                                                    WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
 
             adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", idGaraje)
-
             adaptador.Fill(dtClientes, "Clientes")
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener los datos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -326,8 +315,6 @@ Public Class Cliente
             nuevoId = CType(comando.ExecuteScalar(), Integer)
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener el nuevo Id de la tabla Clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -357,8 +344,6 @@ Public Class Cliente
             datos = comando.ExecuteReader()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -424,8 +409,6 @@ Public Class Cliente
 
         Catch ex As Exception
 
-            MessageBox.Show("Ha habido un problema al añadir el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
         End Try
 
         conexion.Close()
@@ -452,8 +435,6 @@ Public Class Cliente
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al eliminar el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
@@ -507,8 +488,6 @@ Public Class Cliente
             numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al modificar los datos del cliente seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
