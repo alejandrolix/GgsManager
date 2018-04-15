@@ -10,7 +10,7 @@
         Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico">
     
     <DockPanel>
-        <Menu Name="MenuPrincipal" DockPanel.Dock="Top" FontSize="17" Padding="2" IsEnabled="True">
+        <Menu Name="MenuPrincipal" DockPanel.Dock="Top" FontSize="17" Padding="2" IsEnabled="False">
             <MenuItem Name="Garajes" Header="Garajes" Click="Garajes_Click" Margin="0,0,8,0" />
             <MenuItem Name="Clientes" Header="Clientes" Click="Clientes_Click" Margin="0,0,8,0" />
             <MenuItem Name="Vehiculos" Header="Vehículos" Click="Vehiculos_Click" Margin="0,0,8,0" />

@@ -30,25 +30,21 @@ Public Class Usuario
     Public Shared Function ExisteUsuario(ByRef nombreUsuario As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT COUNT(IdUsuario) 
-                                         FROM   Usuarios 
-                                         WHERE  Nombre = @Nombre;", conexion)
+        Dim comando As New MySqlCommand("SELECT ExisteUsuario(@NombreUsuario);", conexion)
 
-        comando.Parameters.AddWithValue("@Nombre", nombreUsuario)
-        Dim resultado As Integer
+        comando.Parameters.AddWithValue("@NombreUsuario", nombreUsuario)
+        Dim existe As Boolean
 
         Try
-            resultado = CType(comando.ExecuteScalar(), Integer)
+            existe = CType(comando.ExecuteScalar(), Boolean)
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al comprobar si existe el usuario introducido.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
         conexion.Close()
 
-        Return Not resultado = 0
+        Return existe
 
     End Function
 
@@ -89,13 +85,10 @@ Public Class Usuario
 
             datos.Close()
 
-            Return usuario
-        Else
-
-            conexion.Close()
-            Return usuario
-
         End If
+
+        conexion.Close()
+        Return usuario
 
     End Function
 
@@ -172,34 +165,57 @@ Public Class Usuario
 
 
     ''' <summary>
-    ''' Compueba si el hash de la contraseña introducida por el usuario es igual al de la base de datos.
+    ''' Obtiene el hash de la contraseña del usuario en la base de datos.
     ''' </summary>    
-    ''' <param name="passwordIntroducida">La contraseña que ha introducido el usuario.</param>
-    ''' <returns>True: Los hashes son iguales. False: Los hashes no son iguales.</returns>
-    Public Shared Function ComprobarHashPassword(ByRef passwordIntroducida As String) As Boolean
+    ''' <param name="nombreUsuario">El nombre del usuario introducido.</param>    
+    ''' <returns>La contraseña del usuario.</returns>
+    Public Shared Function ObtenerPasswordUsuario(ByRef nombreUsuario As String) As String
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim hashPasswordIntroducida As String = ObtenerSHA1HashFromPassword(passwordIntroducida)
+        Dim comando As New MySqlCommand("SELECT ObtenerPasswordUsuario(@NombreUsuario);", conexion)
 
-        Dim comando As New MySqlCommand("SELECT Password 
-                                         FROM   Usuarios 
-                                         WHERE  Nombre = @Nombre;", conexion)
-
-        comando.Parameters.AddWithValue("@Nombre", UsuarioLogueado.Nombre)
-        Dim hashPasswordBd As String = ""
+        comando.Parameters.AddWithValue("@NombreUsuario", nombreUsuario)
+        Dim hashPasswordUsuario As String = ""
 
         Try
-            hashPasswordBd = CType(comando.ExecuteScalar(), String)
+            hashPasswordUsuario = CType(comando.ExecuteScalar(), String)
 
         Catch ex As Exception
-
-            MessageBox.Show("Ha habido un problema al obtener el hash de la contraseña del usuario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End Try
 
         conexion.Close()
 
-        Return hashPasswordIntroducida.Equals(hashPasswordBd)
+        Return hashPasswordUsuario
+
+    End Function
+
+
+    ''' <summary>
+    ''' Comprueba si la contraseña introducida por el usuario es igual al de la base de datos.
+    ''' </summary>            
+    ''' <param name="passwordIntroducida">La contraseña introducida por el usuario.</param>
+    ''' <param name="passwordBd">La contraseña del usuario de la base de datos.</param>    
+    ''' <returns>True: Las contraseñas son iguales. False: Las contraseñas no son iguales.</returns>
+    Public Shared Function ComprobarPasswords(ByRef passwordIntroducida As String, ByRef passwordBd As String) As Boolean
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("SELECT ComprobarPasswords(@PasswordIntroducida, @PasswordBd);", conexion)
+
+        comando.Parameters.AddWithValue("@PasswordIntroducida", passwordIntroducida)
+        comando.Parameters.AddWithValue("@PasswordBd", passwordBd)
+        Dim sonIguales As Boolean
+
+        Try
+            sonIguales = CType(comando.ExecuteScalar(), Boolean)
+
+        Catch ex As Exception
+
+        End Try
+
+        conexion.Close()
+
+        Return sonIguales
 
     End Function
 
