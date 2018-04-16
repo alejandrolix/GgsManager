@@ -40,8 +40,8 @@
                     formInfPlazas.ShowDialog()
 
                 Case Foo.Ventana.InformeEstadGaraje
-                    'Dim formEstGarajes As New FormEstGarajes(False, gjSelec.Id)
-                    'formEstGarajes.ShowDialog()
+                    Dim vntEstadGaraje As New VntEstadGaraje(False, gjSelec.Id)
+                    vntEstadGaraje.ShowDialog()
 
                 Case Foo.Ventana.FacturaIndividual
                     Dim vntSeleccCliente As New VntSeleccCliente(gjSelec.Id)
