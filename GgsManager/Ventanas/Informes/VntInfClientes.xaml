@@ -1,0 +1,17 @@
+﻿<Window x:Class="VntInfClientes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GgsManager"
+        xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+        mc:Ignorable="d"
+        Title="Informe de Clientes" Height="340.678" Width="526.907" WindowState="Maximized" Icon="/GgsManager;component/Logo.ico">
+
+    <Grid>
+        <WindowsFormsHost>
+            <rv:ReportViewer x:Name="ReportViewer" Load="ReportViewer_Load" />
+        </WindowsFormsHost>
+    </Grid>
+</Window>
+    

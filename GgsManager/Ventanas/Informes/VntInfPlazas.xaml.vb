@@ -1,17 +1,20 @@
 ﻿Imports Microsoft.Reporting.WinForms
 
-Public Class FormInfPlazas
+Public Class VntInfPlazas
 
     Private IdGarajeSelec As Integer
 
-    Private Sub FormInfPlazas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
-        PlTodasRb.Checked = True            ' Lanzará el evento "CheckedChanged".
+        PlzTodasRb.IsChecked = True            ' Lanzamos el evento "Checked".
 
     End Sub
 
-    Private Sub ReportViewer_Load(sender As Object, e As EventArgs) Handles ReportViewer.Load
+    Private Sub ReportViewer_Load(sender As Object, e As EventArgs)
+
+        ReportViewer.LocalReport.ReportPath = "..\..\Informes\InfPlazas.rdlc"
+        ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
+        ReportViewer.ProcessingMode = ProcessingMode.Local
 
         Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGarajeSelec)
 
@@ -20,15 +23,16 @@ Public Class FormInfPlazas
             MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            ReportViewer.LocalReport.SetParameters(New ReportParameter("NombreGaraje", nombreGaraje))
+            Dim rpNombreGaraje As New ReportParameter("NombreGaraje", nombreGaraje)
+            ReportViewer.LocalReport.SetParameters(rpNombreGaraje)
 
         End If
 
     End Sub
 
-    Private Sub PlLibreRb_CheckedChanged(sender As Object, e As EventArgs) Handles PlLibreRb.CheckedChanged
+    Private Sub PlzLibre_Checked(sender As Object, e As RoutedEventArgs)
 
-        If PlLibreRb.Checked Then
+        If PlzLibreRb.IsChecked Then
 
             Dim dtPlazas As DtPlazas = Plaza.RellenarDatosPlazasLibresPorIdGaraje(IdGarajeSelec)
 
@@ -37,7 +41,6 @@ Public Class FormInfPlazas
                 MessageBox.Show("Ha habido un problema al obtener los datos de las plazas libres.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             Else
 
-                ReportViewer.ProcessingMode = ProcessingMode.Local
                 ReportViewer.LocalReport.DataSources.Clear()
                 ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
 
@@ -50,9 +53,9 @@ Public Class FormInfPlazas
 
     End Sub
 
-    Private Sub PlOcupadaRb_CheckedChanged(sender As Object, e As EventArgs) Handles PlOcupadaRb.CheckedChanged
+    Private Sub PlzOcupada_Checked(sender As Object, e As RoutedEventArgs)
 
-        If PlOcupadaRb.Checked Then
+        If PlzOcupadaRb.IsChecked Then
 
             Dim dtPlazas As DtPlazas = Plaza.RellenarDatosPlazasOcupadasPorIdGaraje(IdGarajeSelec)
 
@@ -61,7 +64,6 @@ Public Class FormInfPlazas
                 MessageBox.Show("Ha habido un problema al obtener los datos de las plazas ocupadas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             Else
 
-                ReportViewer.ProcessingMode = ProcessingMode.Local
                 ReportViewer.LocalReport.DataSources.Clear()
                 ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
 
@@ -74,9 +76,9 @@ Public Class FormInfPlazas
 
     End Sub
 
-    Private Sub PlTodasRb_CheckedChanged(sender As Object, e As EventArgs) Handles PlTodasRb.CheckedChanged
+    Private Sub PlzTodas_Checked(sender As Object, e As RoutedEventArgs)
 
-        If PlTodasRb.Checked Then
+        If PlzTodasRb.IsChecked Then
 
             Dim dtPlazas As DtPlazas = Plaza.RellenarDatosTodasPlazasPorIdGaraje(IdGarajeSelec)
 
@@ -85,7 +87,6 @@ Public Class FormInfPlazas
                 MessageBox.Show("Ha habido un problema al obtener los datos de todas las plazas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             Else
 
-                ReportViewer.ProcessingMode = ProcessingMode.Local
                 ReportViewer.LocalReport.DataSources.Clear()
                 ReportViewer.LocalReport.DataSources.Add(New ReportDataSource("DtPlazas", dtPlazas.Tables("Plazas")))
 

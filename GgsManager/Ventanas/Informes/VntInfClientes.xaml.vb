@@ -1,12 +1,12 @@
 ﻿Imports Microsoft.Reporting.WinForms
-Imports MySql.Data.MySqlClient
 
-Public Class FormInfClientes
+Public Class VntInfClientes
 
     Private IdGarajeSelec As Integer
 
-    Private Sub FormInfClientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub ReportViewer_Load(sender As Object, e As EventArgs)
 
+        ReportViewer.LocalReport.ReportPath = "..\..\Informes\InfClientes.rdlc"
         ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
 
         Dim dtClientes As DtClientes = Cliente.RellenarDatosClientesPorIdGaraje(IdGarajeSelec)
@@ -42,7 +42,8 @@ Public Class FormInfClientes
             MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            ReportViewer.LocalReport.SetParameters(New ReportParameter("NombreGaraje", nombreGaraje))
+            Dim rpNombreGaraje As New ReportParameter("NombreGaraje", nombreGaraje)
+            ReportViewer.LocalReport.SetParameters(rpNombreGaraje)
 
         End If
 

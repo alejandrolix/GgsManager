@@ -32,12 +32,12 @@
                     VntPrincipal.Frame.Content = New PgPlazas(gjSelec.Id)
 
                 Case Foo.Ventana.InformeClientes
-                    Dim formInfClientes As New FormInfClientes(gjSelec.Id)
-                    formInfClientes.ShowDialog()
+                    Dim vntInfClientes As New VntInfClientes(gjSelec.Id)
+                    vntInfClientes.ShowDialog()
 
                 Case Foo.Ventana.InformePlazas
-                    Dim formInfPlazas As New FormInfPlazas(gjSelec.Id)
-                    formInfPlazas.ShowDialog()
+                    Dim vntInfPlazas As New VntInfPlazas(gjSelec.Id)
+                    vntInfPlazas.ShowDialog()
 
                 Case Foo.Ventana.InformeEstadGaraje
                     Dim vntEstadGaraje As New VntEstadGaraje(False, gjSelec.Id)

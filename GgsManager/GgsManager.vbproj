@@ -157,20 +157,14 @@
     <Compile Include="Ventanas\Facturas\FormFactIndividual.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ventanas\Informes\FormInfClientes.Designer.vb">
-      <DependentUpon>FormInfClientes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Ventanas\Informes\FormInfClientes.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Ventanas\Informes\FormInfPlazas.Designer.vb">
-      <DependentUpon>FormInfPlazas.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Ventanas\Informes\FormInfPlazas.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Ventanas\Informes\VntEstadGaraje.xaml.vb">
       <DependentUpon>VntEstadGaraje.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\VntInfClientes.xaml.vb">
+      <DependentUpon>VntInfClientes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Informes\VntInfPlazas.xaml.vb">
+      <DependentUpon>VntInfPlazas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Plazas\PgPlazas.xaml.vb">
       <DependentUpon>PgPlazas.xaml</DependentUpon>
@@ -218,6 +212,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Informes\VntEstadGaraje.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Informes\VntInfClientes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Informes\VntInfPlazas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -332,12 +334,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Facturas\FormFactIndividual.resx">
       <DependentUpon>FormFactIndividual.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ventanas\Informes\FormInfClientes.resx">
-      <DependentUpon>FormInfClientes.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ventanas\Informes\FormInfPlazas.resx">
-      <DependentUpon>FormInfPlazas.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="DataSets\DtClientes.xsc">
       <DependentUpon>DtClientes.xsd</DependentUpon>
