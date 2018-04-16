@@ -2,7 +2,7 @@
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        AbrirVntLogin()
+        ' AbrirVntLogin()
 
     End Sub
 
@@ -170,8 +170,8 @@
 
         End If
 
-        Dim formEstGarajes As New FormEstGarajes(True)
-        formEstGarajes.ShowDialog()
+        Dim vntEstadGaraje As New VntEstadGaraje(True)
+        vntEstadGaraje.ShowDialog()
 
     End Sub
 

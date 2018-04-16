@@ -100,10 +100,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="Application.xaml">
@@ -149,12 +151,6 @@
     <Compile Include="Ventanas\Garajes\VntSeleccGaraje.xaml.vb">
       <DependentUpon>VntSeleccGaraje.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\Informes\FormEstGarajes.Designer.vb">
-      <DependentUpon>FormEstGarajes.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Ventanas\Informes\FormEstGarajes.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Ventanas\Facturas\FormFactIndividual.Designer.vb">
       <DependentUpon>FormFactIndividual.vb</DependentUpon>
     </Compile>
@@ -172,6 +168,9 @@
     </Compile>
     <Compile Include="Ventanas\Informes\FormInfPlazas.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventanas\Informes\VntEstadGaraje.xaml.vb">
+      <DependentUpon>VntEstadGaraje.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Plazas\PgPlazas.xaml.vb">
       <DependentUpon>PgPlazas.xaml</DependentUpon>
@@ -215,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\Garajes\VntSeleccGaraje.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Informes\VntEstadGaraje.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -326,9 +329,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Facturas\FormFactConjunto.resx">
       <DependentUpon>FormFactConjunto.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Ventanas\Informes\FormEstGarajes.resx">
-      <DependentUpon>FormEstGarajes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventanas\Facturas\FormFactIndividual.resx">
       <DependentUpon>FormFactIndividual.vb</DependentUpon>

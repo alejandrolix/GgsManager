@@ -144,7 +144,7 @@
             <ChartCategoryAxes>
               <ChartAxis Name="Primary">
                 <Style>
-                  <FontSize>8pt</FontSize>
+                  <FontSize>9pt</FontSize>
                 </Style>
                 <ChartAxisTitle>
                   <Caption>Garaje</Caption>
@@ -174,7 +174,6 @@
                 <CrossAt>NaN</CrossAt>
                 <Minimum>NaN</Minimum>
                 <Maximum>NaN</Maximum>
-                <LabelsAutoFitDisabled>true</LabelsAutoFitDisabled>
                 <ChartAxisScaleBreak>
                   <Style />
                 </ChartAxisScaleBreak>

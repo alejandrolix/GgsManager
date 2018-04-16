@@ -1,14 +1,15 @@
-﻿Imports MySql.Data.MySqlClient
-Imports Microsoft.Reporting.WinForms
+﻿Imports Microsoft.Reporting.WinForms
 
-Public Class FormEstGarajes
+Public Class VntEstadGaraje
 
     Private SonTodosGarajes As Boolean
     Private IdGarajeSelec As Integer
 
-    Private Sub ReportViewer_Load(sender As Object, e As EventArgs) Handles ReportViewer.Load
+    Private Sub ReportViewer_Load(sender As Object, e As EventArgs)
 
+        ReportViewer.LocalReport.ReportPath = "..\..\Informes\InfEstGarajes.rdlc"
         ReportViewer.SetDisplayMode(DisplayMode.PrintLayout)
+
         Dim dtPorcGaraje As DtPorcGaraje
 
         If SonTodosGarajes Then
@@ -20,10 +21,8 @@ Public Class FormEstGarajes
                 MessageBox.Show("Ha habido un problema al obtener las estadísticas de los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             Else
 
-                EstablecerTituloInforme()
+                EstablecerTituloInfTodosGarajes()
                 EstablecerDataSourceInforme(dtPorcGaraje)
-
-                ReportViewer.RefreshReport()
 
             End If
         Else
@@ -35,14 +34,14 @@ Public Class FormEstGarajes
                 MessageBox.Show("Ha habido un problema al obtener las estadísticas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             Else
 
-                EstablecerTituloInforme()
+                EstablecerTituloInfGaraje()
                 EstablecerDataSourceInforme(dtPorcGaraje)
-
-                ReportViewer.RefreshReport()
 
             End If
 
         End If
+
+        ReportViewer.RefreshReport()
 
     End Sub
 
@@ -63,27 +62,32 @@ Public Class FormEstGarajes
 
 
     ''' <summary>
-    ''' Establece el título del informe.
+    ''' Establece el título del informe de todos los garajes.
     ''' </summary>
-    Private Sub EstablecerTituloInforme()
+    Private Sub EstablecerTituloInfTodosGarajes()
 
-        If SonTodosGarajes Then
+        Dim rpTituloInf As New ReportParameter("TituloInforme", "Estadísticas de Todos los Garajes")
+        ReportViewer.LocalReport.SetParameters(rpTituloInf)
 
-            Dim rpTituloInf As New ReportParameter("TituloInforme", "Estadísticas de Todos los Garajes")
-            ReportViewer.LocalReport.SetParameters(rpTituloInf)
+    End Sub
+
+
+    ''' <summary>
+    ''' Establece el título del informe al garaje seleccionado.
+    ''' </summary>
+    Private Sub EstablecerTituloInfGaraje()
+
+        Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGarajeSelec)
+
+        If nombreGaraje Is Nothing Then
+
+            MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGarajeSelec)
+            Title = "Estadísticas del Garaje de " & nombreGaraje        ' Cambiamos el título de la ventana.
 
-            If nombreGaraje Is Nothing Then
-
-                MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-            Else
-
-                Dim rpTituloInf As New ReportParameter("TituloInforme", "Estadísticas del garaje de " & nombreGaraje)
-                ReportViewer.LocalReport.SetParameters(rpTituloInf)
-
-            End If
+            Dim rpTituloInf As New ReportParameter("TituloInforme", "Estadísticas del garaje de " & nombreGaraje)
+            ReportViewer.LocalReport.SetParameters(rpTituloInf)
 
         End If
 
