@@ -12,7 +12,7 @@
               <Width>4.405cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.50141cm</Width>
+              <Width>6.48037cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>3.135cm</Width>
@@ -21,7 +21,7 @@
               <Width>3.135cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6.80484cm</Width>
+              <Width>7.83672cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -292,6 +292,7 @@
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -325,6 +326,7 @@
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -358,6 +360,7 @@
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -391,6 +394,7 @@
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -424,6 +428,7 @@
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -457,6 +462,7 @@
                         <Border>
                           <Style>Solid</Style>
                         </Border>
+                        <VerticalAlign>Middle</VerticalAlign>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -492,9 +498,9 @@
         </TablixRowHierarchy>
         <DataSetName>DtClientes</DataSetName>
         <Top>1.64042cm</Top>
-        <Left>0.58208cm</Left>
+        <Left>0.92979cm</Left>
         <Height>1.36728cm</Height>
-        <Width>24.33979cm</Width>
+        <Width>26.35063cm</Width>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -505,10 +511,10 @@
     <Height>1.51747in</Height>
     <Style />
   </Body>
-  <Width>9.81176in</Width>
+  <Width>10.74032in</Width>
   <Page>
     <PageHeader>
-      <Height>3.51895cm</Height>
+      <Height>3.6777cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -557,7 +563,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>
           <Top>0.12912cm</Top>
-          <Left>6.84954cm</Left>
+          <Left>7.48454cm</Left>
           <Height>0.99688cm</Height>
           <Width>10.315cm</Width>
           <Style>
@@ -694,10 +700,10 @@
     </PageFooter>
     <PageHeight>21cm</PageHeight>
     <PageWidth>29.7cm</PageWidth>
-    <LeftMargin>2cm</LeftMargin>
-    <RightMargin>2cm</RightMargin>
-    <TopMargin>2cm</TopMargin>
-    <BottomMargin>2cm</BottomMargin>
+    <LeftMargin>1cm</LeftMargin>
+    <RightMargin>1cm</RightMargin>
+    <TopMargin>1cm</TopMargin>
+    <BottomMargin>1cm</BottomMargin>
     <ColumnSpacing>0.13cm</ColumnSpacing>
     <Style />
   </Page>

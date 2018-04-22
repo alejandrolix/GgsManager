@@ -204,41 +204,6 @@ Public Class Plaza
 
 
     ''' <summary>
-    ''' Obtiene los datos de las plazas libres a partir del Id de un garaje.
-    ''' </summary>
-    ''' <param name="idGaraje">El Id de un garaje.</param>    
-    ''' <returns>DataSet con los datos de las plazas libres.</returns>
-    Public Shared Function RellenarDatosPlazasLibresPorIdGaraje(ByRef idGaraje As Integer) As DtPlazas
-
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim dtPlazas As New DtPlazas()
-
-        Try
-            Dim adaptador As New MySqlDataAdapter("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, ROUND(Veh.PrecioBase * (@PorcIva / 100) + Veh.PrecioBase, 2) AS 'PrecioTotal'
-                                                   FROM   Plazas Plz
-                                                          JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
-                                                          JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
-                                                   WHERE  Plz.IdGaraje = @IdGaraje AND Plz.IdSituacion = (
-												                                                           SELECT IdSituacion
-                                                                                                           FROM   SituacionesPlaza
-                                                                                                           WHERE  Tipo = 'Libre');", conexion)
-            adaptador.SelectCommand.Parameters.AddWithValue("@PorcIva", Foo.LeerIVA())
-            adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", idGaraje)
-
-            adaptador.Fill(dtPlazas, "Plazas")
-
-        Catch ex As Exception
-
-        End Try
-
-        conexion.Close()
-
-        Return dtPlazas
-
-    End Function
-
-
-    ''' <summary>
     ''' Obtiene los datos de las plazas ocupadas a partir del Id de un garaje.
     ''' </summary>
     ''' <param name="idGaraje">El Id de un garaje.</param>    
@@ -249,49 +214,18 @@ Public Class Plaza
         Dim dtPlazas As New DtPlazas()
 
         Try
-            Dim adaptador As New MySqlDataAdapter("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, ROUND(Veh.PrecioBase * (@PorcIva / 100) + Veh.PrecioBase, 2) AS 'PrecioTotal'
+            Dim adaptador As New MySqlDataAdapter("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, 
+                                                          ROUND(Veh.PrecioBase * (@PorcIVA / 100) + Veh.PrecioBase, 2) AS 'PrecioTotal'
                                                    FROM   Plazas Plz
                                                           JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
                                                           JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
                                                    WHERE  Plz.IdGaraje = @IdGaraje AND Plz.IdSituacion = (
-												                                                           SELECT IdSituacion
-                                                                                                           FROM   SituacionesPlaza
-                                                                                                           WHERE  Tipo = 'Ocupada');", conexion)
-            adaptador.SelectCommand.Parameters.AddWithValue("@PorcIva", Foo.LeerIVA())
-            adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", idGaraje)
+												                                                          SELECT IdSituacion
+                                                                                                          FROM   SituacionesPlaza
+                                                                                                          WHERE  Tipo = 'Ocupada')
+												   ORDER BY Plz.IdPlaza;", conexion)
 
-            adaptador.Fill(dtPlazas, "Plazas")
-
-        Catch ex As Exception
-
-        End Try
-
-        conexion.Close()
-
-        Return dtPlazas
-
-    End Function
-
-
-    ''' <summary>
-    ''' Obtiene los datos de todas las plazas a partir del Id de un garaje.
-    ''' </summary>
-    ''' <param name="idGaraje">El Id de un garaje.</param>    
-    ''' <returns>DataSet con los datos de todas las plazas.</returns>
-    Public Shared Function RellenarDatosTodasPlazasPorIdGaraje(ByRef idGaraje As Integer) As DtPlazas
-
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim dtPlazas As New DtPlazas()
-
-        Try
-            Dim adaptador As New MySqlDataAdapter("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, ROUND(Veh.PrecioBase * (@PorcIva / 100) + Veh.PrecioBase, 2) AS 'PrecioTotal'
-                                                   FROM   Plazas Plz
-                                                          JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
-                                                          JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
-                                                   WHERE  Plz.IdGaraje = @IdGaraje AND Plz.IdSituacion IN (
-												                                                            SELECT IdSituacion
-                                                                                                            FROM   SituacionesPlaza);", conexion)
-            adaptador.SelectCommand.Parameters.AddWithValue("@PorcIva", Foo.LeerIVA())
+            adaptador.SelectCommand.Parameters.AddWithValue("@PorcIVA", Foo.LeerIVA())
             adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", idGaraje)
 
             adaptador.Fill(dtPlazas, "Plazas")
