@@ -76,23 +76,12 @@ Public Class VntAddCliente
 
         End If
 
-        Dim exprDniEspanol As New Regex("^[0-9]{8}[A-Z]$")
-        Dim exprDniExtranjero As New Regex("^X|Y[0-9]{7}[A-Z]$")
-
         If Not Foo.HayTexto(DNIClienteTxt.Text) Then
 
             MessageBox.Show("Tienes que introducir un D.N.I.", "DNI Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        ElseIf exprDniEspanol.IsMatch(DNIClienteTxt.Text) Then
-
-            hayDNI = True
-
-        ElseIf exprDniExtranjero.IsMatch(DNIClienteTxt.Text) Then
-
-            hayDNI = True
         Else
 
-            MessageBox.Show("Tienes que introducir un formato de D.N.I. válido.", "Formato D.N.I. Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
+            hayDNI = True
 
         End If
 
@@ -128,13 +117,9 @@ Public Class VntAddCliente
         If Not Foo.HayTexto(MovilClienteTxt.Text) Then
 
             MessageBox.Show("Tienes que introducir un móvil.", "Móvil Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        ElseIf exprMovil.IsMatch(MovilClienteTxt.Text) Then
-
-            hayMovil = True
         Else
 
-            MessageBox.Show("Tienes que introducir un número que tenga 9 dígitos.", "Formato de Móvil Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
+            hayMovil = True
 
         End If
 
@@ -314,6 +299,33 @@ Public Class VntAddCliente
 
         Me.Accion = accion
         Me.PgClientes = pgClientes
+
+    End Sub
+
+    Private Sub DNIClienteTxt_LostKeyboardFocus(sender As Object, e As KeyboardFocusChangedEventArgs)
+
+        Dim exprDniEspanol As New Regex("^[0-9]{8}[A-Z]$")
+        Dim exprDniExtranjero As New Regex("^X|Y[0-9]{7}[A-Z]$")
+
+        If Not exprDniEspanol.IsMatch(DNIClienteTxt.Text) And Not exprDniExtranjero.IsMatch(DNIClienteTxt.Text) Then
+
+            MessageBox.Show("Tienes que introducir un formato de D.N.I. válido.", "Formato D.N.I. Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
+            Keyboard.Focus(DNIClienteTxt)
+
+        End If
+
+    End Sub
+
+    Private Sub MovilClienteTxt_LostKeyboardFocus(sender As Object, e As KeyboardFocusChangedEventArgs)
+
+        Dim exprMovil As New Regex("^[0-9]{9}$")
+
+        If Not exprMovil.IsMatch(MovilClienteTxt.Text) Then
+
+            MessageBox.Show("Tienes que introducir un número que tenga 9 dígitos.", "Formato de Móvil Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
+            Keyboard.Focus(MovilClienteTxt)
+
+        End If
 
     End Sub
 

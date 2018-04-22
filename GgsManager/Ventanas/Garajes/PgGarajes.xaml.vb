@@ -1,17 +1,8 @@
 ﻿Class PgGarajes
 
-    Private VntPrincipal As VntPrincipal
-
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
 
         GarajesDg.DataContext = Garaje.ObtenerGarajes()
-
-        If GarajesDg.DataContext Is Nothing Then
-
-            EliminarGarajeBtn.IsEnabled = False
-            ModificarGarajeBtn.IsEnabled = False
-
-        End If
 
         If GarajesDg.DataContext Is Nothing Then
 

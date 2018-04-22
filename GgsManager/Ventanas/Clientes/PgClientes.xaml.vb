@@ -23,11 +23,11 @@
 
         Dim cliente As Cliente = CType(e.Item, Cliente)
 
-        If BuscarApellidosTextBox.Text = "" Then
+        If BuscarApellidosTxt.Text = "" Then
 
             e.Accepted = True
 
-        ElseIf cliente.Apellidos.Contains(BuscarApellidosTextBox.Text) Then
+        ElseIf cliente.Apellidos.Contains(BuscarApellidosTxt.Text) Then
 
             e.Accepted = True
         Else
@@ -132,7 +132,7 @@
 
     End Sub
 
-    Private Sub BuscarApellidosTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+    Private Sub BuscarApellidosTxt_TextChanged(sender As Object, e As TextChangedEventArgs)
 
         Vista.View.Refresh()
 

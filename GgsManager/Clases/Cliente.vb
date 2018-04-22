@@ -42,7 +42,7 @@ Public Class Cliente
     Public Shared Function ObtenerClientes() As Cliente()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
+        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, Direccion, Poblacion, Movil, FechaHoraAlta, Observaciones
                                          FROM   Clientes
                                          ORDER BY Apellidos;", conexion)
         Dim datos As MySqlDataReader = Nothing
@@ -63,15 +63,13 @@ Public Class Cliente
                 Dim id As Integer = datos.GetInt32("IdCliente")
                 Dim nombre As String = datos.GetString("Nombre")
                 Dim apellidos As String = datos.GetString("Apellidos")
-                Dim dni As String = datos.GetString("DNI")
                 Dim direccion As String = datos.GetString("Direccion")
                 Dim poblacion As String = datos.GetString("Poblacion")
-                Dim provincia As String = datos.GetString("Provincia")
                 Dim movil As String = datos.GetString("Movil")
                 Dim fechaHoraAlta As Date = datos.GetDateTime("FechaHoraAlta")
                 Dim observaciones As String
 
-                If datos.IsDBNull(9) Then
+                If datos.IsDBNull(7) Then
 
                     observaciones = ""
                 Else
@@ -85,10 +83,13 @@ Public Class Cliente
                 If arrayFoto.Length > 0 Then
 
                     Dim ivm As New ImageViewModelCliente(arrayFoto(0))
-                    listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaHoraAlta, observaciones, ivm))
+                    Dim cliente As New Cliente(id, nombre, apellidos, direccion, poblacion, movil, fechaHoraAlta, observaciones, ivm)
+
+                    listaClientes.Add(cliente)
                 Else
 
-                    listaClientes.Add(New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaHoraAlta, observaciones))
+                    Dim cliente As New Cliente(id, nombre, apellidos, direccion, poblacion, movil, fechaHoraAlta, observaciones)
+                    listaClientes.Add(cliente)
 
                 End If
 
@@ -536,15 +537,13 @@ Public Class Cliente
 
     End Sub
 
-    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaHoraAlta As Date, observaciones As String, ivm As ImageViewModelCliente)              ' Para mostrar el cliente con su imagen en el DataGrid.
+    Public Sub New(id As Integer, nombre As String, apellidos As String, direccion As String, poblacion As String, movil As String, fechaHoraAlta As Date, observaciones As String, ivm As ImageViewModelCliente)              ' Para mostrar el cliente con su imagen en el DataGrid.
 
         Me.Id = id
         Me.Nombre = nombre
         Me.Apellidos = apellidos
-        Me.DNI = dni
         Me.Direccion = direccion
         Me.Poblacion = poblacion
-        Me.Provincia = provincia
         Me.Movil = movil
         Me.FechaHoraAlta = fechaHoraAlta
         Me.Observaciones = observaciones
@@ -552,15 +551,13 @@ Public Class Cliente
 
     End Sub
 
-    Public Sub New(id As Integer, nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaHoraAlta As Date, observaciones As String)              ' Para mostrar el cliente sin su imagen en el DataGrid.
+    Public Sub New(id As Integer, nombre As String, apellidos As String, direccion As String, poblacion As String, movil As String, fechaHoraAlta As Date, observaciones As String)              ' Para mostrar el cliente sin su imagen en el DataGrid.
 
         Me.Id = id
         Me.Nombre = nombre
         Me.Apellidos = apellidos
-        Me.DNI = dni
         Me.Direccion = direccion
         Me.Poblacion = poblacion
-        Me.Provincia = provincia
         Me.Movil = movil
         Me.FechaHoraAlta = fechaHoraAlta
         Me.Observaciones = observaciones

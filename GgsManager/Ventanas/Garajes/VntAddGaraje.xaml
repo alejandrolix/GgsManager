@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="Añadir Garaje" Height="394.031" Width="577.36"
         Background="#f0f0f0"
-        ResizeMode="NoResize" Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico">
+        ResizeMode="NoResize" Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
-            <Setter Property="Margin" Value="0,20,0,0" />
+            <Setter Property="Margin" Value="0,0,0,5" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="16" />
@@ -20,7 +21,7 @@
         <Style TargetType="TextBox" x:Key="TextBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
-            <Setter Property="Height" Value="24" />
+            <Setter Property="Height" Value="27" />
             <Setter Property="Width" Value="150" />
             <Setter Property="FontSize" Value="16" />
         </Style>
@@ -28,8 +29,8 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="127*" />
-            <ColumnDefinition Width="151*" />
+            <ColumnDefinition Width="227*" />
+            <ColumnDefinition Width="344*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -40,15 +41,15 @@
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre" Style="{StaticResource Etiquetas}" />
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Nombre" Style="{StaticResource Etiquetas}" Width="58" />
         <TextBox Grid.Column="1" Grid.Row="0" Name="NombreGarajeTxt" Text="{Binding Nombre}" Style="{StaticResource TextBox}" />
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Dirección" Style="{StaticResource Etiquetas}" />
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Dirección" Style="{StaticResource Etiquetas}" Width="66" />
         <TextBox Grid.Column="1" Grid.Row="1" Width="230" Name="DireccionGarajeTxt" Text="{Binding Direccion}" Style="{StaticResource TextBox}" />
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="Número de Plazas" Style="{StaticResource Etiquetas}" />
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Número de Plazas" Style="{StaticResource Etiquetas}" Width="128" />
         <TextBox Grid.Column="1" Grid.Row="2" Name="NumPlazasGarajeTxt" Width="60" Text="{Binding NumPlazas}" Style="{StaticResource TextBox}" />
-        <TextBlock Grid.Column="0" Grid.Row="3" Text="Observaciones" Style="{StaticResource Etiquetas}" />
-        <TextBox Grid.Column="1" Grid.Row="3" Name="ObservGarajeTxt" Width="170" AcceptsReturn="True" Height="Auto" TextWrapping="Wrap" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Observaciones" Style="{StaticResource Etiquetas}" Width="104" />
+        <TextBox Grid.Column="1" Grid.Row="3" Name="ObservGarajeTxt" Width="200" AcceptsReturn="True" Height="27" TextWrapping="Wrap" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
 
-        <Button Name="AceptarBtn" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Aceptar" FontSize="18" Width="94" Height="34" Margin="0,40,0,0" Click="AceptarBtn_Click" />
+        <Button Name="AceptarBtn" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Aceptar" FontSize="18" Width="98" Height="38" Margin="0,34,0,0" Click="AceptarBtn_Click" />
     </Grid>
 </Window>

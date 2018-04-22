@@ -126,11 +126,11 @@ Public Class Plaza
     Public Shared Function ObtenerPlazasPorIdGaraje(ByRef idGaraje As Integer) As Plaza()
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT Veh.Matricula, Veh.Marca, Veh.Modelo, Plz.IdPlaza, Sit.Tipo
-                                         FROM   Vehiculos Veh 
-	                                            JOIN Plazas Plz ON Plz.IdPlaza = Veh.IdPlaza 
-                                                JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion 
-                                         WHERE  Veh.IdGaraje = @IdGaraje
+        Dim comando As New MySqlCommand("SELECT Plz.IdPlaza, Veh.Matricula, Veh.Marca, Veh.Modelo, Sit.Tipo
+                                         FROM   Plazas Plz	   
+                                                LEFT JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
+                                                JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion
+                                         WHERE  Plz.IdGaraje = @IdGaraje
                                          ORDER BY Plz.IdPlaza;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
@@ -149,11 +149,40 @@ Public Class Plaza
 
             While datos.Read()
 
-                Dim matricula As String = datos.GetString("Matricula")
-                Dim marca As String = datos.GetString("Marca")
-                Dim modelo As String = datos.GetString("Modelo")
                 Dim idPlaza As Integer = datos.GetInt32("IdPlaza")
-                Dim situacion As String = datos.GetString("Tipo")
+                Dim matricula As String
+                Dim marca As String
+                Dim modelo As String
+                Dim situacion As String
+
+                If datos.IsDBNull(1) Then
+
+                    matricula = ""
+                Else
+
+                    matricula = datos.GetString("Matricula")
+
+                End If
+
+                If datos.IsDBNull(2) Then
+
+                    marca = ""
+                Else
+
+                    marca = datos.GetString("Marca")
+
+                End If
+
+                If datos.IsDBNull(3) Then
+
+                    modelo = ""
+                Else
+
+                    modelo = datos.GetString("Modelo")
+
+                End If
+
+                situacion = datos.GetString("Tipo")
 
                 Dim plaza As New Plaza(matricula, marca, modelo, idPlaza, situacion)
                 listaPlazas.Add(plaza)
@@ -289,16 +318,29 @@ Public Class Plaza
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("", conexion)
         Dim numPlzInsertadas As Integer = 0
+        Dim esPrimerGaraje As Boolean = True
 
-        For i As Integer = 1 To numPlazas Step 1                ' Añadimos uno a uno cada plaza.
+        comando.CommandText = "INSERT INTO Plazas (IdPlaza, IdGaraje, IdSituacion) VALUES (@IdPlaza, @IdGaraje, 1);"
 
-            comando.CommandText = "INSERT INTO Plazas (IdPlaza, IdGaraje, IdSituacion) VALUES (@IdPlaza, @IdGaraje, 1);"
+        For i As Integer = 1 To numPlazas Step 1                ' Añadimos uno a uno cada plaza.            
 
-            comando.Parameters.AddWithValue("@IdPlaza", i)
-            comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+            If esPrimerGaraje Then
+
+                esPrimerGaraje = False
+                comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+
+            End If
+
+            If i = 1 Then
+
+                comando.Parameters.AddWithValue("@IdPlaza", i)
+            Else
+
+                comando.Parameters.Item("@IdPlaza").Value = i
+
+            End If
+
             comando.ExecuteNonQuery()
-
-            comando.Parameters.Clear()
             numPlzInsertadas += 1
 
         Next

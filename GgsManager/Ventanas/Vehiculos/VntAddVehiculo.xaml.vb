@@ -1,4 +1,6 @@
-﻿Public Class VntAddVehiculo
+﻿Imports System.Text.RegularExpressions
+
+Public Class VntAddVehiculo
 
     Private PrecioBase As Decimal
 
@@ -32,7 +34,7 @@
 
             End If
 
-            PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas en su ComboBox.
+            PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas libres en su ComboBox.
 
             If PlazasCmb.DataContext Is Nothing Then
 
@@ -202,6 +204,8 @@
                     If Plaza.CambiarSituacionPlazaAOcupada(plazaSelec.Id, IdGaraje) Then
 
                         MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
+                        PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas libres en su ComboBox.
+
                         LimpiarCampos()
                     Else
 
@@ -265,13 +269,18 @@
     Private Function ComprobarDatosIntroducidos() As Boolean
 
         Dim hayMatricula, hayMarca, hayModelo, hayPrecioBase As Boolean
+        Dim exprMatricula As New Regex("^([A-Z]{1,2})?\s?-?\d{4}\s?-?([A-Z]{2,3})$")
 
-        If Foo.HayTexto(MatrVehiculoTxt.Text) Then
+        If Not Foo.HayTexto(MatrVehiculoTxt.Text) Then
+
+            MessageBox.Show("Tienes que introducir una matrícula.", "Matrícula Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        ElseIf exprMatricula.IsMatch(MatrVehiculoTxt.Text) Then
 
             hayMatricula = True
         Else
 
-            MessageBox.Show("Tienes que introducir una matrícula.", "Matrícula Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
+            MessageBox.Show("El formato de la matrícula no es correcto.", "Formato Matrícula Incorrecto", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
 

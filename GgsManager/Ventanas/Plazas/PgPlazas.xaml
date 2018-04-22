@@ -18,21 +18,31 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <DataGrid Name="PlazasDg" RowHeight="31" IsSynchronizedWithCurrentItem="False" BorderThickness="0" Grid.Column="0" Grid.Row="1" Margin="12,0" Grid.ColumnSpan="2" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
+                <DataGrid Name="PlazasDg" RowHeight="30" IsSynchronizedWithCurrentItem="False" BorderThickness="0" Grid.Column="0" Grid.Row="1" Margin="12" Grid.ColumnSpan="2" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
-                            <Setter Property="FontSize" Value="19" />
+                            <Setter Property="FontSize" Value="18" />
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
 
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Plaza" Binding="{Binding Id}" Width="*" IsReadOnly="True">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="FontSize" Value="18" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
                         <DataGridTextColumn Header="Matrícula" Binding="{Binding Matricula}" Width="*" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="FontSize" Value="19" />
+                                    <Setter Property="FontSize" Value="18" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -42,7 +52,7 @@
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="FontSize" Value="19" />
+                                    <Setter Property="FontSize" Value="18" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -52,17 +62,7 @@
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="FontSize" Value="19" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn Header="Plaza" Binding="{Binding Id}" Width="*" IsReadOnly="True">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="FontSize" Value="19" />
+                                    <Setter Property="FontSize" Value="18" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -72,7 +72,7 @@
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
-                                    <Setter Property="FontSize" Value="19" />
+                                    <Setter Property="FontSize" Value="18" />
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>

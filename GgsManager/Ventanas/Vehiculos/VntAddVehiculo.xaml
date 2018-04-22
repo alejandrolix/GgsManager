@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
         Title="Añadir Vehículo" Height="585.642" Width="665.929" ResizeMode="NoResize"
-        Background="#f0f0f0" Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico">
-    
+        Background="#f0f0f0" Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
-            <Setter Property="Margin" Value="0,30,0,0" />
-            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="Height" Value="20" />
@@ -20,7 +20,7 @@
         <Style TargetType="TextBox" x:Key="TextBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
-            <Setter Property="Height" Value="24" />
+            <Setter Property="Height" Value="25" />
             <Setter Property="Width" Value="150" />
             <Setter Property="FontSize" Value="15" />
         </Style>
@@ -34,7 +34,7 @@
         </Style>
     </Window.Resources>
     
-    <Grid Margin="0,6,0,0">
+    <Grid Margin="0,4,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="269*" />
             <ColumnDefinition Width="391*" />
@@ -52,11 +52,11 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Matrícula" Grid.Column="0" Grid.Row="0" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="MatrVehiculoTxt" Grid.Column="1" Grid.Row="0" Text="{Binding Matricula}" Style="{StaticResource TextBox}" />
+        <TextBox Name="MatrVehiculoTxt" Grid.Column="1" Grid.Row="0" Width="110" Text="{Binding Matricula}" Style="{StaticResource TextBox}" />
         <TextBlock Text="Marca" Grid.Column="0" Grid.Row="1" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="MarcaVehiculoTxt" Width="180" Grid.Column="1" Grid.Row="1" Text="{Binding Marca}" Style="{StaticResource TextBox}" />
+        <TextBox Name="MarcaVehiculoTxt" Grid.Column="1" Grid.Row="1" Width="130" Text="{Binding Marca}" Style="{StaticResource TextBox}" />
         <TextBlock Text="Modelo" Grid.Column="0" Grid.Row="2" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="ModVehiculoTxt" Grid.Column="1" Grid.Row="2" Text="{Binding Modelo}" Style="{StaticResource TextBox}" Width="180" />
+        <TextBox Name="ModVehiculoTxt" Grid.Column="1" Grid.Row="2" Width="180" Text="{Binding Modelo}" Style="{StaticResource TextBox}" />
         <TextBlock Text="Garaje" Grid.Column="0" Grid.Row="3" Style="{StaticResource Etiquetas}" />
         <ComboBox Name="GarajesCmb" IsEditable="True" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
@@ -68,7 +68,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <TextBlock Text="Cliente" Grid.Column="0" Grid.Row="4" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="ClientesCmb" Grid.Column="1" Grid.Row="4" IsEditable="True" Width="200" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
+        <ComboBox Name="ClientesCmb" Grid.Column="1" Grid.Row="4" IsEditable="True" Width="230" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -80,7 +80,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <TextBlock Text="Plaza" Grid.Column="0" Grid.Row="5" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="PlazasCmb" Width="60" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
+        <ComboBox Name="PlazasCmb" Width="64" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

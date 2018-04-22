@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
         Title="Añadir Cliente" Height="585.642" Width="665.929"
-        Background="#f0f0f0" Loaded="Window_Loaded" ResizeMode="NoResize" Icon="/GgsManager;component/Logo.ico">
+        Background="#f0f0f0" Loaded="Window_Loaded" ResizeMode="NoResize" Icon="/GgsManager;component/Logo.ico"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
-            <Setter Property="Margin" Value="0,20,0,0" />
+            <Setter Property="Margin" Value="0,0,0,4" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontSize" Value="16" />
@@ -19,7 +20,7 @@
         <Style TargetType="TextBox" x:Key="TextBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
-            <Setter Property="Height" Value="24" />
+            <Setter Property="Height" Value="25" />
             <Setter Property="Width" Value="150" />
             <Setter Property="FontSize" Value="15" />
         </Style>
@@ -27,8 +28,8 @@
 
     <Grid Margin="0,4,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="269*" />
-            <ColumnDefinition Width="391*" />
+            <ColumnDefinition Width="21*" />
+            <ColumnDefinition Width="34*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -44,23 +45,23 @@
             <RowDefinition Height="2.4*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Nombre" Grid.Column="0" Grid.Row="0" Style="{StaticResource Etiquetas}" />
+        <TextBlock Text="Nombre" Grid.Column="0" Grid.Row="0" Style="{StaticResource Etiquetas}" Width="58" />
         <TextBox Name="NombreClienteTxt" Grid.Column="1" Grid.Row="0" Text="{Binding Nombre}" Style="{StaticResource TextBox}" />
-        <TextBlock Text="Apellidos" Grid.Column="0" Grid.Row="1" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="ApellidosClienteTxt" Width="180" Grid.Column="1" Grid.Row="1" Text="{Binding Apellidos}" Style="{StaticResource TextBox}" />
-        <TextBlock Text="DNI" Grid.Column="0" Grid.Row="2" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="DNIClienteTxt" Grid.Column="1" Grid.Row="2" Text="{Binding DNI}" Style="{StaticResource TextBox}" />
-        <TextBlock Text="Dirección" Grid.Column="0" Grid.Row="3" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="DireccionClienteTxt" Grid.Column="1" Grid.Row="3" Text="{Binding Direccion}" Style="{StaticResource TextBox}" />
-        <TextBlock Text="Población" Grid.Column="0" Grid.Row="4" Style="{StaticResource Etiquetas}" />
+        <TextBlock Text="Apellidos" Grid.Column="0" Grid.Row="1" Style="{StaticResource Etiquetas}" Width="64" />
+        <TextBox Name="ApellidosClienteTxt" Width="230" Grid.Column="1" Grid.Row="1" Text="{Binding Apellidos}" Style="{StaticResource TextBox}" />
+        <TextBlock Text="DNI" Grid.Column="0" Grid.Row="2" Style="{StaticResource Etiquetas}" Width="28" />
+        <TextBox Name="DNIClienteTxt" Grid.Column="1" Grid.Row="2" Width="108" Text="{Binding DNI}" Style="{StaticResource TextBox}" LostKeyboardFocus="DNIClienteTxt_LostKeyboardFocus" />
+        <TextBlock Text="Dirección" Grid.Column="0" Grid.Row="3" Style="{StaticResource Etiquetas}" Width="66" />
+        <TextBox Name="DireccionClienteTxt" Grid.Column="1" Grid.Row="3" Width="230" Text="{Binding Direccion}" Style="{StaticResource TextBox}" />
+        <TextBlock Text="Población" Grid.Column="0" Grid.Row="4" Style="{StaticResource Etiquetas}" Width="68" />
         <TextBox Name="PoblacionClienteTxt" Grid.Column="1" Grid.Row="4" Text="{Binding Poblacion}" Style="{StaticResource TextBox}" />
-        <TextBlock Text="Provincia" Grid.Column="0" Grid.Row="5" Style="{StaticResource Etiquetas}" />
+        <TextBlock Text="Provincia" Grid.Column="0" Grid.Row="5" Style="{StaticResource Etiquetas}" Width="64" />
         <TextBox Name="ProvinciaClienteTxt" Grid.Column="1" Grid.Row="5" Text="{Binding Provincia}" Style="{StaticResource TextBox}" />
-        <TextBlock Text="Móvil" Grid.Column="0" Grid.Row="6" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="MovilClienteTxt" Grid.Column="1" Grid.Row="6" Text="{Binding Movil}" Style="{StaticResource TextBox}" />
-        <TextBlock Text="Observaciones" Grid.Column="0" Grid.Row="7" Style="{StaticResource Etiquetas}" />
-        <TextBox Name="ObservClienteTxt" TextWrapping="Wrap" AcceptsReturn="True" Width="210" Height="Auto" Grid.Column="1" Grid.Row="7" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
-        <TextBlock Text="Foto" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" />
+        <TextBlock Text="Móvil" Grid.Column="0" Grid.Row="6" Style="{StaticResource Etiquetas}" Width="40" />
+        <TextBox Name="MovilClienteTxt" Grid.Column="1" Grid.Row="6" Width="110" Text="{Binding Movil}" Style="{StaticResource TextBox}" LostKeyboardFocus="MovilClienteTxt_LostKeyboardFocus" />
+        <TextBlock Text="Observaciones" Grid.Column="0" Grid.Row="7" Style="{StaticResource Etiquetas}" Width="104" />
+        <TextBox Name="ObservClienteTxt" TextWrapping="Wrap" AcceptsReturn="True" Width="230" Height="26" Grid.Column="1" Grid.Row="7" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
+        <TextBlock Text="Foto" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" Style="{StaticResource Etiquetas}" Width="32" />
 
         <DockPanel Grid.Column="1" Grid.Row="8" LastChildFill="False">
             <Border BorderThickness="2" BorderBrush="Black" Height="90" DockPanel.Dock="Left" Margin="0,14,0,0">
