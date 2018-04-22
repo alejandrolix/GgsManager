@@ -8,6 +8,13 @@
 
         If GarajesDg.DataContext Is Nothing Then
 
+            EliminarGarajeBtn.IsEnabled = False
+            ModificarGarajeBtn.IsEnabled = False
+
+        End If
+
+        If GarajesDg.DataContext Is Nothing Then
+
             MessageBox.Show("Ha habido un problema al obtener los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
         End If
@@ -20,7 +27,7 @@
 
     End Sub
 
-    Private Sub EliminarGaraje_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub EliminarGarajeBtn_Click(sender As Object, e As RoutedEventArgs)
 
         Dim garajeSelec As Garaje = CType(GarajesDg.SelectedItem, Garaje)
 
@@ -70,7 +77,7 @@
 
     End Sub
 
-    Private Sub ModificarGaraje_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub ModificarGarajeBtn_Click(sender As Object, e As RoutedEventArgs)
 
         Dim garajeSelec As Garaje = CType(GarajesDg.SelectedItem, Garaje)
 

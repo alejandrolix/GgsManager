@@ -125,7 +125,7 @@ Public Class Usuario
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("SELECT IdUsuario, Nombre, EsGestor
-                                         FROM   Usuarios", conexion)
+                                         FROM   Usuarios;", conexion)
         Dim datos As MySqlDataReader = Nothing
 
         Try
@@ -290,20 +290,16 @@ Public Class Usuario
 
 
     ''' <summary>
-    ''' Modifica el hash de la contraseña del usuario a partir de su Id.
-    ''' </summary>
-    ''' <param name="idUsuario">Id del usuario.</param>
-    ''' <param name="hashPassword">Hash de la contraseña.</param>
-    ''' <returns>True: Se ha modificado la contraseña del usuario. False: No se ha modificado la contraseña del usuario.</returns>
-    Public Shared Function ModificarPasswordPorId(ByRef idUsuario As Integer, ByRef hashPassword As String) As Boolean
+    ''' Elimina un usuario.
+    ''' </summary>    
+    ''' <returns>True: Se ha eliminado el usuario. False: No se ha eliminado el usuario.</returns>
+    Public Function Eliminar() As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("UPDATE Usuarios
-                                         SET    Password = @Password
+        Dim comando As New MySqlCommand("DELETE FROM Usuarios
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 
-        comando.Parameters.AddWithValue("@Password", hashPassword)
-        comando.Parameters.AddWithValue("@IdUsuario", idUsuario)
+        comando.Parameters.AddWithValue("@IdUsuario", Id)
         Dim numFila As Integer
 
         Try
@@ -321,16 +317,20 @@ Public Class Usuario
 
 
     ''' <summary>
-    ''' Elimina un usuario.
-    ''' </summary>    
-    ''' <returns>True: Se ha eliminado el usuario. False: No se ha eliminado el usuario.</returns>
-    Public Function Eliminar() As Boolean
+    ''' Modifica el hash de la contraseña del usuario a partir de su Id.
+    ''' </summary>
+    ''' <param name="idUsuario">Id del usuario.</param>
+    ''' <param name="hashPassword">Hash de la contraseña.</param>
+    ''' <returns>True: Se ha modificado la contraseña del usuario. False: No se ha modificado la contraseña del usuario.</returns>
+    Public Shared Function ModificarPasswordPorId(ByRef idUsuario As Integer, ByRef hashPassword As String) As Boolean
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("DELETE FROM Usuarios
+        Dim comando As New MySqlCommand("UPDATE Usuarios
+                                         SET    Password = @Password
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 
-        comando.Parameters.AddWithValue("@IdUsuario", Id)
+        comando.Parameters.AddWithValue("@Password", hashPassword)
+        comando.Parameters.AddWithValue("@IdUsuario", idUsuario)
         Dim numFila As Integer
 
         Try
