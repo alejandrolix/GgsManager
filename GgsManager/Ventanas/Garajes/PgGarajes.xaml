@@ -83,8 +83,8 @@
                 </DataGrid>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,50,0,0" HorizontalAlignment="Center">
-                    <Button Name="EliminarGaraje" Content="Eliminar Garaje" Width="138" Height="34" Margin="0,0,240,0" FontSize="18" Click="EliminarGaraje_Click" />
-                    <Button Name="ModificarGaraje" Content="Modificar Garaje" Width="148" Height="34" FontSize="18" Click="ModificarGaraje_Click" />
+                    <Button Name="EliminarGarajeBtn" Content="Eliminar Garaje" Width="138" Height="34" Margin="0,0,240,0" FontSize="18" Click="EliminarGarajeBtn_Click" />
+                    <Button Name="ModificarGarajeBtn" Content="Modificar Garaje" Width="148" Height="34" FontSize="18" Click="ModificarGarajeBtn_Click" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>

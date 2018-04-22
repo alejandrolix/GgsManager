@@ -129,8 +129,8 @@
                 </DataGrid>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,50,0,0" HorizontalAlignment="Center">
-                    <Button Name="EliminarCliente" Content="Eliminar Cliente" FontSize="18" Width="138" Height="34" Margin="0,0,240,0" Click="EliminarCliente_Click" />
-                    <Button Name="ModificarCliente" Content="Modificar Cliente" FontSize="18" Width="148" Height="34" Click="ModificarCliente_Click" />
+                    <Button Name="EliminarClienteBtn" Content="Eliminar Cliente" FontSize="18" Width="138" Height="34" Margin="0,0,240,0" Click="EliminarClienteBtn_Click" />
+                    <Button Name="ModificarClienteBtn" Content="Modificar Cliente" FontSize="18" Width="148" Height="34" Click="ModificarClienteBtn_Click" />
                 </StackPanel>
             </Grid>
         </ScrollViewer>
