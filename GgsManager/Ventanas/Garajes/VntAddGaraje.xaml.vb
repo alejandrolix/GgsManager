@@ -111,7 +111,7 @@
 
     End Sub
 
-    Private Sub AceptarBtn_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub GuardarBtn_Click(sender As Object, e As RoutedEventArgs)
 
         If ComprobarDatosIntroducidos() Then
 

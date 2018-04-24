@@ -50,6 +50,6 @@
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Observaciones" Style="{StaticResource Etiquetas}" Width="104" />
         <TextBox Grid.Column="1" Grid.Row="3" Name="ObservGarajeTxt" Width="200" AcceptsReturn="True" Height="27" TextWrapping="Wrap" Text="{Binding Observaciones}" Style="{StaticResource TextBox}" />
 
-        <Button Name="AceptarBtn" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Aceptar" FontSize="18" Width="98" Height="38" Margin="0,34,0,0" Click="AceptarBtn_Click" />
+        <Button Name="GuardarBtn" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Content="Guardar" FontSize="18" Width="98" Height="38" Margin="0,34,0,0" Click="GuardarBtn_Click" />
     </Grid>
 </Window>

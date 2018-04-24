@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GgsManager"
         mc:Ignorable="d"
         Title="Añadir Usuario" Height="350.712" Width="581.734" Background="#f0f0f0"
-        Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico">
+        Loaded="Window_Loaded" Icon="/GgsManager;component/Logo.ico" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBlock" x:Key="Etiquetas">
             <Setter Property="Margin" Value="0,20,0,0" />
@@ -47,7 +47,11 @@
         </DockPanel>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="¿Es Gestor?" Style="{StaticResource Etiquetas}" />
-        <CheckBox Name="EsGestorUsuChk" Grid.Column="1" Grid.Row="2" IsChecked="{Binding EsGestorB}" VerticalAlignment="Bottom" />
-        <Button Name="GuardarUsuBtn" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="90" Height="34" Content="Aceptar" HorizontalAlignment="Center" FontSize="15" Click="GuardarUsuBtn_Click" Margin="0,30,0,0" />
+        <CheckBox Name="EsGestorUsuChk" Grid.Column="1" Grid.Row="2" IsChecked="{Binding EsGestorB}" VerticalAlignment="Bottom">
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+            </CheckBox.LayoutTransform>
+        </CheckBox>
+        <Button Name="GuardarUsuBtn" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Width="90" Height="34" Content="Guardar" HorizontalAlignment="Center" FontSize="17" Click="GuardarUsuBtn_Click" Margin="0,30,0,0" />
     </Grid>
 </Window>
