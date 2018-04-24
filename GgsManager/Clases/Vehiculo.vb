@@ -168,7 +168,7 @@ Public Class Vehiculo
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Vehiculos
-                                         SET    Matricula = @Matricula, Marca = @Marca, Modelo = @Modelo, IdGaraje = @IdGaraje, IdPlaza = @IdPlaza, PrecioBase = @PrecioBase, PrecioTotal = @PrecioTotal
+                                         SET    Matricula = @Matricula, Marca = @Marca, Modelo = @Modelo, PrecioBase = @PrecioBase, PrecioTotal = @PrecioTotal
                                          WHERE  IdVehiculo = @IdVehiculo;", conexion)
 
         Dim precioTotal As Decimal = CalcularPrecioTotal()
@@ -176,8 +176,6 @@ Public Class Vehiculo
         comando.Parameters.AddWithValue("@Matricula", Matricula)
         comando.Parameters.AddWithValue("@Marca", Marca)
         comando.Parameters.AddWithValue("@Modelo", Modelo)
-        comando.Parameters.AddWithValue("@IdGaraje", IdGaraje)
-        comando.Parameters.AddWithValue("@IdPlaza", IdPlaza)
         comando.Parameters.AddWithValue("@PrecioBase", PrecioBase)
         comando.Parameters.AddWithValue("@PrecioTotal", precioTotal)
         comando.Parameters.AddWithValue("@IdVehiculo", Id)
@@ -319,6 +317,17 @@ Public Class Vehiculo
         Me.Cliente = cliente
         Me.IdGaraje = idGaraje
         Me.IdPlaza = idPlaza
+        Me.PrecioBase = precioBase
+
+    End Sub
+
+    Public Sub New(id As Integer, matricula As String, marca As String, modelo As String, cliente As Cliente, precioBase As Decimal)               ' Para modificar los datos de un vehículo.
+
+        Me.Id = id
+        Me.Matricula = matricula
+        Me.Marca = marca
+        Me.Modelo = modelo
+        Me.Cliente = cliente
         Me.PrecioBase = precioBase
 
     End Sub

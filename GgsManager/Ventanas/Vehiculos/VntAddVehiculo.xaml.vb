@@ -18,6 +18,8 @@ Public Class VntAddVehiculo
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
+        PrecBaseVehiculoTxt.Language = Markup.XmlLanguage.GetLanguage(Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag)            ' Establece la moneda del precio base al euro.   
+
         If Accion = Foo.Accion.Insertar Then
 
             GarajesCmb.IsEnabled = False
@@ -67,6 +69,7 @@ Public Class VntAddVehiculo
                 If posicionGaraje <> -1 Then
 
                     GarajesCmb.SelectedIndex = posicionGaraje
+                    GarajesCmb.IsEnabled = False
 
                 End If
 
@@ -74,7 +77,7 @@ Public Class VntAddVehiculo
 
                 If arrayPlazasOcupadas Is Nothing Then
 
-                    MessageBox.Show("Ha habido un problema al obtener las plazas ocupadas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                    MessageBox.Show("Ha habido un problema al obtener las plazas ocupadas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
                 Else
 
                     PlazasCmb.DataContext = arrayPlazasOcupadas               ' Cargamos las plazas ocupadas en su ComboBox.
@@ -84,6 +87,7 @@ Public Class VntAddVehiculo
                     If posicionPlaza <> -1 Then
 
                         PlazasCmb.SelectedIndex = posicionPlaza
+                        PlazasCmb.IsEnabled = False
 
                     End If
 
@@ -105,6 +109,7 @@ Public Class VntAddVehiculo
                 If posicionCliente <> -1 Then
 
                     ClientesCmb.SelectedIndex = posicionCliente
+                    ClientesCmb.IsEnabled = False
 
                 End If
 
@@ -220,7 +225,7 @@ Public Class VntAddVehiculo
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                Dim vehiculo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, IdGaraje, plazaSelec.Id, PrecioBase)
+                Dim vehiculo As New Vehiculo(VehiculoSelec.Id, MatrVehiculoTxt.Text, MarcaVehiculoTxt.Text, ModVehiculoTxt.Text, cliente, PrecioBase)
 
                 If vehiculo.Modificar() Then
 
@@ -233,7 +238,7 @@ Public Class VntAddVehiculo
 
             End If
 
-            PgVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)               ' Actualizamos el DataGrid de vehículos.
+            PgVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(VehiculoSelec.IdGaraje)               ' Actualizamos el DataGrid de vehículos.
 
             If PgVehiculos.VehiculosDg.DataContext Is Nothing Then
 
