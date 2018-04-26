@@ -317,7 +317,7 @@
             <Caption>Gráfico Porcentajes Plazas</Caption>
             <Style>
               <BackgroundGradientType>None</BackgroundGradientType>
-              <FontSize>13pt</FontSize>
+              <FontSize>14pt</FontSize>
               <FontWeight>Bold</FontWeight>
               <TextDecoration>Underline</TextDecoration>
               <TextAlign>General</TextAlign>
@@ -342,10 +342,10 @@
           </Style>
         </ChartNoDataMessage>
         <DataSetName>DtPorcGaraje</DataSetName>
-        <Top>1.55787cm</Top>
-        <Left>2.11667cm</Left>
-        <Height>6.40229cm</Height>
-        <Width>13.05688cm</Width>
+        <Top>1.51694cm</Top>
+        <Left>3.4925cm</Left>
+        <Height>9.82987cm</Height>
+        <Width>19.02354cm</Width>
         <Style>
           <Border>
             <Color>LightGrey</Color>
@@ -356,13 +356,13 @@
         </Style>
       </Chart>
     </ReportItems>
-    <Height>3.436in</Height>
+    <Height>4.61308in</Height>
     <Style />
   </Body>
-  <Width>6.96875in</Width>
+  <Width>9.25in</Width>
   <Page>
     <PageHeader>
-      <Height>2.48708cm</Height>
+      <Height>2.51354cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -375,7 +375,7 @@
                 <TextRun>
                   <Value>=Parameters!TituloInforme.Value</Value>
                   <Style>
-                    <FontSize>16pt</FontSize>
+                    <FontSize>18pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                     <TextDecoration>Underline</TextDecoration>
                   </Style>
@@ -387,9 +387,9 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Left>2.8575cm</Left>
+          <Left>7.22312cm</Left>
           <Height>0.94396cm</Height>
-          <Width>10.80792cm</Width>
+          <Width>11.41646cm</Width>
           <Style>
             <Border>
               <Style>None</Style>
@@ -407,8 +407,8 @@
         </Border>
       </Style>
     </PageHeader>
-    <PageHeight>14.8cm</PageHeight>
-    <PageWidth>21cm</PageWidth>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
     <LeftMargin>2cm</LeftMargin>
     <RightMargin>2cm</RightMargin>
     <TopMargin>2cm</TopMargin>

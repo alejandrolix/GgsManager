@@ -37,6 +37,9 @@
 
                 If Plaza.CambiarSituacionPlazaALibre(vehiculoSelec.IdPlaza, vehiculoSelec.IdGaraje) Then
 
+                    Garaje.RestarNumPlazasOcupadas(IdGarajeSelec)
+                    Garaje.SumarNumPlazasLibres(IdGarajeSelec)
+
                     MessageBox.Show("Se ha eliminado el vehículo.", "Vehículo Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
                     VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGarajeSelec)
 
