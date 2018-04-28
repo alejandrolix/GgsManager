@@ -148,45 +148,6 @@ Public Class Factura
 
 
     ''' <summary>
-    ''' Elimina las facturas de un cliente a partir de su Id.
-    ''' </summary>
-    ''' <param name="idCliente">El Id del cliente.</param>
-    ''' <returns>True: Se ha eliminado la factura del cliente. False: No se ha eliminado la factura del cliente.</returns>
-    Public Shared Function EliminarFacturasPorIdCliente(ByRef idCliente As Integer) As Boolean
-
-        Dim numFacturasCliente As Integer = ObtenerNumFacturasPorIdCliente(idCliente)
-
-        If numFacturasCliente <= 0 Then
-
-            MessageBox.Show("Ha habido un problema al obtener el número de facturas del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-        Else
-
-            Dim conexion As MySqlConnection = Foo.ConexionABd()
-            Dim comando As New MySqlCommand("DELETE FROM Facturas
-                                             WHERE  IdCliente = @IdCliente;", conexion)
-
-            comando.Parameters.AddWithValue("@IdCliente", idCliente)
-
-            Dim numFila As Integer
-            Try
-                numFila = comando.ExecuteNonQuery()
-
-            Catch ex As Exception
-
-            End Try
-
-            conexion.Close()
-
-            Return numFila >= 1
-
-        End If
-
-        Return False
-
-    End Function
-
-
-    ''' <summary>
     ''' Elimina las facturas de un garaje a partir de su Id.
     ''' </summary>
     ''' <param name="idGaraje">El Id del garaje.</param>

@@ -223,34 +223,6 @@ Public Class Vehiculo
 
 
     ''' <summary>
-    ''' Elimina el vehículo a partir del Id de un cliente.
-    ''' </summary>
-    ''' <param name="idCliente">Id del cliente.</param>
-    ''' <returns>True: Se ha eliminado el vehículo del cliente. False: No se ha eliminado el vehículo del cliente.</returns>
-    Public Shared Function EliminarVehiculoPorIdCliente(ByRef idCliente As Integer) As Boolean
-
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("DELETE FROM Vehiculos
-                                         WHERE  IdCliente = @IdCliente;", conexion)
-
-        comando.Parameters.AddWithValue("@IdCliente", idCliente)
-        Dim numFila As Integer
-
-        Try
-            numFila = comando.ExecuteNonQuery()
-
-        Catch ex As Exception
-
-        End Try
-
-        conexion.Close()
-
-        Return numFila >= 1
-
-    End Function
-
-
-    ''' <summary>
     ''' Elimina los vehículos a partir del Id de un garaje.
     ''' </summary>
     ''' <param name="idGaraje">El Id de un garaje.</param>
