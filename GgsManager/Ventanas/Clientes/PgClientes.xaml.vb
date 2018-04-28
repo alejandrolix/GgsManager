@@ -53,38 +53,24 @@
             MessageBox.Show("Tienes que seleccionar un cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If Vehiculo.EliminarVehiculoPorIdCliente(clienteSelec.Id) Then              ' Eliminamos el vehículo del cliente.
+            If clienteSelec.Eliminar() Then             ' Eliminamos el cliente.
 
-                If Factura.EliminarFacturasPorIdCliente(clienteSelec.Id) Then           ' Eliminamos las facturas del cliente.
+                clienteSelec.EliminarImg()               ' Eliminamos la imagen del cliente.
+                MessageBox.Show("Se ha eliminado el cliente.", "Cliente Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
 
-                    If clienteSelec.Eliminar() Then             ' Eliminamos el cliente.
+                Vista.Source = Cliente.ObtenerClientes()
 
-                        clienteSelec.EliminarImg()               ' Eliminamos la imagen del cliente.
-                        MessageBox.Show("Se ha eliminado el cliente.", "Cliente Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+                If Vista.Source Is Nothing Then
 
-                        Vista.Source = Cliente.ObtenerClientes()
-
-                        If Vista.Source Is Nothing Then
-
-                            MessageBox.Show("Ha habido un problema al obtener los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-                        Else
-
-                            ClientesDg.DataContext = Vista
-
-                        End If
-                    Else
-
-                        MessageBox.Show("Ha habido un problema al eliminar el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-                    End If
+                    MessageBox.Show("Ha habido un problema al obtener los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
                 Else
 
-                    MessageBox.Show("Ha habido un problema al eliminar las facturas del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                    ClientesDg.DataContext = Vista
 
                 End If
             Else
 
-                MessageBox.Show("Ha habido un problema al eliminar el vehículo del cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                MessageBox.Show("Ha habido un problema al eliminar el cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
             End If
 
