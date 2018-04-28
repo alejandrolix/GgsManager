@@ -10,9 +10,9 @@
         Background="#f0f0f0" Icon="/GgsManager;component/Logo.ico">
     
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,90">
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,100">
             <TextBlock Text="Cliente" Margin="0,0,40,0" FontSize="19" />
-            <ComboBox Name="ClientesCmb" IsEditable="True" Width="210" Height="29" ItemsSource="{Binding}" FontSize="16">
+            <ComboBox Name="ClientesCmb" IsEditable="True" Width="240" Height="29" ItemsSource="{Binding}" FontSize="16">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -25,6 +25,6 @@
             </ComboBox>
         </StackPanel>
 
-        <Button Name="AceptarBtn" Content="Aceptar" Width="85" Height="34" FontSize="17" Click="AceptarBtn_Click" />
+        <Button Name="AceptarBtn" Content="Aceptar" Width="100" Height="34" FontSize="17" Click="AceptarBtn_Click" />
     </StackPanel>
 </Window>

@@ -244,6 +244,106 @@ Public Class Garaje
 
 
     ''' <summary>
+    ''' Incrementa el número de plazas ocupadas de un garaje cuando se añade un vehículo.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    Public Shared Sub SumarNumPlazasOcupadas(ByRef idGaraje As Integer)
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("UPDATE Garajes
+                                         SET    NumPlazasOcupadas = NumPlazasOcupadas + 1
+                                         WHERE  IdGaraje = @IdGaraje;")
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+
+        Try
+            comando.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+        End Try
+
+        conexion.Close()
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Incrementa el número de plazas libres de un garaje cuando se elimina un vehículo.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    Public Shared Sub SumarNumPlazasLibres(ByRef idGaraje As Integer)
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("UPDATE Garajes
+                                         SET    NumPlazasLibres = NumPlazasLibres + 1
+                                         WHERE  IdGaraje = @IdGaraje;")
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+
+        Try
+            comando.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+        End Try
+
+        conexion.Close()
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Resta el número de plazas libres de un garaje cuando se añade un vehículo.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    Public Shared Sub RestarNumPlazasLibres(ByRef idGaraje As Integer)
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("UPDATE Garajes
+                                         SET    NumPlazasLibres = NumPlazasLibres - 1
+                                         WHERE  IdGaraje = @IdGaraje;")
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+
+        Try
+            comando.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+        End Try
+
+        conexion.Close()
+
+    End Sub
+
+
+    ''' <summary>
+    ''' Resta el número de plazas ocupadas de un garaje cuando se elimina un vehículo.
+    ''' </summary>
+    ''' <param name="idGaraje">El Id de un garaje.</param>
+    Public Shared Sub RestarNumPlazasOcupadas(ByRef idGaraje As Integer)
+
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("UPDATE Garajes
+                                         SET    NumPlazasOcupadas = NumPlazasOcupadas - 1
+                                         WHERE  IdGaraje = @IdGaraje;")
+
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+
+        Try
+            comando.ExecuteNonQuery()
+
+        Catch ex As Exception
+
+        End Try
+
+        conexion.Close()
+
+    End Sub
+
+
+    ''' <summary>
     ''' Elimina un garaje.
     ''' </summary>    
     ''' <returns>True: El garaje se ha eliminado. False: El garaje no se ha eliminado.</returns>

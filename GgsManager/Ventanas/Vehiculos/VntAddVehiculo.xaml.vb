@@ -208,6 +208,9 @@ Public Class VntAddVehiculo
 
                     If Plaza.CambiarSituacionPlazaAOcupada(plazaSelec.Id, IdGaraje) Then
 
+                        Garaje.SumarNumPlazasOcupadas(IdGaraje)
+                        Garaje.RestarNumPlazasLibres(IdGaraje)
+
                         MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                         PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas libres en su ComboBox.
 
