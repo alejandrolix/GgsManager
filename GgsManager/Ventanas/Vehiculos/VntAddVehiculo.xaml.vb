@@ -20,60 +20,50 @@ Public Class VntAddVehiculo
 
         PrecBaseVehiculoTxt.Language = Markup.XmlLanguage.GetLanguage(Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag)            ' Establece la moneda del precio base al euro.   
 
-        If Accion = Foo.Accion.Insertar Then
+        Dim nombreGaraje As String = Garaje.ObtenerNombreGarajePorId(IdGaraje)
 
-            GarajesCmb.IsEnabled = False
-            Keyboard.Focus(MatrVehiculoTxt)
+        If nombreGaraje Is Nothing Then
 
-            ClientesCmb.DataContext = Cliente.ObtenerNombreYApellidosClientes()           ' Cargamos los clientes en su ComboBox.
+            MessageBox.Show("Ha habido un problema al obtener el nombre del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+        Else
 
-            If ClientesCmb.DataContext Is Nothing Then
+            NombreGarajeLbl.DataContext = nombreGaraje
 
-                MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-            Else
+            If Accion = Foo.Accion.Insertar Then
 
-                ClientesCmb.SelectedIndex = 0
+                Keyboard.Focus(MatrVehiculoTxt)
 
-            End If
+                ClientesCmb.DataContext = Cliente.ObtenerNombreYApellidosClientes()           ' Cargamos los clientes en su ComboBox.
 
-            PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas libres en su ComboBox.
+                If ClientesCmb.DataContext Is Nothing Then
 
-            If PlazasCmb.DataContext Is Nothing Then
+                    MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                Else
 
-                MessageBox.Show("Ha habido un problema al obtener las plazas libres del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-            Else
-
-                PlazasCmb.SelectedIndex = 0
-
-            End If
-
-        ElseIf Accion = Foo.Accion.Modificar Then
-
-            MatrVehiculoTxt.DataContext = VehiculoSelec
-            MarcaVehiculoTxt.DataContext = VehiculoSelec
-            ModVehiculoTxt.DataContext = VehiculoSelec
-
-            PrecBaseVehiculoTxt.DataContext = VehiculoSelec
-
-            Dim arrayGarajes As Garaje() = Garaje.ObtenerNombresGarajes()
-
-            If arrayGarajes Is Nothing Then
-
-                MessageBox.Show("Ha habido un problema al obtener los nombres de los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-            Else
-
-                GarajesCmb.DataContext = arrayGarajes               ' Cargamos los garajes en su ComboBox.
-
-                Dim posicionGaraje As Integer = ObtenerPosicionGaraje(arrayGarajes)
-
-                If posicionGaraje <> -1 Then
-
-                    GarajesCmb.SelectedIndex = posicionGaraje
-                    GarajesCmb.IsEnabled = False
+                    ClientesCmb.SelectedIndex = 0
 
                 End If
 
-                Dim arrayPlazasOcupadas As Plaza() = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(arrayGarajes(posicionGaraje).Id)
+                PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas libres en su ComboBox.
+
+                If PlazasCmb.DataContext Is Nothing Then
+
+                    MessageBox.Show("Ha habido un problema al obtener las plazas libres del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                Else
+
+                    PlazasCmb.SelectedIndex = 0
+
+                End If
+
+            ElseIf Accion = Foo.Accion.Modificar Then
+
+                MatrVehiculoTxt.DataContext = VehiculoSelec
+                MarcaVehiculoTxt.DataContext = VehiculoSelec
+                ModVehiculoTxt.DataContext = VehiculoSelec
+
+                PrecBaseVehiculoTxt.DataContext = VehiculoSelec
+
+                Dim arrayPlazasOcupadas As Plaza() = Plaza.ObtenerIdPlazasOcupadasPorIdGaraje(IdGaraje)
 
                 If arrayPlazasOcupadas Is Nothing Then
 
@@ -93,23 +83,23 @@ Public Class VntAddVehiculo
 
                 End If
 
-            End If
+                Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientes()
 
-            Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientes()
+                If arrayClientes Is Nothing Then             ' Comprobamos si hay datos.
 
-            If arrayClientes Is Nothing Then             ' Comprobamos si hay datos.
+                    MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                Else
 
-                MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-            Else
+                    ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
 
-                ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
+                    Dim posicionCliente As Integer = ObtenerPosicionCliente(arrayClientes)
 
-                Dim posicionCliente As Integer = ObtenerPosicionCliente(arrayClientes)
+                    If posicionCliente <> -1 Then
 
-                If posicionCliente <> -1 Then
+                        ClientesCmb.SelectedIndex = posicionCliente
+                        ClientesCmb.IsEnabled = False
 
-                    ClientesCmb.SelectedIndex = posicionCliente
-                    ClientesCmb.IsEnabled = False
+                    End If
 
                 End If
 
@@ -132,30 +122,6 @@ Public Class VntAddVehiculo
             Dim cliente As Cliente = arrayClientes(i)
 
             If cliente.Nombre.Equals(VehiculoSelec.Cliente.Nombre) And cliente.Apellidos.Equals(VehiculoSelec.Cliente.Apellidos) Then
-
-                Return i
-
-            End If
-
-        Next
-
-        Return -1
-
-    End Function
-
-
-    ''' <summary>
-    ''' Obtiene la posición de la lista donde el Id del garaje coincida con el del vehículo seleccionado.
-    ''' </summary>
-    ''' <param name="arrayGarajes">El array de los garajes.</param>
-    ''' <returns>La posición del array.</returns>
-    Private Function ObtenerPosicionGaraje(ByRef arrayGarajes As Garaje()) As Integer
-
-        For i As Integer = 0 To arrayGarajes.Count - 1 Step 1
-
-            Dim garaje As Garaje = arrayGarajes(i)
-
-            If garaje.Id = VehiculoSelec.IdGaraje Then
 
                 Return i
 
@@ -276,7 +242,7 @@ Public Class VntAddVehiculo
     ''' <returns>True: Los datos son correctos. False: Los datos no son correctos.</returns>
     Private Function ComprobarDatosIntroducidos() As Boolean
 
-        Dim hayMatricula, hayMarca, hayModelo, hayPrecioBase As Boolean
+        Dim hayMatricula, hayMarca, hayModelo, hayPrecioBase, hayCliente As Boolean
         Dim exprMatricula As New Regex("^([A-Z]{1,2})?\s?-?\d{4}\s?-?([A-Z]{2,3})$")
 
         If Not Foo.HayTexto(MatrVehiculoTxt.Text) Then
@@ -310,6 +276,15 @@ Public Class VntAddVehiculo
 
         End If
 
+        If Foo.HayTexto(ClientesCmb.Text) Then
+
+            hayCliente = True
+        Else
+
+            MessageBox.Show("Tienes que seleccionar un cliente.", "Cliente Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+
+        End If
+
         Try
             Me.PrecioBase = Decimal.Parse(PrecBaseVehiculoTxt.Text)
             hayPrecioBase = True
@@ -326,7 +301,7 @@ Public Class VntAddVehiculo
 
         End Try
 
-        Return hayMatricula And hayMarca And hayModelo And hayPrecioBase
+        Return hayMatricula And hayMarca And hayModelo And hayPrecioBase And hayCliente
 
     End Function
 
@@ -340,13 +315,14 @@ Public Class VntAddVehiculo
 
     End Sub
 
-    Public Sub New(ByRef accion As Foo.Accion, ByRef vehiculoSelec As Vehiculo, ByRef pgVehiculos As PgVehiculos)
+    Public Sub New(ByRef accion As Foo.Accion, ByRef vehiculoSelec As Vehiculo, ByRef pgVehiculos As PgVehiculos, ByRef idGaraje As Integer)
 
         InitializeComponent()
 
         Me.Accion = accion
         Me.VehiculoSelec = vehiculoSelec
         Me.PgVehiculos = pgVehiculos
+        Me.IdGaraje = idGaraje
 
     End Sub
 

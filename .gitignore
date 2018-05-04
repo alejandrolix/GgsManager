@@ -241,3 +241,5 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /GgsManager/Clases/Tests.vb
+/Documentación Código
+/GgsManager.sln.vsdoc

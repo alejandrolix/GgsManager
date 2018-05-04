@@ -15,17 +15,6 @@ Public Class Garaje
 
 
     ''' <summary>
-    ''' Obtiene el nombre del garaje.
-    ''' </summary>
-    ''' <returns>El nombre del garaje.</returns>
-    Public Overrides Function ToString() As String
-
-        Return Nombre
-
-    End Function
-
-
-    ''' <summary>
     ''' Obtiene todos los garajes.
     ''' </summary>
     ''' <returns>Array con todos los garajes.</returns>

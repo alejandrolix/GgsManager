@@ -58,17 +58,9 @@
         <TextBlock Text="Modelo" Grid.Column="0" Grid.Row="2" Style="{StaticResource Etiquetas}" />
         <TextBox Name="ModVehiculoTxt" Grid.Column="1" Grid.Row="2" Width="180" Text="{Binding Modelo}" Style="{StaticResource TextBox}" />
         <TextBlock Text="Garaje" Grid.Column="0" Grid.Row="3" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="GarajesCmb" IsEditable="True" Grid.Column="1" Grid.Row="3" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Nombre}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        <TextBlock Name="NombreGarajeLbl" Grid.Column="1" Grid.Row="3" Text="{Binding}" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,4" />
         <TextBlock Text="Cliente" Grid.Column="0" Grid.Row="4" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="ClientesCmb" Grid.Column="1" Grid.Row="4" IsEditable="True" Width="230" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
+        <ComboBox Name="ClientesCmb" Grid.Column="1" Grid.Row="4" IsEditable="True" Width="240" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -91,7 +83,10 @@
         </ComboBox>
         <TextBlock Name="PrecioLbl" Text="Precio Base" Grid.Column="0" Grid.Row="6" Style="{StaticResource Etiquetas}" />
 
-        <TextBox Name="PrecBaseVehiculoTxt" Grid.Column="1" Grid.Row="6" Text="{Binding PrecioBase, StringFormat=N2}" Style="{StaticResource TextBox}" Width="86" />
+        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Bottom">
+            <TextBox Name="PrecBaseVehiculoTxt" Text="{Binding PrecioBase, StringFormat=N2}" Style="{StaticResource TextBox}" Width="86" Margin="0,0,7,0" />
+            <TextBlock Text="€" FontSize="22" />
+        </StackPanel>
         <Button Name="GuardarClienteBtn" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2" Width="100" Height="34" Content="Guardar" FontSize="16" Margin="0,24,0,0" Click="GuardarClienteBtn_Click" />
     </Grid>
 </Window>

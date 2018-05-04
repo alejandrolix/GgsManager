@@ -72,7 +72,7 @@
             MessageBox.Show("Tienes que seleccionar un vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            AbrirVntAddVehiculo(Foo.Accion.Modificar, vehiculoSelec)
+            AbrirVntAddVehiculo(Foo.Accion.Modificar, vehiculoSelec, IdGarajeSelec)
 
         End If
 
@@ -96,9 +96,9 @@
     ''' </summary>
     ''' <param name="accion">Acción a realizar.</param>
     ''' <param name="vehiculoSelec">Datos del vehículo seleccionado.</param>
-    Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion, ByRef vehiculoSelec As Vehiculo)
+    Private Sub AbrirVntAddVehiculo(ByRef accion As Foo.Accion, ByRef vehiculoSelec As Vehiculo, ByRef idGaraje As Integer)
 
-        Dim vntAddVehiculo As New VntAddVehiculo(accion, vehiculoSelec, Me)
+        Dim vntAddVehiculo As New VntAddVehiculo(accion, vehiculoSelec, Me, idGaraje)
         vntAddVehiculo.Title = "Modificar Vehículo"
         vntAddVehiculo.ShowDialog()
 
