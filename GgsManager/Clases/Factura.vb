@@ -5,9 +5,24 @@
 ''' </summary>
 Public Class Factura
 
+    ''' <summary>
+    ''' El Id de la Factura.
+    ''' </summary>    
     Property Id As Integer
+
+    ''' <summary>
+    ''' La Fecha de Creación de la Factura.
+    ''' </summary>    
     Property Fecha As Date
+
+    ''' <summary>
+    ''' El Id del Cliente al que le Corresponde la Factura.
+    ''' </summary>    
     Property IdCliente As Integer
+
+    ''' <summary>
+    ''' El Id del Garaje al que le Corresponde la Factura.
+    ''' </summary>    
     Property IdGaraje As Integer
 
 

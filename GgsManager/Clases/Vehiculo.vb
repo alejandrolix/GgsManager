@@ -5,13 +5,44 @@
 ''' </summary>
 Public Class Vehiculo
 
+    ''' <summary>
+    ''' El Id del Vehículo del Cliente.
+    ''' </summary>    
     Property Id As Integer
+
+    ''' <summary>
+    ''' La Matrícula del Vehículo del Cliente.
+    ''' </summary>    
     Property Matricula As String
+
+    ''' <summary>
+    ''' La Marca del Vehículo del Cliente.
+    ''' </summary>    
     Property Marca As String
+
+    ''' <summary>
+    ''' El Modelo del Vehículo del Cliente.
+    ''' </summary>    
     Property Modelo As String
+
+    ''' <summary>
+    ''' El Cliente.
+    ''' </summary>    
     Property Cliente As Cliente
+
+    ''' <summary>
+    ''' El Id de la Plaza en la que está Vehículo del Cliente.
+    ''' </summary>    
     Property IdPlaza As Integer
+
+    ''' <summary>
+    ''' El Id del Garaje en el que está el Vehículo del Cliente.
+    ''' </summary>    
     Property IdGaraje As Integer
+
+    ''' <summary>
+    ''' El Precio Base, (sin I.V.A.) que abona Mensualmente el Cliente.
+    ''' </summary>    
     Property PrecioBase As Decimal
 
 

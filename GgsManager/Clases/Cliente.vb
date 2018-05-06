@@ -7,17 +7,64 @@ Imports System.Text
 ''' </summary>
 Public Class Cliente
 
+    ''' <summary>
+    ''' El Id del Cliente.
+    ''' </summary>    
     Property Id As Integer
+
+    ''' <summary>
+    ''' El Nombre del Cliente.
+    ''' </summary>    
     Property Nombre As String
+
+    ''' <summary>
+    ''' Los Apellidos del Cliente.
+    ''' </summary>    
     Property Apellidos As String
+
+    ''' <summary>
+    ''' El DNI del Cliente.
+    ''' </summary>    
     Property DNI As String
+
+    ''' <summary>
+    ''' La Dirección del Domicilio del Cliente.
+    ''' </summary>    
     Property Direccion As String
+
+    ''' <summary>
+    ''' La Población del Domicilio del Cliente.
+    ''' </summary>    
     Property Poblacion As String
+
+    ''' <summary>
+    ''' La Província del Domicilio del Cliente.
+    ''' </summary>    
     Property Provincia As String
+
+    ''' <summary>
+    ''' El Móvil de Contacto del Cliente.
+    ''' </summary>    
     Property Movil As String
+
+    ''' <summary>
+    ''' La Fecha y Hora de Alta del Cliente en el Programa.
+    ''' </summary>    
     Property FechaHoraAlta As Date
+
+    ''' <summary>
+    ''' Las Observaciones del Cliente.
+    ''' </summary>    
     Property Observaciones As String
+
+    ''' <summary>
+    ''' El Vehículo del Cliente.
+    ''' </summary>    
     Property Vehiculo As Vehiculo
+
+    ''' <summary>
+    ''' La Imagen del Cliente, (opcional)
+    ''' </summary>    
     Property Ivm As ImageViewModelCliente
 
 

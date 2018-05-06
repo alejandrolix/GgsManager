@@ -7,12 +7,23 @@ Imports MySql.Data.MySqlClient
 ''' </summary>
 Public Class Usuario
 
+    ''' <summary>
+    ''' El Id del Usuario.
+    ''' </summary>    
     Property Id As Integer
+
+    ''' <summary>
+    ''' El Nombre del Usuario.
+    ''' </summary>    
     Property Nombre As String
+
+    ''' <summary>
+    ''' Indica si el Usuario es Gestor.
+    ''' </summary>    
     Property EsGestorB As Boolean
 
     ''' <summary>
-    ''' Indica si el usuario es gestor mediante las palabras "Sí" y "No", para mostrarlo en el DataGrid.
+    ''' Indica si el usuario es gestor mediante las palabras "Sí" y "No", para mostrarlo en su DataGrid.
     ''' </summary>    
     Property EsGestor As String
 

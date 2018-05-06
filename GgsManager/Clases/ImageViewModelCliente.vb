@@ -6,6 +6,9 @@
 Public Class ImageViewModelCliente
     Implements INotifyPropertyChanged
 
+    ''' <summary>
+    ''' Contiene la Imagen del Cliente.
+    ''' </summary>
     Private _bitmap As BitmapImage
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 

@@ -229,7 +229,14 @@ Public Class Foo
     ''' </summary>
     Enum Accion
 
+        ''' <summary>
+        ''' Se van a Insertar Datos en un Formulario.
+        ''' </summary>
         Insertar
+
+        ''' <summary>
+        ''' Se van a Modificar Datos en un Formulario.
+        ''' </summary>
         Modificar
 
     End Enum
@@ -239,12 +246,40 @@ Public Class Foo
     ''' Indica qué ventana se va a abrir despúes de seleccionar un garaje en "VntSeleccGaraje".
     ''' </summary>
     Enum Ventana
+
+        ''' <summary>
+        ''' Abre la Ventana de Vehículos.
+        ''' </summary>
         Vehiculos
+
+        ''' <summary>
+        ''' Abre la Ventana de Plazas.
+        ''' </summary>
         Plazas
+
+        ''' <summary>
+        ''' Abre la Ventana del Informe de Clientes.
+        ''' </summary>
         InformeClientes
+
+        ''' <summary>
+        ''' Abre la Ventana del Informe de Plazas.
+        ''' </summary>
         InformePlazas
+
+        ''' <summary>
+        ''' Abre la Ventana del Informe de Estadísticas de Uno o Todos los Garajes.
+        ''' </summary>
         InformeEstadGaraje
+
+        ''' <summary>
+        ''' Abre la Ventana de la Factura Individual, (a un cliente).
+        ''' </summary>
         FacturaIndividual
+
+        ''' <summary>
+        ''' Abre la Ventana de la Factura de los Clientes de un Garaje.
+        ''' </summary>
         FacturaGaraje
     End Enum
 

@@ -5,10 +5,29 @@
 ''' </summary>
 Public Class Plaza
 
+    ''' <summary>
+    ''' El Id de la Plaza.
+    ''' </summary>    
     Property Id As Integer
+
+    ''' <summary>
+    ''' La Marca del Vehículo que está en la Plaza.
+    ''' </summary>    
     Property Marca As String
+
+    ''' <summary>
+    ''' La Matrícula del Vehículo que está en la Plaza.
+    ''' </summary>    
     Property Matricula As String
+
+    ''' <summary>
+    ''' El Modelo del Vehículo que está en la Plaza.
+    ''' </summary>    
     Property Modelo As String
+
+    ''' <summary>
+    ''' La Situación de la Plaza, (Libre u Ocupada).
+    ''' </summary>    
     Property Situacion As String
 
 

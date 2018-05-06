@@ -5,12 +5,39 @@
 ''' </summary>
 Public Class Garaje
 
+    ''' <summary>
+    ''' El Id del Garaje.
+    ''' </summary>    
     Property Id As Integer
+
+    ''' <summary>
+    ''' El Nombre del Garaje.
+    ''' </summary>    
     Property Nombre As String
+
+    ''' <summary>
+    ''' La Dirección del Garaje.
+    ''' </summary>    
     Property Direccion As String
+
+    ''' <summary>
+    ''' El Número de Plazas que tiene el Garaje.
+    ''' </summary>    
     Property NumPlazas As Integer
+
+    ''' <summary>
+    ''' El Número de Plazas Libres que tiene el Garaje.
+    ''' </summary>    
     Property NumPlazasLibres As Integer
+
+    ''' <summary>
+    ''' El Número de Plazas Ocupadas que tiene el Garaje.
+    ''' </summary>    
     Property NumPlazasOcupadas As Integer
+
+    ''' <summary>
+    ''' Las Observaciones del Garaje.
+    ''' </summary>    
     Property Observaciones As String
 
 
@@ -47,7 +74,7 @@ Public Class Garaje
                 Dim numPlazasOcupadas As Integer = datos.GetInt32("NumPlazasOcupadas")
                 Dim observaciones As String
 
-                If datos.IsDBNull(6) Then               ' Si el contenido de la 2ª columna, (Observaciones), es NULL.
+                If datos.IsDBNull(6) Then               ' Si el contenido de la 6ª columna, (Observaciones), es NULL.
 
                     observaciones = ""
                 Else
