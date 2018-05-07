@@ -35,7 +35,7 @@
                 <MenuItem Name="EstadTodosGarajes" Header="Todos los Garajes" Click="EstadTodosGarajes_Click" Margin="2" />
                 <MenuItem Name="EstadGaraje" Header="Por Garaje" Margin="2" Click="EstadGaraje_Click" />
             </MenuItem>
-            <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Margin="20,0,8,0" />
+            <MenuItem Name="CerrarSesion" Header="Cerrar Sesión" Click="CerrarSesion_Click" Margin="40,0,8,0" />
         </Menu>
 
         <Frame Name="Frame" NavigationUIVisibility="Hidden" Background="#f0f0f0" DockPanel.Dock="Bottom" />

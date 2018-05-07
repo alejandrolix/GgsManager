@@ -19,7 +19,7 @@
 
             MenuPrincipal.IsEnabled = True
 
-            If Usuario.UsuarioLogueado.EsGestorB = False Then           ' Si el usuario logueado no es un gestor, desactivamos las opciones de "Usuarios", "Configuración" y "Estadísticas".
+            If Usuario.UsuarioLogueado.EsGestor = False Then           ' Si el usuario logueado no es un gestor, desactivamos las opciones de "Usuarios", "Configuración" y "Estadísticas".
 
                 Usuarios.IsEnabled = False
                 Configuracion.IsEnabled = False

@@ -20,12 +20,7 @@ Public Class Usuario
     ''' <summary>
     ''' Indica si el Usuario es Gestor.
     ''' </summary>    
-    Property EsGestorB As Boolean
-
-    ''' <summary>
-    ''' Indica si el usuario es gestor mediante las palabras "Sí" y "No", para mostrarlo en su DataGrid.
-    ''' </summary>    
-    Property EsGestor As String
+    Property EsGestor As Boolean
 
     ''' <summary>
     ''' Almacena el usuario que ha iniciado sesión en el programa.
@@ -249,7 +244,7 @@ Public Class Usuario
 
             comando.Parameters.AddWithValue("@Nombre", Nombre)
             comando.Parameters.AddWithValue("@Password", hashPassword)
-            comando.Parameters.AddWithValue("@EsGestorB", EsGestorB)
+            comando.Parameters.AddWithValue("@EsGestorB", EsGestor)
             Dim numFila As Integer
 
             Try
@@ -282,7 +277,7 @@ Public Class Usuario
                                          WHERE  IdUsuario = @IdUsuario;", conexion)
 
         comando.Parameters.AddWithValue("@Nombre", Nombre)
-        comando.Parameters.AddWithValue("@EsGestorB", EsGestorB)
+        comando.Parameters.AddWithValue("@EsGestorB", EsGestor)
         comando.Parameters.AddWithValue("@IdUsuario", Id)
         Dim numFila As Integer
 
@@ -361,23 +356,14 @@ Public Class Usuario
 
         Me.Id = id
         Me.Nombre = nombre
-        Me.EsGestorB = esGestor
-
-        If esGestor Then
-
-            Me.EsGestor = "Sí"
-        Else
-
-            Me.EsGestor = "No"
-
-        End If
+        Me.EsGestor = esGestor
 
     End Sub
 
     Public Sub New(nombre As String, esGestor As Boolean)               ' Para crear un usuario.
 
         Me.Nombre = nombre
-        Me.EsGestorB = esGestor
+        Me.EsGestor = esGestor
 
     End Sub
 

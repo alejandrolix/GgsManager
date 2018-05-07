@@ -22,7 +22,7 @@
 
                 <Button Name="NuevoUsuarioBtn" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" FontSize="18" Width="130" Height="34" Content="Añadir Usuario" Margin="0,20,16,18" Click="NuevoUsuarioBtn_Click" />
 
-                <DataGrid Name="UsuariosDg" RowHeight="31" IsSynchronizedWithCurrentItem="False" BorderThickness="0" Grid.Column="0" Grid.Row="1" Margin="12,0" Grid.ColumnSpan="2" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
+                <DataGrid Name="UsuariosDg" RowHeight="32" IsSynchronizedWithCurrentItem="False" BorderThickness="0" Grid.Column="0" Grid.Row="1" Margin="12,0" Grid.ColumnSpan="2" ItemsSource="{Binding}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Single" CanUserSortColumns="True" FontSize="15">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -41,12 +41,22 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="¿Es Gestor?" Binding="{Binding EsGestor}" Width="*" IsReadOnly="True">
+                        <DataGridTextColumn Header="¿Es Gestor?" Width="*" IsReadOnly="True">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                     <Setter Property="VerticalAlignment" Value="Center" />
                                     <Setter Property="FontSize" Value="19" />
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding EsGestor}" Value="True">
+                                            <Setter Property="Text" Value="Sí" />
+                                        </DataTrigger>
+                                        
+                                        <DataTrigger Binding="{Binding EsGestor}" Value="False">
+                                            <Setter Property="Text" Value="No" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
