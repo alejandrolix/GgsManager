@@ -1,4 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports NPoco
 
 ''' <summary>
 ''' Representa un garaje de la tabla "Garajes".
@@ -8,6 +9,7 @@ Public Class Garaje
     ''' <summary>
     ''' El Id del Garaje.
     ''' </summary>    
+    <Column("IdGaraje")>
     Property Id As Integer
 
     ''' <summary>
@@ -47,57 +49,15 @@ Public Class Garaje
     ''' <returns>Array con todos los garajes.</returns>
     Public Shared Function ObtenerGarajes() As Garaje()
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
-                                         FROM   Garajes
-                                         ORDER BY Nombre;", conexion)
-        Dim datos As MySqlDataReader = Nothing
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        Try
-            datos = comando.ExecuteReader()
+        Dim listaGarajes As Garaje() = conexion.Query(Of Garaje)("SELECT IdGaraje, Nombre, Direccion, NumPlazas, NumPlazasLibres, NumPlazasOcupadas, Observaciones
+                                                                  FROM   Garajes
+                                                                  ORDER BY Nombre;").ToArray()
 
-        Catch ex As Exception
+        conexion.CloseSharedConnection()
 
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim listaGarajes As New List(Of Garaje)()
-
-            While datos.Read()
-
-                Dim id As Integer = datos.GetInt32("IdGaraje")
-                Dim nombre As String = datos.GetString("Nombre")
-                Dim direccion As String = datos.GetString("Direccion")
-                Dim numPlazas As Integer = datos.GetInt32("NumPlazas")
-                Dim numPlazasLibres As Integer = datos.GetInt32("NumPlazasLibres")
-                Dim numPlazasOcupadas As Integer = datos.GetInt32("NumPlazasOcupadas")
-                Dim observaciones As String
-
-                If datos.IsDBNull(6) Then               ' Si el contenido de la 6ª columna, (Observaciones), es NULL.
-
-                    observaciones = ""
-                Else
-
-                    observaciones = datos.GetString("Observaciones")
-
-                End If
-
-                Dim garaje As New Garaje(id, nombre, direccion, numPlazas, numPlazasLibres, numPlazasOcupadas, observaciones)
-                listaGarajes.Add(garaje)
-
-            End While
-
-            datos.Close()
-            conexion.Close()
-
-            Return listaGarajes.ToArray()
-        Else
-
-            conexion.Close()
-            Return Nothing
-
-        End If
+        Return listaGarajes
 
     End Function
 
@@ -503,6 +463,10 @@ Public Class Garaje
 
         Me.Id = id
         Me.Nombre = nombre
+
+    End Sub
+
+    Public Sub New()
 
     End Sub
 

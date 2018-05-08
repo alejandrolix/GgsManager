@@ -1,6 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System.IO
 Imports System.Text
+Imports NPoco
 
 ''' <summary>
 ''' Representa un cliente de la tabla "Clientes".
@@ -9,7 +10,8 @@ Public Class Cliente
 
     ''' <summary>
     ''' El Id del Cliente.
-    ''' </summary>    
+    ''' </summary>  
+    <Column("IdCliente")>
     Property Id As Integer
 
     ''' <summary>
@@ -60,11 +62,13 @@ Public Class Cliente
     ''' <summary>
     ''' El Vehículo del Cliente.
     ''' </summary>    
+    <ResultColumn>
     Property Vehiculo As Vehiculo
 
     ''' <summary>
     ''' La Imagen del Cliente, (opcional)
     ''' </summary>    
+    <ResultColumn>
     Property Ivm As ImageViewModelCliente
 
 
@@ -88,72 +92,27 @@ Public Class Cliente
     ''' <returns>Array con los clientes.</returns>
     Public Shared Function ObtenerClientes() As Cliente()
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
-                                         FROM   Clientes
-                                         ORDER BY Apellidos;", conexion)
-        Dim datos As MySqlDataReader = Nothing
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        Try
-            datos = comando.ExecuteReader()
+        Dim arrayClientes As Cliente() = conexion.Query(Of Cliente)("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
+                                                                     FROM   Clientes
+                                                                     ORDER BY Apellidos;").ToArray()
 
-        Catch ex As Exception
+        For Each cliente As Cliente In arrayClientes
 
-        End Try
+            Dim arrayFoto As String() = Directory.GetFiles(My.Settings.RutaClientes, cliente.Id & ".jpg")                   ' Comprobamos si el cliente tiene su foto.
 
-        If datos IsNot Nothing Then
+            If arrayFoto.Length > 0 Then
 
-            Dim listaClientes As New List(Of Cliente)()
+                cliente.Ivm = New ImageViewModelCliente(arrayFoto(0))
 
-            While datos.Read()
+            End If
 
-                Dim id As Integer = datos.GetInt32("IdCliente")
-                Dim nombre As String = datos.GetString("Nombre")
-                Dim apellidos As String = datos.GetString("Apellidos")
-                Dim dni As String = datos.GetString("DNI")
-                Dim direccion As String = datos.GetString("Direccion")
-                Dim poblacion As String = datos.GetString("Poblacion")
-                Dim provincia As String = datos.GetString("Provincia")
-                Dim movil As String = datos.GetString("Movil")
-                Dim fechaHoraAlta As Date = datos.GetDateTime("FechaHoraAlta")
-                Dim observaciones As String
+        Next
 
-                If datos.IsDBNull(9) Then
+        conexion.CloseSharedConnection()
 
-                    observaciones = ""
-                Else
-
-                    observaciones = datos.GetString("Observaciones")
-
-                End If
-
-                Dim arrayFoto As String() = Directory.GetFiles(My.Settings.RutaClientes, id & ".jpg")
-
-                If arrayFoto.Length > 0 Then
-
-                    Dim ivm As New ImageViewModelCliente(arrayFoto(0))
-                    Dim cliente As New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaHoraAlta, observaciones, ivm)
-
-                    listaClientes.Add(cliente)
-                Else
-
-                    Dim cliente As New Cliente(id, nombre, apellidos, dni, direccion, poblacion, provincia, movil, fechaHoraAlta, observaciones)
-                    listaClientes.Add(cliente)
-
-                End If
-
-            End While
-
-            conexion.Close()
-            datos.Close()
-
-            Return listaClientes.ToArray()
-        Else
-
-            conexion.Close()
-            Return Nothing
-
-        End If
+        Return arrayClientes
 
     End Function
 
@@ -645,6 +604,10 @@ Public Class Cliente
         Me.Direccion = direccion
         Me.Provincia = provincia
         Me.Movil = movil
+
+    End Sub
+
+    Public Sub New()
 
     End Sub
 

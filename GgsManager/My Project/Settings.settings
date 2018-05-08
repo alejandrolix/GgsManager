@@ -2,13 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
-    <Setting Name="ConexionABd" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Server=adriangosalvez.com;Database=proj_alej_dam;User id=proj_alej_user;Password=bI@g50z4#314;&lt;/ConnectionString&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Server=adriangosalvez.com;Database=proj_alej_dam;User id=proj_alej_user;Password=bI@g50z4#314;</Value>
-    </Setting>
     <Setting Name="RutaClientes" Type="System.String" Scope="Application">
       <Value Profile="(Default)">../../Imgs/Clientes/</Value>
     </Setting>
@@ -17,6 +10,13 @@
     </Setting>
     <Setting Name="RutaBd" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:/BdGgs/</Value>
+    </Setting>
+    <Setting Name="ConexionABd" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Server=adriangosalvez.com;Database=proj_alej_dam;User id=proj_alej_user;Password=bI@g50z4#314;SslMode=none&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Server=adriangosalvez.com;Database=proj_alej_dam;User id=proj_alej_user;Password=bI@g50z4#314;SslMode=none</Value>
     </Setting>
   </Settings>
 </SettingsFile>
