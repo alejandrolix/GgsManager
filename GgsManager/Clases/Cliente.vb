@@ -51,7 +51,7 @@ Public Class Cliente
 
     ''' <summary>
     ''' La Fecha y Hora de Alta del Cliente en el Programa.
-    ''' </summary>    
+    ''' </summary>        
     Property FechaHoraAlta As Date
 
     ''' <summary>
@@ -97,7 +97,6 @@ Public Class Cliente
         Dim arrayClientes As Cliente() = conexion.Query(Of Cliente)("SELECT IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones
                                                                      FROM   Clientes
                                                                      ORDER BY Apellidos;").ToArray()
-
         For Each cliente As Cliente In arrayClientes
 
             Dim arrayFoto As String() = Directory.GetFiles(My.Settings.RutaClientes, cliente.Id & ".jpg")                   ' Comprobamos si el cliente tiene su foto.
@@ -118,50 +117,22 @@ Public Class Cliente
 
 
     ''' <summary>
-    ''' Obtiene el Id, nombre y apellidos de todos los clientes.
+    ''' Obtiene el Id, nombre y apellidos de los clientes que no tienen vehículo.
     ''' </summary>
-    ''' <returns>Array con el Id, nombre y apellidos de los clientes.</returns>
-    Public Shared Function ObtenerNombreYApellidosClientes() As Cliente()
+    ''' <returns>Array con el Id, nombre y apellidos de los clientes sin vehículo.</returns>
+    Public Shared Function ObtenerNombreYApellidosClientesSinVehiculo() As Cliente()
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdCliente, Nombre, Apellidos
-                                         FROM   Clientes
-                                         ORDER BY Apellidos;", conexion)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        Dim datos As MySqlDataReader = Nothing
+        Dim arrayClientes As Cliente() = conexion.Query(Of Cliente)("SELECT IdCliente, Nombre, Apellidos
+                                                                     FROM   Clientes	   
+                                                                     WHERE  IdCliente NOT IN (
+						                                                                       SELECT IdCliente
+                                                                                               FROM   Vehiculos)
+                                                                     ORDER BY Apellidos;").ToArray()
+        conexion.CloseSharedConnection()
 
-        Try
-            datos = comando.ExecuteReader()
-
-        Catch ex As Exception
-
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim listaClientes As New List(Of Cliente)()
-
-            While datos.Read()
-
-                Dim id As Integer = datos.GetInt32("IdCliente")
-                Dim nombre As String = datos.GetString("Nombre")
-                Dim apellidos As String = datos.GetString("Apellidos")
-
-                Dim cliente As New Cliente(id, nombre, apellidos)
-                listaClientes.Add(cliente)
-
-            End While
-
-            conexion.Close()
-            datos.Close()
-
-            Return listaClientes.ToArray()
-        Else
-
-            conexion.Close()
-            Return Nothing
-
-        End If
+        Return arrayClientes
 
     End Function
 
@@ -172,48 +143,16 @@ Public Class Cliente
     ''' <returns>Array con el Id, nombre y apellidos de los clientes.</returns>
     Public Shared Function ObtenerNombreYApellidosClientesPorIdGaraje(ByRef idGaraje As Integer) As Cliente()
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos
-                                         FROM   Clientes Cli
-	                                            JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
-                                         WHERE  Veh.IdGaraje = @IdGaraje
-                                         ORDER BY Cli.Apellidos;", conexion)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader = Nothing
+        Dim arrayClientes As Cliente() = conexion.Query(Of Cliente)(Sql.Builder.Append("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos
+                                                                                        FROM   Clientes Cli
+                                                                                               JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
+                                                                                        WHERE  Veh.IdGaraje = @0
+                                                                                        ORDER BY Cli.Apellidos;", idGaraje)).ToArray()
+        conexion.CloseSharedConnection()
 
-        Try
-            datos = comando.ExecuteReader()
-
-        Catch ex As Exception
-
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim listaClientes As New List(Of Cliente)()
-
-            While datos.Read()
-
-                Dim id As Integer = datos.GetInt32("IdCliente")
-                Dim nombre As String = datos.GetString("Nombre")
-                Dim apellidos As String = datos.GetString("Apellidos")
-
-                Dim cliente As New Cliente(id, nombre, apellidos)
-                listaClientes.Add(cliente)
-
-            End While
-
-            conexion.Close()
-            datos.Close()
-
-            Return listaClientes.ToArray()
-        Else
-
-            conexion.Close()
-            Return Nothing
-
-        End If
+        Return arrayClientes
 
     End Function
 
@@ -224,57 +163,16 @@ Public Class Cliente
     ''' <returns>Array con los datos de los clientes.</returns>
     Public Shared Function ObtenerClientesPorIdGaraje(ByRef idGaraje As Integer) As Cliente()
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Nombre', Cli.DNI, Cli.Direccion, Cli.Provincia, Cli.Movil, Veh.Marca, Veh.Modelo, Veh.Matricula, Veh.PrecioBase
-                                         FROM   Clientes Cli
-	                                            JOIN Vehiculos Veh ON Cli.IdCliente = Veh.IdCliente
-                                         WHERE  Veh.IdGaraje = @IdGaraje
-                                         ORDER BY Nombre;", conexion)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader = Nothing
+        Dim arrayClientes As Cliente() = conexion.Query(Of Cliente)(Sql.Builder.Append("SELECT CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Nombre', Cli.DNI, Cli.Direccion, Cli.Provincia, Cli.Movil, Veh.Marca, Veh.Modelo, Veh.Matricula, Veh.PrecioBase
+                                                                                        FROM   Clientes Cli
+                                                                                               JOIN Vehiculos Veh ON Cli.IdCliente = Veh.IdCliente
+                                                                                        WHERE  Veh.IdGaraje = @0
+                                                                                        ORDER BY Nombre;", idGaraje)).ToArray()
+        conexion.CloseSharedConnection()
 
-        Try
-            datos = comando.ExecuteReader()
-
-        Catch ex As Exception
-
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim listaClientes As New List(Of Cliente)()
-
-            While datos.Read()
-
-                Dim nombre As String = datos.GetString("Nombre")
-                Dim dni As String = datos.GetString("DNI")
-                Dim direccion As String = datos.GetString("Direccion")
-                Dim provincia As String = datos.GetString("Provincia")
-                Dim movil As String = datos.GetString("Movil")
-                Dim marca As String = datos.GetString("Marca")
-                Dim modelo As String = datos.GetString("Modelo")
-                Dim matricula As String = datos.GetString("Matricula")
-                Dim precioBase As Decimal = datos.GetDecimal("PrecioBase")
-
-                Dim cliente As New Cliente(nombre, dni, direccion, provincia, movil)
-                Dim vehiculo As New Vehiculo(marca, modelo, matricula, precioBase)
-
-                cliente.Vehiculo = vehiculo
-                listaClientes.Add(cliente)
-
-            End While
-
-            datos.Close()
-            conexion.Close()
-
-            Return listaClientes.ToArray()
-        Else
-
-            conexion.Close()
-            Return Nothing
-
-        End If
+        Return arrayClientes
 
     End Function
 
@@ -341,47 +239,14 @@ Public Class Cliente
     ''' <returns>Los datos del cliente.</returns>
     Public Shared Function ObtenerClientePorId(ByRef idCliente As Integer) As Cliente
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT CONCAT(Nombre, ' ', Apellidos) AS 'Nombre', DNI, Direccion, Provincia, Movil
-                                         FROM   Clientes
-                                         WHERE  IdCliente = @IdCliente;", conexion)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        comando.Parameters.AddWithValue("@IdCliente", idCliente)
-        Dim datos As MySqlDataReader = Nothing
+        Dim cliente As Cliente = conexion.Query(Of Cliente)(Sql.Builder.Append("SELECT CONCAT(Nombre, ' ', Apellidos) AS 'Nombre', DNI, Direccion, Provincia, Movil
+                                                                                FROM   Clientes
+                                                                                WHERE  IdCliente = @0;", idCliente)).First()
+        conexion.CloseSharedConnection()
 
-        Try
-            datos = comando.ExecuteReader()
-
-        Catch ex As Exception
-
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim cliente As Cliente = Nothing
-
-            While datos.Read()
-
-                Dim nombre As String = datos.GetString("Nombre")
-                Dim dni As String = datos.GetString("DNI")
-                Dim direccion As String = datos.GetString("Direccion")
-                Dim provincia As String = datos.GetString("Provincia")
-                Dim movil As String = datos.GetString("Movil")
-
-                cliente = New Cliente(nombre, dni, direccion, provincia, movil)
-
-            End While
-
-            conexion.Close()
-            datos.Close()
-
-            Return cliente
-
-        End If
-
-        conexion.Close()
-
-        Return Nothing
+        Return cliente
 
     End Function
 
@@ -389,40 +254,24 @@ Public Class Cliente
     ''' <summary>
     ''' Inserta un cliente.
     ''' </summary>    
+    ''' <param name="cliente">El cliente a insertar.</param>
     ''' <returns>True: El cliente se ha insertado. False: El cliente no se ha insertado.</returns>
-    Public Function Insertar() As Boolean
+    Public Shared Function Insertar(ByRef cliente As Cliente) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As MySqlCommand
-        Dim numFila As Integer
-
-        If Foo.HayTexto(Observaciones) Then              ' Insertamos al cliente las observaciones, aparte de sus principales datos.
-
-            comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones)
-                                        VALUES (NULL, @Nombre, @Apellidos, @DNI, @Direccion, @Poblacion, @Provincia, @Movil, NOW(), @Observaciones);", conexion)
-        Else
-            comando = New MySqlCommand("INSERT INTO Clientes (IdCliente, Nombre, Apellidos, DNI, Direccion, Poblacion, Provincia, Movil, FechaHoraAlta, Observaciones)
-                                        VALUES (NULL, @Nombre, @Apellidos, @DNI, @Direccion, @Poblacion, @Provincia, @Movil, NOW(), NULL);", conexion)
-        End If
-
-        comando.Parameters.AddWithValue("@Nombre", Nombre)
-        comando.Parameters.AddWithValue("@Apellidos", Apellidos)
-        comando.Parameters.AddWithValue("@DNI", DNI)
-        comando.Parameters.AddWithValue("@Direccion", Direccion)
-        comando.Parameters.AddWithValue("@Poblacion", Poblacion)
-        comando.Parameters.AddWithValue("@Provincia", Provincia)
-        comando.Parameters.AddWithValue("@Movil", Movil)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        Dim numInsercion As Integer
 
         Try
-            numFila = comando.ExecuteNonQuery()
+            Dim insercion As Object = conexion.Insert("Clientes", "IdCliente", True, cliente)
+            numInsercion = Integer.Parse(insercion.ToString())
 
         Catch ex As Exception
 
         End Try
 
-        conexion.Close()
+        conexion.CloseSharedConnection()
 
-        Return numFila >= 1
+        Return numInsercion >= 1
 
     End Function
 
@@ -430,26 +279,23 @@ Public Class Cliente
     ''' <summary>
     ''' Elimina un cliente.
     ''' </summary>    
+    ''' <param name="cliente">El cliente a eliminar.</param>
     ''' <returns>True: El cliente se ha eliminado. False: El cliente no se ha eliminado.</returns>
-    Public Function Eliminar() As Boolean
+    Public Shared Function Eliminar(ByRef cliente As Cliente) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("DELETE FROM Clientes
-                                         WHERE  IdCliente = @IdCliente;", conexion)
-
-        comando.Parameters.AddWithValue("@IdCliente", Id)
-        Dim numFila As Integer
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        Dim eliminacion As Integer
 
         Try
-            numFila = comando.ExecuteNonQuery()
+            eliminacion = conexion.Delete("Clientes", "IdCliente", cliente)
 
         Catch ex As Exception
 
         End Try
 
-        conexion.Close()
+        conexion.CloseSharedConnection()
 
-        Return numFila >= 1
+        Return eliminacion >= 1
 
     End Function
 
@@ -474,35 +320,23 @@ Public Class Cliente
     ''' <summary>
     ''' Modifica los datos de un cliente.
     ''' </summary>    
+    ''' <param name="cliente">El cliente a modificar.</param>
     ''' <returns>True: Se han modificado los datos del cliente. False: No se han modificado los datos del cliente.</returns>
-    Public Function Modificar() As Boolean
+    Public Shared Function Modificar(ByRef cliente As Cliente) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("UPDATE Clientes
-                                         SET    Nombre = @Nombre, Apellidos = @Apellidos, DNI = @DNI, Direccion = @Direccion, Poblacion = @Poblacion, Provincia = @Provincia, Movil = @Movil, Observaciones = @Observaciones
-                                         WHERE  IdCliente = @IdCliente;", conexion)
-
-        comando.Parameters.AddWithValue("@Nombre", Nombre)
-        comando.Parameters.AddWithValue("@Apellidos", Apellidos)
-        comando.Parameters.AddWithValue("@DNI", DNI)
-        comando.Parameters.AddWithValue("@Direccion", Direccion)
-        comando.Parameters.AddWithValue("@Poblacion", Poblacion)
-        comando.Parameters.AddWithValue("@Provincia", Provincia)
-        comando.Parameters.AddWithValue("@Movil", Movil)
-        comando.Parameters.AddWithValue("@Observaciones", Observaciones)
-        comando.Parameters.AddWithValue("@IdCliente", Id)
-        Dim numFila As Integer
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        Dim actualizacion As Integer
 
         Try
-            numFila = comando.ExecuteNonQuery()
+            actualizacion = conexion.Update("Clientes", "IdCliente", cliente)
 
         Catch ex As Exception
 
         End Try
 
-        conexion.Close()
+        conexion.CloseSharedConnection()
 
-        Return numFila >= 1
+        Return actualizacion >= 1
 
     End Function
 
@@ -518,7 +352,7 @@ Public Class Cliente
 
     End Function
 
-    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, observaciones As String)               ' Para crear un cliente.
+    Public Sub New(nombre As String, apellidos As String, dni As String, direccion As String, poblacion As String, provincia As String, movil As String, fechaHoraAlta As DateTime, observaciones As String)               ' Para crear un cliente.
 
         Me.Nombre = nombre
         Me.Apellidos = apellidos
@@ -527,6 +361,7 @@ Public Class Cliente
         Me.Poblacion = poblacion
         Me.Provincia = provincia
         Me.Movil = movil
+        Me.FechaHoraAlta = fechaHoraAlta
         Me.Observaciones = observaciones
 
     End Sub

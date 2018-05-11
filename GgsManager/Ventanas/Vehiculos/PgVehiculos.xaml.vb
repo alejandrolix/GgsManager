@@ -33,12 +33,12 @@
             MessageBox.Show("Tienes que seleccionar un vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If vehiculoSelec.Eliminar() Then
+            If Vehiculo.Eliminar(vehiculoSelec) Then
 
                 If Plaza.CambiarSituacionPlazaALibre(vehiculoSelec.IdPlaza, vehiculoSelec.IdGaraje) Then
 
-                    Garaje.RestarNumPlazasOcupadas(IdGarajeSelec)
-                    Garaje.SumarNumPlazasLibres(IdGarajeSelec)
+                    Garaje.RestarNumPlazasOcupadasPorId(IdGarajeSelec)
+                    Garaje.SumarNumPlazasLibresPorId(IdGarajeSelec)
 
                     MessageBox.Show("Se ha eliminado el vehículo.", "Vehículo Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
                     VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGarajeSelec)

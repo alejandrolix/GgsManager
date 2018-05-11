@@ -233,8 +233,8 @@ Public Class VntAddCliente
 
             If Accion = Foo.Accion.Insertar Then
 
-                Dim cliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
-                                           MovilClienteTxt.Text, ObservClienteTxt.Text)
+                Dim nCliente As New Cliente(NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
+                                           MovilClienteTxt.Text, DateTime.Now, ObservClienteTxt.Text)
 
                 If Cliente.HayImagen(ClienteImg.Source) Then             ' Si el usuario ha seleccionado una imagen, la guardamos.
 
@@ -242,7 +242,7 @@ Public Class VntAddCliente
 
                 End If
 
-                If cliente.Insertar() Then          ' Guardamos el cliente.
+                If Cliente.Insertar(nCliente) Then          ' Guardamos el cliente.
 
                     MessageBox.Show("Se ha añadido el cliente.", "Cliente Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -254,10 +254,10 @@ Public Class VntAddCliente
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                Dim cliente As New Cliente(ClienteSelec.Id, NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
+                Dim mCliente As New Cliente(ClienteSelec.Id, NombreClienteTxt.Text, ApellidosClienteTxt.Text, DNIClienteTxt.Text, DireccionClienteTxt.Text, PoblacionClienteTxt.Text, ProvinciaClienteTxt.Text,
                                            MovilClienteTxt.Text, ObservClienteTxt.Text)
 
-                If cliente.Modificar() Then
+                If Cliente.Modificar(mCliente) Then
 
                     MessageBox.Show("Se ha modificado el cliente.", "Cliente Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
                 Else

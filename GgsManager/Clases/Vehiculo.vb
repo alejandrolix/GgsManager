@@ -1,4 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports NPoco
 
 ''' <summary>
 ''' Representa un vehículo de la tabla "Vehiculos".
@@ -7,7 +8,8 @@ Public Class Vehiculo
 
     ''' <summary>
     ''' El Id del Vehículo del Cliente.
-    ''' </summary>    
+    ''' </summary>   
+    <Column("IdVehiculo")>
     Property Id As Integer
 
     ''' <summary>
@@ -53,53 +55,16 @@ Public Class Vehiculo
     ''' <returns>Array con los vehículos del garaje seleccionado.</returns>
     Public Shared Function ObtenerVehiculosPorIdGaraje(ByRef idGaraje As Integer) As Vehiculo()
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase
-                                         FROM   Vehiculos Veh
-                                                JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente
-                                         WHERE  Veh.IdGaraje = @IdGaraje
-                                         ORDER BY Cli.Apellidos;", conexion)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader = Nothing
+        Dim arrayVehiculos As Vehiculo() = conexion.Query(Of Vehiculo)(Sql.Builder.Append("SELECT Veh.IdVehiculo, Veh.Matricula, Veh.Marca, Veh.Modelo, Cli.Nombre, Cli.Apellidos, Veh.IdGaraje, Veh.IdPlaza, Veh.PrecioBase
+                                                                                           FROM   Vehiculos Veh
+                                                                                                  JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente
+                                                                                           WHERE  Veh.IdGaraje = @0
+                                                                                           ORDER BY Cli.Apellidos;", idGaraje)).ToArray()
+        conexion.CloseSharedConnection()
 
-        Try
-            datos = comando.ExecuteReader()
-
-        Catch ex As Exception
-
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim listaVehiculos As New List(Of Vehiculo)()
-
-            While datos.Read()
-
-                Dim id As Integer = datos.GetInt32("IdVehiculo")
-                Dim matricula As String = datos.GetString("Matricula")
-                Dim marca As String = datos.GetString("Marca")
-                Dim modelo As String = datos.GetString("Modelo")
-                Dim cliente As Cliente = New Cliente(datos.GetString("Nombre"), datos.GetString("Apellidos"))
-                Dim idGj As Integer = datos.GetInt32("IdGaraje")
-                Dim idPl As Integer = datos.GetInt32("IdPlaza")
-                Dim precioBase As Decimal = datos.GetDecimal("PrecioBase")
-
-                Dim vehiculo As New Vehiculo(id, matricula, marca, modelo, cliente, idGj, idPl, precioBase)
-                listaVehiculos.Add(vehiculo)
-
-            End While
-
-            datos.Close()
-            conexion.Close()
-
-            Return listaVehiculos.ToArray()
-        Else
-
-            conexion.Close()
-            Return Nothing
-
-        End If
+        Return arrayVehiculos
 
     End Function
 
@@ -111,46 +76,14 @@ Public Class Vehiculo
     ''' <returns>Los datos del vehículo.</returns>
     Public Shared Function ObtenerVehiculoPorIdCliente(ByRef idCliente As Integer) As Vehiculo
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT Marca, Modelo, Matricula, PrecioBase
-                                         FROM   Vehiculos
-                                         WHERE  IdCliente = @IdCliente;", conexion)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        comando.Parameters.AddWithValue("@IdCliente", idCliente)
-        Dim datos As MySqlDataReader = Nothing
+        Dim vehiculo As Vehiculo = conexion.Query(Of Vehiculo)(Sql.Builder.Append("SELECT Marca, Modelo, Matricula, PrecioBase
+                                                                                   FROM   Vehiculos
+                                                                                   WHERE  IdCliente = @0;", idCliente)).First()
+        conexion.CloseSharedConnection()
 
-        Try
-            datos = comando.ExecuteReader()
-
-        Catch ex As Exception
-
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim vehiculo As Vehiculo = Nothing
-
-            While datos.Read()
-
-                Dim marca As String = datos.GetString("Marca")
-                Dim modelo As String = datos.GetString("Modelo")
-                Dim matricula As String = datos.GetString("Matricula")
-                Dim precioBase As Decimal = datos.GetDecimal("PrecioBase")
-
-                vehiculo = New Vehiculo(marca, modelo, matricula, precioBase)
-
-            End While
-
-            datos.Close()
-            conexion.Close()
-
-            Return vehiculo
-
-        End If
-
-        conexion.Close()
-
-        Return Nothing
+        Return vehiculo
 
     End Function
 
@@ -165,7 +98,7 @@ Public Class Vehiculo
         Dim comando As New MySqlCommand("INSERT INTO Vehiculos (IdVehiculo, Matricula, Marca, Modelo, IdCliente, IdGaraje, IdPlaza, PrecioBase, PrecioTotal) 
                                          VALUES (NULL, @Matricula, @Marca, @Modelo, @IdCliente, @IdGaraje, @IdPlaza, @PrecioBase, @PrecioTotal);", conexion)
 
-        Dim precioTotal As Decimal = CalcularPrecioTotal()
+        Dim precioTotal As Decimal = CalcularPrecioTotal(PrecioBase)
 
         comando.Parameters.AddWithValue("@Matricula", Matricula)
         comando.Parameters.AddWithValue("@Marca", Marca)
@@ -230,53 +163,21 @@ Public Class Vehiculo
     ''' Elimina un vehículo.
     ''' </summary>    
     ''' <returns>True: Se ha eliminado el vehículo. False: No se ha eliminado el vehículo.</returns>
-    Public Function Eliminar() As Boolean
+    Public Shared Function Eliminar(ByRef vehiculo As Vehiculo) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("DELETE FROM Vehiculos
-                                         WHERE  IdVehiculo = @IdVehiculo;", conexion)
-
-        comando.Parameters.AddWithValue("@IdVehiculo", Id)
-        Dim numFila As Integer
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        Dim eliminacion As Integer
 
         Try
-            numFila = comando.ExecuteNonQuery()
+            eliminacion = conexion.Delete("Vehiculos", "IdVehiculo", vehiculo)
 
         Catch ex As Exception
 
         End Try
 
-        conexion.Close()
+        conexion.CloseSharedConnection()
 
-        Return numFila >= 1
-
-    End Function
-
-
-    ''' <summary>
-    ''' Elimina los vehículos a partir del Id de un garaje.
-    ''' </summary>
-    ''' <param name="idGaraje">El Id de un garaje.</param>
-    ''' <returns>True: Se han eliminado los vehículos del garaje. False: No se han eliminado los vehículos del garaje.</returns>
-    Public Shared Function EliminarVehiculosPorIdGaraje(ByRef idGaraje As Integer) As Boolean
-
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("DELETE FROM Vehiculos
-                                         WHERE  IdGaraje = @IdGaraje;", conexion)
-
-        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim numFila As Integer
-
-        Try
-            numFila = comando.ExecuteNonQuery()
-
-        Catch ex As Exception
-
-        End Try
-
-        conexion.Close()
-
-        Return numFila >= 1
+        Return eliminacion >= 1
 
     End Function
 
@@ -354,6 +255,10 @@ Public Class Vehiculo
         Me.Modelo = modelo
         Me.Matricula = matricula
         Me.PrecioBase = precioBase
+
+    End Sub
+
+    Public Sub New()
 
     End Sub
 

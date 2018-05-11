@@ -15,16 +15,7 @@ Public Class FormFactIndividual
         AddParametroNumFactura()
         AddParametrosEmpresa()
 
-        Dim factura As New Factura(Date.Now.Date, IdClienteSelec, True)
-
-        If factura.InsertarParaCliente() Then
-
-            ReportViewer.RefreshReport()
-        Else
-
-            MessageBox.Show("Ha habido un problema al añadir la factura al cliente.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-        End If
+        ReportViewer.RefreshReport()
 
     End Sub
 

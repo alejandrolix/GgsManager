@@ -34,14 +34,12 @@
 
         If ComprobarDatosIntroducidos() Then
 
-            Dim usuario As Usuario
-
             If Accion = Foo.Accion.Insertar Then
 
                 Dim hashPassword As String = Usuario.ObtenerSHA1HashFromPassword(PasswordUsuPb.Password)
-                usuario = New Usuario(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
+                Dim nUsuario As New Usuario(NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
 
-                If usuario.Insertar(hashPassword) Then
+                If nUsuario.Insertar(hashPassword) Then
 
                     MessageBox.Show("Se ha añadido el usuario.", "Usuario Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                     LimpiarCampos()
@@ -53,9 +51,9 @@
 
             ElseIf Accion = Foo.Accion.Modificar Then
 
-                usuario = New Usuario(UsuarioSelec.Id, NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
+                Dim mUsuario = New Usuario(UsuarioSelec.Id, NombreUsuTxt.Text, EsGestorUsuChk.IsChecked.Value)
 
-                If usuario.Modificar() Then
+                If Usuario.Modificar(mUsuario) Then
 
                     MessageBox.Show("Se ha modificado los datos del usuario seleccionado.", "Usuario Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
                 Else
@@ -110,28 +108,35 @@
 
         End If
 
-        If Foo.HayTexto(PasswordUsuPb.Password) And PasswordUsuPb.Password.Length > 4 Then
+        If Accion = Foo.Accion.Insertar Then
 
-            hayPassword = True
+            If Foo.HayTexto(PasswordUsuPb.Password) And PasswordUsuPb.Password.Length > 4 Then
 
-        ElseIf Not Foo.HayTexto(PasswordUsuPb.Password) Then
+                hayPassword = True
 
-            MessageBox.Show("Tienes que introducir un nombre.", "Nombre Vacío", MessageBoxButton.OK, MessageBoxImage.Error)
+            ElseIf Not Foo.HayTexto(PasswordUsuPb.Password) Then
 
-            If Foo.HayTexto(PasswordUsuPb.Password) Then
+                MessageBox.Show("Tienes que introducir una contraseña.", "Contraseña Vacía", MessageBoxButton.OK, MessageBoxImage.Error)
 
+                If Foo.HayTexto(PasswordUsuPb.Password) Then
+
+                    PasswordUsuPb.Clear()
+
+                End If
+
+            ElseIf PasswordUsuPb.Password.Length <= 4 Then
+
+                MessageBox.Show("La contraseña tiene que tener más de 4 letras.", "Tamaño de la contraseña corta", MessageBoxButton.OK, MessageBoxImage.Error)
                 PasswordUsuPb.Clear()
 
             End If
 
-        ElseIf PasswordUsuPb.Password.Length <= 4 Then
+            Return hayNombre And hayPassword
+        Else
 
-            MessageBox.Show("La contraseña tiene que tener más de 4 letras.", "Tamaño de la contraseña corta", MessageBoxButton.OK, MessageBoxImage.Error)
-            PasswordUsuPb.Clear()
+            Return hayNombre
 
         End If
-
-        Return hayNombre And hayPassword
 
     End Function
 

@@ -27,40 +27,19 @@
             MessageBox.Show("Tienes que seleccionar un garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
         Else
 
-            If Vehiculo.EliminarVehiculosPorIdGaraje(garajeSelec.Id) Then           ' Eliminamos los vehículos del garaje.
+            If Garaje.Eliminar(garajeSelec) Then
 
-                If Plaza.EliminarPlazasPorIdGaraje(garajeSelec.Id) Then             ' Eliminamos las plazas del garaje.
+                MessageBox.Show("Se ha eliminado el garaje.", "Garaje Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
+                GarajesDg.DataContext = Garaje.ObtenerGarajes()
 
-                    If Factura.EliminarFacturasPorIdGaraje(garajeSelec.Id) Then         ' Eliminamos las facturas del garaje.
+                If GarajesDg.DataContext Is Nothing Then
 
-                        If garajeSelec.Eliminar() Then          ' Eliminamos el garaje.
-
-                            MessageBox.Show("Se ha eliminado el garaje.", "Garaje Eliminado", MessageBoxButton.OK, MessageBoxImage.Information)
-                            GarajesDg.DataContext = Garaje.ObtenerGarajes()
-
-                            If GarajesDg.DataContext Is Nothing Then
-
-                                MessageBox.Show("Ha habido un problema al obtener los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-                            End If
-                        Else
-
-                            MessageBox.Show("Ha habido un problema al eliminar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-                        End If
-                    Else
-
-                        MessageBox.Show("Ha habido un problema al eliminar las facturas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-                    End If
-                Else
-
-                    MessageBox.Show("Ha habido un problema al eliminar las plazas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                    MessageBox.Show("Ha habido un problema al obtener los garajes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
                 End If
             Else
 
-                MessageBox.Show("Ha habido un problema al eliminar los vehículos del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                MessageBox.Show("Ha habido un problema al eliminar el garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
 
             End If
 

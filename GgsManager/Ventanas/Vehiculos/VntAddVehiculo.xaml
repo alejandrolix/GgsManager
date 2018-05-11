@@ -26,11 +26,8 @@
         </Style>
 
         <Style TargetType="ComboBox" x:Key="ComboBox">
-            <Setter Property="Width" Value="180" />
-            <Setter Property="Height" Value="25" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="FontSize" Value="15" />
         </Style>
     </Window.Resources>
     
@@ -60,19 +57,9 @@
         <TextBlock Text="Garaje" Grid.Column="0" Grid.Row="3" Style="{StaticResource Etiquetas}" />
         <TextBlock Name="NombreGarajeLbl" Grid.Column="1" Grid.Row="3" Text="{Binding}" VerticalAlignment="Bottom" FontSize="17" Margin="0,0,0,4" />
         <TextBlock Text="Cliente" Grid.Column="0" Grid.Row="4" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="ClientesCmb" Grid.Column="1" Grid.Row="4" IsEditable="True" Width="240" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Nombre}" />
-                        <TextBlock Text=" " />
-                        <TextBlock Text="{Binding Apellidos}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        <ComboBox Name="ClientesCmb" Grid.Column="1" Grid.Row="4" Width="240" Height="27" ItemsSource="{Binding}" Style="{StaticResource ComboBox}" />
         <TextBlock Text="Plaza" Grid.Column="0" Grid.Row="5" Style="{StaticResource Etiquetas}" />
-        <ComboBox Name="PlazasCmb" Width="64" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
+        <ComboBox Name="PlazasCmb" Width="64" Grid.Column="1" Grid.Row="5" Height="26" ItemsSource="{Binding}" Style="{StaticResource ComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

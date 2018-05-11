@@ -33,11 +33,11 @@ Public Class VntAddVehiculo
 
                 Keyboard.Focus(MatrVehiculoTxt)
 
-                ClientesCmb.DataContext = Cliente.ObtenerNombreYApellidosClientes()           ' Cargamos los clientes en su ComboBox.
+                ClientesCmb.DataContext = Cliente.ObtenerNombreYApellidosClientesSinVehiculo()           ' Cargamos los clientes en su ComboBox.
 
                 If ClientesCmb.DataContext Is Nothing Then
 
-                    MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                    MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes sin vehículos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
                 Else
 
                     ClientesCmb.SelectedIndex = 0
@@ -83,11 +83,11 @@ Public Class VntAddVehiculo
 
                 End If
 
-                Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientes()
+                Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientesSinVehiculo()
 
                 If arrayClientes Is Nothing Then             ' Comprobamos si hay datos.
 
-                    MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                    MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes sin vehículos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
                 Else
 
                     ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
@@ -174,8 +174,8 @@ Public Class VntAddVehiculo
 
                     If Plaza.CambiarSituacionPlazaAOcupada(plazaSelec.Id, IdGaraje) Then
 
-                        Garaje.SumarNumPlazasOcupadas(IdGaraje)
-                        Garaje.RestarNumPlazasLibres(IdGaraje)
+                        Garaje.SumarNumPlazasOcupadasPorId(IdGaraje)
+                        Garaje.RestarNumPlazasLibresPorId(IdGaraje)
 
                         MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                         PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas libres en su ComboBox.

@@ -1,4 +1,5 @@
 ﻿Imports MySql.Data.MySqlClient
+Imports NPoco
 
 ''' <summary>
 ''' Representa una plaza de la tabla "Plazas".
@@ -7,7 +8,8 @@ Public Class Plaza
 
     ''' <summary>
     ''' El Id de la Plaza.
-    ''' </summary>    
+    ''' </summary>   
+    <Column("IdPlaza")>
     Property Id As Integer
 
     ''' <summary>
@@ -28,6 +30,7 @@ Public Class Plaza
     ''' <summary>
     ''' La Situación de la Plaza, (Libre u Ocupada).
     ''' </summary>    
+    <Column("Tipo")>
     Property Situacion As String
 
 
@@ -144,80 +147,17 @@ Public Class Plaza
     ''' <returns>Array con los datos de las plazas.</returns>
     Public Shared Function ObtenerPlazasPorIdGaraje(ByRef idGaraje As Integer) As Plaza()
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT Plz.IdPlaza, Veh.Matricula, Veh.Marca, Veh.Modelo, Sit.Tipo
-                                         FROM   Plazas Plz	   
-                                                LEFT JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
-                                                JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion
-                                         WHERE  Plz.IdGaraje = @IdGaraje
-                                         ORDER BY Plz.IdPlaza;", conexion)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim datos As MySqlDataReader = Nothing
+        Dim arrayPlazas As Plaza() = conexion.Query(Of Plaza)(Sql.Builder.Append("SELECT Plz.IdPlaza, Veh.Matricula, Veh.Marca, Veh.Modelo, Sit.Tipo
+                                                                                  FROM   Plazas Plz	   
+                                                                                         LEFT JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
+                                                                                         JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion
+                                                                                  WHERE  Plz.IdGaraje = @0
+                                                                                  ORDER BY Plz.IdPlaza;", idGaraje)).ToArray()
+        conexion.CloseSharedConnection()
 
-        Try
-            datos = comando.ExecuteReader()
-
-        Catch ex As Exception
-
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim listaPlazas As New List(Of Plaza)()
-
-            While datos.Read()
-
-                Dim idPlaza As Integer = datos.GetInt32("IdPlaza")
-                Dim matricula As String
-                Dim marca As String
-                Dim modelo As String
-                Dim situacion As String
-
-                If datos.IsDBNull(1) Then
-
-                    matricula = ""
-                Else
-
-                    matricula = datos.GetString("Matricula")
-
-                End If
-
-                If datos.IsDBNull(2) Then
-
-                    marca = ""
-                Else
-
-                    marca = datos.GetString("Marca")
-
-                End If
-
-                If datos.IsDBNull(3) Then
-
-                    modelo = ""
-                Else
-
-                    modelo = datos.GetString("Modelo")
-
-                End If
-
-                situacion = datos.GetString("Tipo")
-
-                Dim plaza As New Plaza(matricula, marca, modelo, idPlaza, situacion)
-                listaPlazas.Add(plaza)
-
-            End While
-
-            datos.Close()
-            conexion.Close()
-
-            Return listaPlazas.ToArray()
-
-        End If
-
-        conexion.Close()
-
-        Return Nothing
+        Return arrayPlazas
 
     End Function
 
@@ -268,37 +208,18 @@ Public Class Plaza
     ''' <returns>True: Se han insertado todas las plazas. False: No se han insertado todas las plazas.</returns>
     Public Shared Function AddPlazasAGaraje(ByRef numPlazas As Integer, ByRef idGaraje As Integer) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("", conexion)
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
         Dim numPlzInsertadas As Integer = 0
-        Dim esPrimerGaraje As Boolean = True
 
-        comando.CommandText = "INSERT INTO Plazas (IdPlaza, IdGaraje, IdSituacion) VALUES (@IdPlaza, @IdGaraje, 1);"
+        For i As Integer = 1 To numPlazas Step 1
 
-        For i As Integer = 1 To numPlazas Step 1                ' Añadimos uno a uno cada plaza.            
-
-            If esPrimerGaraje Then
-
-                esPrimerGaraje = False
-                comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-
-            End If
-
-            If i = 1 Then
-
-                comando.Parameters.AddWithValue("@IdPlaza", i)
-            Else
-
-                comando.Parameters.Item("@IdPlaza").Value = i
-
-            End If
-
-            comando.ExecuteNonQuery()
+            conexion.Insert("Plazas", "IdPlaza", False, New With {Key .IdPlaza = i, .IdGaraje = idGaraje, .IdSituacion = 1})
             numPlzInsertadas += 1
 
         Next
 
-        conexion.Close()
+        conexion.CloseSharedConnection()
+
         Return numPlzInsertadas = numPlazas
 
     End Function
@@ -366,34 +287,6 @@ Public Class Plaza
 
     End Function
 
-
-    ''' <summary>
-    ''' Elimina las plazas a partir del Id de un garaje.
-    ''' </summary>
-    ''' <param name="idGaraje">El Id de un garaje.</param>
-    ''' <returns>True: Se han eliminado las plazas del garaje. False: No se han eliminado las plazas del garaje.</returns>
-    Public Shared Function EliminarPlazasPorIdGaraje(ByRef idGaraje As Integer) As Boolean
-
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("DELETE FROM Plazas
-                                         WHERE  IdGaraje = @IdGaraje;", conexion)
-
-        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-        Dim numFila As Integer
-
-        Try
-            numFila = comando.ExecuteNonQuery()
-
-        Catch ex As Exception
-
-        End Try
-
-        conexion.Close()
-
-        Return numFila >= 1
-
-    End Function
-
     Public Sub New(matricula As String, marca As String, modelo As String, idPlaza As Integer, situacion As String)              ' Para mostrar una plaza en el DataGrid.
 
         Me.Matricula = matricula
@@ -407,6 +300,10 @@ Public Class Plaza
     Public Sub New(id As Integer)               ' Para mostrar los Ids de las plazas en el ComboBox de "VntAddVehiculo".
 
         Me.Id = id
+
+    End Sub
+
+    Public Sub New()
 
     End Sub
 

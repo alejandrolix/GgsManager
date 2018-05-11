@@ -1,6 +1,7 @@
 ﻿Imports System.Security.Cryptography
 Imports System.Text
 Imports MySql.Data.MySqlClient
+Imports NPoco
 
 ''' <summary>
 ''' Representa un usuario de la tabla "Usuarios".
@@ -10,6 +11,7 @@ Public Class Usuario
     ''' <summary>
     ''' El Id del Usuario.
     ''' </summary>    
+    <Column("IdUsuario")>
     Property Id As Integer
 
     ''' <summary>
@@ -129,43 +131,13 @@ Public Class Usuario
     ''' <returns>Array con los usuarios.</returns>
     Public Shared Function ObtenerUsuarios() As Usuario()
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT IdUsuario, Nombre, EsGestor
-                                         FROM   Usuarios;", conexion)
-        Dim datos As MySqlDataReader = Nothing
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        Try
-            datos = comando.ExecuteReader()
+        Dim arrayUsuarios As Usuario() = conexion.Query(Of Usuario)("SELECT IdUsuario, Nombre, EsGestor
+                                                                     FROM   Usuarios;").ToArray()
+        conexion.CloseSharedConnection()
 
-        Catch ex As Exception
-
-        End Try
-
-        If datos IsNot Nothing Then
-
-            Dim listaUsuarios As New List(Of Usuario)()
-
-            While datos.Read()
-
-                Dim id As Integer = datos.GetInt32("IdUsuario")
-                Dim nombre As String = datos.GetString("Nombre")
-                Dim esGestor As Boolean = datos.GetBoolean("EsGestor")
-
-                Dim usuario As New Usuario(id, nombre, esGestor)
-                listaUsuarios.Add(usuario)
-
-            End While
-
-            datos.Close()
-            conexion.Close()
-
-            Return listaUsuarios.ToArray()
-        Else
-
-            conexion.Close()
-            Return Nothing
-
-        End If
+        Return arrayUsuarios
 
     End Function
 
@@ -268,29 +240,23 @@ Public Class Usuario
     ''' <summary>
     ''' Modifica los datos de un usuario.
     ''' </summary>        
+    ''' <param name="usuario">El usuario a modificar.</param>
     ''' <returns>True: Se ha modificado el usuario. False: No se ha modificado el usuario.</returns>
-    Public Function Modificar() As Boolean
+    Public Shared Function Modificar(ByRef usuario As Usuario) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("UPDATE Usuarios
-                                         SET    Nombre = @Nombre, EsGestor = @EsGestorB
-                                         WHERE  IdUsuario = @IdUsuario;", conexion)
-
-        comando.Parameters.AddWithValue("@Nombre", Nombre)
-        comando.Parameters.AddWithValue("@EsGestorB", EsGestor)
-        comando.Parameters.AddWithValue("@IdUsuario", Id)
-        Dim numFila As Integer
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        Dim actualizacion As Integer
 
         Try
-            numFila = comando.ExecuteNonQuery()
+            actualizacion = conexion.Update("Usuarios", "IdUsuario", usuario)
 
         Catch ex As Exception
 
         End Try
 
-        conexion.Close()
+        conexion.CloseSharedConnection()
 
-        Return numFila >= 1
+        Return actualizacion >= 1
 
     End Function
 
@@ -298,26 +264,23 @@ Public Class Usuario
     ''' <summary>
     ''' Elimina un usuario.
     ''' </summary>    
+    ''' <param name="usuario">El usuario a eliminar.</param>
     ''' <returns>True: Se ha eliminado el usuario. False: No se ha eliminado el usuario.</returns>
-    Public Function Eliminar() As Boolean
+    Public Shared Function Eliminar(ByRef usuario As Usuario) As Boolean
 
-        Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("DELETE FROM Usuarios
-                                         WHERE  IdUsuario = @IdUsuario;", conexion)
-
-        comando.Parameters.AddWithValue("@IdUsuario", Id)
-        Dim numFila As Integer
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        Dim eliminacion As Integer
 
         Try
-            numFila = comando.ExecuteNonQuery()
+            eliminacion = conexion.Delete("Usuarios", "IdUsuario", usuario)
 
         Catch ex As Exception
 
         End Try
 
-        conexion.Close()
+        conexion.CloseSharedConnection()
 
-        Return numFila >= 1
+        Return eliminacion >= 1
 
     End Function
 
@@ -364,6 +327,10 @@ Public Class Usuario
 
         Me.Nombre = nombre
         Me.EsGestor = esGestor
+
+    End Sub
+
+    Public Sub New()
 
     End Sub
 

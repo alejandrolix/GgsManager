@@ -97,11 +97,12 @@ Public Class Factura
 
         Try
             nuevoId = CType(comando.ExecuteScalar(), Integer)
-            conexion.Close()
 
         Catch ex As Exception
 
         End Try
+
+        conexion.Close()
 
         Return nuevoId
 
@@ -158,47 +159,6 @@ Public Class Factura
         conexion.Close()
 
         Return numFila >= 1
-
-    End Function
-
-
-    ''' <summary>
-    ''' Elimina las facturas de un garaje a partir de su Id.
-    ''' </summary>
-    ''' <param name="idGaraje">El Id del garaje.</param>
-    ''' <returns>True: Se ha eliminado la factura del garaje. False: No se ha eliminado la factura del garaje.</returns>
-    Public Shared Function EliminarFacturasPorIdGaraje(ByRef idGaraje As Integer) As Boolean
-
-        Dim numFacturasGaraje As Integer = ObtenerNumFacturasPorIdGaraje(idGaraje)
-
-        If numFacturasGaraje <= 0 Then
-
-            MessageBox.Show("Ha habido un problema al obtener el número de facturas del garaje.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-        Else
-
-            Dim conexion As MySqlConnection = Foo.ConexionABd()
-            Dim comando As New MySqlCommand("DELETE FROM Facturas
-                                             WHERE  IdGaraje = @IdGaraje;", conexion)
-
-            comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
-
-            Dim numFila As Integer
-            Try
-                numFila = comando.ExecuteNonQuery()
-
-            Catch ex As Exception
-
-                MessageBox.Show("Ha habido un problema al eliminar las facturas del garaje seleccionado.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
-
-            End Try
-
-            conexion.Close()
-
-            Return numFila >= 1
-
-        End If
-
-        Return False
 
     End Function
 
