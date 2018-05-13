@@ -117,6 +117,24 @@ Public Class Cliente
 
 
     ''' <summary>
+    ''' Obtiene el Id, nombre y apellidos de todos los clientes.
+    ''' </summary>
+    ''' <returns>Array con el Id, nombre y apellidos de los clientes.</returns>
+    Public Shared Function ObtenerNombreYApellidosClientes() As Cliente()
+
+        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+
+        Dim arrayClientes As Cliente() = conexion.Query(Of Cliente)("SELECT IdCliente, Nombre, Apellidos
+                                                                     FROM   Clientes
+                                                                     ORDER BY Apellidos;").ToArray()
+        conexion.CloseSharedConnection()
+
+        Return arrayClientes
+
+    End Function
+
+
+    ''' <summary>
     ''' Obtiene el Id, nombre y apellidos de los clientes que no tienen vehículo.
     ''' </summary>
     ''' <returns>Array con el Id, nombre y apellidos de los clientes sin vehículo.</returns>

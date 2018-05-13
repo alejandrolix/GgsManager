@@ -83,14 +83,14 @@ Public Class VntAddVehiculo
 
                 End If
 
-                Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientesSinVehiculo()
+                Dim arrayClientes As Cliente() = Cliente.ObtenerNombreYApellidosClientes()
 
                 If arrayClientes Is Nothing Then             ' Comprobamos si hay datos.
 
-                    MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes sin vehículos.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
+                    MessageBox.Show("Ha habido un problema al obtener los nombres y apellidos de los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
                 Else
 
-                    ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.
+                    ClientesCmb.DataContext = arrayClientes                 ' Cargamos los clientes en su ComboBox.                    
 
                     Dim posicionCliente As Integer = ObtenerPosicionCliente(arrayClientes)
 
