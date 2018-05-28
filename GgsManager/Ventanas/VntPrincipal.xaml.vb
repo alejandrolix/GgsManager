@@ -2,8 +2,7 @@
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
 
-        ' AbrirVntLogin()  
-
+        AbrirVntLogin()
 
     End Sub
 
@@ -25,6 +24,11 @@
                 Usuarios.IsEnabled = False
                 Configuracion.IsEnabled = False
                 Estadisticas.IsEnabled = False
+            Else
+
+                Usuarios.IsEnabled = True
+                Configuracion.IsEnabled = True
+                Estadisticas.IsEnabled = True
 
             End If
 

@@ -89,8 +89,7 @@ Partial Friend NotInheritable Class MySettings
     <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("Server=adriangosalvez.com;Database=proj_alej_dam;User id=proj_alej_user;Password="& _ 
-        "bI@g50z4#314;SslMode=none")>  _
+     Global.System.Configuration.DefaultSettingValueAttribute("Server=localhost;Database=ggsmanager;User id=root;Password=;SslMode=none")>  _
     Public ReadOnly Property ConexionABd() As String
         Get
             Return CType(Me("ConexionABd"),String)
