@@ -10,7 +10,7 @@
         Loaded="Window_Loaded" Background="#f0f0f0" Icon="/GgsManager;component/Logo.ico" Closing="Window_Closing">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid Width="280">
+        <Grid Width="320">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="*" />
@@ -27,6 +27,18 @@
             <PasswordBox Grid.Row="1" Grid.Column="1" Name="PasswordBox" PasswordChar="*" Width="150" Height="28" VerticalAlignment="Bottom" FontSize="16" HorizontalAlignment="Right" />
         </Grid>
 
-        <Button Name="IniciarSesion" Content="Iniciar Sesión" Width="120" Height="34" Margin="0,64,0,0" FontSize="18" Click="IniciarSesion_Click" />
+        <Grid Width="360">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Name="IniciarSesionBtn" Content="Iniciar Sesión" Width="120" Height="34" Margin="33,64,27,0" FontSize="18" HorizontalAlignment="Right" Click="IniciarSesionBtn_Click" />
+            <Button Grid.Row="0" Grid.Column="1" Name="SalirBtn" Content="Salir" Width="80" Height="34" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="SalirBtn_Click" />
+        </Grid>
     </StackPanel>
 </Window>

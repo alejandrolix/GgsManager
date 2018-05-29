@@ -11,7 +11,7 @@
 
     End Sub
 
-    Private Sub IniciarSesion_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub IniciarSesionBtn_Click(sender As Object, e As RoutedEventArgs)
 
         ' Comprobación de errores.
 
@@ -75,6 +75,12 @@
             e.Cancel = True
 
         End If
+
+    End Sub
+
+    Private Sub SalirBtn_Click(sender As Object, e As RoutedEventArgs)
+
+        Environment.Exit(0)
 
     End Sub
 
