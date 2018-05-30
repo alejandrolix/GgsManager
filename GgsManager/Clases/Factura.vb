@@ -91,12 +91,12 @@ Public Class Factura
     Public Shared Function ObtenerNuevoIdFactura() As Integer
 
         Dim conexion As MySqlConnection = Foo.ConexionABd()
-        Dim comando As New MySqlCommand("SELECT MAX(IdFactura) + 1
+        Dim comando As New MySqlCommand("SELECT MAX(IdFactura)
                                          FROM   Facturas;", conexion)
-        Dim nuevoId As Integer
+        Dim numFactura As Integer
 
         Try
-            nuevoId = CType(comando.ExecuteScalar(), Integer)
+            numFactura = CType(comando.ExecuteScalar(), Integer)
 
         Catch ex As Exception
 
@@ -104,7 +104,7 @@ Public Class Factura
 
         conexion.Close()
 
-        Return nuevoId
+        Return numFactura
 
     End Function
 

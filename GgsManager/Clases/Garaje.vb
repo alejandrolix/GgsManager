@@ -183,7 +183,7 @@ Public Class Garaje
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Garajes
                                          SET    NumPlazasOcupadas = NumPlazasOcupadas + 1
-                                         WHERE  IdGaraje = @IdGaraje;")
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
 
@@ -208,7 +208,7 @@ Public Class Garaje
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Garajes
                                          SET    NumPlazasLibres = NumPlazasLibres + 1
-                                         WHERE  IdGaraje = @IdGaraje;")
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
 
@@ -233,7 +233,7 @@ Public Class Garaje
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Garajes
                                          SET    NumPlazasLibres = NumPlazasLibres - 1
-                                         WHERE  IdGaraje = @IdGaraje;")
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
 
@@ -258,7 +258,7 @@ Public Class Garaje
         Dim conexion As MySqlConnection = Foo.ConexionABd()
         Dim comando As New MySqlCommand("UPDATE Garajes
                                          SET    NumPlazasOcupadas = NumPlazasOcupadas - 1
-                                         WHERE  IdGaraje = @IdGaraje;")
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
 
         comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
 

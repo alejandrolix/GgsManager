@@ -181,16 +181,42 @@ Public Class Cliente
     ''' <returns>Array con los datos de los clientes.</returns>
     Public Shared Function ObtenerClientesPorIdGaraje(ByRef idGaraje As Integer) As Cliente()
 
-        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("SELECT CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Nombre', Cli.DNI, Cli.Direccion, Cli.Provincia, Cli.Movil, Veh.Marca, Veh.Modelo, Veh.Matricula, Veh.PrecioBase
+                                         FROM   Clientes Cli
+                                                JOIN Vehiculos Veh ON Cli.IdCliente = Veh.IdCliente
+                                         WHERE  Veh.IdGaraje = @IdGaraje
+                                         ORDER BY Nombre;", conexion)
 
-        Dim arrayClientes As Cliente() = conexion.Query(Of Cliente)(Sql.Builder.Append("SELECT CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Nombre', Cli.DNI, Cli.Direccion, Cli.Provincia, Cli.Movil, Veh.Marca, Veh.Modelo, Veh.Matricula, Veh.PrecioBase
-                                                                                        FROM   Clientes Cli
-                                                                                               JOIN Vehiculos Veh ON Cli.IdCliente = Veh.IdCliente
-                                                                                        WHERE  Veh.IdGaraje = @0
-                                                                                        ORDER BY Nombre;", idGaraje)).ToArray()
-        conexion.CloseSharedConnection()
+        comando.Parameters.AddWithValue("@IdGaraje", idGaraje)
+        Dim datos As MySqlDataReader = Nothing
+        Dim listaClientes As New List(Of Cliente)()
 
-        Return arrayClientes
+        Try
+            datos = comando.ExecuteReader()
+
+        Catch ex As Exception
+
+        End Try
+
+        If datos.HasRows Then
+
+            While datos.Read()
+
+                Dim vehiculo As New Vehiculo(datos.GetString("Marca"), datos.GetString("Modelo"), datos.GetString("Matricula"), datos.GetDecimal("PrecioBase"))
+                Dim cliente As New Cliente(datos.GetString("Nombre"), datos.GetString("DNI"), datos.GetString("Direccion"), datos.GetString("Provincia"), datos.GetString("Movil"), vehiculo)
+
+                listaClientes.Add(cliente)
+
+            End While
+
+            datos.Close()
+
+        End If
+
+        conexion.Close()
+
+        Return listaClientes.ToArray()
 
     End Function
 
@@ -457,6 +483,17 @@ Public Class Cliente
         Me.Direccion = direccion
         Me.Provincia = provincia
         Me.Movil = movil
+
+    End Sub
+
+    Public Sub New(nombreCompleto As String, dni As String, direccion As String, provincia As String, movil As String, vehiculo As Vehiculo)
+
+        Me.Nombre = nombreCompleto
+        Me.DNI = dni
+        Me.Direccion = direccion
+        Me.Provincia = provincia
+        Me.Movil = movil
+        Me.Vehiculo = vehiculo
 
     End Sub
 

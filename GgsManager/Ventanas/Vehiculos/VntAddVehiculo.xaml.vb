@@ -180,6 +180,7 @@ Public Class VntAddVehiculo
                         MessageBox.Show("Se ha añadido el vehículo.", "Vehículo Añadido", MessageBoxButton.OK, MessageBoxImage.Information)
                         PlazasCmb.DataContext = Plaza.ObtenerIdPlazasLibresPorIdGaraje(IdGaraje)          ' Cargamos los Ids de las plazas libres en su ComboBox.
 
+                        PgVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(IdGaraje)               ' Actualizamos el DataGrid de vehículos.
                         LimpiarCampos()
                     Else
 
@@ -199,6 +200,8 @@ Public Class VntAddVehiculo
                 If vehiculo.Modificar() Then
 
                     MessageBox.Show("Se ha modificado el vehículo.", "Vehículo Modificado", MessageBoxButton.OK, MessageBoxImage.Information)
+
+                    PgVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(VehiculoSelec.IdGaraje)
                 Else
 
                     MessageBox.Show("Ha habido un problema al modificar los datos del vehículo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
@@ -206,8 +209,6 @@ Public Class VntAddVehiculo
                 End If
 
             End If
-
-            PgVehiculos.VehiculosDg.DataContext = Vehiculo.ObtenerVehiculosPorIdGaraje(VehiculoSelec.IdGaraje)               ' Actualizamos el DataGrid de vehículos.
 
             If PgVehiculos.VehiculosDg.DataContext Is Nothing Then
 

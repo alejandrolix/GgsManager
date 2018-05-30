@@ -149,12 +149,14 @@ Public Class Plaza
 
         Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
 
-        Dim arrayPlazas As Plaza() = conexion.Query(Of Plaza)(Sql.Builder.Append("SELECT Plz.IdPlaza, Veh.Matricula, Veh.Marca, Veh.Modelo, Sit.Tipo
-                                                                                  FROM   Plazas Plz	   
-                                                                                         LEFT JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
-                                                                                         JOIN SituacionesPlaza Sit ON Sit.IdSituacion = Plz.IdSituacion
-                                                                                  WHERE  Plz.IdGaraje = @0
-                                                                                  ORDER BY Plz.IdPlaza;", idGaraje)).ToArray()
+        Dim arrayPlazas As Plaza() = conexion.Query(Of Plaza)(Sql.Builder.Append("SELECT IdPlaza, Matricula, Marca, Modelo, 'Ocupada' AS Situacion
+                                                                                  FROM   Vehiculos
+                                                                                  WHERE  IdGaraje = @0
+                                                                                  UNION ALL
+                                                                                  SELECT IdPlaza, '' AS Matricula, '' AS Marca, '' AS Modelo, 'Libre' AS Situacion
+                                                                                  FROM   Plazas
+                                                                                  WHERE  IdGaraje = @0 AND IdSituacion = 1
+                                                                                  ORDER BY IdPlaza;", idGaraje)).ToArray()
         conexion.CloseSharedConnection()
 
         Return arrayPlazas
