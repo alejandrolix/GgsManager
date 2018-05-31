@@ -175,16 +175,12 @@ Public Class Plaza
         Dim dtPlazas As New DtPlazas()
 
         Try
-            Dim adaptador As New MySqlDataAdapter("SELECT Plz.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, 
-                                                          ROUND(Veh.PrecioBase * (@PorcIVA / 100) + Veh.PrecioBase, 2) AS 'PrecioTotal'
-                                                   FROM   Plazas Plz
-                                                          JOIN Vehiculos Veh ON Veh.IdPlaza = Plz.IdPlaza
-                                                          JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente       
-                                                   WHERE  Plz.IdGaraje = @IdGaraje AND Plz.IdSituacion = (
-												                                                          SELECT IdSituacion
-                                                                                                          FROM   SituacionesPlaza
-                                                                                                          WHERE  Tipo = 'Ocupada')
-												   ORDER BY Plz.IdPlaza;", conexion)
+            Dim adaptador As New MySqlDataAdapter("SELECT Veh.IdPlaza, CONCAT(Cli.Nombre, ' ', Cli.Apellidos) AS 'Cliente', Veh.Matricula, Veh.Marca, Veh.Modelo, 
+	                                                      ROUND(Veh.PrecioBase * (@PorcIVA / 100) + Veh.PrecioBase, 2) AS 'PrecioTotal'
+                                                   FROM   Vehiculos Veh
+	                                                      JOIN Clientes Cli ON Cli.IdCliente = Veh.IdCliente
+                                                   WHERE  Veh.IdGaraje = @IdGaraje
+                                                   ORDER BY Veh.IdPlaza;", conexion)
 
             adaptador.SelectCommand.Parameters.AddWithValue("@PorcIVA", Foo.LeerIVA())
             adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", idGaraje)

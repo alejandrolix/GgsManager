@@ -235,7 +235,8 @@ Public Class Cliente
             Dim adaptador As New MySqlDataAdapter("SELECT Cli.IdCliente, Cli.Nombre, Cli.Apellidos, Cli.DNI, Cli.Movil, Cli.Observaciones
                                                    FROM   Clientes Cli
 	                                                      JOIN Vehiculos Veh ON Veh.IdCliente = Cli.IdCliente
-                                                   WHERE  Veh.IdGaraje = @IdGaraje;", conexion)
+                                                   WHERE  Veh.IdGaraje = @IdGaraje
+                                                   ORDER BY Cli.Apellidos;", conexion)
 
             adaptador.SelectCommand.Parameters.AddWithValue("@IdGaraje", idGaraje)
             adaptador.Fill(dtClientes, "Clientes")
