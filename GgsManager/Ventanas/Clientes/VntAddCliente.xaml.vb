@@ -275,7 +275,7 @@ Public Class VntAddCliente
                 MessageBox.Show("Ha habido un problema al obtener los clientes.", "Error", MessageBoxButton.OK, MessageBoxImage.Error)
             Else
 
-                PgClientes.ClientesDg.DataContext = PgClientes.Vista.Source
+                PgClientes.ClientesDg.DataContext = PgClientes.Vista
 
             End If
 

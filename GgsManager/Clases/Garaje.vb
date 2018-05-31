@@ -281,19 +281,23 @@ Public Class Garaje
     ''' <returns>True: El garaje se ha eliminado. False: El garaje no se ha eliminado.</returns>
     Public Shared Function Eliminar(ByRef garaje As Garaje) As Boolean
 
-        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
-        Dim eliminacion As Integer
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("DELETE FROM Garajes
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("IdGaraje", garaje.Id)
+        Dim numFila As Integer
 
         Try
-            eliminacion = conexion.Delete("Garajes", "IdGaraje", garaje)
+            numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
 
         End Try
 
-        conexion.CloseSharedConnection()
+        conexion.Close()
 
-        Return eliminacion >= 1
+        Return numFila >= 1
 
     End Function
 
