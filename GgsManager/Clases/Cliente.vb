@@ -369,19 +369,48 @@ Public Class Cliente
     ''' <returns>True: Se han modificado los datos del cliente. False: No se han modificado los datos del cliente.</returns>
     Public Shared Function Modificar(ByRef cliente As Cliente) As Boolean
 
-        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
-        Dim actualizacion As Integer
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("UPDATE Clientes
+                                         SET    Nombre = @Nombre, Apellidos = @Apellidos, DNI = @DNI, Direccion = @Direccion, Poblacion = @Poblacion,
+                                                Provincia = @Provincia, Movil = @Movil, FechaHoraAlta = @FechaHoraAlta, Observaciones = @Observaciones
+                                         WHERE  IdCliente = @IdCliente", conexion)
+
+        comando.Parameters.AddWithValue("@Nombre", cliente.Nombre)
+        comando.Parameters.AddWithValue("@Apellidos", cliente.Apellidos)
+        comando.Parameters.AddWithValue("@DNI", cliente.DNI)
+        comando.Parameters.AddWithValue("@Direccion", cliente.Direccion)
+        comando.Parameters.AddWithValue("@Poblacion", cliente.Poblacion)
+        comando.Parameters.AddWithValue("@Provincia", cliente.Provincia)
+        comando.Parameters.AddWithValue("@Movil", cliente.Movil)
+        comando.Parameters.AddWithValue("@FechaHoraAlta", DateTime.Now)
+        comando.Parameters.AddWithValue("@Observaciones", cliente.Observaciones)
+        comando.Parameters.AddWithValue("@IdCliente", cliente.Id)
+        Dim numFila As Integer
 
         Try
-            actualizacion = conexion.Update("Clientes", "IdCliente", cliente)
+            numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
 
         End Try
 
-        conexion.CloseSharedConnection()
+        conexion.Close()
 
-        Return actualizacion >= 1
+        Return numFila >= 1
+
+        'Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        'Dim actualizacion As Integer
+
+        'Try
+        '    actualizacion = conexion.Update("Clientes", "IdCliente", cliente)
+
+        'Catch ex As Exception
+
+        'End Try
+
+        'conexion.CloseSharedConnection()
+
+        'Return actualizacion >= 1
 
     End Function
 

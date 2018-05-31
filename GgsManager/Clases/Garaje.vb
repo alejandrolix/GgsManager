@@ -334,19 +334,41 @@ Public Class Garaje
     ''' <returns>True: Se ha modificado el garaje. False: No se ha modificado el garaje.</returns>
     Public Shared Function Modificar(ByRef garaje As Garaje) As Boolean
 
-        Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
-        Dim actualizacion As Integer
+        Dim conexion As MySqlConnection = Foo.ConexionABd()
+        Dim comando As New MySqlCommand("UPDATE Garajes
+                                         SET    Nombre = @Nombre, Direccion = @Direccion, Observaciones = @Observaciones
+                                         WHERE  IdGaraje = @IdGaraje;", conexion)
+
+        comando.Parameters.AddWithValue("@Nombre", garaje.Nombre)
+        comando.Parameters.AddWithValue("@Direccion", garaje.Direccion)
+        comando.Parameters.AddWithValue("@Observaciones", garaje.Observaciones)
+        comando.Parameters.AddWithValue("@IdGaraje", garaje.Id)
+        Dim numFila As Integer
 
         Try
-            actualizacion = conexion.Update("Garajes", "IdGaraje", garaje)
+            numFila = comando.ExecuteNonQuery()
 
         Catch ex As Exception
 
         End Try
 
-        conexion.CloseSharedConnection()
+        conexion.Close()
 
-        Return actualizacion >= 1
+        Return numFila >= 1
+
+        'Dim conexion As New Database(My.Settings.ConexionABd, "MySql.Data.MySqlClient")
+        'Dim actualizacion As Integer
+
+        'Try
+        '    actualizacion = conexion.Update("Garajes", "IdGaraje", garaje)
+
+        'Catch ex As Exception
+
+        'End Try
+
+        'conexion.CloseSharedConnection()
+
+        'Return actualizacion >= 1
 
     End Function
 
